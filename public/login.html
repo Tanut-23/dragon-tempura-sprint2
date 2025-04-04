@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="styles.css" rel="stylesheet" />
+    <style>
+      @media (max-width: 480px) {
+        section {
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0 16px;
+        }
+        .popup {
+          width: 100%;
+          max-width: 350px;
+          padding: 24px;
+        }
+        .popup form {
+          width: 100%;
+        }
+        .popup button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-black">
+    <section class="flex justify-center items-center">
+      <div
+        class="popup flex justify-center items-center flex-col gap-[12px] py-[56px] px-[82px] bg-[var(--mainSectionRegister-color)] border-8 border-white rounded-2xl"
+      >
+        <div class="flex flex-col justify-center items-center gap-[8px]">
+          <img src="logo/logo.png" class="w-[60px]"/>
+          <h1 class="text-[1.25rem] font-bold text-[var(--chocolate-color)]">Welcome back</h1>
+          <p class="text-[0.75rem] text-[var(--fontGray-color)]">Please enter your detail sign in.</p>
+        </div>
+        <div>
+          <form class="flex flex-col gap-[8px] pt-[16px]">
+            <label class="font-semibold text-[var(--chocolate-color)]">E-mail Address</label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="p-1.5 border-2 border-[var(--inputBorder-color)] rounded-md outline-none"
+            />
+            <label class="font-semibold text-[var(--chocolate-color)]">Password</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              class="p-1.5 border-2 border-[var(--inputBorder-color)] rounded-md outline-none"
+            />
+          </form>
+          <div class="flex gap-[68px] pt-[16px]">
+            <div class="flex gap-[8px]">
+              <input type="checkbox" />
+              <p class="text-[0.875rem]">Remember me</p>
+            </div>
+            <a href="./forgotPassword.html" class="text-[var(--fontGray-color)] text-[0.875rem]">Forgot password?</a>
+          </div>
+        </div>
+        <div class="flex flex-col gap-[8px]">
+          <button class="w-[326px] h-[34px] bg-[var(--chocolate-color)] border-1 rounded-md text-[0.875rem] tracking-wide hover:cursor-pointer hover:bg-[var(--hoverBgButton-color)] hover:border hover:border-[var(--chocolate-color)] hover:text-[var(--hoverTextButton-color)] transition duration-300  text-[var(--mainSectionRegister-color)]">Sign in</button>
+          <div class="flex justify-center gap-[20px]">
+          <a class="text-[var(--fontGray-color)] text-[0.875rem]">Don't have an account yet?</a>
+          <a href="./register.html" class="text-[var(--fontGray-color)] text-[0.875rem]">Sign up</a>
+        </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
