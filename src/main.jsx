@@ -6,9 +6,14 @@ import { createTheme ,  ThemeProvider } from "@mui/material";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#000000",
-      second: "#18ff03c7"
+      main: "#62483a",
+      text: "#f2eee7",
+      hoverText: "#49352a",
+      bgButton:"#62483a3b",
     },
+    secondary: {
+      main: "#000000",
+    }
   },
 });
 
