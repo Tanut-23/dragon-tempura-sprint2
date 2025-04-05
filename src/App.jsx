@@ -1,20 +1,15 @@
+import { Button, IconButton, Stack, Typography } from "@mui/material";
+import ButtonSubmit from "./components/ButtonSubmit"
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+
 export default function App() {
   return (
-    <div className="min-h-screen flex justify-center bg-blue-950">
-      <div className="p-6 gap-y-6 flex flex-col justify-start w-[80%] lg:w-[70%]">
-        <h1 className="w-full p-6 bg-amber-100 font-extrabold">
-          React App Starter
-        </h1>
-        <section className="w-full p-5 bg-amber-100 flex">
-          <ul className="list-inside list-disc flex-1">
-            <span className="font-semibold">Tech Stack:</span>
-            <li>Vite</li>
-            <li>React</li>
-            <li>JavaScript</li>
-            <li>Tailwind</li>
-          </ul>
-        </section>
-      </div>
-    </div>
+    <Stack spacing={2} direction="column" alignItems={"center"}>
+      <ButtonSubmit  label1234={"Submit"} width={250} height={150}/>
+      <Stack sx={{}} direction={"row"}>
+      <Button sx={{bgcolor:"red" , }}><KeyboardArrowLeft /></Button>
+      <IconButton><KeyboardArrowRight /></IconButton>
+      </Stack>
+    </Stack>
   );
 }
