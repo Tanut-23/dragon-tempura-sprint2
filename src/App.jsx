@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import Shipping from "./components/Shipping";
 import ShippingMethod from "./components/ShippingMethod";
 import PaymentMethodForm from "./components/PaymentMethod";
+import Payment from "./components/Payment";
 
 export default function App() {
   return (
@@ -13,7 +14,8 @@ export default function App() {
       <NavBar />
       <Shipping />
       <ShippingMethod />
-      <PaymentMethodForm />
+      {/* <PaymentMethodForm /> */}
+      <Payment />
 
       {/* <InputCheckout /> */}
     </>

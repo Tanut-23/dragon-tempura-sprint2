@@ -29,7 +29,7 @@ export default function PaymentMethodForm() {
   };
 
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "16px" }}>
+    <div style={{ maxWidth: "900px", margin: "0 auto", padding: "16px" }}>
       <div
         style={{
           padding: "24px",
@@ -314,7 +314,7 @@ export default function PaymentMethodForm() {
               }}
             >
               <img
-                src="/api/placeholder/250/250"
+                src="./assets/logo/qr-code.png"
                 alt="QR Code placeholder"
                 style={{ maxWidth: "100%" }}
               />

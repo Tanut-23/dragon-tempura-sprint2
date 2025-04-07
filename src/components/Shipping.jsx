@@ -10,32 +10,34 @@ import {
 
 function Shipping() {
   return (
-    <div className="mt-8">
+    <div className="">
       <Container maxWidth="md">
-        <Paper elevation={3} sx={{ p: 3, mt: 4 }}>
-          <Box mb={3} display="flex" alignItems="left">
+        <Paper elevation={3} sx={{ p: 3, mt: 8, mb: 4 }}>
+          <Box mb={3} display="flex" alignItems="center">
             <Box
               sx={{
                 width: 30,
                 height: 30,
                 borderRadius: "50%",
-                bgcolor: "text.primary",
-                color: "background.paper",
+                bgcolor: "#62483a",
+                color: "#f0e0d0",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 mr: 2,
               }}
             >
-              <Typography variant="body1">1</Typography>
+              <Typography variant="" color="#f0e0d0">
+                1
+              </Typography>
             </Box>
-            <Typography variant="h5" component="h2">
+            <Typography variant="h5" component="h2" color="#62483a">
               Shipping Address
             </Typography>
           </Box>
 
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} md={6}>
               <TextField
                 required
                 fullWidth
@@ -48,7 +50,7 @@ function Shipping() {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} md={6}>
               <TextField
                 required
                 fullWidth
@@ -61,7 +63,7 @@ function Shipping() {
                 }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
               <TextField
                 required
                 fullWidth
@@ -74,7 +76,7 @@ function Shipping() {
                 }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={12} md={12}>
               <TextField
                 required
                 fullWidth
@@ -87,7 +89,7 @@ function Shipping() {
                 }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={12} md={12}>
               <TextField
                 required
                 fullWidth
@@ -100,7 +102,7 @@ function Shipping() {
                 }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={12} md={12}>
               <TextField
                 fullWidth
                 id="addressLine2"
@@ -112,7 +114,7 @@ function Shipping() {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={4} md={4}>
               <TextField
                 required
                 fullWidth
@@ -125,7 +127,7 @@ function Shipping() {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={4} md={4}>
               <TextField
                 required
                 fullWidth
@@ -138,7 +140,7 @@ function Shipping() {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={4} md={4}>
               <TextField
                 required
                 fullWidth
@@ -151,7 +153,7 @@ function Shipping() {
                 }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={12} md={12}>
               <TextField
                 required
                 fullWidth
