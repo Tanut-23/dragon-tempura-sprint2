@@ -1,15 +1,21 @@
 import { Button, IconButton, Stack, Typography } from "@mui/material";
-import ButtonSubmit from "./components/ButtonSubmit"
+import ButtonSubmit from "./components/ButtonSubmit";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import InputCheckout from "./components/InputCheckout";
+import NavBar from "./components/NavBar";
+import Shipping from "./components/Shipping";
+import ShippingMethod from "./components/ShippingMethod";
+import PaymentMethodForm from "./components/PaymentMethod";
 
 export default function App() {
   return (
-    <Stack spacing={2} direction="column" alignItems={"center"}>
-      <ButtonSubmit  label1234={"Submit"} width={250} height={150}/>
-      <Stack sx={{}} direction={"row"}>
-      <Button sx={{bgcolor:"red" , }}><KeyboardArrowLeft /></Button>
-      <IconButton><KeyboardArrowRight /></IconButton>
-      </Stack>
-    </Stack>
+    <>
+      <NavBar />
+      <Shipping />
+      <ShippingMethod />
+      <PaymentMethodForm />
+
+      {/* <InputCheckout /> */}
+    </>
   );
 }
