@@ -21,7 +21,11 @@ function ShippingMethod() {
     <div>
       <Container maxWidth="md">
         {" "}
-        <Paper elevation={3} className="p-6 bg-gray-50 rounded-md">
+        <Paper
+          elevation={3}
+          sx={{ bgcolor: "#f9f7f3", color: "#62483a" }}
+          className="p-6 bg-gray-500 rounded-md"
+        >
           <Box className="mb-6">
             <Box className="flex items-center mb-4">
               <Box className="flex items-center justify-center w-8 h-8 mr-2 bg-[#62483a] text-white rounded-full">
@@ -29,7 +33,7 @@ function ShippingMethod() {
                   2
                 </Typography>
               </Box>
-              <Typography variant="h6" className="font-bold text-[#62483a]">
+              <Typography variant="h5" className="font-bold text-[#62483a]">
                 Shipping Method
               </Typography>
             </Box>

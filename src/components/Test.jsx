@@ -11,12 +11,9 @@ import {
 
 function Shipping() {
   return (
-    <div>
+    <div className="">
       <Container maxWidth="md">
-        <Paper
-          elevation={3}
-          sx={{ p: 3, mt: 8, mb: 4, bgcolor: "#f9f7f3", color: "#62483a" }}
-        >
+        <Paper elevation={3} sx={{ p: 3, mt: 8, mb: 4 }}>
           <Box mb={3} display="flex" alignItems="center">
             <Box
               sx={{
@@ -49,11 +46,10 @@ function Shipping() {
                   id="firstName"
                   label="First Name"
                   variant="outlined"
-                  placeholder="Lisa "
                   margin="normal"
-                  // InputLabelProps={{
-                  //   shrink: true,
-                  // }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={6}>

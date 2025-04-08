@@ -43,13 +43,14 @@ export default function PaymentMethodForm2() {
   };
 
   return (
-    <Box sx={{ maxWidth: 900, mx: "auto", p: 2 }}>
+    <Box sx={{ maxWidth: 885, mx: "auto", p: 2 }}>
       <Paper
-        elevation={1}
+        elevation={3}
         sx={{
           p: 3,
           mb: 3,
-          bgcolor: "#f8f5f2",
+          bgcolor: "#f9f7f3",
+          color: "#62483a",
           borderRadius: 2,
         }}
       >
@@ -65,8 +66,8 @@ export default function PaymentMethodForm2() {
             3
           </Avatar>
           <Typography
-            variant="h6"
-            sx={{ color: "#5d4037", fontWeight: "bold" }}
+            variant="h5"
+            sx={{ color: "#5d4037", fontWeight: "normal" }}
           >
             Payment Method
           </Typography>

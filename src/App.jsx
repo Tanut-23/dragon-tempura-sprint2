@@ -1,12 +1,9 @@
-import { Button, IconButton, Stack, Typography } from "@mui/material";
-import ButtonSubmit from "./components/ButtonSubmit";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
-import InputCheckout from "./components/InputCheckout";
 import NavBar from "./components/NavBar";
 import Shipping from "./components/Shipping";
 import ShippingMethod from "./components/ShippingMethod";
-import PaymentMethodForm from "./components/PaymentMethod";
+
 import Payment from "./components/Payment";
+import Test from "./components/test";
 
 export default function App() {
   return (
@@ -14,10 +11,9 @@ export default function App() {
       <NavBar />
       <Shipping />
       <ShippingMethod />
-      {/* <PaymentMethodForm /> */}
-      <Payment />
 
-      {/* <InputCheckout /> */}
+      <Payment />
+      {/* <Test /> */}
     </>
   );
 }
