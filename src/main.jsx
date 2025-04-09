@@ -19,7 +19,7 @@ const theme = createTheme({
       formRegister: "#f9f7f3",
       mainSectionRegister: "#f2eee7",
       headerRegister: "#f8e4d4",
-      lightBrown: "##c2a78f",
+      lightBrown: "#c2a78f",
     },
     // secondary: {
     //   main: "#000000",

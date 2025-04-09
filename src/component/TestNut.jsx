@@ -1,0 +1,167 @@
+import React from "react";
+import ButtonSubmit from "../components/ButtonSubmit";
+import ButtonLR from "../components/ButtonLR";
+import PaginationBar from "../components/PaginationBar";
+import SignUpForm from "../components/InlineInput";
+import { Box, Stack } from "@mui/material";
+import OrderCard from "../components/OrderCard";
+import ColumnInput from "../components/ColumnInput";
+
+export default function Register() {
+  return (
+    <section
+      id="register_form"
+      class="flex justify-center items-center h-[765px]"
+    >
+      <div
+        id="main_box"
+        class="popup flex flex-col justify-center items-center w-[815px] h-[680px] bg-[var(--mainSectionRegister-color)] rounded-2xl gap-[12px] border-8 border-white"
+      >
+        <div class="flex flex-col justify-center items-center gap-[8px] pb-[36px]">
+          <img src="logo/logo.png" class="w-[60px]" />
+          <h1 class="text-[1.25rem] font-bold text-[var(--chocolate-color)]">
+            Join the Creative Community
+          </h1>
+          <p class="text-[0.75rem] text-[var(--fontGray-color)]">
+            Sign up to explore, buy, and sell unique artworks from talented
+            creators around the world.
+          </p>
+        </div>
+        <div id="form_box" class="flex gap-24 ">
+          <div id="left_section">
+            <form class="flex flex-col justify-center items-center space-y-4 text-[var(--chocolate-color)]">
+              <div class="flex items-center">
+                <label class="w-32">First Name</label>
+                <input
+                  placeholder="Enter your first name"
+                  type="text"
+                  class="p-1.5 border-2 border-[var(--inputBorder-color)] rounded-md outline-none"
+                />
+              </div>
+
+              <div class="flex items-center">
+                <label class="w-32">Last Name</label>
+                <input
+                  placeholder="Enter your last name"
+                  type="text"
+                  class="p-1.5 border-2 border-[var(--inputBorder-color)] rounded-md outline-none"
+                />
+              </div>
+
+              <div class="flex items-center">
+                <label class="w-32">E-mail</label>
+                <input
+                  placeholder="Enter your email..."
+                  type="email"
+                  class="p-1.5 border-2 border-[var(--inputBorder-color)] rounded-md outline-none"
+                />
+              </div>
+
+              <div class="flex items-center">
+                <label class="w-32">Phone Number</label>
+                <input
+                  placeholder="012-345-6789"
+                  type="tel"
+                  class="p-1.5 border-2 border-[var(--inputBorder-color)] rounded-md outline-none"
+                />
+              </div>
+
+              <div class="flex items-center">
+                <label class="w-32">Password</label>
+                <input
+                  placeholder="Enter your password"
+                  type="password"
+                  class="p-1.5 border-2 border-[var(--inputBorder-color)] rounded-md outline-none"
+                />
+              </div>
+
+              <div class="flex items-center">
+                <label class="w-32">Re-Password</label>
+                <input
+                  placeholder="Enter your password"
+                  type="password"
+                  class="p-1.5 border-2 border-[var(--inputBorder-color)] rounded-md outline-none"
+                />
+              </div>
+            </form>
+          </div>
+          cd
+          <div
+            id="right_section"
+            class="flex items-center justify-center flex-col self-center gap-4"
+          >
+            <div class="flex items-center justify-center w-[156px] h-[181px] bg-[var(--backgroundImgae-color)]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-24 w-24 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <button class="hover:cursor-pointer hover:bg-[var(--hoverButtonUpImage-color)] hover:border hover:border-[var(--chocolate-color)] hover:text-gray-800 transition duration-300  text-white bg-[var(--buttonUpImage-color)] w-[106px] py-2 px-2 border-1 rounded-xl text-[0.875rem]">
+              Upload Image
+            </button>
+          </div>
+        </div>
+        <div id="bottom_form" class="mt-8 flex items-center gap-[60px]">
+          <a
+            href="./login.html"
+            class="text-[var(--fontGray-color)] text-[0.875rem]"
+          >
+            Already have an account
+          </a>
+          <ButtonSubmit label={"Sign up"} width={145} hight={40} />
+          <button class=" w-[145px] h-[40px] px-8 py-2 bg-[var(--chocolate-color)] border-1 text-[0.875rem] tracking-wide hover:cursor-pointer hover:bg-[var(--hoverBgButton-color)] hover:border hover:border-[var(--chocolate-color)] hover:text-[var(--hoverTextButton-color)] transition duration-300  text-[var(--mainSectionRegister-color)] rounded-xl">
+            Sign up
+          </button>
+        </div>
+        <ButtonLR />
+        <PaginationBar />
+        <Box >
+          <SignUpForm
+            type="text"
+            label="First Name"
+            placeholder={"Enter your first name"}
+          />
+          {/* <SignUpForm
+            type="text"
+            label="Last Name"
+            placeholder={"Enter your last name"}
+          />
+          <SignUpForm
+            type="email"
+            label="E-mail"
+            placeholder={"Enter your email"}
+          />
+          <SignUpForm
+            type="text"
+            label="Phone Number"
+            placeholder={"012-345-6789"}
+          />
+          <SignUpForm
+            type="text"
+            label="Passwordd"
+            placeholder={"Enter your password"}
+          />
+          <SignUpForm
+            type="text"
+            label="Last Name"
+            placeholder={"Enter your password"}
+          /> */}
+        </Box>
+        <OrderCard />
+        {/* <OrderCard />
+        <OrderCard /> */}
+        <ColumnInput label={"E-mail"} type={"email"} placeholder={"Enter your email"}/>
+      </div>
+    </section>
+  );
+}
