@@ -125,7 +125,7 @@ export default function Register() {
         </div>
         <ButtonLR />
         <PaginationBar />
-        <Box >
+        <Box>
           <SignUpForm
             type="text"
             label="First Name"
@@ -160,7 +160,11 @@ export default function Register() {
         <OrderCard />
         {/* <OrderCard />
         <OrderCard /> */}
-        <ColumnInput label={"E-mail"} type={"email"} placeholder={"Enter your email"}/>
+        <ColumnInput
+          label={"E-mail"}
+          type={"email"}
+          placeholder={"Enter your email"}
+        />
       </div>
     </section>
   );

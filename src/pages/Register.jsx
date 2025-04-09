@@ -40,7 +40,7 @@ export default function Login() {
               placeholder={"Enter your password"}
               fontWeight={"bold"}
             />
-            <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"}>
+            <Stack direction={"row"} spacing={10} alignItems="center">
               <Checkbox label={"Remember me"} size="small" />
               <Box
                 component="a"
@@ -54,12 +54,12 @@ export default function Login() {
           </FormGroup>
         </div>
         <div class="flex flex-col pt-[12px]">
-          <Typography sx={{ fontSize: "0.875rem" , color: "primary.fontGray", placeSelf: "center" }}>
+          <Typography sx={{ fontSize: "0.875rem", placeSelf: "center" }}>
             Don't have an account yet?
             <Box
               component="a"
               href="./Register.jsx"
-              sx={{ ml: 2, fontSize: "0.875rem" }}
+              sx={{ ml: 1, color: "primary.fontGray", fontSize: "0.875rem" }}
             >
               Sign up
             </Box>

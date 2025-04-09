@@ -6,8 +6,8 @@ import Register from "./component/TestNut";
 
 export default function App() {
   return (
-    <Stack  height={"1000px"} spacing={2} direction="column" alignItems={"center"}>
-      <Register />
+    <Stack sx={{bgcolor: "black"}} height={"1000px"} spacing={2} direction="column" alignItems={"center"}>
+      <Login />
     </Stack>
   );
 }
