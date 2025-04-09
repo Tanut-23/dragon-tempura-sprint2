@@ -20,6 +20,8 @@ const theme = createTheme({
       mainSectionRegister: "#f2eee7",
       headerRegister: "#f8e4d4",
       lightBrown: "#c2a78f",
+      chocolate: "#62483a",
+      lightChocolate: "#62483acc",
     },
     secondary: {
       main: "#806248",
