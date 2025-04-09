@@ -1,4 +1,5 @@
 import { Button, IconButton, Stack, Typography } from "@mui/material";
+<<<<<<< HEAD
 import Tag from "./components/Tag";
 import StatusTag from "./components/StatusTag";
 import LimitTags from "./components/TagSeller";
@@ -12,6 +13,23 @@ export default function App() {
      <StatusTag  statusTag="Preparing"/>
      <StatusTag  statusTag="InTransit"/>
      <StatusTag  statusTag="Cancel"/>
+=======
+import ButtonSubmit from "./components/ButtonSubmit";
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import Login from "./pages/Login";
+import Register from "./component/TestNut";
+
+export default function App() {
+  return (
+    <Stack
+      sx={{ bgcolor: "black" }}
+      height={"1000px"}
+      spacing={2}
+      direction="column"
+      alignItems={"center"}
+    >
+      <Login />
+>>>>>>> a21f18148f011fcfcddb2be1316de888aec6f52e
     </Stack>
     <LimitTags />
     </div>
