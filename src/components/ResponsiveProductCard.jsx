@@ -8,8 +8,7 @@ const ProductCard = ({ responproduct }) => {
       <a href={`product.html?id=${responproduct.id}`}>
         <img
           src={responproduct.image}
-          alt={responproduct.alt}
-          className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+          className="transition-transform duration-300 group-hover:scale-105 "
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#49352a]/90 to-transparent flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="p-6 text-[#f0e0d0]">

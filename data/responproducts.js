@@ -17,7 +17,7 @@ const responproducts = [
     },
     {
       id: 3,
-      image: '/assets/productPicture/Abstract-Painting-Classic-Art-4.jpg',
+      image: '/assets/productPicture/Abstract-Painting-Classic-Art-5.jpg',
       title: 'C',
       artist: 'Sophia Laurent',
       price: 2450.00,
@@ -58,6 +58,45 @@ const responproducts = [
     {
       id: 8,
       image: '/assets/productPicture/Abstract-Painting-Contemporary-Art-5.jpg',
+      title: 'TEST',
+      artist: 'Sophia Laurent',
+      price: 2450.00,
+      alt: 'Abstract Painting Contemporary Art'
+    },
+    {
+      id: 9,
+      image: '/assets/productPicture/Abstract-Painting-Contemporary-Art-4.jpg',
+      title: 'TEST',
+      artist: 'Sophia Laurent',
+      price: 2450.00,
+      alt: 'Abstract Painting Contemporary Art'
+    },
+    {
+      id: 9,
+      image: '/assets/productPicture/Abstract-Painting-Contemporary-Art-4.jpg',
+      title: 'TEST',
+      artist: 'Sophia Laurent',
+      price: 2450.00,
+      alt: 'Abstract Painting Contemporary Art'
+    },{
+      id: 9,
+      image: '/assets/productPicture/Abstract-Painting-Contemporary-Art-4.jpg',
+      title: 'TEST',
+      artist: 'Sophia Laurent',
+      price: 2450.00,
+      alt: 'Abstract Painting Contemporary Art'
+    },
+    {
+      id: 9,
+      image: '/assets/productPicture/Abstract-Painting-Contemporary-Art-4.jpg',
+      title: 'TEST',
+      artist: 'Sophia Laurent',
+      price: 2450.00,
+      alt: 'Abstract Painting Contemporary Art'
+    },
+    {
+      id: 9,
+      image: '/assets/productPicture/Abstract-Painting-Contemporary-Art-4.jpg',
       title: 'TEST',
       artist: 'Sophia Laurent',
       price: 2450.00,
