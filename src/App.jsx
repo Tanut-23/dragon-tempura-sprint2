@@ -1,15 +1,20 @@
 import { Button, IconButton, Stack, Typography } from "@mui/material";
-import ButtonSubmit from "./components/ButtonSubmit"
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
-
+import Tag from "./components/Tag";
+import StatusTag from "./components/StatusTag";
+import LimitTags from "./components/TagSeller";
+  
 export default function App() {
   return (
-    <Stack spacing={2} direction="column" alignItems={"center"}>
-      <ButtonSubmit  label1234={"Submit"} width={250} height={150}/>
-      <Stack sx={{}} direction={"row"}>
-      <Button sx={{bgcolor:"red" , }}><KeyboardArrowLeft /></Button>
-      <IconButton><KeyboardArrowRight /></IconButton>
-      </Stack>
+    <div className="flex flex-col gap-[32px] mt-[24px] ml-[64px]">
+    <Stack spacing={2} direction="row" alignItems={"center"} sx={{mt:5, ml:5}}>
+     <Tag nameTag="Classic"  linkPath="https://www.google.com" />
+     <StatusTag  statusTag="Deliver"/>
+     <StatusTag  statusTag="Preparing"/>
+     <StatusTag  statusTag="InTransit"/>
+     <StatusTag  statusTag="Cancel"/>
     </Stack>
+    <LimitTags />
+    </div>
+    
   );
 }
