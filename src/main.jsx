@@ -23,9 +23,9 @@ const theme = createTheme({
       chocolate: "#62483a",
       lightChocolate: "#62483acc",
     },
-    // secondary: {
-    //   main: "#000000",
-    // }
+    secondary: {
+      main: "#806248",
+    }
   },
   typography: {
     primary: {
