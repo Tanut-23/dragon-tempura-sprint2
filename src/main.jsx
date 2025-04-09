@@ -21,9 +21,9 @@ const theme = createTheme({
       headerRegister: "#f8e4d4",
       lightBrown: "#c2a78f",
     },
-    // secondary: {
-    //   main: "#000000",
-    // }
+    secondary: {
+      main: "#806248",
+    }
   },
   typography: {
     primary: {
