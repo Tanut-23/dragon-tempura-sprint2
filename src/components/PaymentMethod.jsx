@@ -1,6 +1,23 @@
 import React, { useState } from "react";
+import {
+  Box,
+  Typography,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  TextField,
+  Paper,
+  Button,
+  Grid,
+  Avatar,
+  Stack,
+} from "@mui/material";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import QrCodeIcon from "@mui/icons-material/QrCode2";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import LockIcon from "@mui/icons-material/Lock";
 
-export default function PaymentMethodForm() {
+export default function PaymentMethod() {
   const [paymentMethod, setPaymentMethod] = useState("creditCard");
   const [cardDetails, setCardDetails] = useState({
     cardNumber: "",
@@ -8,10 +25,6 @@ export default function PaymentMethodForm() {
     expirationDate: "",
     cvv: "",
   });
-
-  const handlePaymentMethodChange = (method) => {
-    setPaymentMethod(method);
-  };
 
   const handleCardDetailsChange = (field) => (event) => {
     setCardDetails({
@@ -29,329 +42,217 @@ export default function PaymentMethodForm() {
   };
 
   return (
-    <div style={{ maxWidth: "900px", margin: "0 auto", padding: "16px" }}>
-      <div
-        style={{
-          padding: "24px",
-          marginBottom: "24px",
-          backgroundColor: "#f8f5f2",
-          borderRadius: "8px",
-          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+    <Box sx={{ maxWidth: 885, mx: "auto", p: 2 }}>
+      <Paper
+        elevation={3}
+        sx={{
+          p: 3,
+          mb: 3,
+          bgcolor: "#f9f7f3",
+          color: "#62483a",
+          borderRadius: 2,
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "24px",
-          }}
-        >
-          <div
-            style={{
-              width: "36px",
-              height: "36px",
-              borderRadius: "50%",
-              backgroundColor: "#5d4037",
-              color: "white",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginRight: "16px",
-              fontWeight: "bold",
+        <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+          <Avatar
+            sx={{
+              bgcolor: "#5d4037",
+              mr: 2,
+              width: 36,
+              height: 36,
             }}
           >
             3
-          </div>
-          <h2 style={{ color: "#5d4037", fontWeight: "bold", margin: 0 }}>
+          </Avatar>
+          <Typography
+            variant="h5"
+            sx={{ color: "#5d4037", fontWeight: "normal" }}
+          >
             Payment Method
-          </h2>
-        </div>
+          </Typography>
+        </Box>
 
-        <div style={{ marginBottom: "24px" }}>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
-            <div
-              style={{
-                flex: "1",
-                minWidth: "200px",
-                padding: "16px",
-                border:
-                  paymentMethod === "creditCard"
-                    ? "2px solid #5d4037"
-                    : "1px solid #ccc",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
-              onClick={() => handlePaymentMethodChange("creditCard")}
-            >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <input
-                  type="radio"
-                  id="creditCard"
-                  name="paymentMethod"
-                  checked={paymentMethod === "creditCard"}
-                  onChange={() => handlePaymentMethodChange("creditCard")}
-                  style={{ marginRight: "8px" }}
+        <RadioGroup
+          value={paymentMethod}
+          onChange={(e) => setPaymentMethod(e.target.value)}
+        >
+          <Grid container spacing={2} sx={{ mb: 3 }}>
+            <Grid item xs={12} sm={4}>
+              <Paper
+                sx={{
+                  p: 2,
+                  border: paymentMethod === "creditCard" ? 2 : 1,
+                  borderColor:
+                    paymentMethod === "creditCard" ? "#5d4037" : "#ccc",
+                  borderRadius: 1,
+                  cursor: "pointer",
+                }}
+                onClick={() => setPaymentMethod("creditCard")}
+              >
+                <FormControlLabel
+                  value="creditCard"
+                  control={<Radio />}
+                  label={
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <CreditCardIcon sx={{ mr: 1 }} />
+                      <Typography>Credit Card</Typography>
+                    </Box>
+                  }
+                  sx={{ width: "100%" }}
                 />
-                <label
-                  htmlFor="creditCard"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                >
-                  <span style={{ marginRight: "8px" }}>💳</span>
-                  <span>Credit Card</span>
-                </label>
-              </div>
-            </div>
+              </Paper>
+            </Grid>
 
-            <div
-              style={{
-                flex: "1",
-                minWidth: "200px",
-                padding: "16px",
-                border:
-                  paymentMethod === "qrCode"
-                    ? "2px solid #5d4037"
-                    : "1px solid #ccc",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
-              onClick={() => handlePaymentMethodChange("qrCode")}
-            >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <input
-                  type="radio"
-                  id="qrCode"
-                  name="paymentMethod"
-                  checked={paymentMethod === "qrCode"}
-                  onChange={() => handlePaymentMethodChange("qrCode")}
-                  style={{ marginRight: "8px" }}
+            <Grid item xs={12} sm={4}>
+              <Paper
+                sx={{
+                  p: 2,
+                  border: paymentMethod === "qrCode" ? 2 : 1,
+                  borderColor: paymentMethod === "qrCode" ? "#5d4037" : "#ccc",
+                  borderRadius: 1,
+                  cursor: "pointer",
+                }}
+                onClick={() => setPaymentMethod("qrCode")}
+              >
+                <FormControlLabel
+                  value="qrCode"
+                  control={<Radio />}
+                  label={
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <QrCodeIcon sx={{ mr: 1 }} />
+                      <Typography>QR Code</Typography>
+                    </Box>
+                  }
+                  sx={{ width: "100%" }}
                 />
-                <label
-                  htmlFor="qrCode"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                >
-                  <span style={{ marginRight: "8px" }}>📱</span>
-                  <span>QR Code</span>
-                </label>
-              </div>
-            </div>
+              </Paper>
+            </Grid>
 
-            <div
-              style={{
-                flex: "1",
-                minWidth: "200px",
-                padding: "16px",
-                border:
-                  paymentMethod === "cod"
-                    ? "2px solid #5d4037"
-                    : "1px solid #ccc",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
-              onClick={() => handlePaymentMethodChange("cod")}
-            >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <input
-                  type="radio"
-                  id="cod"
-                  name="paymentMethod"
-                  checked={paymentMethod === "cod"}
-                  onChange={() => handlePaymentMethodChange("cod")}
-                  style={{ marginRight: "8px" }}
+            <Grid item xs={12} sm={4}>
+              <Paper
+                sx={{
+                  p: 2,
+                  border: paymentMethod === "cod" ? 2 : 1,
+                  borderColor: paymentMethod === "cod" ? "#5d4037" : "#ccc",
+                  borderRadius: 1,
+                  cursor: "pointer",
+                }}
+                onClick={() => setPaymentMethod("cod")}
+              >
+                <FormControlLabel
+                  value="cod"
+                  control={<Radio />}
+                  label={
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <LocalShippingIcon sx={{ mr: 1 }} />
+                      <Typography>Cash on Delivery</Typography>
+                    </Box>
+                  }
+                  sx={{ width: "100%" }}
                 />
-                <label
-                  htmlFor="cod"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                >
-                  <span style={{ marginRight: "8px" }}>🚚</span>
-                  <span>Cash on Delivery</span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
+              </Paper>
+            </Grid>
+          </Grid>
+        </RadioGroup>
 
         {paymentMethod === "creditCard" && (
-          <div style={{ marginTop: "24px" }}>
-            <div style={{ marginBottom: "16px" }}>
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: "8px",
-                  fontWeight: "500",
-                }}
-              >
-                Card Number *
-              </label>
-              <input
-                type="text"
-                value={cardDetails.cardNumber}
-                onChange={handleCardDetailsChange("cardNumber")}
-                placeholder="1234 5678 9012 3456"
-                style={{
-                  width: "100%",
-                  padding: "12px",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                  fontSize: "16px",
-                }}
-              />
-            </div>
-
-            <div style={{ marginBottom: "16px" }}>
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: "8px",
-                  fontWeight: "500",
-                }}
-              >
-                Cardholder Name *
-              </label>
-              <input
-                type="text"
-                value={cardDetails.cardholderName}
-                onChange={handleCardDetailsChange("cardholderName")}
-                placeholder="John Doe"
-                style={{
-                  width: "100%",
-                  padding: "12px",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                  fontSize: "16px",
-                }}
-              />
-            </div>
-
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
-              <div style={{ flex: "1", minWidth: "200px" }}>
-                <label
-                  style={{
-                    display: "block",
-                    marginBottom: "8px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Expiration Date *
-                </label>
-                <input
-                  type="text"
+          <Stack spacing={2}>
+            <TextField
+              label="Card Number *"
+              value={cardDetails.cardNumber}
+              onChange={handleCardDetailsChange("cardNumber")}
+              placeholder="1234 5678 9012 3456"
+              fullWidth
+              variant="outlined"
+            />
+            <TextField
+              label="Cardholder Name *"
+              value={cardDetails.cardholderName}
+              onChange={handleCardDetailsChange("cardholderName")}
+              placeholder="Lisa Alisa"
+              fullWidth
+              variant="outlined"
+            />
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Expiration Date *"
                   value={cardDetails.expirationDate}
                   onChange={handleCardDetailsChange("expirationDate")}
                   placeholder="MM/YY"
-                  style={{
-                    width: "100%",
-                    padding: "12px",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    fontSize: "16px",
-                  }}
+                  fullWidth
+                  variant="outlined"
                 />
-              </div>
-
-              <div style={{ flex: "1", minWidth: "200px" }}>
-                <label
-                  style={{
-                    display: "block",
-                    marginBottom: "8px",
-                    fontWeight: "500",
-                  }}
-                >
-                  CVV
-                </label>
-                <input
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="CVV"
                   type="password"
                   value={cardDetails.cvv}
                   onChange={handleCardDetailsChange("cvv")}
                   placeholder="123"
-                  style={{
-                    width: "100%",
-                    padding: "12px",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    fontSize: "16px",
-                  }}
+                  fullWidth
+                  variant="outlined"
                 />
-              </div>
-            </div>
-
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginTop: "16px",
-                color: "#666",
-              }}
-            >
-              <span style={{ marginRight: "8px" }}>🔒</span>
-              <span style={{ fontSize: "14px" }}>
+              </Grid>
+            </Grid>
+            <Box sx={{ display: "flex", alignItems: "center", color: "#666" }}>
+              <LockIcon fontSize="small" sx={{ mr: 1 }} />
+              <Typography variant="caption">
                 Your payment information is encrypted and secure
-              </span>
-            </div>
-          </div>
+              </Typography>
+            </Box>
+          </Stack>
         )}
 
         {paymentMethod === "qrCode" && (
-          <div style={{ marginTop: "24px", textAlign: "center" }}>
-            <div
-              style={{
+          <Box sx={{ textAlign: "center", mt: 3 }}>
+            <Box
+              sx={{
                 border: "1px dashed #ccc",
-                padding: "24px",
-                marginBottom: "16px",
-                maxWidth: "300px",
-                margin: "0 auto",
+                p: 3,
+                mb: 2,
+                maxWidth: 300,
+                mx: "auto",
               }}
             >
-              <img
+              <Box
+                component="img"
                 src="./assets/logo/qr-code.png"
                 alt="QR Code placeholder"
-                style={{ maxWidth: "100%" }}
+                sx={{ maxWidth: "100%" }}
               />
-            </div>
-            <p style={{ fontSize: "16px" }}>
+            </Box>
+            <Typography>
               Scan this QR code with your banking app to complete the payment
-            </p>
-          </div>
+            </Typography>
+          </Box>
         )}
 
         {paymentMethod === "cod" && (
-          <div style={{ marginTop: "24px" }}>
-            <p style={{ fontSize: "16px" }}>
+          <Box sx={{ mt: 3 }}>
+            <Typography>
               Pay in cash when your order is delivered to your address. A small
               handling fee may apply.
-            </p>
-          </div>
+            </Typography>
+          </Box>
         )}
-      </div>
+      </Paper>
 
-      <div style={{ textAlign: "center" }}>
-        <button
+      <Box sx={{ textAlign: "center" }}>
+        <Button
+          variant="contained"
           onClick={handleSubmit}
-          style={{
-            backgroundColor: "#050200",
+          sx={{
+            bgcolor: "#62483a",
             color: "white",
-            padding: "12px 32px",
-            fontSize: "16px",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            fontWeight: "500",
+            px: 4,
+            py: 1.5,
           }}
         >
           Purchase
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Box>
+    </Box>
   );
 }

@@ -9,11 +9,14 @@ import {
   Stack,
 } from "@mui/material";
 
-function Shipping() {
+function ShippingAddress() {
   return (
-    <div className="">
+    <div>
       <Container maxWidth="md">
-        <Paper elevation={3} sx={{ p: 3, mt: 8, mb: 4 }}>
+        <Paper
+          elevation={3}
+          sx={{ p: 3, mt: 8, mb: 4, bgcolor: "#f9f7f3", color: "#62483a" }}
+        >
           <Box mb={3} display="flex" alignItems="center">
             <Box
               sx={{
@@ -46,10 +49,11 @@ function Shipping() {
                   id="firstName"
                   label="First Name"
                   variant="outlined"
+                  placeholder="First Name"
                   margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  // InputLabelProps={{
+                  //   shrink: true,
+                  // }}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
@@ -59,10 +63,8 @@ function Shipping() {
                   id="lastName"
                   label="Last Name"
                   variant="outlined"
+                  placeholder="First Name"
                   margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
                 />
               </Grid>
             </Grid>
@@ -73,9 +75,7 @@ function Shipping() {
               label="Email Address"
               variant="outlined"
               margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              placeholder="Email Address"
             />
             <TextField
               required
@@ -84,9 +84,7 @@ function Shipping() {
               label="Phone Number"
               variant="outlined"
               margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              placeholder="Phone Number"
             />
             <TextField
               required
@@ -95,9 +93,7 @@ function Shipping() {
               label="Address Line 1"
               variant="outlined"
               margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              placeholder="Address Line 1"
             />
             <TextField
               fullWidth
@@ -105,9 +101,7 @@ function Shipping() {
               label="Address Line 2"
               variant="outlined"
               margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              placeholder="Address Line 2"
             />
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4} md={4}>
@@ -118,9 +112,7 @@ function Shipping() {
                   label="City"
                   variant="outlined"
                   margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  placeholder="City"
                 />
               </Grid>
               <Grid item xs={12} sm={4} md={4}>
@@ -131,9 +123,7 @@ function Shipping() {
                   label="State/Province"
                   variant="outlined"
                   margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  placeholder="State/Province"
                 />
               </Grid>
               <Grid item xs={12} sm={4} md={4}>
@@ -144,9 +134,7 @@ function Shipping() {
                   label="ZIP/Postal Code"
                   variant="outlined"
                   margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  placeholder="ZIP/Postal Code"
                 />
               </Grid>
               <TextField
@@ -155,10 +143,8 @@ function Shipping() {
                 id="country"
                 label="Country"
                 variant="outlined"
+                placeholder="Country"
                 margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
               />
             </Grid>
           </Stack>
@@ -168,4 +154,4 @@ function Shipping() {
   );
 }
 
-export default Shipping;
+export default ShippingAddress;

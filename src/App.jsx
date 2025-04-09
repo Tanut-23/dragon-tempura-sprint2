@@ -1,19 +1,7 @@
-import NavBar from "./components/NavBar";
-import Shipping from "./components/Shipping";
 import ShippingMethod from "./components/ShippingMethod";
-
-import Payment from "./components/Payment";
-import Test from "./components/test";
+import ShippingAddress from "./components/ShippingAddress";
+import PaymentMethod from "./components/PaymentMethod";
 
 export default function App() {
-  return (
-    <>
-      <NavBar />
-      <Shipping />
-      <ShippingMethod />
-
-      <Payment />
-      {/* <Test /> */}
-    </>
-  );
+  return <></>;
 }
