@@ -1,17 +1,9 @@
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import { Stack } from "@mui/material";
+import Layout from "./Layout";
 
-export default function App() {
+export default function App({children}) {
   return (
-    <Stack
-      sx={{ bgcolor: "black" }}
-      height={"1000px"}
-      spacing={2}
-      direction="column"
-      alignItems={"center"}
-    >
-      <Register />
-    </Stack>
+    <>
+      {children}
+    </>
   );
 }
