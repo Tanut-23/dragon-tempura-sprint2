@@ -19,15 +19,15 @@ export default function Login() {
       >
         <div class="flex flex-col justify-center items-center gap-[8px]">
           <img src="logo/logo.png" className="w-[60px] pb-[12px]" />
-          <h1 class="text-[1.25rem] font-bold text-[var(--chocolate-color)]">
+          <Typography sx={{fontSize:"1.5rem" , fontWeight:"bold" , color: "primary.main"}}>
             Welcome back
-          </h1>
+          </Typography>
           <Typography sx={{ fontSize: "0.75rem", color: "primary.fontGray" }}>
             Welcome back to Collectico — your creative journey continues here.
           </Typography>
         </div>
         <div>
-          <FormGroup sx={{ gap: "16px", pt: "16px" }}>
+          <FormGroup sx={{ gap: "16px", pt: "16px" , color: "primary.main" }}>
             <ColumnInput
               type={"email"}
               label={"E-mail Address"}
@@ -61,7 +61,7 @@ export default function Login() {
               href="./Register.jsx"
               sx={{ ml: 2, fontSize: "0.875rem" }}
             >
-              Sign up
+              Sign in
             </Box>
           </Typography>
         </div>

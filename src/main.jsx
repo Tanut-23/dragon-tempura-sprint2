@@ -15,6 +15,7 @@ const theme = createTheme({
       fontGray: "#757575",
       backgroundImgae: "#d9d9d9",
       buttonUpImage: "#667080",
+      buttonUpImageHover : "#6670804c",
       inputBorder: "#9f8e84",
       formRegister: "#f9f7f3",
       mainSectionRegister: "#f2eee7",
