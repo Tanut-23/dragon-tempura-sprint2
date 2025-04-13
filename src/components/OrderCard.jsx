@@ -20,7 +20,7 @@ export default function OrderCard({
         boxShadow: 1,
         p: 3,
         mb: 3,
-        width: "1200px",
+        width: "1100px",
         transition: "0.3s",
         "&:hover": {
           boxShadow: 3,
@@ -46,9 +46,7 @@ export default function OrderCard({
               }}
             />
           </Box>
-          <Typography >
-            Order Date: {orderDate}
-          </Typography>
+          <Typography>Order Date: {orderDate}</Typography>
         </Box>
 
         <Box display="flex" flexDirection="column" alignItems="flex-end">
@@ -70,14 +68,14 @@ export default function OrderCard({
           <Typography variant="body2" color="text.secondary" mb={0.5}>
             Shipping Address:
           </Typography>
-            <Typography >{shippingAddress}</Typography>
+          <Typography>{shippingAddress}</Typography>
         </Box>
-          
+
         <ButtonSubmit
           label={"View Order Details"}
           variant="contained"
-          height= {34}
-          width= {170}
+          height={34}
+          width={170}
           onClick={onViewDetailsClick}
           sx={{
             backgroundColor: "var(--chocolate-color)",
@@ -95,4 +93,4 @@ export default function OrderCard({
       </Box>
     </Box>
   );
-};
+}

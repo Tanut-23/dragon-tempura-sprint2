@@ -21,9 +21,7 @@ function Footer() {
           </div>
           <div className="grid grid-cols-2 border-white border-b">
             <div className="ml-2 sm:ml-5 p-2 sm:p-3">
-              <h2 className="font-bold pb-2 sm:pb-4">
-                Support us
-              </h2>
+              <h2 className="font-bold pb-2 sm:pb-4">Support us</h2>
               <p>Membership</p>
               <p>Luminary</p>
               <p>Sponsorship</p>
@@ -56,9 +54,7 @@ function Footer() {
           <div className="grid grid-cols-3">
             <div className="flex items-center justify-center col-span-2 border-white border-r">
               <div className="p-2">
-                <h2 className="font-bold pb-1 sm:pb-2">
-                  About us
-                </h2>
+                <h2 className="font-bold pb-1 sm:pb-2">About us</h2>
                 <p>Mission and history</p>
                 <p>Leadership</p>
                 <p>Financial reporting</p>
