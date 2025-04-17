@@ -20,7 +20,7 @@ export default function OrderCard({
         boxShadow: 1,
         p: 3,
         mb: 3,
-        width: "1100px",
+        width: "1200px",
         transition: "0.3s",
         "&:hover": {
           boxShadow: 3,

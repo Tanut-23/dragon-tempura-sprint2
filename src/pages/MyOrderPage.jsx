@@ -4,27 +4,29 @@ import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import PaginationBar from "../components/PaginationBar";
 import OrderCard from "../components/OrderCard";
 import StatsCard from "../components/StatsCard";
+import Footer from "../components/Footer";
 
 function MyOrderPage() {
   return (
-    <>
+    <div>
       <Navbar />
-      <Container
-        maxwidth="xl"
+
+      <Box
         sx={{
-          backgroundColor: "#e9e2d6", // สีพื้นหลัง
-          color: "#62483a", // สีข้อความ
-          py: 4, // padding ด้านบนและล่าง
+          width: "100vw", // ให้มีความกว้างเต็มจอ
+          // height: "100vh", // ตั้งค่าความสูงให้เต็มหน้าจอ (ถ้าต้องการ)
+          backgroundColor: "#e9e2d6", // เปลี่ยนสีพื้นหลังตามที่ต้องการ
+          py: 4,
         }}
       >
         {/* <!-- Header --> */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 header-border pb-4">
-          <h1 class="text-4xl font-light text-chocolate section-title mb-4 md:mb-0">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-12 header-border pb-4 px-8">
+          <h1 class="text-4xl font-light text-chocolate section-title mb-4 md:mb-0 text-[#62483a]">
             My Orders
           </h1>
 
           <div class="flex space-x-6 items-center">
-            <label for="timeframe" class="text-chocolate font-light text-lg">
+            <label for="timeframe" class="text-[#62483a] font-light text-lg">
               View orders from:
             </label>
             <select
@@ -41,7 +43,7 @@ function MyOrderPage() {
           </div>
         </div>
         {/* <!--  Stats Cards --> */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 px-8">
           <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
             <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">
               Total Orders
@@ -53,11 +55,11 @@ function MyOrderPage() {
           <StatsCard />
         </div>
         {/* <!-- Orders List --> */}
-        <div className="mb-8">
-          <h2 class="text-2xl text-chocolate font-light section-title mb-6">
+        <div className="grid grid-cols-1 mb-8 px-8">
+          <h2 class="text-2xl text-[#62483a] font-light section-title mb-6">
             Recent Orders
           </h2>
-          <div className="space-y-6 ">
+          <div className="grid grid-cols-1 space-y-10 ">
             <OrderCard />
             <OrderCard />
             <OrderCard />
@@ -69,9 +71,9 @@ function MyOrderPage() {
         <div className="flex justify-center">
           <PaginationBar />
         </div>
-      </Container>
-      <section className="w-full h-full mx-auto px-12 py-12 bg-[#e9e2d6]"></section>
-    </>
+      </Box>
+      <Footer />
+    </div>
   );
 }
 

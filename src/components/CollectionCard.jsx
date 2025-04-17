@@ -23,11 +23,13 @@ function CollectionCard() {
               Portrait Painting
             </Typography>
 
-            <Link
-              href="#"
-              className="inline-block text-[#f5f0e6] border-b border-[#f5f0e6] hover:text-[#d5aa6d] transition-colors no-underline"
-            >
-              Explore Collection
+            <Link href="#">
+              <Typography
+                variant=""
+                className="text-[#f5f0e6] font-light text-md  mb-2"
+              >
+                Explore Collection
+              </Typography>
             </Link>
           </Box>
         </Box>

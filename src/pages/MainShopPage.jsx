@@ -10,9 +10,9 @@ function MainShopPage() {
     <div>
       <Navbar />
       <Hero />
-      <section className="h-screen w-screen  mx-auto px-16 md:px-16 py-16 bg-[#f8e4d4]">
+      <section className="w-screen px-20 md:px-16 py-8 md:py-16 bg-[#f8e4d4]">
         <Stack
-          direction={{ xs: "column", sm: "column", md: "row" }}
+          direction={{ xs: "column", sm: "row", md: "row" }}
           spacing={{ xs: 3, sm: 2, md: 4 }}
         >
           <CollectionCard />
@@ -23,12 +23,15 @@ function MainShopPage() {
         </Stack>
       </section>
 
-      <section className="h-screen w-screen mx-auto px-4 md:px-16 py-16 bg-[#f9f7f3]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-90">
+      <section className="w-screen px-20 md:px-40 lg:px-60 py-8 md:py-16 bg-[#f9f7f3]">
+        <Stack
+          direction={{ xs: "column", sm: "row", md: "row" }}
+          spacing={{ xs: 3, sm: 2, md: 4 }}
+        >
           <CollectionCard />
           <CollectionCard />
           <CollectionCard />
-        </div>
+        </Stack>
       </section>
 
       <Footer />
