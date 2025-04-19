@@ -4,10 +4,13 @@ import App from "./App.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import Navbar from "./components/Navbar.jsx";
 import Layout from "./Layout.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import LandingPage from "./pages/LandingPage.jsx"
+import ShopPage from "./pages/ShopPage.jsx";
+import ProductPage from "./pages/ProductPage.jsx";
 
 const theme = createTheme({
   palette: {
@@ -42,14 +45,32 @@ const theme = createTheme({
 
 
 // ------------- ROUTER ----------------------
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Navbar />,
+//     children: [
+//       { path: "/", element: <LandingPage /> },
+//       { path: "/register", element: <Register /> },
+//       { path: "/login", element: <Login /> },
+//       { path: "/shoppage", element: <ShopPage/> },
+//       { path: "/productpage", element: <ProductPage/> },
+//       // ADD PATH HERE
+//     ],
+//   },
+// ]);
+
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <Navbar/>,
     children: [
       { path: "/", element: <LandingPage /> },
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
+      { path: "/shoppage", element: <ShopPage/> },
+      { path: "/productpage", element: <ProductPage/> },
       // ADD PATH HERE
     ],
   },
