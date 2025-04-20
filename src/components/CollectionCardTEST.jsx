@@ -13,6 +13,8 @@ export default function CollectionCard({    widthPerCent="555%",
                                             detail="Explore stunning portrait collections.",
                                             linkURL="https://www.google.com/",
                                             altDetail ="Alt detail",
+                                            prices = false,
+                                            ...prop
   }) {
   return (
     <Card sx={{ maxWidth: maxWidth,
@@ -24,6 +26,7 @@ export default function CollectionCard({    widthPerCent="555%",
                 height: height,
                 '&:hover .cardImage': {transform: 'scale(1.1)', transition: 'transform 0.7s', objectFit: 'cover',},
                 '&:hover .cardDetail': {opacity: 1},
+                ...prop,
      }}>
     <a href= {linkURL}>
       <CardActionArea>
@@ -50,9 +53,14 @@ export default function CollectionCard({    widthPerCent="555%",
           <Typography gutterBottom variant="h5" component="div" sx={{color: '#ffffff', fontWeight: 'bold', mb:'16px'}}>
             {name}
           </Typography>
-          <Typography variant="body2" sx={{ color: '#ffffff', mb:'32px'}}>
+          <Typography variant="body2" sx={{ color: '#ffffff', mb:'16px'}}>
             {detail}
           </Typography>
+          {prices && (
+              <Typography variant="body2" sx={{ color: "#ffffff", mb: "16px" }}>
+               {prices}
+              </Typography>
+            )}
         </CardContent>
       </CardActionArea>
       </a>
