@@ -20,7 +20,7 @@ function MyOrderPage() {
         }}
       >
         {/* <!-- Header --> */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 header-border pb-4 px-8">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-12 header-border pb-4 px-8 md:px-20">
           <h1 class="text-4xl font-light text-chocolate section-title mb-4 md:mb-0 text-[#62483a]">
             My Orders
           </h1>
@@ -43,7 +43,7 @@ function MyOrderPage() {
           </div>
         </div>
         {/* <!--  Stats Cards --> */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 px-8 md:px-20">
           <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
             <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">
               Total Orders
@@ -55,7 +55,7 @@ function MyOrderPage() {
           <StatsCard />
         </div>
         {/* <!-- Orders List --> */}
-        <div className="grid grid-cols-1 mb-8 px-8">
+        <div className="grid grid-cols-1 mb-8  px-8 md:px-20 ">
           <h2 class="text-2xl text-[#62483a] font-light section-title mb-6">
             Recent Orders
           </h2>
