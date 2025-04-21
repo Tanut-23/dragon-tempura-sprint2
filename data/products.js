@@ -5,7 +5,11 @@ const products = [
         title: 'A',
         artist: 'Sophia Laurent',
         price: 2450.00,
-        alt: 'Abstract Painting Classic Art'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed molestie sem sagittis felis ornare euismod. Proin egestas convallis nisl, in consectetur libero rhoncus at. Integer nec varius felis. Maecenas nec nulla ac neque facilisis fermentum non a elit. In eu sapien eu leo imperdiet maximus. Nulla bibendum congue felis, vulputate auctor dolor venenatis sit amet. Nunc fermentum congue fringilla. Nulla sit amet porta risus. Aliquam id gravida dolor, vitae accumsan erat. Mauris vel ultrices mi. Sed molestie metus laoreet purus pretium gravida. Proin non semper nulla. Praesent vel egestas orci. Sed porttitor nulla eu dolor imperdiet, fermentum cursus ex ultrices. In consectetur sagittis ex a auctor. Nunc varius diam eu viverra pulvinar.',
+        dimensions: "45cm x 22cm x 8cm",
+        material: "Linen",
+        year: "1998",
+        tags: ["Classic", "Cissalc"],
       },
       {
         id: 2,
@@ -13,6 +17,7 @@ const products = [
         title: 'B',
         artist: 'Sophia Laurent',
         price: 2450.00,
+        description: 'Suspendisse potenti. Nullam facilisis odio in nulla tempus vehicula sed lacinia mi. Nulla facilisi. Suspendisse mauris velit, varius a porta ut, pulvinar sit amet sem. Praesent commodo tincidunt nisl, eget eleifend tellus sagittis vitae. Vivamus ut vestibulum massa, ac porta massa. Integer scelerisque tellus vitae lorem luctus, non varius purus posuere. Etiam sit amet odio sapien. Fusce id est auctor, porta felis in, lobortis tellus. Praesent at dapibus magna, vitae ullamcorper mi. Sed tincidunt sem sit amet massa sagittis, in ultrices massa vestibulum. Cras interdum ante sit amet lacus efficitur finibus. Sed nec vulputate quam, mollis placerat augue. In at semper est, ac posuere mauris. Nullam lorem magna, bibendum id augue vitae, congue vulputate nisl. Proin imperdiet ligula id lacinia tempor.',
         alt: 'Genre Painting Modern Art'
       },
       {
@@ -21,6 +26,7 @@ const products = [
         title: 'C',
         artist: 'Sophia Laurent',
         price: 2450.00,
+        description: 'Sed at bibendum ligula. Phasellus hendrerit tempus libero, et euismod enim volutpat sit amet. Etiam congue lorem in orci elementum maximus. Aenean dictum mattis erat interdum faucibus. Vivamus vulputate tortor diam, eget tempus ante commodo at. Nullam lobortis nulla ac vestibulum commodo. Sed in iaculis felis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed porttitor dui a vestibulum consequat. Donec ornare mattis quam, eu bibendum enim suscipit ac.',
         alt: 'Genre Painting Classic Art'
       },
       {
@@ -69,6 +75,7 @@ const products = [
         title: 'TEST',
         artist: 'Sophia Laurent',
         price: 2450.00,
+        description: 'abcd',
         alt: 'Abstract Painting Contemporary Art'
       },
       {

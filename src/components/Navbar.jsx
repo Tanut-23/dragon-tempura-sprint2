@@ -103,7 +103,7 @@ function Navbar() {
               </Link>
             </div>
           </div>
-          <div className="hidden flex-col items-center justify-between mt-4 space-x-3">
+          <div className="flex-col items-center justify-between mt-4 space-x-5">
             <Link to="/">Home</Link>
             <Link to="/shoppage">Shop</Link>
             <a href="#">Auction</a>
@@ -113,7 +113,7 @@ function Navbar() {
         </div>
         {/* nav-pc */}
         <div className="hidden md:block p-2">
-          <div className="mx-auto flex items-center justify-between">
+          <div className="max-w-screen-2xl mx-auto flex items-center justify-between px-6">
             <div className="flex items-center pl-4">
               <Link to="/">
                 <img
@@ -127,10 +127,10 @@ function Navbar() {
               </Link>
             </div>
             <div className="hidden md:flex space-x-10">
-            <Link to="/">
+            <Link to="/" className="hover:text-white">
                 Home
                 </Link>
-              <Link to="/shoppage ">Shop</Link>
+              <Link to="/shoppage">Shop</Link>
               <Link to="/shoppage">Auction</Link>
               <a href="#" >
                 About
@@ -138,7 +138,6 @@ function Navbar() {
               <a href="#" className="hover:text-white">
                 Contact
               </a>
-              <Link to="/productpage">ProductPage</Link>
             </div>
             <div className="flex items-center space-x-4 pr-6">
               <svg

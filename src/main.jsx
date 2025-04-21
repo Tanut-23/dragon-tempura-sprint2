@@ -5,12 +5,16 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx"
 import Layout from "./Layout.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import LandingPage from "./pages/LandingPage.jsx"
 import ShopPage from "./pages/ShopPage.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
+import MasonryGallery from "./components/MasonryGallery.jsx";
+
+
 
 const theme = createTheme({
   palette: {
@@ -70,10 +74,11 @@ const router = createBrowserRouter([
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
       { path: "/shoppage", element: <ShopPage/> },
-      { path: "/productpage", element: <ProductPage/> },
+      { path: "/product/:id", element: <ProductPage/> },
       // ADD PATH HERE
     ],
   },
+ 
 ]);
 // -------------------------------------------
 
@@ -81,6 +86,9 @@ createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
     <App>
       <RouterProvider router={router} />
+      
     </App>
+    <Footer/>
   </ThemeProvider>
+  
 );

@@ -8,7 +8,7 @@ function Footer() {
           <div className="flex items-center justify-center border-white border-b border-r">
             <div className="p-3">
               <img
-                src="public/assets/logo/logofull.png"
+                src="public/logo/logofull.png"
                 alt="Collectico Logo"
                 className="w-16 object-contain"
               />
@@ -30,12 +30,12 @@ function Footer() {
             </div>
             <div className="p-2 sm:p-3 flex flex-col justify-center">
               <img
-                src="public/assets/logo/generation.png"
+                src="public/logo/generation.png"
                 alt="Collectico Logo"
                 className="mb-1 w-full max-w-[80px]"
               />
               <img
-                src="public/assets/logo/genkx.png"
+                src="public/logo/genkx.png"
                 alt="Collectico Logo"
                 className="w-full max-w-[80px]"
               />
@@ -44,7 +44,7 @@ function Footer() {
           <div className="flex items-center justify-center border-white border-r">
             <div className="p-3">
               <img
-                src="public/assets/logo/map.png"
+                src="public/logo/map.png"
                 alt="Collectico Logo"
                 className="w-16 object-contain"
               />
@@ -102,12 +102,12 @@ function Footer() {
           </div>
         </div>
         {/* pc-footer */}
-        <div className=" mx-10 px-4 py-5 text-sm hidden md:block">
+        <div className="mx-auto max-w-screen-2xl px-16 py-5 text-sm hidden md:block">
           <div className="grid grid-cols-4 gap-8">
             <div className="flex flex-col space-y-4">
               <div className="flex items-center">
                 <img
-                  src="public\assets\logo\logofull.png"
+                  src="public\logo\logofull.png"
                   alt="Collectico Logo"
                   className="w-20"
                 />
@@ -120,7 +120,7 @@ function Footer() {
             </div>
             <div>
               <img
-                src="public\assets\logo\map.png"
+                src="public\logo\map.png"
                 alt="Collectico Logo"
                 className="w-20"
               />
@@ -144,12 +144,12 @@ function Footer() {
               </ul>
               <div className="mt-6 flex space-x-4">
                 <img
-                  src="public\assets\logo\generation.png"
+                  src="public\logo\generation.png"
                   alt="Collectico Logo"
                   className="w-28"
                 />
                 <img
-                  src="public\assets\logo\genkx.png"
+                  src="public\logo\genkx.png"
                   alt="Collectico Logo"
                   className="w-28"
                 />
