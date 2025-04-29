@@ -1,10 +1,11 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link} from "react-router-dom";
+
 
 function Navbar() {
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-[#62483A] text-stone-200 shadow-lg">
+      <nav className="sticky top-0 z-50 bg-[#62483A] text-white shadow-lg">
         {/* nav-mobile */}
         <div className="flex flex-col items-center justify-center w-full p-4 md:hidden">
           <div className="flex items-center justify-center w-full">
@@ -53,7 +54,8 @@ function Navbar() {
                   d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
                 />
               </svg>
-              <a href="login.html">
+              <Link to="/login">
+             
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -68,7 +70,7 @@ function Navbar() {
                     d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                   />
                 </svg>
-              </a>
+                </Link>
               <Link to="/MyOrderPage">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -127,14 +129,12 @@ function Navbar() {
               </Link>
             </div>
             <div className="hidden md:flex space-x-10">
-            <Link to="/" className="hover:text-white">
+              <Link to="/" className="hover:text-[#9b8275]">
                 Home
-                </Link>
+              </Link>
               <Link to="/shoppage">Shop</Link>
               <Link to="/shoppage">Auction</Link>
-              <a href="#" >
-                About
-              </a>
+              <a href="#">About</a>
               <a href="#" className="hover:text-white">
                 Contact
               </a>
@@ -206,7 +206,7 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      <Outlet />
+    
     </>
   );
 }
