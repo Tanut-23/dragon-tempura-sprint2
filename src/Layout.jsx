@@ -7,6 +7,8 @@ function Layout() {
           <Link to="/">Landing</Link>
           <Link to="/register">Register</Link>
           <Link to="/login">Login</Link>
+          <Link to="/market">Market</Link>
+          <Link to="/postpage">PostPage</Link>
           {/* ADD PAGE HERE */}
         </nav>
         <Outlet />

@@ -9,10 +9,14 @@ export default function ColumnInput({
   placeholder,
   type,
   fontWeight,
+  // add more prop
+  multiline,
+  rows,
+  ...prop
 }) {
   return (
     <Stack gap={1.5} mb={0.5}>
-      <Typography sx={{ width: 120, fontWeight: { fontWeight } }}>
+      <Typography sx={{ minWidth: 120, fontWeight: { fontWeight } }}>
         {label}
       </Typography>
       <TextField
@@ -22,13 +26,15 @@ export default function ColumnInput({
         onChange={onChange}
         placeholder={placeholder}
         size="small"
+        multiline={multiline} //add multiline
+        rows={rows} //add rows
         sx={{
           "& .MuiOutlinedInput-root": {
-            backgroundColor: 'white',
+            backgroundColor: "white",
             borderRadius: "10px",
             "& fieldset": {
-                border: "2px solid",
-                borderColor: "primary.inputBorder",
+              border: "2px solid",
+              borderColor: "primary.inputBorder",
             },
             "&:hover fieldset": {
               borderColor: "primary.main",
@@ -38,6 +44,8 @@ export default function ColumnInput({
             color: "#9f8e84",
             opacity: 1,
           },
+
+          ...prop, //add more sx
         }}
       />
     </Stack>

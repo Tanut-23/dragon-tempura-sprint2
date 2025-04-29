@@ -1,27 +1,87 @@
-import { Typography ,Paper, Stack, Card, CardActionArea, CardMedia, CardContent, Box } from '@mui/material'
-import React from 'react'
-import RemainingBlock from './RemainingBlock'
+import {
+  Typography,
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  Box,
+} from "@mui/material";
+import React from "react";
+import RemainingBlock from "./RemainingBlock";
 
-
-export default function AuctionCard({elevation, image, title, artist, price}) {
+export default function AuctionCard({
+  elevation = 5,
+  image,
+  title,
+  artist,
+  price,
+}) {
   return (
-    <Card elevation={elevation} sx={{ minWidth: 300, width: 320, height: 530, color: 'primary.chocolate', borderRadius: 2, overflow: 'visible' }}>
-      <CardActionArea sx={{position: 'relative'}}>
-        <Box sx={{position: 'absolute', top: 10, left: 10, padding:1, borderRadius:1, backgroundColor: 'primary.chocolate', color: 'white', fontWeight: 700}}>LIVE</Box>
-        <CardMedia sx={{ height: 330, borderRadius: 2 }} image={image} title="auction" />
-        <CardContent>
-          <Typography sx={{fontSize:'1.4rem', fontWeight: 600}}>
+    <Card
+      elevation={elevation}
+      sx={{
+        minWidth: 320,
+        width: 320,
+        height: 510,
+        color: "primary.chocolate",
+        overflow: "visible",
+        borderRadius: "12px",
+        "&:hover": {
+          transform: "scale(1.02)",
+          transition: "all 300ms ease-in-out",
+        },
+        transition: "all 300ms ease-in-out",
+      }}
+    >
+      <CardActionArea
+        sx={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "start",
+          height: "100%",
+          "&:hover": { backgroundColor: "#62483a12" },
+        }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: 10,
+            left: 10,
+            padding: 1,
+            borderRadius: 1,
+            backgroundColor: "primary.chocolate",
+            color: "white",
+            fontWeight: 700,
+          }}
+        >
+          LIVE
+        </Box>
+        <CardMedia
+          sx={{
+            width: "100%",
+            height: 310,
+            borderTopLeftRadius: "12px",
+            borderTopRightRadius: "12px",
+          }}
+          image={image}
+          title="auction"
+        />
+        <CardContent sx={{ width: "100%" }}>
+          <Typography sx={{ fontSize: "1.4rem", fontWeight: 600 }}>
             {title}
           </Typography>
-          <Typography gutterBottom sx={{ fontSize:'1.1rem' }}>
+          <Typography gutterBottom sx={{ fontSize: "1.1rem" }}>
             {artist}
           </Typography>
-          <Typography sx={{ fontSize:'1.35rem' }}>
-            {price}
-          </Typography>
+          <Typography sx={{ fontSize: "1.35rem" }}>{price}</Typography>
         </CardContent>
-        <RemainingBlock day= {1} hour={2} min={22} sec={59}/>
+
+        {/* REMAINING BLOCK */}
+        <Box sx={{ position: "absolute", bottom: 15, left: 10 }}>
+          <RemainingBlock day={1} hour={2} min={22} sec={59} />
+        </Box>
       </CardActionArea>
     </Card>
-  )
+  );
 }
