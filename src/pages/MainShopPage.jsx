@@ -1,10 +1,11 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import CollectionCard from "../components/CollectionCard";
+
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 import Stack from "@mui/material/Stack";
-import CollectionCardM from "../components/CollectionCardM";
+
+import CollectionCard from "../components/CollectionCard";
 
 function MainShopPage() {
   return (
@@ -16,16 +17,11 @@ function MainShopPage() {
           direction={{ xs: "column", sm: "row", md: "row" }}
           spacing={{ xs: 3, sm: 2, md: 4 }}
         >
-          {/* <CollectionCard />
           <CollectionCard />
           <CollectionCard />
           <CollectionCard />
-          <CollectionCard /> */}
-          <CollectionCardM />
-          <CollectionCardM />
-          <CollectionCardM />
-          <CollectionCardM />
-          <CollectionCardM />
+          <CollectionCard />
+          <CollectionCard />
         </Stack>
       </section>
 
@@ -34,9 +30,9 @@ function MainShopPage() {
           direction={{ xs: "column", sm: "row", md: "row" }}
           spacing={{ xs: 3, sm: 2, md: 4 }}
         >
-          <CollectionCardM />
-          <CollectionCardM />
-          <CollectionCardM />
+          <CollectionCard />
+          <CollectionCard />
+          <CollectionCard />
         </Stack>
       </section>
 

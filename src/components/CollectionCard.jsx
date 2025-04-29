@@ -1,40 +1,75 @@
-import React from "react";
-import { Card, CardMedia, Box, Typography, Link } from "@mui/material";
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import CardActionArea from "@mui/material/CardActionArea";
 
-function CollectionCard() {
+function CollectionCard({
+  widthPerCent = "555%",
+  maxWidth = 345,
+  height = "100%",
+  image1 = "https://i.pinimg.com/736x/4f/b8/95/4fb8951ee4abaaf4f159d9db98718bfa.jpg",
+  name = "Portrait Painting",
+  detail = "Explore collections",
+  linkURL = "https://www.google.com/",
+  altDetail = "Alt detail",
+}) {
   return (
-    <>
-      <Card
-        sx={{ width: 320, height: 320 }}
-        className="relative overflow-hidden group h-80 rounded-lg mr-8"
-      >
-        <CardMedia
-          component="img"
-          image="https://i.pinimg.com/736x/4f/b8/95/4fb8951ee4abaaf4f159d9db98718bfa.jpg"
-          alt="Fine Art Paintings"
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <Box className="absolute inset-0 bg-gradient-to-t from-[#412011]/80 to-transparent flex items-end opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <Box className="p-6">
-            <Typography
-              variant="h6"
-              className="text-[#f5f0e6] font-semibold font-serif mb-2"
-            >
-              Portrait Painting
-            </Typography>
+    <Card
+      sx={{
+        maxWidth: maxWidth,
+        minWidth: 120,
+        position: "relative",
+        borderRadius: 4,
+        overflow: "hidden",
+        width: widthPerCent,
+        height: height,
+        "&:hover .cardImage": {
+          transform: "scale(1.1)",
+          transition: "transform 0.7s",
+          objectFit: "cover",
+        },
+        "&:hover .cardDetail": { opacity: 1 },
+      }}
+    >
+      <a href={linkURL}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            image={image1}
+            alt={altDetail}
+            className="cardImage"
+          />
 
-            <Link href="#">
-              <Typography
-                variant=""
-                className="text-[#f5f0e6] font-light text-md  mb-2"
-              >
-                Explore Collection
-              </Typography>
-            </Link>
-          </Box>
-        </Box>
-      </Card>
-    </>
+          <CardContent
+            className="cardDetail"
+            sx={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to top, #62483ac4, transparent)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              opacity: 0,
+              transition: "opacity 0.3s",
+            }}
+          >
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              sx={{ color: "#ffffff", fontWeight: "bold", mb: "16px" }}
+            >
+              {name}
+            </Typography>
+            <Typography variant="body2" sx={{ color: "#ffffff", mb: "32px" }}>
+              {detail}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </a>
+    </Card>
   );
 }
 

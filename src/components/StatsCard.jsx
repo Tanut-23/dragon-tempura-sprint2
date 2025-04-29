@@ -15,7 +15,7 @@ const StatsCard = ({ title, value }) => {
       }}
     >
       <Typography
-        variant="caption"
+        variant="h7"
         component="p"
         sx={{
           fontWeight: 500,
@@ -27,11 +27,11 @@ const StatsCard = ({ title, value }) => {
         {title}
       </Typography>
       <Typography
-        variant="h4"
+        variant="h5"
         component="p"
         sx={{
           mt: 1,
-          fontWeight: 300,
+          fontWeight: 100,
           color: "text.primary",
         }}
       >

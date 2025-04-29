@@ -1,5 +1,6 @@
 import { Box, Typography, Button, Chip, Divider } from "@mui/material";
 import ButtonSubmit from "./ButtonSubmit";
+import StatusTag from "./StatusTag";
 
 export default function OrderCard({
   orderNumber,
@@ -9,7 +10,9 @@ export default function OrderCard({
   totalAmount,
   paymentStatus,
   onViewDetailsClick,
-  shippingAddress,
+  shippingAddressName,
+  shippingAddressAddress,
+  shippingAddressCity,
 }) {
   return (
     <Box
@@ -36,7 +39,7 @@ export default function OrderCard({
         <Box mb={{ xs: 2, lg: 0 }}>
           <Box display="flex" alignItems="center" gap={1} mb={1}>
             <Typography variant="h6">Order NO. #{orderNumber}</Typography>
-            <Chip
+            {/* <Chip
               label={status}
               size="small"
               sx={{
@@ -44,7 +47,9 @@ export default function OrderCard({
                 color: statusColor,
                 fontWeight: 500,
               }}
-            />
+            /> */}
+
+            <StatusTag statusTag={status} />
           </Box>
           <Typography>Order Date: {orderDate}</Typography>
         </Box>
@@ -68,7 +73,9 @@ export default function OrderCard({
           <Typography variant="body2" color="text.secondary" mb={0.5}>
             Shipping Address:
           </Typography>
-          <Typography>{shippingAddress}</Typography>
+          <Typography>{shippingAddressName}</Typography>
+          <Typography>{shippingAddressAddress}</Typography>
+          <Typography>{shippingAddressCity}</Typography>
         </Box>
 
         <ButtonSubmit
