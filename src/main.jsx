@@ -7,6 +7,8 @@ import Layout from "./Layout.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
+import MarketPage from "./pages/MarketPage.jsx";
+import PostPage from "./pages/PostPage.jsx";
 import Cart from "./pages/Cart.jsx";
 import MainShopPage from "./pages/MainshopPage.jsx";
 import MyOrderPage from "./pages/MyorderPage.jsx";
@@ -43,7 +45,9 @@ const theme = createTheme({
   },
   typography: {
     primary: {
-      main: "Arial, Helvetica, sans-serif",
+      // main: "Poppins, Arial, Helvetica, sans-serif",
+      main: "ui-sans-serif, Arial, Helvetica, sans-serif",
+      header: "Playfair Display",
     },
   },
 });
@@ -57,6 +61,8 @@ const router = createBrowserRouter([
       { path: "/", element: <LandingPage /> },
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
+      { path: "/market", element: <MarketPage/> },
+      { path: "/postpage", element: <PostPage/> },
       { path: "/mainshop", element: <MainShopPage /> },
       { path: "/cart", element: <Cart /> },
       { path: "/myorder", element: <MyOrderPage /> },
