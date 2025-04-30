@@ -59,6 +59,7 @@ const router = createBrowserRouter([
 
       { path: "/mainshop", element: <MainShopPage /> },
       { path: "/myorder", element: <MyOrderPage /> },
+      { path: "/auxtion", element: <AuctionPage /> },
 
       { path: "/resetpassword", element: <ForgotPassword /> },
 

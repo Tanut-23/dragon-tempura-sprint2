@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import RemainingBlock from "../components/RemainingBlock";
 // Mockup data
 const mockupData = {
-  title: "Mockup title",
-  artist: "Mockup artis",
-  description: "Mockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup description",
+  title: "Seated Figure in Grey88",
+  artist: "Emil Nordström",
+  description:
+    "This contemporary abstract painting depicts a solitary figure seated on a dark chair, rendered in bold, expressive white brushstrokes against a muted grey background. The artist employs a minimalist approach, using quick, confident strokes to suggest the human form rather than define it precisely. The figure appears contemplative, isolated in an ambiguous space that creates a sense of solitude and introspection. The limited palette of whites, greys, and blacks enhances the emotional weight of the composition, while the textured, impasto application of paint adds physical dimension to the work. The stark contrast between the ethereal white figure and the solid black chair creates a compelling visual tension, inviting viewers to contemplate themes of presence and absence, solidity and transience.",
   imageUrl: "../../public/productPicture/Abstract-Painting-Classic-Art-5.jpg",
-  startingBid: 5555555,
+  startingBid: 5000,
   endTime: new Date(Date.now() + 86400000), // 24 hours
 };
 
