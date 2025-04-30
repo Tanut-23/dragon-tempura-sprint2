@@ -1,3 +1,5 @@
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 import { Link, Outlet } from "react-router-dom";
 
 function Layout() {
@@ -12,9 +14,17 @@ function Layout() {
         <Link to="/auction">Auction</Link>
         <Link to="/auxtion">Auxtion</Link>
         <Link to="/resetpassword">Reset password</Link>
-        {/* ADD PAGE HERE */}
+        <Link to="/cart">Matetest</Link>
+        <Link to="/market">Market</Link>
+        <Link to="/postpage">PostPage</Link>
       </nav>
+      <div className="w-full sticky top-0 z-50 ">
+        <Navbar />
+      </div>
       <Outlet />
+      <div className="w-full">
+        <Footer />
+      </div>
     </div>
   );
 }

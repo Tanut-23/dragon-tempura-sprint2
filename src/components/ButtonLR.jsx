@@ -2,7 +2,7 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { IconButton, Stack } from "@mui/material";
 import React from "react";
 
-export default function ButtonLR() {
+export default function ButtonLR({ scrollLeft, scrollRight, ...prop }) {
   return (
     <Stack spacing={0.5} direction={"row"}>
       <IconButton
@@ -17,7 +17,9 @@ export default function ButtonLR() {
             border: "1px solid primary.hoverText",
             color: "primary.text",
           },
+          ...prop,
         }}
+        onClick={scrollLeft}
       >
         <KeyboardArrowLeft />
       </IconButton>
@@ -33,7 +35,9 @@ export default function ButtonLR() {
             border: "1px solid primary.hoverText",
             color: "primary.text",
           },
+          ...prop,
         }}
+        onClick={scrollRight}
       >
         <KeyboardArrowRight />
       </IconButton>

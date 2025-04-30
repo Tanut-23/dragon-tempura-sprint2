@@ -2,9 +2,11 @@ import * as React from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-export default function LimitTags() {
+export default function TagSeller({onChange, value}) {
   return (
     <Autocomplete
+      onChange={onChange}
+      value={value}
       multiple
       limitTags={3}
       id="multiple-limit-tags"
