@@ -13,11 +13,11 @@ function Layout() {
         <Link to="/myorder">My order</Link>
         <Link to="/auction">Auction</Link>
         <Link to="/resetpassword">Reset password</Link>
-        {/* ADD PAGE HERE */}
+        <Link to="/cart">Matetest</Link>
       </nav>
-      <Navbar/>
+      <div className='w-full sticky top-0 z-50 '><Navbar/></div>
         <Outlet />
-        <Footer/>
+      <div className='w-full'> <Footer/></div>
     </div>
   );
 }
