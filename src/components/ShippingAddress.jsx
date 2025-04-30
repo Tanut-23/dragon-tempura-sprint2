@@ -15,7 +15,7 @@ function ShippingAddress() {
       <Container maxWidth="md">
         <Paper
           elevation={3}
-          sx={{ p: 3, mt: 8, mb: 4, bgcolor: "#f9f7f3", color: "#62483a" }}
+          sx={{ p: 3, mb: 4, bgcolor: "#f9f7f3", color: "#62483a" }}
         >
           <Box mb={3} display="flex" alignItems="center">
             <Box
@@ -32,7 +32,7 @@ function ShippingAddress() {
               }}
             >
               <Typography variant="" color="#f0e0d0">
-                1
+                2
               </Typography>
             </Box>
             <Typography variant="h5" component="h2" color="#62483a">
