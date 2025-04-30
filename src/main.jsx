@@ -6,12 +6,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./Layout.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
-import LandingPage from "./pages/LandingPage.jsx"
+
+import LandingPage from "./pages/LandingPage.jsx";
+import MainShopPage from "./pages/MainshopPage.jsx";
+import MyOrderPage from "./pages/MyorderPage.jsx";
 import ShopPage from "./pages/ShopPage.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
-
-
-
+import AuctionPage from "./pages/Auction.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
 
 const theme = createTheme({
   palette: {
@@ -25,6 +27,7 @@ const theme = createTheme({
       fontGray: "#757575",
       backgroundImgae: "#d9d9d9",
       buttonUpImage: "#667080",
+      buttonUpImageHover: "#6670804c",
       inputBorder: "#9f8e84",
       formRegister: "#f9f7f3",
       mainSectionRegister: "#f2eee7",
@@ -44,7 +47,6 @@ const theme = createTheme({
   },
 });
 
-
 // ------------- ROUTER ----------------------
 const router = createBrowserRouter([
   {
@@ -54,19 +56,24 @@ const router = createBrowserRouter([
       { path: "/", element: <LandingPage /> },
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
+      { path: "/mainshop", element: <MainShopPage /> },
+      { path: "/myorder", element: <MyOrderPage /> },
       { path: "/shoppage", element: <ShopPage/> },
       { path: "/product/:id", element: <ProductPage/> },
+      { path: "/resetpassword", element: <ForgotPassword /> },
       // ADD PATH HERE
     ],
+  },
+  {
+    path: "/auction",
+    element: <AuctionPage />,
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
-   
     <App>
       <RouterProvider router={router} />
     </App>
-   
   </ThemeProvider>
 );

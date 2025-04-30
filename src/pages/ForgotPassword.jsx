@@ -5,35 +5,46 @@ import ColumnInput from "../components/ColumnInput";
 import Checkbox from "../components/Checkbox";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function ForgotPassword() {
   const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
+  const [password,setNewPassword] = useState("");
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const checkLoginUser = {
+    const passwordLength = password.length > 8;
+    const haveUpperCase = /[A-Z]/.test(password);
+    const haveLowerCase = /[a-z]/.test(password);
+
+    
+    if ( !passwordLength || !haveUpperCase || !haveLowerCase ) {
+      const errorPassword = "Password must have longer than 8 characters and have uppercase and lowercase letter"
+      alert(errorPassword);
+      return;
+    }
+
+    const checkResetPasswordUser = {
       email,
       password,
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/users-login" , {
-        method: "POST",
+      const res = await fetch("http://localhost:3000/api/users-resetPassword" , {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(checkLoginUser)
+        body: JSON.stringify(checkResetPasswordUser)
       });
 
       const result = await res.json();
 
       if (res.ok){
-        alert("Login success, Welcome to Collectico!");
-        navigate("/register")
+        alert("Password is changed already!");
+        navigate("/login")
       } else {
-        alert(result.message || "Login failed");
+        alert(result.message || "Reset password failed");
       }
     } catch (err){
       console.log(err);
@@ -59,7 +70,7 @@ export default function Login() {
             Welcome back
           </Typography>
           <Typography sx={{ fontSize: "0.75rem", color: "primary.fontGray" }}>
-            Welcome back to Collectico — your creative journey continues here.
+            If you can't remember your password , Let we help you.
           </Typography>
         </div>
         <div>
@@ -75,38 +86,17 @@ export default function Login() {
             />
             <ColumnInput
               type={"password"}
-              label={"Password"}
-              placeholder={"Enter your password"}
+              label={"Pew password"}
+              placeholder={"Enter your new password"}
               fontWeight={"bold"}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setNewPassword(e.target.value)}
             />
-            <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"}>
-              <Checkbox label={"Remember me"} size="small" />
-              <Box
-                component="a"
-                href="./forgotPassword.html"
-                sx={{ color: "primary.fontGray", fontSize: "0.875rem" }}
-              >
-                Forgot password?
-              </Box>
-            </Stack>
-            <ButtonSubmit type="submit" 
+            <ButtonSubmit type="submit"
+            marginY={"20px"}
             width={"364px"} 
-            label={"Sign up"} />
+            label={"Submit"} />
           </FormGroup>
         </form>
-        </div>
-                <div class="flex flex-col pt-[12px]">
-          <Typography sx={{ fontSize: "0.875rem" , color: "primary.fontGray", placeSelf: "center" }}>
-            Don't have an account yet?
-            <Box
-              component="a"
-              href="./Register.jsx"
-              sx={{ ml: 2, fontSize: "0.875rem" }}
-            >
-              Sign in
-            </Box>
-          </Typography>
         </div>
       </Box>
     </div>

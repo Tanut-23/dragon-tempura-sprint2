@@ -1,15 +1,25 @@
-import {Outlet} from 'react-router-dom'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
+import { Link, Outlet } from "react-router-dom";
 
 function Layout() {
   return (
-    <>
-          <Navbar/>
+    <div className="flex flex-col w-full min-h-screen items-center bg-amber-100">
+      <nav className="flex gap-10 flex-wrap my-20 text-2xl">
+        <Link to="/">Landing</Link>
+        <Link to="/register">Register</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/mainshop">Main Shop </Link>
+        <Link to="/myorder">My order</Link>
+        <Link to="/auction">Auction</Link>
+        <Link to="/resetpassword">Reset password</Link>
+        {/* ADD PAGE HERE */}
+      </nav>
+      <Navbar/>
         <Outlet />
         <Footer/>
-    </>
-  )
+    </div>
+  );
 }
 
-export default Layout
+export default Layout;
