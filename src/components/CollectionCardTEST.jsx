@@ -14,6 +14,7 @@ export default function CollectionCard({    widthPerCent="555%",
                                             linkURL="https://www.google.com/",
                                             altDetail ="Alt detail",
                                             prices = false,
+                                            minHeightImage = "330px",
                                             ...prop
   }) {
   return (
@@ -35,6 +36,7 @@ export default function CollectionCard({    widthPerCent="555%",
           image={image1}
           alt={altDetail}
           className='cardImage'
+          sx = {{ minHeight:minHeightImage}}
         />
 
         <CardContent

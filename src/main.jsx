@@ -8,6 +8,7 @@ import Layout from "./Layout.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import LandingPage from "./pages/LandingPage.jsx"
+import Cart from "./pages/Cart.jsx";
 
 const theme = createTheme({
   palette: {
@@ -50,6 +51,7 @@ const router = createBrowserRouter([
       { path: "/", element: <LandingPage /> },
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
+      { path: "/cart", element: <Cart /> },
       // ADD PATH HERE
     ],
   },

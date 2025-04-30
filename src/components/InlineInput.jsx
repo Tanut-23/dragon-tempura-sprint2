@@ -10,8 +10,8 @@ export default function InputField({
   type,
 }) {
   return (
-    <Box display="flex" gap={5} alignItems="center" mb={2}>
-      <Typography sx={{ width: 120 , color: "primary.main" , fontWeight:"medium"}}>{label}</Typography>
+    <Box display="flex" gap={2} alignItems="center" mb={2}>
+      <Typography sx={{ width: 100 , color: "primary.main" , fontWeight:"medium"}}>{label}</Typography>
       <TextField
         type={type}
         name={name}
