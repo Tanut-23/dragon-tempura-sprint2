@@ -9,6 +9,8 @@ function Layout() {
         <Link to="/login">Login</Link>
         <Link to="/mainshop">Main Shop </Link>
         <Link to="/myorder">My order</Link>
+        <Link to="/auction">Auction</Link>
+        <Link to="/resetpassword">Reset password</Link>
         {/* ADD PAGE HERE */}
       </nav>
       <Outlet />
