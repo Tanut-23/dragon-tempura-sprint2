@@ -19,6 +19,7 @@ export default function InlineInput({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        required
         size="small"
         sx={{
           "& .MuiOutlinedInput-root": {

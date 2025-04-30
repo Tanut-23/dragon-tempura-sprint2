@@ -1,13 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import ButtonSubmit from "../components/ButtonSubmit";
-import { Box, Button, FormGroup, Link, Stack, Typography } from "@mui/material";
-import ColumnInput from "../components/ColumnInput";
-import Checkbox from "../components/Checkbox";
+import { Box, Button, FormGroup, Stack, Typography } from "@mui/material";
 import InlineInput from "../components/InlineInput";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
+  const [firstName , setFirstName] = useState("");
+  const [lastName , setLastName] = useState("");
+  const [email , setEmail] = useState("");
+  const [phone , setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword , setConfirmPassword] = useState("");
+  const navigate = useNavigate();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    const passwordLength = password.length > 8;
+    const haveUpperCase = /[A-Z]/.test(password);
+    const haveLowerCase = /[a-z]/.test(password);
+    
+    if (password !== confirmPassword) {
+      const errorDiffPassword = "Passwords do not match!"
+      alert(errorDiffPassword)
+      return;
+    }
+    if ( !passwordLength || !haveUpperCase || !haveLowerCase ) {
+      const errorPassword = "Password must have longer than 8 characters and have uppercase and lowercase letter"
+      alert(errorPassword);
+      return;
+    }
+
+
+    const newUser = {
+      firstName ,
+      lastName ,
+      email ,
+      phone ,
+      password ,
+    }
+    try {
+      const res = await fetch("http://localhost:3000/api/users-register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser)
+    });
+
+    const result = await res.json();
+
+    if (res.ok){
+      alert("Register success, Welcome to Collectico!");
+      navigate("/login")
+    } else {
+      alert(result.message || "Register failed");
+    }
+
+    } catch (err) {
+      console.error(err)
+      alert("Something wrong try again later ;-;")
+    }
+  }
   return (
-      <Box
+  <Box
         sx={{
           bgcolor: "primary.mainSectionRegister",
           gap: "12px",
@@ -36,6 +92,7 @@ export default function Login() {
             Welcome back to Collectico — your creative journey continues here.
           </Typography>
         </div>
+        <form onSubmit={handleSubmit}>
         <FormGroup
           sx={{
             display: "flex",
@@ -51,36 +108,43 @@ export default function Login() {
               label={"First Name"}
               placeholder={"Enter your first name"}
               fontWeight={"bold"}
+              onChange={(e) => setFirstName(e.target.value)}
             />
             <InlineInput
               type={"text"}
               label={"Last Name"}
               placeholder={"Enter your last name"}
               fontWeight={"bold"}
+              onChange={(e) => setLastName(e.target.value)}
             />
             <InlineInput
               type={"email"}
               label={"E-mail"}
               placeholder={"Enter your email"}
               fontWeight={"bold"}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <InlineInput
               type={"phone"}
               label={"Phone Number"}
               placeholder={"012-345-6789"}
               fontWeight={"bold"}
+              onChange={(e) => setPhone(e.target.value)}
             />
             <InlineInput
               type={"password"}
               label={"Password"}
               placeholder={"Enter your password"}
               fontWeight={"bold"}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <InlineInput
+            required
               type={"password"}
               label={"Re-Password"}
               placeholder={"Enter your password"}
               fontWeight={"bold"}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </Stack>
           <Stack sx={{
@@ -133,10 +197,9 @@ export default function Login() {
       }}>Upload image</Button>
           </Stack>
         </FormGroup>
+        
         <Stack marginY={2} spacing={12} justifyContent={"center"} direction={"row"}>
           <Box
-            component="a"
-            href="./Register.jsx"
             sx={{
               fontSize: "0.875rem",
               display: "flex",
@@ -144,10 +207,11 @@ export default function Login() {
               justifyContent: "center",
             }}
           >
-            Already have an account
+            <Link to={"/Login"}>Already have an account</Link>
           </Box>
           <ButtonSubmit type="submit" width={"120px"} label={"Sign up"} />
         </Stack>
+        </form>
       </Box>
   );
 }
