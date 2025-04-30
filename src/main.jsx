@@ -3,7 +3,6 @@ import "./index.css";
 import App from "./App.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import Layout from "./Layout.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
@@ -62,32 +61,12 @@ const router = createBrowserRouter([
   },
 ]);
 
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Navbar/>,
-//     children: [
-//       { path: "/", element: <LandingPage /> },
-//       { path: "/register", element: <Register /> },
-//       { path: "/login", element: <Login /> },
-//       { path: "/shoppage", element: <ShopPage/> },
-//       { path: "/product/:id", element: <ProductPage/> },
-
-//       // ADD PATH HERE
-//     ],
-//   },
-
-// ;])
-// -------------------------------------------
-
 createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
+   
     <App>
       <RouterProvider router={router} />
-      
     </App>
    
   </ThemeProvider>
-  
 );

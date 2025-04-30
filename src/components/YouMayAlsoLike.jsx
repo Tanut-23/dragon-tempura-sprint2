@@ -36,7 +36,7 @@ const YouMayAlsoLike = ({ currentProduct }) => {
     )
     .slice(0, 3);
 
-  if (recommendedProducts.length === 0) return null; // ❌ ไม่มี tag เดียวกัน → ไม่แสดงอะไรเลย
+  if (recommendedProducts.length === 0) return null;
 
   return (
     <section className="bg-[#f0e1d4]">
