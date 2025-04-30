@@ -1,37 +1,41 @@
 import React from 'react';
 import { TextField, Box, Typography } from '@mui/material';
 
-export default function InputField({
+export default function InlineInput({
   label,
   name,
   value,
   onChange,
   placeholder,
   type,
+  fontWeight,
 }) {
   return (
     <Box display="flex" gap={5} alignItems="center" mb={2}>
-      <Typography sx={{ width: 120 , color: "primary.main" , fontWeight:"medium"}}>{label}</Typography>
+      <Typography sx={{ width: 120 , color: "primary.main" , fontWeight: { fontWeight }}}>{label}</Typography>
       <TextField
         type={type}
         name={name}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        required
         size="small"
         sx={{
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              border: "2px solid",
-              borderRadius: "10px",
-              borderColor: 'primary.inputBorder',
+          "& .MuiOutlinedInput-root": {
+            backgroundColor: 'white',
+            borderRadius: "10px",
+            "& fieldset": {
+                border: "2px solid",
+                borderColor: "primary.inputBorder",
             },
-            '&:hover fieldset': {
-              borderColor: 'primary.dark',
+            "&:hover fieldset": {
+              borderColor: "primary.main",
             },
-            '&.Mui-focused fieldset': {
-              borderColor: 'primary.light',
-            },
+          },
+          "& .MuiInputBase-input::placeholder": {
+            color: "#9f8e84",
+            opacity: 1,
           },
         }}
       />
