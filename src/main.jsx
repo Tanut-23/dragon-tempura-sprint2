@@ -3,7 +3,6 @@ import "./index.css";
 import App from "./App.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import Layout from "./Layout.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
@@ -11,7 +10,8 @@ import Login from "./pages/Login.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import MainShopPage from "./pages/MainshopPage.jsx";
 import MyOrderPage from "./pages/MyorderPage.jsx";
-
+import ShopPage from "./pages/ShopPage.jsx";
+import ProductPage from "./pages/ProductPage.jsx";
 import AuctionPage from "./pages/Auction.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 
@@ -56,12 +56,11 @@ const router = createBrowserRouter([
       { path: "/", element: <LandingPage /> },
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
-
       { path: "/mainshop", element: <MainShopPage /> },
       { path: "/myorder", element: <MyOrderPage /> },
-
+      { path: "/shoppage", element: <ShopPage/> },
+      { path: "/product/:id", element: <ProductPage/> },
       { path: "/resetpassword", element: <ForgotPassword /> },
-
       // ADD PATH HERE
     ],
   },
@@ -70,10 +69,11 @@ const router = createBrowserRouter([
     element: <AuctionPage />,
   },
 ]);
-// -------------------------------------------
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
-    <RouterProvider router={router} />
+    <App>
+      <RouterProvider router={router} />
+    </App>
   </ThemeProvider>
 );

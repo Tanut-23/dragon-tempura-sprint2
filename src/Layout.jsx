@@ -1,3 +1,5 @@
+import Footer from './components/Footer'
+import Navbar from './components/Navbar'
 import { Link, Outlet } from "react-router-dom";
 
 function Layout() {
@@ -13,7 +15,9 @@ function Layout() {
         <Link to="/resetpassword">Reset password</Link>
         {/* ADD PAGE HERE */}
       </nav>
-      <Outlet />
+      <Navbar/>
+        <Outlet />
+        <Footer/>
     </div>
   );
 }
