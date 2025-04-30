@@ -1,15 +1,14 @@
-import { Button, Stack } from '@mui/material'
-import React from 'react'
+import { Button, Stack } from "@mui/material";
+import React from "react";
 
 
-
-
-export default function ButtonSubmit({onClick, mate, label , ...prop}) {
+export default function ButtonSubmit({type, onClick, mate, label , ...prop}) {
   const bg = mate && label === 'Back' ? 'transparent' : 'primary.main';
+
   return (
-    <Stack alignItems="center">
+    <Stack >
       {/* Add your width , heigh , label and you can optimize*/}
-        <Button  onClick={onClick} disabled={mate} sx={{
+        <Button  onClick={onClick} disabled={mate} type={type} sx={{
         ...prop,
         bgcolor: bg,
         border: "1px solid",
@@ -28,7 +27,7 @@ export default function ButtonSubmit({onClick, mate, label , ...prop}) {
         },
       }}>
         {label}
-       </Button>
+      </Button>
     </Stack>
-    )
+  );
 }
