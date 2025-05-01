@@ -10,7 +10,6 @@ import TagSeller from "../components/TagSeller";
 import PostCard from "../components/PostCard";
 import CloseIcon from "@mui/icons-material/Close";
 import PreviewCard from "../components/PreviewCard";
-import e from "cors";
 
 export default function PostPage() {
   // STATE FOR KEEP ONCHANGE INPUT VALUE
