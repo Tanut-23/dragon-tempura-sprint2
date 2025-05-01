@@ -39,7 +39,7 @@ export default function LandingPage() {
   return (
     <div className="text-[#62483A] w-full min-h-[100vh]">
       {/* -------------------NAV BAR----------------- */}
-      <Navbar />
+      {/* <Navbar /> */}
 
       <header className="w-full">
         {/* -------------------SECTION HOME----------------- */}
@@ -372,9 +372,9 @@ export default function LandingPage() {
         </figure>
       </section>
       {/* -------------------FOOTER----------------- */}
-      <footer>
+      {/* <footer>
         <Footer />
-      </footer>
+      </footer> */}
     </div>
   );
 }

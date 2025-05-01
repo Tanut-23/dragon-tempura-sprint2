@@ -76,7 +76,7 @@ export default function CollectionCard({
             </Typography>
             {prices && (
               <Typography variant="body2" sx={{ color: "#ffffff", mb: "16px" }}>
-                {prices}
+                ${prices.toLocaleString('en-US', { minimumFractionDigits: 2 })}
               </Typography>
             )}
           </CardContent>

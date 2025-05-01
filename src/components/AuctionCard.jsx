@@ -74,7 +74,7 @@ export default function AuctionCard({
           <Typography gutterBottom sx={{ fontSize: "1.1rem" }}>
             {artist}
           </Typography>
-          <Typography sx={{ fontSize: "1.35rem" }}>{price}</Typography>
+          <Typography sx={{ fontSize: "1.35rem" }}>${Number(price).toLocaleString('en-US', { minimumFractionDigits: 2 })}</Typography>
         </CardContent>
 
         {/* REMAINING BLOCK */}

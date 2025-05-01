@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import TagSeller from "../components/TagSeller";
 import PostCard from "../components/PostCard";
 import CloseIcon from "@mui/icons-material/Close";
+import PreviewCard from "../components/PreviewCard";
+import e from "cors";
 
 export default function PostPage() {
   // STATE FOR KEEP ONCHANGE INPUT VALUE
@@ -21,8 +23,8 @@ export default function PostPage() {
   const [tags, setTags] = useState([]);
   const [price, setPrice] = useState("");
   const [minBidPrice, setMinBidPrice] = useState("");
-  const [days, setDays] = useState(0);
-  const [hours, setHours] = useState(0);
+  const [days, setDays] = useState("");
+  const [hours, setHours] = useState("");
 
   // STATE FOR KEEP ERROR MESSAGE
   const [error, setError] = useState("");
@@ -36,14 +38,16 @@ export default function PostPage() {
   // STATE FOR EDIT MODE
   const [editMode, setEditMode] = useState(false);
 
-
-
   // Function for TOGGLE BUTTON
   function showAuction() {
     setAuction(true);
+    setPrice("");
   }
   function diasableAuction() {
     setAuction(false);
+    setMinBidPrice("");
+    setDays("");
+    setHours("");
   }
 
   // Function for VALIDATION
@@ -52,27 +56,27 @@ export default function PostPage() {
 
     // validate title
     if (!title) {
-      validatedError.title = "Title is required!";
+      validatedError.title = "Title is required.";
     }
     // validate description
     if (!description) {
-      validatedError.description = "Description is required!";
+      validatedError.description = "Description is required.";
     }
     // validate artist
     if (!artist) {
-      validatedError.artist = "Artist name is required!";
+      validatedError.artist = "Artist name is required.";
     }
     // validate dimensions
     if (!dimensions) {
-      validatedError.dimensions = "Dimensions is required!";
+      validatedError.dimensions = "Dimensions is required.";
     }
     // validate material
     if (!material) {
-      validatedError.material = "Material is required!";
+      validatedError.material = "Material is required.";
     }
     // validate yearCreated
     if (!yearCreated) {
-      validatedError.yearCreated = "Year Created is required!";
+      validatedError.yearCreated = "Year Created is required.";
     } else if (isNaN(yearCreated) || !Number.isInteger(+yearCreated)) {
       validatedError.yearCreated = "Invalid year.";
     } else if (yearCreated < 0 || yearCreated > 2025) {
@@ -80,35 +84,35 @@ export default function PostPage() {
     }
     // validate tags
     if (tags.length === 0) {
-      validatedError.tags = "Tag is required!";
+      validatedError.tags = "Tag is required.";
     }
 
     // validate fixed price
     if (!auction) {
       if (!price) {
-        validatedError.price = "Price is required!";
+        validatedError.price = "Price is required.";
       } else if (isNaN(price)) {
         validatedError.price = "Please enter a number.";
       } else if (price <= 0) {
-        validatedError.price = "Invalid price!";
+        validatedError.price = "Invalid price.";
       }
     }
 
     // validate auction minBidPrice
     if (auction) {
       if (!minBidPrice) {
-        validatedError.minBidPrice = "Minimum Bid Price is required!";
+        validatedError.minBidPrice = "Minimum Bid Price is required.";
       } else if (isNaN(minBidPrice)) {
         validatedError.minBidPrice = "Please enter a number.";
       } else if (minBidPrice <= 0) {
-        validatedError.minBidPrice = "Invalid Minimum Bid Price!";
+        validatedError.minBidPrice = "Invalid Minimum Bid Price.";
       }
     }
 
     // validate auction days
     if (auction) {
       if (auction && !days) {
-        validatedError.days = "Days is required!";
+        validatedError.days = "Days is required.";
       } else if (!/^[0-7]$/.test(days)) {
         validatedError.days = "Please enter number between 0 and 7.";
       }
@@ -117,7 +121,7 @@ export default function PostPage() {
     // validate auction hours
     if (auction) {
       if (!hours) {
-        validatedError.hours = "Hours is required!";
+        validatedError.hours = "Hours is required.";
       } else if (!/^(?:[01]?[0-9]|[2][0-3])$/.test(hours)) {
         validatedError.hours = "Please enter number between 0 and 23.";
       }
@@ -148,9 +152,7 @@ export default function PostPage() {
       if (action === "preview") {
         setError("");
         window.scrollTo({ top: 200, behavior: "smooth" });
-        alert("preview");
         setPreview(true);
-        console.log(preview);
       }
 
       // CLICK POST BUTTON
@@ -167,6 +169,10 @@ export default function PostPage() {
           yearCreated: yearCreated,
           tags: tags,
           sellerName: "PMate",
+          auction: auction,
+          minBidPrice: minBidPrice,
+          days: days,
+          hours: hours,
         };
         const products = JSON.parse(localStorage.getItem("products")) || [];
         products.push(newProduct);
@@ -194,6 +200,10 @@ export default function PostPage() {
           yearCreated: yearCreated,
           tags: tags,
           sellerName: "PMate",
+          auction: auction,
+          minBidPrice: minBidPrice,
+          days: days,
+          hours: hours,
         };
 
         const updatedProducts = storedProducts.map((product) =>
@@ -205,6 +215,7 @@ export default function PostPage() {
         localStorage.removeItem("editId");
         alert("The detail is successfully updated!");
         navigate("/market");
+        window.scrollTo({ top: 200, behavior: "smooth" });
       }
     }
   }
@@ -236,12 +247,10 @@ export default function PostPage() {
     }
   }, []);
 
-
-
   return (
     <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] ">
       {/* -------------------NAV BAR----------------- */}
-      <Navbar />
+      {/* <Navbar /> */}
 
       {/* -------------------CONTENT----------------- */}
       <div className="flex flex-col items-center w-full gap-10 py-[60px]">
@@ -308,9 +317,9 @@ export default function PostPage() {
               <UploadImage />
             </Box>
 
-            {/* Edition Detail */}
+            {/* Detail */}
             <div>
-              <h2 className="pb-2 text-[1.1rem] font-bold">Edition Detail</h2>
+              <h2 className="pb-2 text-[1.1rem] font-bold">Detail</h2>
               <Stack direction="row" spacing={2}>
                 {/* DIMENSIONS */}
                 <Stack>
@@ -488,11 +497,19 @@ export default function PostPage() {
           {/* ----- PREVIEW CARD ------- */}
           {preview && (
             <div className="absolute left-0 top-0 flex flex-col items-center gap-4 p-10 w-full h-full bg-[#00000053] rounded-lg backdrop-blur z-10 ">
-              <PostCard
+              <PreviewCard
                 title={title}
                 artist={artist}
                 price={price}
-                auction={false}
+                auction={auction}
+                minBidPrice={minBidPrice}
+                days={days}
+                hours={hours}
+                dimensions={dimensions}
+                material={material}
+                yearCreated={yearCreated}
+                tags={tags}
+                description={description}
               />
 
               {/* Close Button */}
