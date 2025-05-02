@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Animation from '../../Animation/Animation.jsx'
+
+
 
 function Navbar() {
   return (
@@ -131,6 +134,7 @@ function Navbar() {
                 Home
               </Link>
               <Link to="/shoppage">Shop</Link>
+             <Animation />
               <Link to="/shoppage">Auction</Link>
               <a href="#">About</a>
               <a href="#" className="hover:text-white">
