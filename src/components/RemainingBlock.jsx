@@ -10,35 +10,40 @@ function TimeBlock({num,text}) {
     )
 }
 
-export default function RemainingBlock({day, hour, min, sec}) {
-    // Change {days, hours, min, sec} to SECOND
+export default function RemainingBlock({timeLeft=10000, width='250px', paddingLeft= "85px" }) {
     // const initialTime = Number(day)*(86400) + Number(hour)*(3600) + Number(min)*(60) + Number(sec);  // const initialTime = 1*(86400) + 2*(3600) + 55*(60) + 10 // {days, hours, min, sec} = {1, 2, 55, 10} 
-    const initialTime = 65;
-    const [timeLeft, setTimeLeft] = useState(initialTime);
+    console.log(timeLeft)
+    const initialTime = (timeLeft)/1000;
+    const [showTimeLeft, setShowTimeLeft] = useState(initialTime);
+    // console.log('kkkk'+showTimeLeft)
+
 
     useEffect(() => {
        const interval = setInterval(() => {
-        setTimeLeft((prev) => {
+        setShowTimeLeft((prev) => {
             if (prev <= 1) {
                 return 0;
             } 
             let newTimeLeft = prev - 1;
-            console.log(newTimeLeft)
+            // console.log(newTimeLeft)
             return newTimeLeft
            });
         }, 1000);
 
        return  () => clearInterval(interval);
-    }, [timeLeft]);
+    }, [showTimeLeft]);
 
+    console.log('show'+showTimeLeft)
     //Change SECOND to {days, hours, min, sec}
-    const remainingDays = Math.floor(timeLeft / 86400); 
-    const remainingHours = Math.floor((timeLeft % 86400) / 3600); 
-    const remainingMin = Math.floor((timeLeft % 3600) / 60);
-    const remainingSec = timeLeft % 60;
+    const remainingDays = Math.floor(showTimeLeft / 86400); 
+    const remainingHours = Math.floor((showTimeLeft % 86400) / 3600); 
+    const remainingMin = Math.floor((showTimeLeft % 3600) / 60);
+    console.log(remainingMin)
+    const remainingSec = showTimeLeft % 60;
 
     return (
-    <Stack direction='row' spacing={1} sx={{width: '250px', paddingLeft: 10, marginBottom: 0}}>
+    <Stack direction='row' spacing={1} sx={{width: {width}, paddingLeft: {paddingLeft}, marginBottom: 0}}>
+        {/* <Typography>{remainingHours}</Typography> */}
         <TimeBlock num={String(remainingDays).padStart(2,'0')} text='Days' />
         <Typography sx={{lineHeight: '30px', color: 'primary.chocolate'}}>:</Typography>
         <TimeBlock num={String(remainingHours).padStart(2,'0')} text='Hours' />

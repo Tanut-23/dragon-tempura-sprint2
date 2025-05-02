@@ -22,10 +22,16 @@ export default function PostCard({
   price = 450,
   auction,
   minBidPrice = 1000,
-  days = 2,
-  hours = 4,
+  // days = 2,
+  // hours = 4,
+  endDate = new Date(),
 }) {
-
+  // Time remaining
+  const now = new Date();
+  const remainingTime = new Date(endDate) - now;
+  const remainingSecond = Math.floor(remainingTime/1000);
+  const remainingDays = Math.floor(remainingSecond/ (60*60*24));
+  const remainingHours = Math.floor((remainingSecond % (60*60*24)) / 3600);
 
   return (
     <Card
@@ -89,7 +95,7 @@ export default function PostCard({
               fontWeight: 700,
             }}
           >
-            {days} days {hours} hrs left
+            {remainingDays} days {remainingHours} hrs left
           </Box>
         )}
 
@@ -140,13 +146,19 @@ export default function PostCard({
           {/* Fixed Price */}
           {price && (
             <Typography sx={{ fontSize: "1.35rem" }}>
-              ${Number(price).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+              $
+              {Number(price).toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+              })}
             </Typography>
           )}
           {/* Auction */}
           {minBidPrice && (
             <Typography sx={{ fontSize: "1.15rem" }}>
-              Current Price: ${Number(minBidPrice).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+              Current Price: $
+              {Number(minBidPrice).toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+              })}
             </Typography>
           )}
         </CardContent>

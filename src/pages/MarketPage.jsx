@@ -95,8 +95,9 @@ export default function MarketPage() {
                       price={product.price}
                       auction={product.auction}
                       minBidPrice={product.minBidPrice}
-                      days={product.days}
-                      hours={product.hours}
+                      // days={product.days}
+                      // hours={product.hours}
+                      endDate={product.endDate}
                     />
                   );
                 })}

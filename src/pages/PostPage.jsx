@@ -156,6 +156,14 @@ export default function PostPage() {
 
       // CLICK POST BUTTON
       else if (action === "post") {
+        // Calculate End Date
+        const now = new Date();
+        const endDate = new Date(
+          now.getTime() + (Number(days) * 24 + Number(hours)) * 60 * 60 * 1000    //getTime() --> get current time in Milli Sec
+        );
+        // console.log("This is now: " + now)
+        // console.log("This is endDate: " + endDate)
+        // console.log(endDate);
         const newProduct = {
           id: Date.now(),
           title: title,
@@ -172,6 +180,7 @@ export default function PostPage() {
           minBidPrice: minBidPrice,
           days: days,
           hours: hours,
+          endDate: endDate, //Send endDate to Local storage
         };
         const products = JSON.parse(localStorage.getItem("products")) || [];
         products.push(newProduct);
@@ -184,6 +193,12 @@ export default function PostPage() {
 
       // CLICK UPDATE BUTTON
       else if (action === "update") {
+        // Calculate End Date
+        const now = new Date();
+        const endDate = new Date(
+          now.getTime() + (Number(days) * 24 + Number(hours)) * 60 * 60 * 1000
+        );
+
         const storedProducts =
           JSON.parse(localStorage.getItem("products")) || [];
         const editId = JSON.parse(localStorage.getItem("editId"));
@@ -201,8 +216,9 @@ export default function PostPage() {
           sellerName: "PMate",
           auction: auction,
           minBidPrice: minBidPrice,
-          days: days,
-          hours: hours,
+          // days: days,
+          // hours: hours,
+          endDate: endDate,
         };
 
         const updatedProducts = storedProducts.map((product) =>
