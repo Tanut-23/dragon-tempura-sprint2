@@ -98,17 +98,17 @@ export default function AuctionPage() {
 
   // Get Time Left
   useEffect(() => {
-    console.log(auctionProduct)
-    console.log(auctionProduct?.endDate)
+    // console.log(auctionProduct)
+    // console.log(auctionProduct?.endDate)
     if (auctionProduct) {
       const now = new Date();
       let timeLeft = new Date(auctionProduct.endDate) - now //Get time diff (ms)
-      console.log("time is"+typeof(timeLeft))
+      // console.log("time is"+typeof(timeLeft))
       setTimeLeft(timeLeft)
     }
   }, [auctionProduct]);
 
-  console.log("show " + timeLeft)
+  // console.log("show " + timeLeft)
 
   // คำนวณเวลาที่เหลือ
   // useEffect(() => {
@@ -203,7 +203,7 @@ export default function AuctionPage() {
               </div>
               {/* <div className="grid grid-cols-4 gap-2 text-center"> */}
               <div className="w-full h-[55px] flex justify-center pl-15 pt-1">
-                {console.log('here'+typeof(timeLeft))}
+                {/* {console.log('here'+typeof(timeLeft))} */}
                 <RemainingBlock timeLeft={timeLeft} paddingLeft="0" />
               </div>
             </div>
