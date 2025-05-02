@@ -34,7 +34,7 @@ export default function PaymentMethod() {
   };
 
   const handleSubmit = () => {
-    console.log("Payment method:", paymentMethod);
+    // console.log("Payment method:", paymentMethod);
     if (paymentMethod === "creditCard") {
       console.log("Card details:", cardDetails);
     }
@@ -103,7 +103,7 @@ export default function PaymentMethod() {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} sm={4}>
+            {/* <Grid item xs={12} sm={4}>
               <Paper
                 sx={{
                   p: 2,
@@ -126,7 +126,7 @@ export default function PaymentMethod() {
                   sx={{ width: "100%" }}
                 />
               </Paper>
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} sm={4}>
               <Paper
@@ -205,7 +205,7 @@ export default function PaymentMethod() {
           </Stack>
         )}
 
-        {paymentMethod === "qrCode" && (
+        {/* {paymentMethod === "qrCode" && (
           <Box sx={{ textAlign: "center", mt: 3 }}>
             <Box
               sx={{
@@ -227,7 +227,7 @@ export default function PaymentMethod() {
               Scan this QR code with your banking app to complete the payment
             </Typography>
           </Box>
-        )}
+        )} */}
 
         {paymentMethod === "cod" && (
           <Box sx={{ mt: 3 }}>
@@ -239,7 +239,7 @@ export default function PaymentMethod() {
         )}
       </Paper>
 
-      <Box sx={{ textAlign: "center" }}>
+      {/* <Box sx={{ textAlign: "center" }}>
         <Button
           variant="contained"
           onClick={handleSubmit}
@@ -252,7 +252,7 @@ export default function PaymentMethod() {
         >
           Purchase
         </Button>
-      </Box>
+      </Box> */}
     </Box>
   );
 }

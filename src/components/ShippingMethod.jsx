@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 function ShippingMethod() {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("standard");
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -30,7 +30,7 @@ function ShippingMethod() {
             <Box className="flex items-center mb-4">
               <Box className="flex items-center justify-center w-8 h-8 mr-2 bg-[#62483a] text-white rounded-full">
                 <Typography variant="subtitle1" className="font-bold">
-                  2
+                  1
                 </Typography>
               </Box>
               <Typography variant="h5" className="font-bold text-[#62483a]">
