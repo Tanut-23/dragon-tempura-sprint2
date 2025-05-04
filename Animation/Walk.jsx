@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Model from './Model.jsx'
 import dimensionSpec from './dimensionSpec.js';
+import { Modal, Box } from '@mui/material';
+import Cat from './Cat.jsx';
+import Background from "./Background";
+
+
 
 const speed = 25;
 const charecter = {x:100, y:235}; // from 0,0 to ref point (body)
@@ -10,6 +15,15 @@ function Walk() {
     const [direction, setDirection] = useState(null);
     const [frame, setFrame] = useState(0);
     const [frameBack, setFrameBack] = useState(false);
+    const [picOpen, setPicopen] = useState(false);
+    const [cat, setCat] = useState(false);
+    const [roomChange, setRoomChange] = useState(0);
+    const roomControlRight = useRef(false);
+    const roomControlLeft = useRef(false);
+
+
+    if(roomChange> 1) {setRoomChange(0)}
+    if(roomChange< 0) {setRoomChange(1)}
 
     useEffect(() => {
 
@@ -47,17 +61,42 @@ function Walk() {
                     characterLeft < objectRight &&
                     characterBottom > objectTop &&
                     characterTop < objectBottom
-                  ) { if(a.trigger === "openGoogle"){
+                  ) { if(a.trigger === "openPic"){
                       setDirection(null);
-                      window.open("https://www.google.com", "_blank");
+                      // window.open("https://www.google.com", "_blank");
+                      setPicopen(true);
                   }
+                      setTimeout(()=>{if(a.trigger === "cat" && cat === false) {
+                        console.log("cat found");
+                        // setDirection(null);
+                        setCat(true);
+                      }else setCat(false)},600); // loop in 1.2 sec so cat will meow every 1.2 sec if player non-stop press direction
+                      // if(a.trigger === "cat" && cat === false){
+                      //   setCat(true);
+                      // }
+                      if(a.trigger === "changeRoomRight" && !roomControlRight.current){
+
+                         setRoomChange((stepRoom)=>stepRoom+1);
+                         setPosition(() => ({ x: 10, y: position.y }));
+                         }
+                         roomControlRight.current= true;
+                         setTimeout (()=>{roomControlRight.current= false;},500);
+
+                      if(a.trigger === "changeRoomLeft" && !roomControlLeft.current){
+
+                          setRoomChange((stepRoom)=>stepRoom-1);
+                          setPosition(() => ({ x: 880, y: position.y }));
+                          }
+                          roomControlLeft.current= true;
+                          setTimeout (()=>{roomControlLeft.current= false;},500);
+
                   return prePos;}
             }
             return newPos;
         });
     },200);} else clearInterval(moveinterval);
     return () => clearInterval(moveinterval);
-  },[direction])
+  },[direction, cat, position.y])
 
     useEffect(() => {
         const moveDirection = (event) => {
@@ -91,11 +130,29 @@ function Walk() {
         return () => clearInterval(idleInterval);
       }, [direction]);
 
-
+      useEffect(() => {
+        const picClear = setTimeout(()=>{if (picOpen && direction)
+          {setPicopen(false);}},300)
+          return () => {clearTimeout(picClear);};
+      }, [direction, picOpen]);
 
   return (
     // <div className={`absolute z-20  left-[${position.x}px] top-[${position.y}px]`}>{model}</div>
+    <>
+    <Background step={roomChange}/>
     <Model direction={direction} frame={frame} frameback={frameBack} x={position.x} y={position.y} />
+    {/* {console.log(cat)}; */}
+    <Cat mate={cat}/>
+    <Modal
+        open={picOpen}
+        onClose={() => setPicopen(false)}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <img src="public\productPicture\Landscape-Painting-Contemporary-Art-2.jpg"
+            className='absolute z-1  left-[485px] top-[150px]'
+        />
+      </Modal></>
   )
 }
 
