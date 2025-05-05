@@ -72,7 +72,7 @@ export default function AuctionCard({
             {title}
           </Typography>
           <Typography gutterBottom sx={{ fontSize: "1.1rem" }}>
-            {artist}
+            By {artist}
           </Typography>
           <Typography sx={{ fontSize: "1.35rem" }}>${Number(price).toLocaleString('en-US', { minimumFractionDigits: 2 })}</Typography>
         </CardContent>
