@@ -30,9 +30,9 @@ const UserDropdown = () => {
         <div className="absolute right-0 mt-2 w-56 bg-[#806248] shadow-lg z-50">
           <div className="flex items-center gap-2 p-4 border-b">
             <img
-              src="https://i.pravatar.cc/40"
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/8/82/Lightning_McQueen.png/250px-Lightning_McQueen.png"
               alt="profile"
-              className="w-10 h-10 rounded-full"
+              className="w-10 h-10 rounded-full object-cover"
             />
             <span className="font-semibold text-[##f9f7f3]">Dragon Tempura</span>
           </div>
