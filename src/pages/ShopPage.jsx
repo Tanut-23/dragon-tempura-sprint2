@@ -22,7 +22,7 @@ export default function ShopPage() {
           <div className="my-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex w-full md:w-auto gap-2">
               <SearchBox />
-              <SortBox />
+             
             </div>
           </div>
         </div>

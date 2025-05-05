@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Animation from '../../Animation/Animation.jsx'
 import { useCart } from "../contexts/CartContext";
 import { Badge } from "@mui/material";
+import UserDropdown from "./UserDropdown.jsx";
 
 function Navbar() {
   const { cartCount } = useCart();

@@ -6,15 +6,10 @@ import ButtonSubmit from "../components/ButtonSubmit";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import { useCart } from "../contexts/CartContext";
 
-
-
-
 function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  // const navigate = useNavigate();
-  // function addToCart() {navigate('/cart')};
   const { toggleCartItem, isInCart } = useCart();
   const links = [
     { label: "Home", to: "/" },

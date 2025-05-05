@@ -1,9 +1,6 @@
 
-<<<<<<< HEAD
 
-=======
 // const products = [
->>>>>>> 3869e9b12730b9b5c0d20b5db684651be50e738e
     // {
     //     image: '../public/productPicture/Abstract-Painting-Modern-Art-1.jpg',
     //     title: 'Modern Portrait in Brown',
@@ -29,12 +26,8 @@
     //     price: 6350.00
     // },]
 
-<<<<<<< HEAD
   
-=======
   // {
-
->>>>>>> 3869e9b12730b9b5c0d20b5db684651be50e738e
 // const products = [
 //     {
 //         image: '../public/productPicture/Abstract-Painting-Modern-Art-1.jpg',
