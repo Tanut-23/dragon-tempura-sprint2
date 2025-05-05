@@ -17,6 +17,7 @@ function Layout() {
         <Link to="/cart">Matetest</Link>
         <Link to="/market">Market</Link>
         <Link to="/postpage">PostPage</Link>
+        <Link to="/animation">Animation</Link>
       </nav>
       <div className="w-full sticky top-0 z-50 ">
         <Navbar />
