@@ -4,6 +4,7 @@ import { Box, FormGroup, Link, Stack, Typography } from "@mui/material";
 import ColumnInput from "../components/ColumnInput";
 import Checkbox from "../components/Checkbox";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
   const [email,setEmail] = useState("");
@@ -19,25 +20,17 @@ export default function Login() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/users-login" , {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(checkLoginUser)
-      });
+      const res = await axios.post("http://localhost:3000/api/users-login" , checkLoginUser);
 
-      const result = await res.json();
-
-      if (res.ok){
-        alert("Login success, Welcome to Collectico!");
-        navigate("/register")
-      } else {
-        alert(result.message || "Login failed");
-      }
+      alert("Login success, Welcome to Collectico!");
+      navigate("/register")
     } catch (err){
-      console.log(err);
-      alert("Something wrong try again later ;-;")
+      if (err.response) {
+        alert(err.response.data.message || "Login failed");
+      } else {
+        alert("Something went wrong, please try again later ;-;");
+      }
+      console.error(err);
     }
   }
 
