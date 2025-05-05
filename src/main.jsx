@@ -10,7 +10,7 @@ import LandingPage from "./pages/LandingPage.jsx";
 import MarketPage from "./pages/MarketPage.jsx";
 import PostPage from "./pages/PostPage.jsx";
 import Cart from "./pages/Cart.jsx";
-import MainShopPage from "./pages/MainshopPage.jsx";
+import MainShopPage from "./pages/MainShopPage.jsx";
 import MyOrderPage from "./pages/MyorderPage.jsx";
 import ShopPage from "./pages/ShopPage.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
