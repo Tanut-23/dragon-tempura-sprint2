@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import products from "../../data/products";
+import { useNavigate, useParams } from "react-router-dom";
+import products from "../../data/products.js";
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 import ButtonSubmit from "../components/ButtonSubmit";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import { useCart } from "../contexts/CartContext";
 
+
+
+
 function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  // const navigate = useNavigate();
+  // function addToCart() {navigate('/cart')};
   const { toggleCartItem, isInCart } = useCart();
-
   const links = [
     { label: "Home", to: "/" },
     { label: "Collections", to: "/mainshop" },
     { label: "Type", to: "/shoppage" },
   ];
+  
 
   useEffect(() => {
     const productData = products.find(

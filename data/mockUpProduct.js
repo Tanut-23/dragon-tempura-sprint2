@@ -6,7 +6,7 @@ const mockUpProduct = [
     artist: "André Lhote",
     price: 3850,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Abstract-Painting-Modern-Art-1.jpg",
+      "public/productPicture/Abstract-Painting-Modern-Art-1.jpg",
     dimensions: "40cm x 32cm x 2cm",
     material: "Oil on canvas",
     yearCreated: "c. 1920",
@@ -21,7 +21,7 @@ const mockUpProduct = [
     artist: "Emil Nordström",
     price: 4200,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Abstract-Painting-Classic-Art-5.jpg",
+      "public/productPicture/Abstract-Painting-Classic-Art-5.jpg",
     dimensions: "60cm x 75cm x 3cm",
     material: "Oil on canvas",
     yearCreated: "2018",
@@ -36,7 +36,7 @@ const mockUpProduct = [
     artist: "Franz Xaver Winterhalter",
     price: 8750000,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Portrait-Painting-Modern-Art-2.jpg",
+      "public/productPicture/Portrait-Painting-Modern-Art-2.jpg",
     dimensions: "142cm x 102cm x 4cm",
     material: "Oil on canvas",
     yearCreated: "c. 1850",
@@ -51,7 +51,7 @@ const mockUpProduct = [
     artist: "Jean-François Ducis",
     price: 3200000,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Historical-Painting-Classic-Art-2.jpg",
+      "public/productPicture/Historical-Painting-Classic-Art-2.jpg",
     dimensions: "185cm x 170cm x 5cm",
     material: "Oil on canvas",
     yearCreated: "c. 1830",
@@ -66,7 +66,7 @@ const mockUpProduct = [
     artist: "Malcolm T. Liepke",
     price: 12800,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Portrait-Painting-Classic-Art-1.jpg",
+      "public/productPicture/Portrait-Painting-Classic-Art-1.jpg",
     dimensions: "50cm x 45cm x 3cm",
     material: "Oil on linen",
     yearCreated: "2019",
@@ -81,7 +81,7 @@ const mockUpProduct = [
     artist: "Marisa Redondo",
     price: 3850,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Abstract-Painting-Contemporary-Art-4.jpg",
+      "public/productPicture/Abstract-Painting-Contemporary-Art-4.jpg",
     dimensions: "76cm x 102cm x 3cm",
     material: "Acrylic on canvas",
     yearCreated: "2021",
@@ -96,7 +96,7 @@ const mockUpProduct = [
     artist: "Leah Hewson",
     price: 8600,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Abstract-Painting-Contemporary-Art-3.jpg",
+      "public/productPicture/Abstract-Painting-Contemporary-Art-3.jpg",
     dimensions: "92cm x 72cm x 3cm",
     material: "Oil on canvas",
     yearCreated: "2018",
@@ -111,7 +111,7 @@ const mockUpProduct = [
     artist: "James Fletcher-Watson",
     price: 5400,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Landscape-Painting-Classic-Art-5.jpg",
+      "public/productPicture/Landscape-Painting-Classic-Art-5.jpg",
     dimensions: "60cm x 60cm x 3cm",
     material: "Oil on canvas",
     yearCreated: "1995",
@@ -126,7 +126,7 @@ const mockUpProduct = [
     artist: "Jan Frans van Bloemen",
     price: 480000,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Landscape-Painting-Modern-Art-5.jpg",
+      "public/productPicture/Landscape-Painting-Modern-Art-5.jpg",
     dimensions: "120cm x 95cm x 4cm",
     material: "Oil on canvas",
     yearCreated: "c. 1730",
@@ -141,7 +141,7 @@ const mockUpProduct = [
     artist: "Joseph Marius Avy",
     price: 85000,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Genre-Painting-Classic-Art-5.jpg",
+      "public/productPicture/Genre-Painting-Classic-Art-5.jpg",
     dimensions: "75cm x 60cm x 3cm",
     material: "Oil on canvas",
     yearCreated: "1885",
@@ -156,7 +156,7 @@ const mockUpProduct = [
     artist: "André Lhote",
     price: 420000,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Abstract-Painting-Modern-Art-5.jpg",
+      "public/productPicture/Abstract-Painting-Modern-Art-5.jpg",
     dimensions: "65cm x 54cm x 3cm",
     material: "Oil on canvas",
     yearCreated: "1917",
@@ -171,7 +171,7 @@ const mockUpProduct = [
     artist: "Matthias Stom",
     price: 380000,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Genre-Painting-Classic-Art-3.jpg",
+      "public/productPicture/Genre-Painting-Classic-Art-3.jpg",
     dimensions: "92cm x 92cm x 4cm",
     material: "Oil on canvas",
     yearCreated: "c. 1640",
@@ -186,7 +186,7 @@ const mockUpProduct = [
     artist: "André Lhote",
     price: 380000,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Abstract-Painting-Modern-Art-4.jpg",
+      "public/productPicture/Abstract-Painting-Modern-Art-4.jpg",
     dimensions: "81cm x 65cm x 3cm",
     material: "Oil on canvas",
     yearCreated: "c. 1925",
@@ -201,7 +201,7 @@ const mockUpProduct = [
     artist: "Claudia Vetter",
     price: 6800,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Landscape-Painting-Contemporary-Art-4.jpg",
+      "public/productPicture/Landscape-Painting-Contemporary-Art-4.jpg",
     dimensions: "76cm x 76cm x 3cm",
     material: "Acrylic on canvas",
     yearCreated: "2017",
@@ -216,7 +216,7 @@ const mockUpProduct = [
     artist: "Cathy Hegman",
     price: 3850,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Abstract-Painting-Classic-Art-1.jpg",
+      "public/productPicture/Abstract-Painting-Classic-Art-1.jpg",
     dimensions: "76cm x 46cm x 3cm",
     material: "Mixed media on canvas",
     yearCreated: "2021",
@@ -231,7 +231,7 @@ const mockUpProduct = [
     artist: "Gerrit Dou",
     price: 2800000,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Genre-Painting-Modern-Art-5.jpg",
+      "public/productPicture/Genre-Painting-Modern-Art-5.jpg",
     dimensions: "35cm x 28cm x 2cm",
     material: "Oil on panel",
     yearCreated: "c. 1635",
@@ -246,7 +246,7 @@ const mockUpProduct = [
     artist: "Anna Razumovskaya",
     price: 2200,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Abstract-Painting-Classic-Art-4.jpg",
+      "public/productPicture/Abstract-Painting-Classic-Art-4.jpg",
     dimensions: "80cm x 60cm x 0cm",
     material: "Digital print on canvas",
     yearCreated: "2023",
@@ -261,7 +261,7 @@ const mockUpProduct = [
     artist: "Oswaldo Guayasamin",
     price: 185000,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Abstract-Painting-Contemporary-Art-1.jpg",
+      "public/productPicture/Abstract-Painting-Contemporary-Art-1.jpg",
     dimensions: "120cm x 115cm x 3cm",
     material: "Acrylic on canvas",
     yearCreated: "1970",
@@ -276,7 +276,7 @@ const mockUpProduct = [
     artist: "Eduardo Kingman",
     price: 68000,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Abstract-Painting-Contemporary-Art-2.jpg",
+      "public/productPicture/Abstract-Painting-Contemporary-Art-2.jpg",
     dimensions: "90cm x 60cm x 3cm",
     material: "Oil on canvas",
     yearCreated: "1962",
@@ -291,7 +291,7 @@ const mockUpProduct = [
     artist: "Terry Frost",
     price: 24500,
     image:
-      "dragon-tempura-sprint2/public/productPicture/Abstract-Painting-Contemporary-Art-5.jpg",
+      "public/productPicture/Abstract-Painting-Contemporary-Art-5.jpg",
     dimensions: "76cm x 66cm x 3cm",
     material: "Oil on canvas",
     yearCreated: "1958",

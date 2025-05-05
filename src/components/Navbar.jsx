@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Animation from '../../Animation/Animation.jsx'
 import { useCart } from "../contexts/CartContext";
 import { Badge } from "@mui/material";
-
 
 function Navbar() {
   const { cartCount } = useCart();
@@ -135,6 +135,7 @@ function Navbar() {
                 Home
               </Link>
               <Link to="/shoppage">Shop</Link>
+             <Animation />
               <Link to="/shoppage">Auction</Link>
               <a href="#">About</a>
               <a href="#" className="hover:text-white">

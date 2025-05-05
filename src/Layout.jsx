@@ -12,10 +12,12 @@ function Layout() {
         <Link to="/mainshop">Main Shop </Link>
         <Link to="/myorder">My order</Link>
         <Link to="/auction">Auction</Link>
+
         <Link to="/resetpassword">Reset password</Link>
         <Link to="/cart">Matetest</Link>
         <Link to="/market">Market</Link>
         <Link to="/postpage">PostPage</Link>
+        <Link to="/animation">Animation</Link>
       </nav>
       <div className="w-full sticky top-0 z-50 ">
         <Navbar />
