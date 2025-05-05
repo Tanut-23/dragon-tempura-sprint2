@@ -18,7 +18,6 @@ import AuctionPage from "./pages/Auction.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import Animation from "../Animation/Animation.jsx";
 
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -62,13 +61,13 @@ const router = createBrowserRouter([
       { path: "/", element: <LandingPage /> },
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
-      { path: "/market", element: <MarketPage/> },
-      { path: "/postpage", element: <PostPage/> },
+      { path: "/market", element: <MarketPage /> },
+      { path: "/postpage", element: <PostPage /> },
       { path: "/mainshop", element: <MainShopPage /> },
       { path: "/cart", element: <Cart /> },
       { path: "/myorder", element: <MyOrderPage /> },
-      { path: "/shoppage", element: <ShopPage/> },
-      { path: "/product/:id", element: <ProductPage/> },
+      { path: "/shoppage", element: <ShopPage /> },
+      { path: "/product/:id", element: <ProductPage /> },
       { path: "/resetpassword", element: <ForgotPassword /> },
       { path: "/animation", element: <Animation /> },
 

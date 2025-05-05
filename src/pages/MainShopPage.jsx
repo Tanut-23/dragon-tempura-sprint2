@@ -17,11 +17,26 @@ function MainShopPage() {
           direction={{ xs: "column", sm: "row", md: "row" }}
           spacing={{ xs: 3, sm: 2, md: 4 }}
         >
-          <CollectionCard />
-          <CollectionCard />
-          <CollectionCard />
-          <CollectionCard />
-          <CollectionCard />
+          <CollectionCard
+            image1="public/productPicture/Portrait-Painting-Classic-Art-1.jpg"
+            name="Portait Painting"
+          />
+          <CollectionCard
+            image1="public/productPicture/Landscape-Painting-Modern-Art-5.jpg"
+            name="Landscape Painting"
+          />
+          <CollectionCard
+            image1="public/productPicture/Genre-Painting-Classic-Art-5.jpg"
+            name="Genre Painting"
+          />
+          <CollectionCard
+            image1="public/productPicture/Abstract-Painting-Modern-Art-5.jpg"
+            name="Abstract Painting"
+          />
+          <CollectionCard
+            image1="public\productPicture\Historical-Painting-Classic-Art-2.jpg"
+            name="Historical Painting"
+          />
         </Stack>
       </section>
 
@@ -30,9 +45,18 @@ function MainShopPage() {
           direction={{ xs: "column", sm: "row", md: "row" }}
           spacing={{ xs: 3, sm: 2, md: 4 }}
         >
-          <CollectionCard />
-          <CollectionCard />
-          <CollectionCard />
+          <CollectionCard
+            image1="public/productPicture/Genre-Painting-Classic-Art-3.jpg"
+            name="Classic"
+          />
+          <CollectionCard
+            image1="public/productPicture/Genre-Painting-Modern-Art-3.jpg"
+            name="Modern"
+          />
+          <CollectionCard
+            image1="public\productPicture\Landscape-Painting-Contemporary-Art-4.jpg"
+            name="Contemporary"
+          />
         </Stack>
       </section>
 
