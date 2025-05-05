@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-const products = [
+
+// const products = [
     // {
     //     image: '../public/productPicture/Abstract-Painting-Modern-Art-1.jpg',
     //     title: 'Modern Portrait in Brown',
@@ -25,8 +25,8 @@ const products = [
     //     price: 6350.00
     // },]
 
-  {
-=======
+  // {
+
 // const products = [
 //     {
 //         image: '../public/productPicture/Abstract-Painting-Modern-Art-1.jpg',
@@ -73,9 +73,8 @@ const products = [
 //         price: 6350.00
 //     },]
 
-/////////////////////////////////////////////////////////////////////////////////////////
+
     const products = [ {
->>>>>>> e8a51f8ba58ddafe8634483a48d433a59f465dbe
     id: 1,
     image: '/productPicture/Abstract-Painting-Classic-Art-1.jpg',
     title: 'A',
