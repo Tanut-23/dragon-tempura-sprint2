@@ -110,7 +110,7 @@ function Navbar() {
           <div className="flex-col items-center justify-between mt-4 space-x-5">
             <Link to="/">Home</Link>
             <Link to="/shoppage">Shop</Link>
-            <a href="#">Auction</a>
+            <Link to="/auction">Auction</Link>
             <a href="#">About</a>
             <a href="#">Contact</a>
           </div>

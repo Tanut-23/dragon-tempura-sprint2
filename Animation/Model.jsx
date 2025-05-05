@@ -3,12 +3,12 @@ import React from 'react'
 function Model({direction, frame, frameback, x, y}) {
 
   const imgsrc = (direction === "a")
-  ? `Animation/Model/walkback_${frame}.png`
+  ? `./Model/walkback_${frame}.png`
   : (direction === null && frameback === true)
-  ? `Animation/Model/idleback_${frame}.png`
+  ? `./Model/idleback_${frame}.png`
   : (direction === null && frameback === false)
-  ? `Animation/Model/idle_${frame}.png`
-  : `Animation/Model/walk_${frame}.png`;
+  ? `./Model/idle_${frame}.png`
+  : `./Model/walk_${frame}.png`;
 
   // console.log(frameback);
 

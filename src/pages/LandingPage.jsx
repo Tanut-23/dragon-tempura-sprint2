@@ -11,7 +11,6 @@ import products from "../../data/products";
 import reviews from "../../data/reviews";
 import { useRef } from "react";
 import CollectionCard from "../components/CollectionCard";
-import mockUpProduct from "../../data/mockUpProduct"
 
 export default function LandingPage() {
   // FOR SCROLLING CONTAINER
@@ -74,7 +73,7 @@ export default function LandingPage() {
           </article>
           <figure className="w-[50%] h-full hidden md:block">
             <img
-              src="../public/decoration/hero-picture.png"
+              src="/decoration/hero-picture.png"
               alt="hero"
               className="h-full w-full contrast-75 drop-shadow-2xl object-cover object-left"
             />

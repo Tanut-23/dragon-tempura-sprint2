@@ -4,13 +4,13 @@ import dimensionSpec from './dimensionSpec.js'
 
 function Background({step = 0}) {
 
-const test = [<img src="Animation\Asset\roombg.png" className='absolute z-1'/>, <img src="Animation\Asset\fence.png" className='absolute z-1'/>];
+const test = [<img src="./Asset/roombg.png" className='absolute z-1'/>, <img src="./Asset/fence.png" className='absolute z-1'/>];
 
 const room1 = <>{test[0]} {test[1]}</>;
-const room2 = <img src="Animation\Asset\Room_1.png" className='absolute z-1'/>
+const room2 = <img src="./Asset/Room_1.png" className='absolute z-1'/>
 
 const roomBackground = [room1, room2];
-const picShow =[<img src="public\productPicture\Landscape-Painting-Contemporary-Art-2.jpg" className='absolute z-1 w-[250px] h-[200px] left-[400px] top-[150px]'/>]
+const picShow =[<img src="./productPicture/Landscape-Painting-Contemporary-Art-2.jpg" className='absolute z-1 w-[250px] h-[200px] left-[400px] top-[150px]'/>]
 
 // console.log(`stepb4 ${step}`);
 // if (step < 0) { step = step+2 };
