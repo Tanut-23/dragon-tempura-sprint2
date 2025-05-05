@@ -1,6 +1,8 @@
 
 import { React, useState } from "react";
-import products from "../../data/products";
+import products from "../../data/mockUpProduct";
+import CollectionCardTEST from "../components/CollectionCardTEST"
+
 
 
 function SortBox() {
@@ -15,20 +17,21 @@ function SortBox() {
   };
 
   return (
-    <div className="main">
-      <select defaultValue={'none'} onChange={(e) => setSortState(e.target.value)}>
+    <>
+      <select defaultValue={'AZ'} onChange={(e) => setSortState(e.target.value)} className="bg-white w-[200px]">
         {/* <option value="none" disabled>None</option> */}
         <option value="AZ">A-Z</option>
         <option value="ZA">Z-A</option>
         <option value="HL">Price: high to low</option>
         <option value="LH">Price: low to high</option>
       </select>
-      <ul>
+      <div className='flex flex-wrap'>
         {[...products].sort((sortMethods[sortState]).method).map((name, i) => (
-          <li key={i}>{name.title} ${name.price.toLocaleString()}</li>
+          // <li key={i}>{name.title} ${name.price.toLocaleString()}</li>
+          <CollectionCardTEST key={i} image1={name.image}/>
         ))}
-      </ul>
     </div>
+    </>
   );
 }
 export default SortBox;
