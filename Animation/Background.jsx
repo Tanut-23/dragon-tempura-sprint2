@@ -4,7 +4,7 @@ import dimensionSpec from './dimensionSpec.js'
 
 function Background({step = 0}) {
 
-const test = [<img src="Animation/Asset/roombg.png" className='absolute z-1'/>, <img src="Animation\Asset\fence.png" className='absolute z-1'/>];
+const test = [<img src="/Animation/Asset/roombg.png" className='absolute z-1'/>, <img src="Animation\Asset\fence.png" className='absolute z-1'/>];
 
 const room1 = <>{test[0]} {test[1]}</>;
 const room2 = <img src="Animation\Asset\Room_1.png" className='absolute z-1'/>
