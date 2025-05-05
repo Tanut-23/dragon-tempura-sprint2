@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import TagSeller from "../components/TagSeller";
 import PostCard from "../components/PostCard";
 import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
 
 export default function PostPage() {
   // STATE FOR KEEP ONCHANGE INPUT VALUE
@@ -36,7 +37,8 @@ export default function PostPage() {
   // STATE FOR EDIT MODE
   const [editMode, setEditMode] = useState(false);
 
-
+  // STATE IMAGE
+  const [image, setImage] = useState("");
 
   // Function for TOGGLE BUTTON
   function showAuction() {
@@ -130,7 +132,7 @@ export default function PostPage() {
   const navigate = useNavigate();
 
   // Function for SUBMIT BUTTON
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     const submitter = e.nativeEvent.submitter;
@@ -156,25 +158,36 @@ export default function PostPage() {
       // CLICK POST BUTTON
       else if (action === "post") {
         const newProduct = {
-          id: Date.now(),
-          title: title,
-          description: description,
-          artist: artist,
-          price: price,
-          image: "../public/productPicture/Abstract-Painting-Modern-Art-1.jpg",
-          dimensions: dimensions,
-          material: material,
-          yearCreated: yearCreated,
-          tags: tags,
+          title,
+          description,
+          artist,
+          price,
+          image,
+          dimensions,
+          material,
+          yearCreated,
+          tags,
           sellerName: "PMate",
         };
+        try {
+          console.log("new user", newProduct);
+          const res = await axios.post(
+            "http://localhost:3000/api/product-add",
+            newProduct
+          );
+          console.log("176");
+
+          alert("Your artwork is successfully posted!");
+          navigate("/market");
+        } catch (err) {
+          console.error("Failed to post product:", err);
+          alert("Failed to post your product, Try again later.");
+        }
+
         const products = JSON.parse(localStorage.getItem("products")) || [];
         products.push(newProduct);
 
         localStorage.setItem("products", JSON.stringify(products));
-
-        alert("Your artwork is successfully posted!");
-        navigate("/market");
       }
 
       // CLICK UPDATE BUTTON
@@ -188,7 +201,7 @@ export default function PostPage() {
           description: description,
           artist: artist,
           price: price,
-          image: "../public/productPicture/Abstract-Painting-Modern-Art-1.jpg",
+          image: image,
           dimensions: dimensions,
           material: material,
           yearCreated: yearCreated,
@@ -235,8 +248,6 @@ export default function PostPage() {
       setEditMode(true);
     }
   }, []);
-
-
 
   return (
     <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] ">
@@ -305,7 +316,7 @@ export default function PostPage() {
 
             {/* UploadImage */}
             <Box>
-              <UploadImage />
+              <UploadImage image={image} setImage={setImage} />
             </Box>
 
             {/* Edition Detail */}
@@ -389,6 +400,7 @@ export default function PostPage() {
                 {!auction && (
                   // FIXED PRICE
                   <ColumnInput
+                    type="number"
                     label="Price ($)"
                     placeholder="0.00"
                     name="price"
