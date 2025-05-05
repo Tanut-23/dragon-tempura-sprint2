@@ -15,10 +15,10 @@ function Cat({mate}) {
           }, [direction]);
 
 
-  const imgsrc = `Animation/Model/catIdle_${frame}.png`
+  const imgsrc = `./Model/CatIdle_${frame}.png`
 
   useEffect(()=>{
-  const audio = new Audio('Animation/Asset/cat.mp3');
+  const audio = new Audio('./Asset/cat.mp3');
     if(mate === true){
       audio.play();
     }
