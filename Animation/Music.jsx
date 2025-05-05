@@ -9,7 +9,8 @@ function Music() {
     // }}
     
         useEffect(() => {
-          const audio = new Audio('Animation/Asset/bgMusic.mp3');
+          const audio = new Audio('./Asset/bgMusic.mp3');
+          audio.loop = true;
           audio.play();
 
           return () => {
