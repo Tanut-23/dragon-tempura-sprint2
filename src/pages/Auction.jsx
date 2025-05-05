@@ -11,13 +11,11 @@ const mockupData = {
   description:
     "Mockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup description",
   imageUrl: "../../public/productPicture/Abstract-Painting-Classic-Art-5.jpg",
-  startingBid: 5555555,
+  startingBid: 5000,
   endTime: new Date(Date.now() + 86400000), // 24 hours
 };
 
 // console.log(mockupData.endTime)
-
-
 
 // Custom SVG Icons
 const ClockIcon = () => (
@@ -99,12 +97,14 @@ export default function AuctionPage() {
     setAuctionProduct(stored[0]) //choose the auction product you want to show
   },[])
 
+
   // Get Time Left
   useEffect(() => {
     if (auctionProduct) {
       const now = new Date();
       let timeLeft = new Date(auctionProduct.endDate) - now //Get time diff (ms)
       setTimeLeft(timeLeft)
+
     }
   }, [auctionProduct]);
 
@@ -132,7 +132,7 @@ export default function AuctionPage() {
   // }, []);
 
   // ฟังก์ชันสำหรับการประมูล
-  
+
   const handleBid = (e) => {
     e.preventDefault();
     const bidValue = Number(bidAmount);
@@ -143,7 +143,9 @@ export default function AuctionPage() {
     }
 
     if (bidValue <= currentBid) {
-      setErrorMessage(`Bid Price must be greater than $${currentBid.toLocaleString()}`);
+      setErrorMessage(
+        `Bid Price must be greater than $${currentBid.toLocaleString()}`
+      );
       return;
     }
 
@@ -210,22 +212,20 @@ export default function AuctionPage() {
             {/* Current Bid */}
             <div className=" flex flex-col items-center pl-0 bg-white rounded-lg shadow-md p-6 mb-6 hover:scale-102 hover:duration-700 duration-700">
               <div className="flex flex-col items-start">
-
-              
-              <div className="flex items-center mb-3">
-                <span className="text-[#62483a] mr-2">
-                  <ChartIcon />
-                </span>
-                <h3 className="text-lg font-semibold text-[#62483a]">
-                  Current Bid Price
-                </h3>
-              </div>
-              <div className="text-3xl font-bold text-[#62483a] mb-1">
-                ${currentBid.toLocaleString()}
-              </div>
-              <div className="text-sm text-[#757575]">
-                Starting Bid Price: ${mockupData.startingBid.toLocaleString()}
-              </div>
+                <div className="flex items-center mb-3">
+                  <span className="text-[#62483a] mr-2">
+                    <ChartIcon />
+                  </span>
+                  <h3 className="text-lg font-semibold text-[#62483a]">
+                    Current Bid Price
+                  </h3>
+                </div>
+                <div className="text-3xl font-bold text-[#62483a] mb-1">
+                  ${currentBid.toLocaleString()}
+                </div>
+                <div className="text-sm text-[#757575]">
+                  Starting Bid Price: ${mockupData.startingBid.toLocaleString()}
+                </div>
               </div>
             </div>
 
@@ -267,7 +267,11 @@ export default function AuctionPage() {
                 >
                   Bid Now
                 </button> */}
-                <ButtonSubmit label="Bid Now" borderRadius='6px' marginTop='2px' />
+                <ButtonSubmit
+                  label="Bid Now"
+                  borderRadius="6px"
+                  marginTop="2px"
+                />
               </form>
             </div>
 

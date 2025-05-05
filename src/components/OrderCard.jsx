@@ -1,6 +1,9 @@
 import { Box, Typography, Button, Chip, Divider } from "@mui/material";
 import ButtonSubmit from "./ButtonSubmit";
 import StatusTag from "./StatusTag";
+import { useState } from "react";
+import OrderDetailsPopup from "./OrderDetailsPopup";
+import mockOrderDetails from "../../data/mockOrderDetails";
 
 export default function OrderCard({
   orderNumber,
@@ -13,7 +16,10 @@ export default function OrderCard({
   shippingAddressName,
   shippingAddressAddress,
   shippingAddressCity,
+  title,
 }) {
+  const [showOrderDetails, setShowOrderDetails] = useState(true);
+
   return (
     <Box
       className="order-card"
@@ -78,12 +84,13 @@ export default function OrderCard({
           <Typography>{shippingAddressCity}</Typography>
         </Box>
 
-        <ButtonSubmit
-          label={"View Order Details"}
+        {/* <ButtonSubmit 
+          label={"View Order Details2"}
           variant="contained"
           height={34}
           width={170}
-          onClick={onViewDetailsClick}
+          // onClick={onViewDetailsClick}
+          onClick={() => setShowOrderDetails(true)}
           sx={{
             backgroundColor: "var(--chocolate-color)",
             color: "var(--mainSectionRegister-color)",
@@ -96,8 +103,14 @@ export default function OrderCard({
               border: "1px solid var(--chocolate-color)",
             },
           }}
-        />
+        /> */}
       </Box>
+      {showOrderDetails && (
+        <OrderDetailsPopup
+          orderId={orderNumber}
+          onClose={() => setShowOrderDetails(false)}
+        />
+      )}
     </Box>
   );
 }
