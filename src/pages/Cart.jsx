@@ -4,6 +4,7 @@ import InputField from '../components/InlineInput';
 import ButtonSubmit from '../components/ButtonSubmit';
 import RadioButtonExample from '../components/radio';
 import HorizontalLinearStepper from '../components/Step';
+import SortBox from '../components/SortBox'
 
 function Cart() {
 
@@ -17,6 +18,7 @@ function Cart() {
         <p className="mx-auto text-[2rem] font-thin text-[#62483A] tracking-wide">
           Review your items and proceed to checkout
         </p>
+        {/* <SortBox/> */}
       </header>
       <main className="flex justify-start w-full">
         <section className="flex flex-col gap-[16px] w-[30%] items-center overflow-y-auto scrollbar-hide max-h-[1100px] p-[8px] bg-[#E9E2D6] rounded-tl-lg rounded-bl-lg">

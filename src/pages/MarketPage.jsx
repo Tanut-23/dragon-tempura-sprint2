@@ -14,12 +14,12 @@ export default function MarketPage() {
   const [noPost, setNoPost] = useState(true);
 
   // WHEN REFRESH -> GET DATA OF ALL PRODUCTS FROM LOCAL STORAGE
-  
+
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("products")) || [];
     setAllProducts(stored);
     if (stored.length > 0) {
-      return setNoPost(false) 
+      return setNoPost(false);
     }
   }, []);
 
@@ -30,7 +30,7 @@ export default function MarketPage() {
     });
     setAllProducts(updatedProducts);
     localStorage.setItem("products", JSON.stringify(updatedProducts));
-    setNoPost(true) 
+    if (updatedProducts.length === 0) setNoPost(true);
   }
 
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ export default function MarketPage() {
   return (
     <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] ">
       {/* -------------------NAV BAR----------------- */}
-      <Navbar />
+      {/* <Navbar /> */}
       {/* -------------------CONTENT----------------- */}
       <div className="flex flex-col items-center gap-4 w-full py-[50px]">
         <header className="flex flex-col gap-4 w-[80%] bg-[#f0e0d000]">
@@ -93,6 +93,11 @@ export default function MarketPage() {
                       title={product.title}
                       artist={product.artist}
                       price={product.price}
+                      auction={product.auction}
+                      minBidPrice={product.minBidPrice}
+                      // days={product.days}
+                      // hours={product.hours}
+                      endDate={product.endDate}
                     />
                   );
                 })}

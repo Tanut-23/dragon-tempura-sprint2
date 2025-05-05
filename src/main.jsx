@@ -16,6 +16,7 @@ import ShopPage from "./pages/ShopPage.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
 import AuctionPage from "./pages/Auction.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
+import Animation from "../Animation/Animation.jsx";
 
 
 const theme = createTheme({
@@ -69,6 +70,7 @@ const router = createBrowserRouter([
       { path: "/shoppage", element: <ShopPage/> },
       { path: "/product/:id", element: <ProductPage/> },
       { path: "/resetpassword", element: <ForgotPassword /> },
+      { path: "/animation", element: <Animation /> },
 
       // ADD PATH HERE
     ],

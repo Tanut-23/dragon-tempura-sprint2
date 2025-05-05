@@ -1,47 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import RemainingBlock from "../components/RemainingBlock";
+import { mockBidHistory } from "../../data/mockBidHistory";
+import ButtonSubmit from "../components/ButtonSubmit";
+
 // Mockup data
 const mockupData = {
   title: "Mockup title",
   artist: "Mockup artis",
-  description: "Mockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup description",
+  description:
+    "Mockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup description",
   imageUrl: "../../public/productPicture/Abstract-Painting-Classic-Art-5.jpg",
   startingBid: 5555555,
   endTime: new Date(Date.now() + 86400000), // 24 hours
 };
 
-const mockBidHistory = [
-  {
-    id: 1,
-    user: "art_collector88",
-    amount: 32000,
-    time: new Date(Date.now() - 25000000),
-  },
-  {
-    id: 2,
-    user: "gallery_owner",
-    amount: 28500,
-    time: new Date(Date.now() - 45000000),
-  },
-  {
-    id: 3,
-    user: "thai_artlover",
-    amount: 25000,
-    time: new Date(Date.now() - 62000000),
-  },
-  {
-    id: 4,
-    user: "new_collector",
-    amount: 20000,
-    time: new Date(Date.now() - 78000000),
-  },
-  {
-    id: 5,
-    user: "art_enthusiast",
-    amount: 15000,
-    time: new Date(Date.now() - 86000000),
-  },
-];
+// console.log(mockupData.endTime)
+
+
 
 // Custom SVG Icons
 const ClockIcon = () => (
@@ -109,53 +85,73 @@ const DollarIcon = () => (
 export default function AuctionPage() {
   const [currentBid, setCurrentBid] = useState(mockBidHistory[0].amount);
   const [bidAmount, setBidAmount] = useState("");
-  const [timeLeft, setTimeLeft] = useState({});
+  const [timeLeft, setTimeLeft] = useState(null);
   const [bidHistory, setBidHistory] = useState(mockBidHistory);
   const [errorMessage, setErrorMessage] = useState("");
+  const [auctionProduct, setAuctionProduct] = useState(null);
+
+  // Get Products from Local Storage
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("products"));
+    setAuctionProduct(stored[18])
+  },[])
+
+  // Get Time Left
+  useEffect(() => {
+    // console.log(auctionProduct)
+    // console.log(auctionProduct?.endDate)
+    if (auctionProduct) {
+      const now = new Date();
+      let timeLeft = new Date(auctionProduct.endDate) - now //Get time diff (ms)
+      // console.log("time is"+typeof(timeLeft))
+      setTimeLeft(timeLeft)
+    }
+  }, [auctionProduct]);
+
+  // console.log("show " + timeLeft)
 
   // คำนวณเวลาที่เหลือ
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const now = new Date();
-      const difference = mockupData.endTime - now;
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     const now = new Date();
+  //     const difference = mockupData.endTime - now;
 
-      if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((difference / 1000 / 60) % 60);
-        const seconds = Math.floor((difference / 1000) % 60);
+  //     if (difference > 0) {
+  //       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  //       const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+  //       const minutes = Math.floor((difference / 1000 / 60) % 60);
+  //       const seconds = Math.floor((difference / 1000) % 60);
 
-        setTimeLeft({ days, hours, minutes, seconds });
-      } else {
-        clearInterval(timer);
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-      }
-    }, 1000);
+  //       setTimeLeft({ days, hours, minutes, seconds });
+  //     } else {
+  //       clearInterval(timer);
+  //       setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  //     }
+  //   }, 1000);
 
-    return () => clearInterval(timer);
-  }, []);
+  //   return () => clearInterval(timer);
+  // }, []);
 
   // ฟังก์ชันสำหรับการประมูล
+  
   const handleBid = (e) => {
     e.preventDefault();
     const bidValue = Number(bidAmount);
 
     if (isNaN(bidValue) || bidValue <= 0) {
-      setErrorMessage("กรุณากรอกจำนวนเงินที่ถูกต้อง");
+      setErrorMessage("Please enter a number.");
       return;
     }
 
     if (bidValue <= currentBid) {
-      setErrorMessage(
-        `ราคาประมูลต้องมากกว่า ${currentBid.toLocaleString()} บาท`
-      );
+      setErrorMessage(`Bid Price must be greater than $${currentBid.toLocaleString()}`);
       return;
     }
 
     // เพิ่มประวัติการประมูลใหม่
     const newBid = {
       id: bidHistory.length + 1,
-      user: "คุณ", // ในระบบจริงควรใช้ชื่อผู้ใช้ที่ login
+      user: "Login User", // ในระบบจริงควรใช้ชื่อผู้ใช้ที่ login
       amount: bidValue,
       time: new Date(),
     };
@@ -167,18 +163,19 @@ export default function AuctionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f2eee7]">
+    <div className="min-h-screen w-full bg-[#f2eee7] text-[#62483A]">
       {/* Nav */}
       {/* Main Content */}
-      <main className="container mx-auto py-8 px-4">
+      <main className="container xl:w-[85%]  mx-auto py-8 px-4">
+        <h1 className="text-[2rem] font-bold mb-4">Auction</h1>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column: Artwork Display */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="flex flex-col items-center p-6 bg-[#e4dcd2b4] rounded-lg shadow-lg overflow-hidden">
               <img
                 src={mockupData.imageUrl}
                 alt={mockupData.title}
-                className="w-full object-cover"
+                className="lg:w-[60%] object-cover shadow-md shadow-gray-600 hover:scale-105 hover:duration-900 duration-900"
               />
               <div className="p-6">
                 <h2 className="text-2xl font-bold text-[#62483a] mb-2">
@@ -195,45 +192,53 @@ export default function AuctionPage() {
           {/* Right Column: Auction Info */}
           <div className="lg:col-span-1">
             {/* Countdown Timer */}
-            <div className="bg-[#f0e0d0] rounded-lg shadow-md p-6 mb-6">
-              <div className="flex items-center mb-3">
+            <div className="flex flex-col items-center pl-0 bg-[#f0e0d0] rounded-lg shadow-md p-6 mb-6 hover:scale-102 hover:duration-700 duration-700">
+              <div className="flex items-center mb-4">
                 <span className="text-[#62483a] mr-2">
                   <ClockIcon />
                 </span>
                 <h3 className="text-lg font-semibold text-[#62483a]">
-                  เวลาที่เหลือ
+                  Time Left
                 </h3>
               </div>
-              <div className="grid grid-cols-4 gap-2 text-center">
-                <RemainingBlock />
+              {/* <div className="grid grid-cols-4 gap-2 text-center"> */}
+              <div className="w-full h-[55px] flex justify-center pl-15 pt-1">
+                {/* {console.log('here'+typeof(timeLeft))} */}
+                <RemainingBlock timeLeft={timeLeft} paddingLeft="0" />
               </div>
             </div>
 
             {/* Current Bid */}
-            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div className=" flex flex-col items-center pl-0 bg-white rounded-lg shadow-md p-6 mb-6 hover:scale-102 hover:duration-700 duration-700">
+              <div className="flex flex-col items-start">
+
+              
               <div className="flex items-center mb-3">
                 <span className="text-[#62483a] mr-2">
                   <ChartIcon />
                 </span>
                 <h3 className="text-lg font-semibold text-[#62483a]">
-                  ราคาประมูลปัจจุบัน
+                  Current Bid Price
                 </h3>
               </div>
               <div className="text-3xl font-bold text-[#62483a] mb-1">
-                {currentBid.toLocaleString()} บาท
+                ${currentBid.toLocaleString()}
               </div>
               <div className="text-sm text-[#757575]">
-                ราคาเริ่มต้น: {mockupData.startingBid.toLocaleString()} บาท
+                Starting Bid Price: ${mockupData.startingBid.toLocaleString()}
+              </div>
               </div>
             </div>
 
             {/* Bid Form */}
-            <div className="bg-[#f9f7f3] rounded-lg shadow-md p-6 mb-6 border border-[#e9e2d6]">
+            <div className="bg-[#f9f7f3] rounded-lg shadow-md p-6 mb-6 border border-[#e9e2d6] hover:scale-102 hover:duration-700 duration-700">
               <div className="flex items-center mb-3">
                 <span className="text-[#62483a] mr-2">
                   <DollarIcon />
                 </span>
-                <h3 className="text-lg font-semibold text-[#62483a]">ประมูล</h3>
+                <h3 className="text-lg font-semibold text-[#62483a]">
+                  Auction
+                </h3>
               </div>
               <form onSubmit={handleBid}>
                 <div className="mb-4">
@@ -241,15 +246,15 @@ export default function AuctionPage() {
                     htmlFor="bidAmount"
                     className="block text-sm font-medium text-[#49352a] mb-1"
                   >
-                    จำนวนเงินที่ต้องการประมูล (บาท)
+                    Bid Price (USD)
                   </label>
                   <input
-                    type="number"
+                    // type="number"
                     id="bidAmount"
                     value={bidAmount}
                     onChange={(e) => setBidAmount(e.target.value)}
-                    placeholder="กรอกจำนวนเงิน"
-                    min={currentBid + 1}
+                    placeholder="Enter your Bid Price"
+                    // min={currentBid + 1}
                     className="w-full px-4 py-2 border border-[#9f8e84] rounded-md focus:outline-none focus:ring-2 focus:ring-[#c2a78f]"
                     required
                   />
@@ -257,28 +262,29 @@ export default function AuctionPage() {
                     <p className="mt-2 text-red-600 text-sm">{errorMessage}</p>
                   )}
                 </div>
-                <button
+                {/* <button
                   type="submit"
                   className="w-full bg-[#62483a] hover:bg-[#49352a] text-[#f2eee7] font-medium py-2 px-4 rounded-md transition duration-200"
                 >
-                  ประมูลตอนนี้
-                </button>
+                  Bid Now
+                </button> */}
+                <ButtonSubmit label="Bid Now" borderRadius='6px' marginTop='2px' />
               </form>
             </div>
 
             {/* Bid History */}
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-white rounded-lg shadow-md p-6 hover:scale-102 hover:duration-700 duration-700">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center">
                   <span className="text-[#62483a] mr-2">
                     <HistoryIcon />
                   </span>
                   <h3 className="text-lg font-semibold text-[#62483a]">
-                    ประวัติการประมูล
+                    Auction History
                   </h3>
                 </div>
                 <span className="text-sm text-[#757575]">
-                  {bidHistory.length} รายการ
+                  {bidHistory.length} {bidHistory.length > 1 ? "Items" : "Item"}
                 </span>
               </div>
               <div className="max-h-64 overflow-y-auto">
@@ -297,13 +303,13 @@ export default function AuctionPage() {
                         </span>
                       </div>
                       <span className="font-semibold text-[#62483a]">
-                        {bid.amount.toLocaleString()} บาท
+                        ${bid.amount.toLocaleString()}
                       </span>
                     </div>
                     <div className="mt-1 text-xs text-[#757575]">
-                      {bid.time.toLocaleString("th-TH", {
+                      {bid.time.toLocaleString("en-US", {
                         day: "numeric",
-                        month: "short",
+                        month: "numeric",
                         year: "numeric",
                         hour: "2-digit",
                         minute: "2-digit",
