@@ -2,25 +2,45 @@ const products = [
     {
         image: '../public/productPicture/Abstract-Painting-Modern-Art-1.jpg',
         title: 'Modern Portrait in Brown',
-        artist: 'By Sophia Laurent',
+        artist: 'Sophia Laurent',
         price: 2450.00
     },
     {
         image: '../public/productPicture/Abstract-Painting-Classic-Art-5.jpg',
         title: 'Faint Shades of Silence',
-        artist: 'By Marcus Aurelio',
+        artist: 'Marcus Aurelio',
         price: 3870.00
     },
     {
         image: '../public/productPicture/Portrait-Painting-Modern-Art-2.jpg',
         title: 'Grace in Elegance',
-        artist: 'By Isabella Moretti',
+        artist: 'Isabella Moretti',
         price: 5620.00
     },
     {
         image: '../public/productPicture/Historical-Painting-Classic-Art-2.jpg',
         title: 'Wisdom of the Ages',
-        artist: 'By Pietro Bernini',
+        artist: 'Pietro Bernini',
+        price: 6350.00
+    },{
+        image: '../public/productPicture//Portrait-Painting-Classic-Art-1.jpg',
+        title: 'Woman with Gold Earrings',
+        artist: 'Pietro Bernini',
+        price: 6350.00
+    },{
+        image: '../public/productPicture/Abstract-Painting-Contemporary-Art-4.jpg',
+        title: 'Solar Radiance',
+        artist: 'Pietro Bernini',
+        price: 6350.00
+    },{
+        image: '../public/productPicture/Abstract-Painting-Contemporary-Art-3.jpg',
+        title: 'Fragmented Woman',
+        artist: 'Pietro Bernini',
+        price: 6350.00
+    },{
+        image: '../public/productPicture/Landscape-Painting-Classic-Art-5.jpg',
+        title: 'Country Cottage',
+        artist: 'Pietro Bernini',
         price: 6350.00
     },]
 

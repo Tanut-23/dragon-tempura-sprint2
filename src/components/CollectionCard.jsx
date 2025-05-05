@@ -72,7 +72,7 @@ export default function CollectionCard({
               {name}
             </Typography>
             <Typography variant="body2" sx={{ color: "#ffffff", mb: "16px" }}>
-              {detail}
+              By {detail}
             </Typography>
             {prices && (
               <Typography variant="body2" sx={{ color: "#ffffff", mb: "16px" }}>

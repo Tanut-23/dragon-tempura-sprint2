@@ -11,6 +11,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 import ButtonSubmit from "./ButtonSubmit";
+import { useNavigate } from "react-router-dom";
 
 export default function PostCard({
   onDelete,
@@ -28,10 +29,18 @@ export default function PostCard({
 }) {
   // Time remaining
   const now = new Date();
-  const remainingTime = new Date(endDate) - now;
+  let remainingTime = new Date(endDate) - now;
+  if (remainingTime < 0) {
+    remainingTime = 0;
+  }
   const remainingSecond = Math.floor(remainingTime/1000);
   const remainingDays = Math.floor(remainingSecond/ (60*60*24));
   const remainingHours = Math.floor((remainingSecond % (60*60*24)) / 3600);
+
+  const navigate = useNavigate()
+  function viewShop() {
+    navigate('/shoppage')
+  }
 
   return (
     <Card
@@ -167,6 +176,7 @@ export default function PostCard({
         <Stack spacing="8px">
           <ButtonSubmit label="Edit Detail" width="310px" onClick={onEdit} />
           <ButtonSubmit
+            onClick={viewShop}
             label="View Shop"
             width="310px"
             backgroundColor="#f2eee7"

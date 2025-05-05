@@ -11,6 +11,7 @@ import products from "../../data/products";
 import reviews from "../../data/reviews";
 import { useRef } from "react";
 import CollectionCard from "../components/CollectionCard";
+import mockUpProduct from "../../data/mockUpProduct"
 
 export default function LandingPage() {
   // FOR SCROLLING CONTAINER
@@ -137,9 +138,10 @@ export default function LandingPage() {
             },
           }}
         >
-          {products.map((product) => {
+          {products.slice(4).map((product) => {
             return (
               <CollectionCard
+                key={product.id}
                 image1={product.image}
                 name={product.title}
                 detail={product.artist}

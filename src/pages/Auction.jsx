@@ -88,27 +88,26 @@ export default function AuctionPage() {
   const [timeLeft, setTimeLeft] = useState(null);
   const [bidHistory, setBidHistory] = useState(mockBidHistory);
   const [errorMessage, setErrorMessage] = useState("");
+
+  // ***** Fetch Data from Database then store in auctionProduct 
+  // --> then change mockupData to auctionProduct *****
   const [auctionProduct, setAuctionProduct] = useState(null);
 
   // Get Products from Local Storage
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("products"));
-    setAuctionProduct(stored[18])
+    setAuctionProduct(stored[0]) //choose the auction product you want to show
   },[])
 
   // Get Time Left
   useEffect(() => {
-    // console.log(auctionProduct)
-    // console.log(auctionProduct?.endDate)
     if (auctionProduct) {
       const now = new Date();
       let timeLeft = new Date(auctionProduct.endDate) - now //Get time diff (ms)
-      // console.log("time is"+typeof(timeLeft))
       setTimeLeft(timeLeft)
     }
   }, [auctionProduct]);
 
-  // console.log("show " + timeLeft)
 
   // คำนวณเวลาที่เหลือ
   // useEffect(() => {
