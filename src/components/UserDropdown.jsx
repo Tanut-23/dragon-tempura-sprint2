@@ -27,21 +27,21 @@ const UserDropdown = () => {
       </button>
 
       {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-56 bg-[#f5f2ed] rounded-md shadow-lg z-50">
+        <div className="absolute right-0 mt-2 w-56 bg-[#806248] shadow-lg z-50">
           <div className="flex items-center gap-2 p-4 border-b">
             <img
               src="https://i.pravatar.cc/40"
               alt="profile"
               className="w-10 h-10 rounded-full"
             />
-            <span className="font-semibold text-gray-800">Dragon Tempura</span>
+            <span className="font-semibold text-[##f9f7f3]">Dragon Tempura</span>
           </div>
-          <ul className="p-2 text-[#3b2c24]">
+          <ul className="p-2 bg-[#806248] text-[##f9f7f3]">
             <li>
               <Link
-                to="/account"
+                to="/login"
                 onClick={closeDropdown}
-                className="block px-4 py-2 hover:bg-gray-100"
+                className="block px-4 py-2 hover:bg-[#62483a]"
               >
                 Account
               </Link>
@@ -50,7 +50,7 @@ const UserDropdown = () => {
               <Link
                 to="/myorder"
                 onClick={closeDropdown}
-                className="block px-4 py-2 hover:bg-gray-100"
+                className="block px-4 py-2 hover:bg-[##62483a]"
               >
                 Order
               </Link>
@@ -59,7 +59,7 @@ const UserDropdown = () => {
               <Link
                 to="/setting"
                 onClick={closeDropdown}
-                className="block px-4 py-2 hover:bg-gray-100"
+                className="block px-4 py-2 hover:bg-[#62483a]"
               >
                 Setting
               </Link>
@@ -68,7 +68,7 @@ const UserDropdown = () => {
               <Link
                 to="/logout"
                 onClick={closeDropdown}
-                className="block px-4 py-2 text-red-500 hover:bg-gray-100"
+                className="block px-4 py-2  hover:bg-[#62483a]"
               >
                 Log Out
               </Link>
