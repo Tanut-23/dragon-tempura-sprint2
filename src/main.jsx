@@ -16,7 +16,7 @@ import ShopPage from "./pages/ShopPage.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
 import AuctionPage from "./pages/Auction.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
-
+import { CartProvider } from "./contexts/CartContext";
 
 const theme = createTheme({
   palette: {
@@ -81,8 +81,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
+    <CartProvider>
     <App>
       <RouterProvider router={router} />
     </App>
+    </CartProvider>
   </ThemeProvider>
 );

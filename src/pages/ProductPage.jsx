@@ -4,6 +4,7 @@ import products from "../../data/products";
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 import ButtonSubmit from "../components/ButtonSubmit";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
+import { useCart } from "../contexts/CartContext";
 
 function ProductPage() {
   const { id } = useParams();
@@ -11,10 +12,25 @@ function ProductPage() {
   const [loading, setLoading] = useState(true);
   const links = [
     { label: "Home", to: "/" },
-    { label: "Collections", to: "/collections" },
-    { label: "Type", to: "/collections/type" },
+    { label: "Collections", to: "/mainshop" },
+    { label: "Type", to: "/shoppage" },
   ];
-  
+
+  const { addToCart, cartItems } = useCart();
+  const [addedToCart, setAddedToCart] = useState(false);
+
+  // เช็กเมื่อโหลดหน้า
+  useEffect(() => {
+    const alreadyAdded = cartItems.find((item) => item.id === product?.id);
+    setAddedToCart(!!alreadyAdded);
+  }, [cartItems, product]);
+
+  const handleAddToCart = () => {
+    if (!addedToCart) {
+      addToCart(product); // ส่ง product ไปยัง context
+      setAddedToCart(true);
+    }
+  };
 
   useEffect(() => {
     const productData = products.find(
@@ -97,8 +113,11 @@ function ProductPage() {
               </div>
             </div>
 
-            <ButtonSubmit width="100%" label="Add to Cart" />
-
+            <ButtonSubmit
+              width="100%"
+              label={addedToCart ? "Added" : "Add to Cart"}
+              onClick={handleAddToCart}
+            />
             {product.tags && (
               <div className="mt-6">
                 <h2 className="text-lg font-medium mb-3">Tags</h2>
