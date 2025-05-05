@@ -11,6 +11,7 @@ import products from "../../data/products";
 import reviews from "../../data/reviews";
 import { useRef } from "react";
 import CollectionCard from "../components/CollectionCard";
+import mockUpProduct from "../../data/mockUpProduct"
 
 export default function LandingPage() {
   // FOR SCROLLING CONTAINER
@@ -39,7 +40,7 @@ export default function LandingPage() {
   return (
     <div className="text-[#62483A] w-full min-h-[100vh]">
       {/* -------------------NAV BAR----------------- */}
-      <Navbar />
+      {/* <Navbar /> */}
 
       <header className="w-full">
         {/* -------------------SECTION HOME----------------- */}
@@ -137,9 +138,10 @@ export default function LandingPage() {
             },
           }}
         >
-          {products.map((product) => {
+          {products.slice(4).map((product) => {
             return (
               <CollectionCard
+                key={product.id}
                 image1={product.image}
                 name={product.title}
                 detail={product.artist}
@@ -372,9 +374,9 @@ export default function LandingPage() {
         </figure>
       </section>
       {/* -------------------FOOTER----------------- */}
-      <footer>
+      {/* <footer>
         <Footer />
-      </footer>
+      </footer> */}
     </div>
   );
 }

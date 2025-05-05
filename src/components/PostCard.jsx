@@ -9,8 +9,9 @@ import {
   IconButton,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ButtonSubmit from "./ButtonSubmit";
+import { useNavigate } from "react-router-dom";
 
 export default function PostCard({
   onDelete,
@@ -19,15 +20,27 @@ export default function PostCard({
   image = "https://i.pinimg.com/736x/4f/b8/95/4fb8951ee4abaaf4f159d9db98718bfa.jpg",
   title = "Portrait Painting",
   artist = "By AAA BBB",
-  price = "$450.00",
-  auction = false,
+  price = 450,
+  auction,
+  minBidPrice = 1000,
+  // days = 2,
+  // hours = 4,
+  endDate = new Date(),
 }) {
-  const [auctionStatus, setAuctionStatus] = useState(false);
+  // Time remaining
+  const now = new Date();
+  let remainingTime = new Date(endDate) - now;
+  if (remainingTime < 0) {
+    remainingTime = 0;
+  }
+  const remainingSecond = Math.floor(remainingTime/1000);
+  const remainingDays = Math.floor(remainingSecond/ (60*60*24));
+  const remainingHours = Math.floor((remainingSecond % (60*60*24)) / 3600);
 
-  useEffect(() => {
-    setAuctionStatus(auction);
-  }, [auction]);
-  
+  const navigate = useNavigate()
+  function viewShop() {
+    navigate('/shoppage')
+  }
 
   return (
     <Card
@@ -57,7 +70,7 @@ export default function PostCard({
         }}
       >
         {/* Auction status */}
-        {auctionStatus && (
+        {auction && (
           <Box
             sx={{
               position: "absolute",
@@ -76,7 +89,7 @@ export default function PostCard({
           </Box>
         )}
         {/* Time Remaining */}
-        {auctionStatus && (
+        {auction && (
           <Box
             sx={{
               position: "absolute",
@@ -91,13 +104,13 @@ export default function PostCard({
               fontWeight: 700,
             }}
           >
-            2 days 4 hrs left
+            {remainingDays} days {remainingHours} hrs left
           </Box>
         )}
 
         {/* Delete Button */}
         <Stack
-          onClick = {onDelete}
+          onClick={onDelete}
           sx={{
             position: "absolute",
             top: 10,
@@ -137,15 +150,33 @@ export default function PostCard({
             {title}
           </Typography>
           <Typography sx={{ fontSize: "0.97rem", py: "9px" }}>
-            {artist}
+            By {artist}
           </Typography>
-          <Typography sx={{ fontSize: "1.35rem" }}>{price}</Typography>
+          {/* Fixed Price */}
+          {price && (
+            <Typography sx={{ fontSize: "1.35rem" }}>
+              $
+              {Number(price).toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+              })}
+            </Typography>
+          )}
+          {/* Auction */}
+          {minBidPrice && (
+            <Typography sx={{ fontSize: "1.15rem" }}>
+              Current Price: $
+              {Number(minBidPrice).toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+              })}
+            </Typography>
+          )}
         </CardContent>
 
         {/* ButtonSubmit */}
         <Stack spacing="8px">
-          <ButtonSubmit label="Edit Detail" width="310px" onClick={onEdit}/>
+          <ButtonSubmit label="Edit Detail" width="310px" onClick={onEdit} />
           <ButtonSubmit
+            onClick={viewShop}
             label="View Shop"
             width="310px"
             backgroundColor="#f2eee7"

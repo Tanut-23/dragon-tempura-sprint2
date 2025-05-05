@@ -9,11 +9,11 @@ export default function CollectionCard({
   widthPerCent = "555%",
   maxWidth = 345,
   height = "100%",
-  image1 = "https://i.pinimg.com/736x/4f/b8/95/4fb8951ee4abaaf4f159d9db98718bfa.jpg",
-  name = "Portrait Painting",
-  detail = "Explore stunning portrait collections.",
+  image1 = "",
+  name = "",
+  detail = "Explore Collection.",
   linkURL = "https://www.google.com/",
-  altDetail = "Alt detail",
+  altDetail = "",
   prices = false,
   minHeightImage = "330px",
   ...prop
@@ -45,7 +45,7 @@ export default function CollectionCard({
             alt={altDetail}
             className="cardImage"
             sx={{
-              minHeight: minHeightImage
+              minHeight: minHeightImage,
             }}
           />
 
@@ -65,18 +65,18 @@ export default function CollectionCard({
           >
             <Typography
               gutterBottom
-              variant="h5"
+              variant="h6"
               component="div"
               sx={{ color: "#ffffff", fontWeight: "bold", mb: "16px" }}
             >
               {name}
             </Typography>
             <Typography variant="body2" sx={{ color: "#ffffff", mb: "16px" }}>
-              {detail}
+              By {detail}
             </Typography>
             {prices && (
               <Typography variant="body2" sx={{ color: "#ffffff", mb: "16px" }}>
-                {prices}
+                ${prices.toLocaleString('en-US', { minimumFractionDigits: 2 })}
               </Typography>
             )}
           </CardContent>

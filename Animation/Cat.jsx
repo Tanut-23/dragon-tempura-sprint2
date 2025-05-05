@@ -1,0 +1,41 @@
+import React from 'react'
+import { useEffect, useState } from 'react';
+
+function Cat({mate}) {
+
+    const direction = null;
+    const [frame, setFrame] = useState(0);
+
+    useEffect(() => {
+          let idleInterval = setInterval(() => {
+            if (direction === null) {
+              setFrame((preFrame) => (preFrame+1)%2);}
+            },500)
+            return () => clearInterval(idleInterval);
+          }, [direction]);
+
+
+  const imgsrc = `Animation/Model/catIdle_${frame}.png`
+
+  useEffect(()=>{
+  const audio = new Audio('Animation/Asset/cat.mp3');
+    if(mate === true){
+      audio.play();
+    }
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  },[mate])
+
+  return (
+     <img src= {imgsrc}
+     style={{position: "absolute",
+      left: "630px",
+      top: "460px",
+      zIndex: 10,
+      overflow: "hidden",
+      }}/>
+  )
+}
+export default Cat

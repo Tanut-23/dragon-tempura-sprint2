@@ -4,6 +4,7 @@ import SearchBox from "../components/SearchBox";
 import SortBox from "../components/SortBox";
 
 export default function ShopPage() {
+  
   return (
     <>
       <div className="flex flex-col items-center justify-center bg-[#f2eee7]">

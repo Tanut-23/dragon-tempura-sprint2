@@ -16,7 +16,8 @@ import ShopPage from "./pages/ShopPage.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
 import AuctionPage from "./pages/Auction.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
-
+import Animation from "../Animation/Animation.jsx";
+import { CartProvider } from "./contexts/CartContext";
 
 const theme = createTheme({
   palette: {
@@ -61,14 +62,15 @@ const router = createBrowserRouter([
       { path: "/", element: <LandingPage /> },
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
-      { path: "/market", element: <MarketPage/> },
-      { path: "/postpage", element: <PostPage/> },
+      { path: "/market", element: <MarketPage /> },
+      { path: "/postpage", element: <PostPage /> },
       { path: "/mainshop", element: <MainShopPage /> },
       { path: "/cart", element: <Cart /> },
       { path: "/myorder", element: <MyOrderPage /> },
-      { path: "/shoppage", element: <ShopPage/> },
-      { path: "/product/:id", element: <ProductPage/> },
+      { path: "/shoppage", element: <ShopPage /> },
+      { path: "/product/:id", element: <ProductPage /> },
       { path: "/resetpassword", element: <ForgotPassword /> },
+      { path: "/animation", element: <Animation /> },
 
       // ADD PATH HERE
     ],
@@ -81,8 +83,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
+    <CartProvider>
     <App>
       <RouterProvider router={router} />
     </App>
+    </CartProvider>
   </ThemeProvider>
 );
