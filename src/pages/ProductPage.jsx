@@ -4,6 +4,7 @@ import products from "../../data/products.js";
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 import ButtonSubmit from "../components/ButtonSubmit";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
+import { useCart } from "../contexts/CartContext";
 
 
 
@@ -12,14 +13,15 @@ function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-  function addToCart() {navigate('/cart')};
+  // const navigate = useNavigate();
+  // function addToCart() {navigate('/cart')};
+  const { toggleCartItem, isInCart } = useCart();
   const links = [
     { label: "Home", to: "/" },
-    { label: "Collections", to: "/collections" },
-    { label: "Type", to: "/collections/type" },
+    { label: "Collections", to: "/mainshop" },
+    { label: "Type", to: "/shoppage" },
   ];
-
+  
 
   useEffect(() => {
     const productData = products.find(
@@ -47,15 +49,17 @@ function ProductPage() {
     );
   }
 
+  const addedToCart = isInCart(product.id);
+
   return (
     <main className="bg-[#f2eee7]">
       <div className="px-4 py-6 max-w-7xl mx-auto xl:px-12 2xl:px-20">
         <BreadcrumbsNav links={links} currentPage={product.title} />
-        {/* Product display */}
+
         <div className="flex flex-col md:flex-row gap-8">
           {/* Product image */}
           <div className="md:w-1/2 xl:max-w-[600px]">
-            <div className="shadow-md shadow-gray-700 overflow-hidden ">
+            <div className="shadow-md shadow-gray-700 overflow-hidden">
               <img
                 src={product.image}
                 alt={product.title}
@@ -102,7 +106,11 @@ function ProductPage() {
               </div>
             </div>
 
-           <ButtonSubmit width="100%" label="Add to Cart" onClick={addToCart} />
+            <ButtonSubmit
+              width="100%"
+              label={addedToCart ? "Remove from Cart" : "Add to Cart"}
+              onClick={() => toggleCartItem(product)}
+            />
 
             {product.tags && (
               <div className="mt-6">
@@ -122,6 +130,7 @@ function ProductPage() {
           </div>
         </div>
       </div>
+
       <YouMayAlsoLike currentProduct={product} />
     </main>
   );
