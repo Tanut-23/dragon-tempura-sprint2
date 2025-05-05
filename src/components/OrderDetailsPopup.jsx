@@ -105,7 +105,16 @@ const Icons = {
   ),
 };
 
-const OrderDetailsPopup = ({ orderId, onClose }) => {
+const OrderDetailsPopup = ({
+  orderId,
+  onClose,
+  title,
+  artist,
+  quantity,
+  price,
+  subtotal,
+  total,
+}) => {
   const [orderDetails, setOrderDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -119,7 +128,7 @@ const OrderDetailsPopup = ({ orderId, onClose }) => {
       setTimeout(() => {
         // ข้อมูลตัวอย่าง
         const mockOrderDetails = {
-          orderId: "#ORD-8742",
+          orderId: orderId,
           orderDate: "March 5, 2025",
           status: "Delivered",
           paymentStatus: "PAID",
@@ -235,9 +244,7 @@ const OrderDetailsPopup = ({ orderId, onClose }) => {
         <div className="bg-gray-50 px-6 py-4 border-b flex items-center justify-between sticky top-0 z-10">
           <h2 className="text-xl font-semibold text-[#62483a] flex items-center">
             Order Details
-            <span className="ml-2 text-gray-500 font-normal">
-              {orderDetails.orderId}
-            </span>
+            <span className="ml-2 text-gray-500 font-normal">{orderId}</span>
           </h2>
           <div className="flex items-center space-x-3">
             {getStatusBadge(orderDetails.status)}
@@ -258,6 +265,7 @@ const OrderDetailsPopup = ({ orderId, onClose }) => {
             <h3 className="text-lg font-medium text-[#62483a] mb-4">
               Purchased Items
             </h3>
+
             <div className="border rounded-lg overflow-hidden">
               {orderDetails.items.map((item, index) => (
                 <div
@@ -330,41 +338,22 @@ const OrderDetailsPopup = ({ orderId, onClose }) => {
 };
 
 // ตัวอย่างการใช้งาน component
-const App = () => {
+const App = ({ orderId }) => {
   const [showOrderDetails, setShowOrderDetails] = useState(false);
 
   return (
     <div className="p-4">
-      <div className="border rounded-lg p-4 mb-4">
-        <div className="flex justify-between items-center">
-          <div>
-            <h3 className="font-medium">Order NO. #ORD-5555</h3>
-            <p className="text-sm text-gray-500">Order Date: March 5, 2025</p>
-          </div>
-          <div className="text-right">
-            <p className="font-bold">$1,250.00</p>
-            <p className="text-xs text-green-600 font-medium">PAID</p>
-          </div>
-        </div>
-        <div className="mt-4">
-          <p className="text-sm text-gray-500">Shipping Address:</p>
-          <p className="text-sm">Jonathan Richards</p>
-          <p className="text-sm">1234 Luxury Lane</p>
-          <p className="text-sm">New York, NY 10001</p>
-        </div>
-        <div className="mt-4 text-right">
-          <button
-            onClick={() => setShowOrderDetails(true)}
-            className="px-4 py-2 bg-amber-900 text-white rounded-md hover:bg-amber-800 transition-colors"
-          >
-            View Order Details
-          </button>
-        </div>
+      <div className="mt-4 text-right">
+        <button
+          onClick={() => setShowOrderDetails(true)}
+          className="height-[34px] width-[170px] px-4 py-2 bg-[#62483a] text-[#f2eee7] rounded-md hover:bg-[#62483a3b] hover:text-[#49352a] transition-colors"
+        >
+          View Order Details
+        </button>
       </div>
-
       {showOrderDetails && (
         <OrderDetailsPopup
-          orderId="ORD-8742"
+          orderId={orderId}
           onClose={() => setShowOrderDetails(false)}
         />
       )}
