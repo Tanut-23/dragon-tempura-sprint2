@@ -74,7 +74,7 @@ export default function LandingPage() {
           </article>
           <figure className="w-[50%] h-full hidden md:block">
             <img
-              src="../public/decoration/hero-picture.png"
+              src="/decoration/hero-picture.png"
               alt="hero"
               className="h-full w-full contrast-75 drop-shadow-2xl object-cover object-left"
             />
