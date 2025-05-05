@@ -10,27 +10,13 @@ function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { toggleCartItem, isInCart } = useCart();
+
   const links = [
     { label: "Home", to: "/" },
     { label: "Collections", to: "/mainshop" },
     { label: "Type", to: "/shoppage" },
   ];
-
-  const { addToCart, cartItems } = useCart();
-  const [addedToCart, setAddedToCart] = useState(false);
-
-  // เช็กเมื่อโหลดหน้า
-  useEffect(() => {
-    const alreadyAdded = cartItems.find((item) => item.id === product?.id);
-    setAddedToCart(!!alreadyAdded);
-  }, [cartItems, product]);
-
-  const handleAddToCart = () => {
-    if (!addedToCart) {
-      addToCart(product); // ส่ง product ไปยัง context
-      setAddedToCart(true);
-    }
-  };
 
   useEffect(() => {
     const productData = products.find(
@@ -58,15 +44,17 @@ function ProductPage() {
     );
   }
 
+  const addedToCart = isInCart(product.id);
+
   return (
     <main className="bg-[#f2eee7]">
       <div className="px-4 py-6 max-w-7xl mx-auto xl:px-12 2xl:px-20">
         <BreadcrumbsNav links={links} currentPage={product.title} />
-        {/* Product display */}
+
         <div className="flex flex-col md:flex-row gap-8">
           {/* Product image */}
           <div className="md:w-1/2 xl:max-w-[600px]">
-            <div className="shadow-md shadow-gray-700 overflow-hidden ">
+            <div className="shadow-md shadow-gray-700 overflow-hidden">
               <img
                 src={product.image}
                 alt={product.title}
@@ -115,9 +103,10 @@ function ProductPage() {
 
             <ButtonSubmit
               width="100%"
-              label={addedToCart ? "Added" : "Add to Cart"}
-              onClick={handleAddToCart}
+              label={addedToCart ? "Remove from Cart" : "Add to Cart"}
+              onClick={() => toggleCartItem(product)}
             />
+
             {product.tags && (
               <div className="mt-6">
                 <h2 className="text-lg font-medium mb-3">Tags</h2>
@@ -136,6 +125,7 @@ function ProductPage() {
           </div>
         </div>
       </div>
+
       <YouMayAlsoLike currentProduct={product} />
     </main>
   );

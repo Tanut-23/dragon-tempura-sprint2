@@ -1,3 +1,4 @@
+// contexts/CartContext.js
 import React, { createContext, useContext, useState } from "react";
 
 const CartContext = createContext();
@@ -5,20 +6,29 @@ const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]); // เก็บ array ของสินค้าที่เพิ่ม
+  const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (product) => {
-    // เช็กว่ามีสินค้านี้ใน cart แล้วหรือยัง
-    const exists = cartItems.find((item) => item.id === product.id);
-    if (!exists) {
-      setCartItems((prev) => [...prev, product]);
-    }
+  const toggleCartItem = (product) => {
+    setCartItems((prev) => {
+      const exists = prev.find((item) => item.id === product.id);
+      if (exists) {
+        // ถ้ามีแล้วให้ลบออก (ยกเลิก)
+        return prev.filter((item) => item.id !== product.id);
+      } else {
+        // ถ้ายังไม่มีให้เพิ่มเข้า
+        return [...prev, product];
+      }
+    });
+  };
+
+  const isInCart = (productId) => {
+    return cartItems.some((item) => item.id === productId);
   };
 
   const cartCount = cartItems.length;
 
   return (
-    <CartContext.Provider value={{ cartItems, cartCount, addToCart }}>
+    <CartContext.Provider value={{ cartItems, cartCount, toggleCartItem, isInCart }}>
       {children}
     </CartContext.Provider>
   );
