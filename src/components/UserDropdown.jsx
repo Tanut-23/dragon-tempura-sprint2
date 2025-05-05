@@ -50,7 +50,7 @@ const UserDropdown = () => {
               <Link
                 to="/myorder"
                 onClick={closeDropdown}
-                className="block px-4 py-2 hover:bg-[##62483a]"
+                className="block px-4 py-2 hover:bg-[#62483a]"
               >
                 Order
               </Link>
