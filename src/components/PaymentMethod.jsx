@@ -18,7 +18,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import LockIcon from "@mui/icons-material/Lock";
 
 export default function PaymentMethod() {
-  const [paymentMethod, setPaymentMethod] = useState("creditCard");
+  const [paymentMethod, setPaymentMethod] = useState("cod");
   const [cardDetails, setCardDetails] = useState({
     cardNumber: "",
     cardholderName: "",
@@ -77,6 +77,30 @@ export default function PaymentMethod() {
           onChange={(e) => setPaymentMethod(e.target.value)}
         >
           <Grid container spacing={2} sx={{ mb: 3 }}>
+          <Grid item xs={12} sm={4}>
+              <Paper
+                sx={{
+                  p: 2,
+                  border: paymentMethod === "cod" ? 2 : 1,
+                  borderColor: paymentMethod === "cod" ? "#5d4037" : "#ccc",
+                  borderRadius: 1,
+                  cursor: "pointer",
+                }}
+                onClick={() => setPaymentMethod("cod")}
+              >
+                <FormControlLabel
+                  value="cod"
+                  control={<Radio />}
+                  label={
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <LocalShippingIcon sx={{ mr: 1 }} />
+                      <Typography>Cash on Delivery</Typography>
+                    </Box>
+                  }
+                  sx={{ width: "100%" }}
+                />
+              </Paper>
+            </Grid>
             <Grid item xs={12} sm={4}>
               <Paper
                 sx={{
@@ -128,30 +152,7 @@ export default function PaymentMethod() {
               </Paper>
             </Grid> */}
 
-            <Grid item xs={12} sm={4}>
-              <Paper
-                sx={{
-                  p: 2,
-                  border: paymentMethod === "cod" ? 2 : 1,
-                  borderColor: paymentMethod === "cod" ? "#5d4037" : "#ccc",
-                  borderRadius: 1,
-                  cursor: "pointer",
-                }}
-                onClick={() => setPaymentMethod("cod")}
-              >
-                <FormControlLabel
-                  value="cod"
-                  control={<Radio />}
-                  label={
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <LocalShippingIcon sx={{ mr: 1 }} />
-                      <Typography>Cash on Delivery</Typography>
-                    </Box>
-                  }
-                  sx={{ width: "100%" }}
-                />
-              </Paper>
-            </Grid>
+            
           </Grid>
         </RadioGroup>
 

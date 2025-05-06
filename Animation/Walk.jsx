@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Model from './Model.jsx'
 import dimensionSpec from './dimensionSpec.js';
-import { Modal, Box } from '@mui/material';
-import Cat from './Cat.jsx';
 import Background from "./Background";
 
 
@@ -20,7 +18,12 @@ function Walk() {
     const [roomChange, setRoomChange] = useState(0);
     const roomControlRight = useRef(false);
     const roomControlLeft = useRef(false);
+    const [whichPic,setWhichPic] = useState();
 
+    // const roomDetail =  (picOpen === true) ? 'open' : 'close';
+    // const catSound=  (cat === true) ? 'play' : 'stop';
+    // console.log(roomDetail);
+    // console.log(catSound);
 
     if(roomChange> 1) {setRoomChange(0)}
     if(roomChange< 0) {setRoomChange(1)}
@@ -46,7 +49,7 @@ function Walk() {
                 break;
                 default: break;
             }
-            for (let a of dimensionSpec){
+            for (let a of dimensionSpec[roomChange]){
               const characterLeft = newPos.x;
               const characterRight = newPos.x + charecter.x;
               const characterTop = newPos.y;
@@ -65,9 +68,10 @@ function Walk() {
                       setDirection(null);
                       // window.open("https://www.google.com", "_blank");
                       setPicopen(true);
+                      setWhichPic(a.whichPic);
                   }
                       setTimeout(()=>{if(a.trigger === "cat" && cat === false) {
-                        console.log("cat found");
+                        // console.log("cat found");
                         // setDirection(null);
                         setCat(true);
                       }else setCat(false)},600); // loop in 1.2 sec so cat will meow every 1.2 sec if player non-stop press direction
@@ -96,7 +100,7 @@ function Walk() {
         });
     },200);} else clearInterval(moveinterval);
     return () => clearInterval(moveinterval);
-  },[direction, cat, position.y])
+  },[direction, cat, position.y, roomChange])
 
     useEffect(() => {
         const moveDirection = (event) => {
@@ -138,12 +142,12 @@ function Walk() {
 
   return (
     // <div className={`absolute z-20  left-[${position.x}px] top-[${position.y}px]`}>{model}</div>
-    <>
-    <Background step={roomChange}/>
+    <div className='relative min-w-[1024px] w-[1024px] h-[768px] left-[15%]'>
+    <Background step={roomChange} cat={cat} picOpen={picOpen} setPicopen={setPicopen} whichPic={whichPic} />
     <Model direction={direction} frame={frame} frameback={frameBack} x={position.x} y={position.y} />
     {/* {console.log(cat)}; */}
-    <Cat mate={cat}/>
-    <Modal
+    {/* <Cat mate={cat}/> */}
+    {/* <Modal
         open={picOpen}
         onClose={() => setPicopen(false)}
         aria-labelledby="modal-title"
@@ -152,7 +156,8 @@ function Walk() {
         <img src="public\productPicture\Landscape-Painting-Contemporary-Art-2.jpg"
             className='absolute z-1  left-[485px] top-[150px]'
         />
-      </Modal></>
+      </Modal> */}
+      </div>
   )
 }
 
