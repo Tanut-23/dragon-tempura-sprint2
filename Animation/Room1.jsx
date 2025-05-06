@@ -10,7 +10,7 @@ function Room1({picOpen, setPicopen, whichPic}) {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
         >
-        <img src="public\productPicture\Genre-Painting-Modern-Art-4.jpg"
+        <img src="./productPicture/Genre-Painting-Modern-Art-4.jpg"
             className='absolute z-1  left-[485px] top-[100px]'
         />
         </Modal>,
@@ -20,7 +20,7 @@ function Room1({picOpen, setPicopen, whichPic}) {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
         >
-        <img src="public\productPicture\Genre-Painting-Classic-Art-3.jpg"
+        <img src="./productPicture/Genre-Painting-Classic-Art-3.jpg"
             className='absolute z-1  left-[485px] top-[100px]'
         />
         </Modal>,
@@ -30,7 +30,7 @@ function Room1({picOpen, setPicopen, whichPic}) {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
         >
-        <img src="public\productPicture\Genre-Painting-Classic-Art-5.jpg"
+        <img src="./productPicture/Genre-Painting-Classic-Art-5.jpg"
             className='absolute z-1  left-[485px] top-[100px]'
         />
         </Modal>];
