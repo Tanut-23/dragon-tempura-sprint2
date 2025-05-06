@@ -18,7 +18,7 @@ export default function MarketPage() {
   useEffect(() => {
     const stored = localStorage.getItem("products");
     const products = stored ? JSON.parse(stored) : [];
-    setAllProducts(stored);
+    setAllProducts(products);
     if (products.length > 0) {
       return setNoPost(false);
     }
