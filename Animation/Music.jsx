@@ -7,7 +7,7 @@ function Music() {
     //     new Audio("./Asset/bgMusic.mp3").play()
     //    if (onOff === true){ onOff = false }
     // }}
-    
+
         useEffect(() => {
           const audio = new Audio('./Asset/bgMusic.mp3');
           audio.loop = true;
