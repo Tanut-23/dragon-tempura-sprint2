@@ -6,7 +6,9 @@ import ScrollToTop from "./components/ScrollToTop";
 function Layout() {
   return (
     <div className="flex flex-col w-full min-h-screen items-center bg-amber-100">
+
       <ScrollToTop />
+
       {/* <nav className="flex gap-10 flex-wrap my-20 text-2xl">
         <Link to="/">Landing</Link>
         <Link to="/register">Register</Link>
