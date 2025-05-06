@@ -1,6 +1,4 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import ButtonLR from "../components/ButtonLR";
 import ButtonSubmit from "../components/ButtonSubmit";
 import { Stack, Box, Typography } from "@mui/material";
@@ -11,7 +9,6 @@ import products from "../../data/products";
 import reviews from "../../data/reviews";
 import { useRef } from "react";
 import CollectionCard from "../components/CollectionCard";
-import mockUpProduct from "../../data/mockUpProduct"
 
 export default function LandingPage() {
   // FOR SCROLLING CONTAINER

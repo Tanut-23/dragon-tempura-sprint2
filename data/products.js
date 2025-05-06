@@ -1,4 +1,5 @@
 
+
 // const products = [
     // {
     //     image: '../public/productPicture/Abstract-Painting-Modern-Art-1.jpg',
@@ -25,8 +26,8 @@
     //     price: 6350.00
     // },]
 
+  
   // {
-
 // const products = [
 //     {
 //         image: '../public/productPicture/Abstract-Painting-Modern-Art-1.jpg',
