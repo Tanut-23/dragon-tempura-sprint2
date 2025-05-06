@@ -36,7 +36,7 @@ export default function RemainingBlock({
   paddingLeft = "85px",
 }) {
   // const initialTime = Number(day)*(86400) + Number(hour)*(3600) + Number(min)*(60) + Number(sec);  // const initialTime = 1*(86400) + 2*(3600) + 55*(60) + 10 // {days, hours, min, sec} = {1, 2, 55, 10}
-  console.log(timeLeft);
+  // console.log(timeLeft);
   const [showTimeLeft, setShowTimeLeft] = useState();
 
   // Wait for timeLeft Prop *****

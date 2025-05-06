@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import products from "../../data/products.js";
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 import ButtonSubmit from "../components/ButtonSubmit";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import { useCart } from "../contexts/CartContext";
 
-
-
-
 function ProductPage() {
-  const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  // const navigate = useNavigate();
-  // function addToCart() {navigate('/cart')};
   const { toggleCartItem, isInCart } = useCart();
   const links = [
     { label: "Home", to: "/" },
@@ -22,16 +16,16 @@ function ProductPage() {
     { label: "Type", to: "/shoppage" },
   ];
   
-
+  const { productId } = useParams();
   useEffect(() => {
     const productData = products.find(
-      (p) => p.id === parseInt(id) || p.id === id
+      (p) => p.id === parseInt(productId) || p.id === productId
     );
     if (productData) {
       setProduct(productData);
     }
     setLoading(false);
-  }, [id]);
+  }, [productId]);
 
   if (loading) {
     return (
