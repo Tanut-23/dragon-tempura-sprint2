@@ -15,7 +15,7 @@ function Navbar() {
           <div className="flex items-center justify-center w-full">
             <Link to="/">
               <img
-                src="public\logo\logo.png"
+                src="public/logo/logo.png"
                 alt="Collectico Logo"
                 className="w-7 h-7"
               />
