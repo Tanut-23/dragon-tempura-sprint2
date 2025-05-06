@@ -8,8 +8,8 @@ const UserDropdown = () => {
   const closeDropdown = () => setDropdownOpen(false);
 
   return (
-    <div>
-      <button onClick={toggleDropdown}>
+    <div className="relative ">
+      <button onClick={toggleDropdown} className="hover:text-[#b49b8e]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -27,7 +27,7 @@ const UserDropdown = () => {
       </button>
 
       {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-56 bg-[#806248] shadow-lg z-50">
+        <div className="absolute -translate-x-1/2 mt-2 w-56 bg-[#806248] shadow-lg z-50">
           <div className="flex items-center gap-2 p-4 border-b">
             <img
               src="https://upload.wikimedia.org/wikipedia/en/thumb/8/82/Lightning_McQueen.png/250px-Lightning_McQueen.png"

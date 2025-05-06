@@ -71,22 +71,19 @@ const router = createBrowserRouter([
       { path: "/product/:id", element: <ProductPage /> },
       { path: "/resetpassword", element: <ForgotPassword /> },
       { path: "/animation", element: <Animation /> },
-
+      { path: "/auction", element: <AuctionPage />,
+      },
       // ADD PATH HERE
     ],
-  },
-  {
-    path: "/auction",
-    element: <AuctionPage />,
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
     <CartProvider>
-    <App>
-      <RouterProvider router={router} />
-    </App>
+      <App>
+        <RouterProvider router={router} />
+      </App>
     </CartProvider>
   </ThemeProvider>
 );
