@@ -14,7 +14,7 @@ function ListBox({ keyword }) {
   });
 
   return (
-    <div className="absolute top-12 bg-[#f0e0d0] w-full">
+    <div className="absolute top-12 bg-[#f0e0d0] w-full z-20">
       {matchedTitle.length === 0 && matchedArtist.length === 0 && (
         <div className="px-2 py-1 hover:bg-gray-300">Not Found...</div>
       )}
