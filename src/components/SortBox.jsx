@@ -1,4 +1,3 @@
-
 import { React, useState } from "react";
 import products from "../../data/mockUpProduct";
 import SearchBox from "../components/SearchBox";
