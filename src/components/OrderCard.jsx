@@ -1,5 +1,5 @@
 import { Box, Typography, Button, Chip, Divider } from "@mui/material";
-import ButtonSubmit from "./ButtonSubmit";
+
 import StatusTag from "./StatusTag";
 import { useState } from "react";
 import OrderDetailsPopup from "./OrderDetailsPopup";
@@ -12,7 +12,6 @@ export default function OrderCard({
   orderDate,
   totalAmount,
   paymentStatus,
-  onViewDetailsClick,
   shippingAddressName,
   shippingAddressAddress,
   shippingAddressCity,
@@ -83,31 +82,13 @@ export default function OrderCard({
           <Typography>{shippingAddressAddress}</Typography>
           <Typography>{shippingAddressCity}</Typography>
         </Box>
-
-        {/* <ButtonSubmit 
-          label={"View Order Details2"}
-          variant="contained"
-          height={34}
-          width={170}
-          // onClick={onViewDetailsClick}
-          onClick={() => setShowOrderDetails(true)}
-          sx={{
-            backgroundColor: "var(--chocolate-color)",
-            color: "var(--mainSectionRegister-color)",
-            textTransform: "none",
-            fontSize: "0.875rem",
-            transition: "0.3s",
-            "&:hover": {
-              backgroundColor: "var(--hoverBgButton-color)",
-              color: "var(--hoverTextButton-color)",
-              border: "1px solid var(--chocolate-color)",
-            },
-          }}
-        /> */}
       </Box>
       {showOrderDetails && (
         <OrderDetailsPopup
           orderId={orderNumber}
+          total={totalAmount}
+          subtotal={totalAmount}
+          status={status}
           onClose={() => setShowOrderDetails(false)}
         />
       )}
