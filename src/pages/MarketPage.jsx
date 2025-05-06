@@ -83,8 +83,7 @@ export default function MarketPage() {
           {/* AFTER POST PRODUCT */}
           {!noPost && (
             <div className="relative flex flex-row gap-8 flex-wrap justify-center w-full px-8 py-12 bg-[#f0e0d0] rounded-2xl">
-              {allProducts.length > 0 &&
-                allProducts.map((product) => {
+              { allProducts.map((product) => {
                   return (
                     <PostCard
                       onDelete={() => handleDelete(product.id)}
