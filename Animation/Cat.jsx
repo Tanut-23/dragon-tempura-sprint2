@@ -20,6 +20,7 @@ function Cat({mate}) {
   useEffect(()=>{
   const audio = new Audio('./Asset/cat.mp3');
     if(mate === true){
+      audio.volume = 0.5;
       audio.play();
     }
     return () => {

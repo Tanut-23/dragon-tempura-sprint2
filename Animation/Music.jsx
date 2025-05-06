@@ -11,6 +11,7 @@ function Music() {
         useEffect(() => {
           const audio = new Audio('./Asset/bgMusic.mp3');
           audio.loop = true;
+          audio.volume = 0.2;
           audio.play();
 
           return () => {
