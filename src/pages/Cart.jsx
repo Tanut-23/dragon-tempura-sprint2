@@ -19,9 +19,9 @@ function Cart() {
           Review your items and proceed to checkout
         </p>
       </header>
-      <main className="flex justify-start w-full">
-        <section className="flex flex-col gap-[16px] w-[30%] items-center overflow-y-auto scrollbar-hide max-h-[1100px] p-[8px] bg-[#E9E2D6] rounded-tl-lg rounded-bl-lg">
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"} />
+      <main className="flex max-md:flex-col-reverse justify-start w-full max-md:gap-[16px]">
+        <section className="flex md:flex-col gap-[16px] w-[100%] md:w-[30%] min-w-[240px] items-center overflow-y-auto scrollbar-hide max-h-[1100px] p-[8px] bg-[#E9E2D6] rounded-tl-lg rounded-bl-lg">
+          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
           <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
           <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
           <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
@@ -33,7 +33,7 @@ function Cart() {
           <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
           <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
         </section>
-        <div className="flex flex-col gap-[16px] w-[65%] bg-[#F2EEE7] rounded-tr-lg rounded-br-lg overflow-hidden border-0 px-[5%] py-[32px]">
+        <div className="flex flex-col gap-[16px] md:w-[65%] w-[100%] min-w-[300px] bg-[#F2EEE7] rounded-tr-lg rounded-br-lg overflow-hidden border-0 px-[5%] py-[32px]">
         <Paper elevation={3}
           sx={{ p: 3, mb: 4, bgcolor: "#f9f7f3", color: "#62483a", display:'flex', flexDirection:"column", gap:"16px"}}>
         <Typography sx={{ width:"100%", color: "primary.main" , fontWeight:600, fontSize: "1.5rem"}}>Order Summary</Typography>
