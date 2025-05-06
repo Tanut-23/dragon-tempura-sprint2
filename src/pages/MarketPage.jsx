@@ -68,7 +68,7 @@ export default function MarketPage() {
             <div className="flex items-center justify-center w-full h-[500px] bg-[#f0e0d0] rounded-lg">
               <div className="relative flex flex-col items-center w-[80%] h-[80%] bg-white rounded">
                 <img
-                  src="../../public/decoration/no-image.png"
+                  src="./decoration/no-image.png"
                   alt="no product"
                   className=" w-[300px]"
                 />
