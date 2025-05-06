@@ -16,7 +16,7 @@ function BaseRoom({picOpen, setPicopen, cat }) {
     aria-labelledby="modal-title"
     aria-describedby="modal-description"
   >
-    <img src="public\productPicture\Landscape-Painting-Contemporary-Art-2.jpg"
+    <img src="./productPicture/Landscape-Painting-Contemporary-Art-2.jpg"
         className='absolute z-1  left-[485px] top-[150px]'
     />
   </Modal>
