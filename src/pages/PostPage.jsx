@@ -200,7 +200,8 @@ export default function PostPage() {
           alert("Failed to post your product, Try again later.");
         }
 
-        const products = JSON.parse(localStorage.getItem("products")) || [];
+        const stored = localStorage.getItem("products");
+        const products = stored ? JSON.parse(stored) : [];
         products.push(newProduct);
 
         localStorage.setItem("products", JSON.stringify(products));
@@ -214,9 +215,12 @@ export default function PostPage() {
           now.getTime() + (Number(days) * 24 + Number(hours)) * 60 * 60 * 1000
         );
 
-        const storedProducts =
-          JSON.parse(localStorage.getItem("products")) || [];
-        const editId = JSON.parse(localStorage.getItem("editId"));
+        const stored = localStorage.getItem("products");
+        const products = stored ? JSON.parse(stored) : [];
+
+        const storedId = localStorage.getItem("editId");
+        const editId = storedId ? JSON.parse(storedId) : null;
+
         const updatedProduct = {
           id: editId,
           title: title,
@@ -236,7 +240,7 @@ export default function PostPage() {
           endDate: endDate,
         };
 
-        const updatedProducts = storedProducts.map((product) =>
+        const updatedProducts = products.map((product) =>
           editId === product.id ? (product = updatedProduct) : product
         );
 
@@ -252,10 +256,16 @@ export default function PostPage() {
 
   // For EDIT PRODUCT
   useEffect(() => {
-    const editId = JSON.parse(localStorage.getItem("editId"));
+
+    const storedId = localStorage.getItem("editId");
+    const editId = storedId ? JSON.parse(storedId) : null;
+
     if (editId) {
-      const allProducts = JSON.parse(localStorage.getItem("products")) || [];
-      const editProduct = allProducts.find((product) => {
+      
+      const stored = localStorage.getItem("products");
+      const products = stored ? JSON.parse(stored) : [];
+
+      const editProduct = products.find((product) => {
         return product.id === editId;
       });
       console.log(editProduct);

@@ -16,9 +16,10 @@ export default function MarketPage() {
   // WHEN REFRESH -> GET DATA OF ALL PRODUCTS FROM LOCAL STORAGE
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("products")) || [];
+    const stored = localStorage.getItem("products");
+    const products = stored ? JSON.parse(stored) : [];
     setAllProducts(stored);
-    if (stored.length > 0) {
+    if (products.length > 0) {
       return setNoPost(false);
     }
   }, []);
