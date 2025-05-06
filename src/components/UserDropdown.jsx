@@ -48,11 +48,11 @@ const UserDropdown = () => {
             </li>
             <li>
               <Link
-                to="/myorder"
+                to="/market"
                 onClick={closeDropdown}
                 className="block px-4 py-2 hover:bg-[#62483a]"
               >
-                Order
+                Market
               </Link>
             </li>
             <li>
