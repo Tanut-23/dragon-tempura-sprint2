@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
+import { Link } from "react-router-dom";
 
 export default function CollectionCard({
   widthPerCent = "555%",
@@ -37,7 +38,7 @@ export default function CollectionCard({
         ...prop,
       }}
     >
-      <a href={linkURL}>
+      <Link to={linkURL}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -81,7 +82,7 @@ export default function CollectionCard({
             )}
           </CardContent>
         </CardActionArea>
-      </a>
+      </Link>
     </Card>
   );
 }
