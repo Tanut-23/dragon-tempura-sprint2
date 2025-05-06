@@ -95,7 +95,7 @@ function Navbar() {
           </div>
           <div className="flex-col items-center justify-between mt-4 space-x-5">
             <Link to="/">Home</Link>
-            <Link to="/shoppage">Shop</Link>
+            <Link to="/mainshop">Shop</Link>
             <Link to="/auction">Auction</Link>
             <a href="#">About</a>
             <a href="#">Contact</a>
@@ -120,7 +120,7 @@ function Navbar() {
               <Link to="/" className="hover:text-[#b49b8e]">
                 Home
               </Link>
-              <Link to="/shoppage" className="hover:text-[#b49b8e]">
+              <Link to="/mainshop" className="hover:text-[#b49b8e]">
                 Shop
               </Link>
               <Animation />

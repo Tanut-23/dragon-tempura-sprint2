@@ -7,7 +7,6 @@ import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import { useCart } from "../contexts/CartContext";
 
 function ProductPage() {
-  const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const { toggleCartItem, isInCart } = useCart();
@@ -17,16 +16,16 @@ function ProductPage() {
     { label: "Type", to: "/shoppage" },
   ];
   
-
+  const { productId } = useParams();
   useEffect(() => {
     const productData = products.find(
-      (p) => p.id === parseInt(id) || p.id === id
+      (p) => p.id === parseInt(productId) || p.id === productId
     );
     if (productData) {
       setProduct(productData);
     }
     setLoading(false);
-  }, [id]);
+  }, [productId]);
 
   if (loading) {
     return (
