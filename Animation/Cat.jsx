@@ -33,7 +33,7 @@ function Cat({mate}) {
      style={{position: "absolute",
       left: "630px",
       top: "460px",
-      zIndex: 10,
+      zIndex: 9,
       overflow: "hidden",
       }}/>
   )

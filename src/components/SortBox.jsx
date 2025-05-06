@@ -1,11 +1,12 @@
 import { React, useState } from "react";
-import products from "../../data/products";
-import CollectionCardTEST from "../components/CollectionCardTEST"
+import products from "../../data/mockUpProduct";
+import SearchBox from "../components/SearchBox";
+import MasonryGallery from "../components/MasonryGallery";
 
 
 
 function SortBox() {
-  const [sortState, setSortState] = useState("none");
+  const [sortState, setSortState] = useState("AZ");
 
   const sortMethods = {
     none: { method: () => 0 },
@@ -14,23 +15,22 @@ function SortBox() {
     HL: { method: (a, b) => b.price - a.price },
     LH: { method: (a, b) => a.price - b.price },
   };
-
+  const selectData = [...products].sort((sortMethods[sortState]).method);
+  console.log(selectData);
   return (
-    <>
-      <select defaultValue={'AZ'} onChange={(e) => setSortState(e.target.value)} className="bg-white w-[200px]">
+    <div className='flex flex-col gap-[16px]'>
+    <div className='flex justify-between'>
+      <SearchBox />
+      <select defaultValue={'AZ'} onChange={(e) => setSortState(e.target.value)} className="bg-[#EFD5C7] w-[200px] h-[43px] my-auto border-2">
         {/* <option value="none" disabled>None</option> */}
         <option value="AZ">A-Z</option>
         <option value="ZA">Z-A</option>
         <option value="HL">Price: high to low</option>
         <option value="LH">Price: low to high</option>
       </select>
-      <div className='flex flex-wrap'>
-        {[...products].sort((sortMethods[sortState]).method).map((name, i) => (
-          // <li key={i}>{name.title} ${name.price.toLocaleString()}</li>
-          <CollectionCardTEST key={i} image1={name.image}/>
-        ))}
     </div>
-    </>
+      <MasonryGallery products={selectData}/>
+    </div>
   );
 }
 export default SortBox;
