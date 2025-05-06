@@ -1,7 +1,7 @@
 import React from "react";
 import Masonry from "@mui/lab/Masonry";
 import { Link } from "react-router-dom";
-import products from "../../data/products";
+// import products from "../../data/products";
 
 const ProductCard = ({ product }) => {
   return (
@@ -50,7 +50,7 @@ const ProductGrid = ({ products }) => {
   );
 };
 
-const MasonryGallery = () => {
+const MasonryGallery = ({products}) => {
   return <ProductGrid products={products} />;
 };
 

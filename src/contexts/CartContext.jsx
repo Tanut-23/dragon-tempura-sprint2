@@ -9,14 +9,14 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const toggleCartItem = (product) => {
-    setCartItems((prev) => {
-      const exists = prev.find((item) => item.id === product.id);
+    setCartItems((currentCarts) => {
+      const exists = currentCarts.find((item) => item.id === product.id);
       if (exists) {
         // ถ้ามีแล้วให้ลบออก (ยกเลิก)
-        return prev.filter((item) => item.id !== product.id);
+        return currentCarts.filter((item) => item.id !== product.id);
       } else {
         // ถ้ายังไม่มีให้เพิ่มเข้า
-        return [...prev, product];
+        return [...currentCarts, product];
       }
     });
   };

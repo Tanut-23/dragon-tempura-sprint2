@@ -1,6 +1,4 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import ButtonLR from "../components/ButtonLR";
 import ButtonSubmit from "../components/ButtonSubmit";
 import { Stack, Box, Typography } from "@mui/material";
@@ -11,7 +9,8 @@ import products from "../../data/products";
 import reviews from "../../data/reviews";
 import { useRef } from "react";
 import CollectionCard from "../components/CollectionCard";
-import mockUpProduct from "../../data/mockUpProduct"
+import { Link } from "react-router-dom";
+// import mockUpProduct from "../../data/mockUpProduct"
 
 export default function LandingPage() {
   // FOR SCROLLING CONTAINER
@@ -150,6 +149,7 @@ export default function LandingPage() {
                 minHeight="300px"
                 height="350px"
                 minHeightImage="350px"
+                linkURL={`/product/${product.id}`}
               />
 
               // <TCollectionCard
@@ -162,8 +162,10 @@ export default function LandingPage() {
           })}
         </Stack>
         {/* ButtonSubmit */}
-        <div className="w-[15%] hover:w-[20%] hover:scale-110 transition-all duration-900 ease-in-out">
+        <div className="w-[45%] md:w-[20%] lg:w-[15%] hover:scale-120 transition-all duration-900 ease-in-out">
+        <Link to="/mainshop">
           <ButtonSubmit label="Explore Our Shop" width="100%" />
+          </Link>
         </div>
       </section>
 
@@ -232,17 +234,21 @@ export default function LandingPage() {
           {products.map((product) => {
             return (
               <AuctionCard
+                key={product.id}
                 image={product.image}
                 title={product.title}
                 artist={product.artist}
                 price={product.price}
+                linkUrl={`/auction/${product.id}`}
               />
             );
           })}
         </Stack>
         {/* ButtonSubmit */}
-        <div className="w-[15%] hover:w-[20%] hover:scale-110 transition-all duration-900 ease-in-out">
-          <ButtonSubmit label="Go Auction" width="100%" />
+        <div className="w-[30%] lg:w-[15%] hover:scale-120 transition-all duration-900 ease-in-out">
+          <Link to="/auction/1">
+            <ButtonSubmit label="Go Auction" width="100%" />
+          </Link>
         </div>
       </section>
 
@@ -348,25 +354,25 @@ export default function LandingPage() {
           </p>
 
           {/* ButtonSubmit */}
-          <div className="w-[20%] hover:w-[25%] hover:scale-110 transition-all duration-900 ease-in-out">
+          <div className="w-[40%] lg:w-[30%] hover:scale-120  transition-all duration-900 ease-in-out">
             <ButtonSubmit label="Our Story" width="100%" />
           </div>
         </article>
         <figure class="w-[40%] h-auto hidden sm:flex gap-[12px]">
           <img
-            src="../public/productPicture/Genre-Painting-Classic-Art-4.jpg"
+            src="/productPicture/Genre-Painting-Classic-Art-4.jpg"
             alt=""
             class="bg-secondary2 lg:w-[50%] h-auto object-cover overflow-hidden brightness-110"
           />
           {/* <!-- the two right pictures --> */}
           <div class="w-[50%] h-auto hidden lg:flex lg:flex-col lg:gap-[12px]">
             <img
-              src="../public/productPicture/Historical-Painting-Contemporary-Art-1.jpg"
+              src="/productPicture/Historical-Painting-Contemporary-Art-1.jpg"
               alt=""
               class="bg-secondary2 w-full h-auto object-cover overflow-hidden"
             />
             <img
-              src="../public/productPicture/Portrait-Painting-Classic-Art-2.jpg"
+              src="/productPicture/Portrait-Painting-Classic-Art-2.jpg"
               alt=""
               class="bg-secondary2 w-full h-auto object-cover overflow-hidden backdrop-brightness-95"
             />

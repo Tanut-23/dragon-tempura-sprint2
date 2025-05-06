@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import ButtonSubmit from "./ButtonSubmit";
+import mockOrderDetails from "../../data/mockOrderDetails";
+import StatusTag from "./StatusTag";
 
 // สร้างไอคอนพื้นฐานด้วย SVG แทนการใช้ Lucide React
 const Icons = {
@@ -105,16 +108,7 @@ const Icons = {
   ),
 };
 
-const OrderDetailsPopup = ({
-  orderId,
-  onClose,
-  title,
-  artist,
-  quantity,
-  price,
-  subtotal,
-  total,
-}) => {
+const OrderDetailsPopup = ({ orderId, onClose, subtotal, total, status }) => {
   const [orderDetails, setOrderDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -128,7 +122,7 @@ const OrderDetailsPopup = ({
       setTimeout(() => {
         // ข้อมูลตัวอย่าง
         const mockOrderDetails = {
-          orderId: orderId,
+          orderId: 5678,
           orderDate: "March 5, 2025",
           status: "Delivered",
           paymentStatus: "PAID",
@@ -175,7 +169,7 @@ const OrderDetailsPopup = ({
 
         setOrderDetails(mockOrderDetails);
         setLoading(false);
-      }, 700); // จำลองการดึงข้อมูล 700ms
+      }, 100); // จำลองการดึงข้อมูล 100ms
     };
 
     fetchOrderDetails();
@@ -187,7 +181,7 @@ const OrderDetailsPopup = ({
         <div className="bg-white rounded-lg shadow-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
           <div className="p-6 text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900 mx-auto"></div>
-            <p className="mt-4">กำลังโหลดข้อมูลคำสั่งซื้อ...</p>
+            <p className="mt-4">Loading order...</p>
           </div>
         </div>
       </div>
@@ -247,7 +241,8 @@ const OrderDetailsPopup = ({
             <span className="ml-2 text-gray-500 font-normal">{orderId}</span>
           </h2>
           <div className="flex items-center space-x-3">
-            {getStatusBadge(orderDetails.status)}
+            {/* {getStatusBadge(orderDetails.status)} */}
+            <StatusTag statusTag={status} />
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-500 transition-colors"
@@ -304,7 +299,7 @@ const OrderDetailsPopup = ({
             <div className="bg-gray-50 rounded-lg p-4">
               <div className="flex justify-between mb-2">
                 <span className="text-gray-500">Subtotal</span>
-                <span>{orderDetails.summary.subtotal}</span>
+                <span>{subtotal}</span>
               </div>
               <div className="flex justify-between mb-2">
                 <span className="text-gray-500">Shipping</span>
@@ -317,7 +312,7 @@ const OrderDetailsPopup = ({
               <div className="border-t my-2 pt-2"></div>
               <div className="flex justify-between text-[#62483a] font-medium">
                 <span>Total</span>
-                <span>{orderDetails.summary.total}</span>
+                <span>{total}</span>
               </div>
             </div>
           </div>
@@ -338,22 +333,38 @@ const OrderDetailsPopup = ({
 };
 
 // ตัวอย่างการใช้งาน component
-const App = ({ orderId }) => {
+const App = ({ orderId, total, subtotal, statusTag }) => {
   const [showOrderDetails, setShowOrderDetails] = useState(false);
 
   return (
     <div className="p-4">
-      <div className="mt-4 text-right">
-        <button
+      <div className="mt-4 text-right flex justify-end pb-0">
+        <ButtonSubmit
+          label={"View Order Details"}
+          variant="contained"
+          height={34}
+          width={170}
+          // onClick={onViewDetailsClick}
           onClick={() => setShowOrderDetails(true)}
-          className="height-[34px] width-[170px] px-4 py-2 bg-[#62483a] text-[#f2eee7] rounded-md hover:bg-[#62483a3b] hover:text-[#49352a] transition-colors"
-        >
-          View Order Details
-        </button>
+          sx={{
+            backgroundColor: "var(--chocolate-color)",
+            color: "var(--mainSectionRegister-color)",
+            textTransform: "none",
+            fontSize: "0.875rem",
+            transition: "0.3s",
+            "&:hover": {
+              backgroundColor: "var(--hoverBgButton-color)",
+              color: "var(--hoverTextButton-color)",
+              border: "1px solid var(--chocolate-color)",
+            },
+          }}
+        />
       </div>
       {showOrderDetails && (
         <OrderDetailsPopup
           orderId={orderId}
+          total={total}
+          subtotal={subtotal}
           onClose={() => setShowOrderDetails(false)}
         />
       )}
