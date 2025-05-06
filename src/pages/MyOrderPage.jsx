@@ -4,19 +4,15 @@ import { Box } from "@mui/material";
 import PaginationBar from "../components/PaginationBar";
 import OrderCard from "../components/OrderCard";
 import StatsCard from "../components/StatsCard";
-import Footer from "../components/Footer";
-import OrderDetailsPopup from "../components/OrderDetailsPopup";
+
 import mockOrderDetails from "../../data/mockOrderDetails";
 
 function MyOrderPage({ title, value }) {
   return (
     <div>
-      <Navbar />
-
       <Box
         sx={{
           width: "100vw", // ให้มีความกว้างเต็มจอ
-          // height: "100vh", // ตั้งค่าความสูงให้เต็มหน้าจอ (ถ้าต้องการ)
           backgroundColor: "#e9e2d6", // เปลี่ยนสีพื้นหลังตามที่ต้องการ
           py: 4,
         }}
@@ -44,33 +40,21 @@ function MyOrderPage({ title, value }) {
             </select>
           </div>
         </div>
-        {/* <!--  Stats Cards --> */}
 
+        {/* <!--  Stats Cards --> */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 px-8 md:px-20">
-          {/* <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
-            <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">
-              Total Orders
-            </p>
-            <p class="text-3xl font-light text-gray-900 mt-2">7</p>
-          </div> */}
           <StatsCard title="total order" value="7" />
           <StatsCard title="COMPLETED" value="5" />
           <StatsCard title="pending" value="1" />
           <StatsCard title="total spent" value="$4,320.00" />
         </div>
+
         {/* <!-- Orders List --> */}
         <div className="grid grid-cols-1 mb-8  px-8 md:px-20 ">
           <h2 class="text-2xl text-[#62483a] font-light section-title mb-6">
             Recent Orders
           </h2>
-          {/* <div className="grid grid-cols-1 space-y-10 ">
-            <OrderCard orderNumber={mockOrderDetails[0].orderId} />
-            <OrderCard />
-            <OrderCard />
-            <OrderCard />
-            <OrderCard />
-            
-          </div> */}
+
           <div className="grid grid-cols-1 space-y-10 ">
             {mockOrderDetails.map((order) => {
               return (
@@ -93,7 +77,6 @@ function MyOrderPage({ title, value }) {
                 />
               );
             })}
-            <OrderDetailsPopup />
           </div>
         </div>
         {/* <!-- Pagination --> */}
@@ -101,7 +84,6 @@ function MyOrderPage({ title, value }) {
           <PaginationBar />
         </div>
       </Box>
-      <Footer />
     </div>
   );
 }

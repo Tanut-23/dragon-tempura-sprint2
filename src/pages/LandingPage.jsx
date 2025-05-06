@@ -1,6 +1,4 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import ButtonLR from "../components/ButtonLR";
 import ButtonSubmit from "../components/ButtonSubmit";
 import { Stack, Box, Typography } from "@mui/material";
