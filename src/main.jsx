@@ -71,8 +71,7 @@ const router = createBrowserRouter([
       { path: "/product/:productId", element: <ProductPage /> },
       { path: "/resetpassword", element: <ForgotPassword /> },
       { path: "/animation", element: <Animation /> },
-      { path: "/auction", element: <AuctionPage />,
-      },
+      { path: "/auction/:id", element: <AuctionPage />},
       // ADD PATH HERE
     ],
   },

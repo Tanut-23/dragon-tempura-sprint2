@@ -3,17 +3,19 @@ import { useEffect } from "react";
 import RemainingBlock from "../components/RemainingBlock";
 import { mockBidHistory } from "../../data/mockBidHistory";
 import ButtonSubmit from "../components/ButtonSubmit";
+import { useParams } from "react-router-dom";
+import products from "../../data/products";
 
 // Mockup data
-const mockupData = {
-  title: "Mockup title",
-  artist: "Mockup artis",
-  description:
-    "Mockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup description",
-  imageUrl: "../../public/productPicture/Abstract-Painting-Classic-Art-5.jpg",
-  startingBid: 5000,
-  endTime: new Date(Date.now() + 86400000), // 24 hours
-};
+// const mockupData = {
+//   title: "Mockup title",
+//   artist: "Mockup artis",
+//   description:
+//     "Mockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup description",
+//   imageUrl: "../../public/productPicture/Abstract-Painting-Classic-Art-5.jpg",
+//   startingBid: 5000,
+//   endTime: new Date(Date.now() + 86400000), // 24 hours
+// };
 
 // console.log(mockupData.endTime)
 
@@ -81,33 +83,50 @@ const DollarIcon = () => (
 );
 
 export default function AuctionPage() {
+  const { id } = useParams();
+
   const [currentBid, setCurrentBid] = useState(mockBidHistory[0].amount);
   const [bidAmount, setBidAmount] = useState("");
   const [timeLeft, setTimeLeft] = useState(null);
   const [bidHistory, setBidHistory] = useState(mockBidHistory);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // ***** Fetch Data from Database then store in auctionProduct 
+  // ***** Fetch Data from Database then store in auctionProduct
   // --> then change mockupData to auctionProduct *****
   const [auctionProduct, setAuctionProduct] = useState(null);
 
   // Get Products from Local Storage
+  // useEffect(() => {
+  //   const stored = JSON.parse(localStorage.getItem("products"));
+  //   setAuctionProduct(stored[0]) //choose the auction product you want to show
+  // },[])
+
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("products"));
-    setAuctionProduct(stored[0]) //choose the auction product you want to show
-  },[])
+    const data = products.find((product) => product.id === parseInt(id));
+    if (data) {
+      setAuctionProduct(data);
+    }
+  }, [id]);
 
 
   // Get Time Left
   useEffect(() => {
     if (auctionProduct) {
       const now = new Date();
-      let timeLeft = new Date(auctionProduct.endDate) - now //Get time diff (ms)
-      setTimeLeft(timeLeft)
-
+      let timeLeft = new Date(auctionProduct.endDate) - now; //Get time diff (ms)
+      setTimeLeft(timeLeft);
     }
   }, [auctionProduct]);
+  
 
+  // CHECK IF THERE IS A PRODUCT
+  if (!auctionProduct) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Product not found
+      </div>
+    );
+  }
 
   // คำนวณเวลาที่เหลือ
   // useEffect(() => {
@@ -174,18 +193,18 @@ export default function AuctionPage() {
           <div className="lg:col-span-2">
             <div className="flex flex-col items-center p-6 bg-[#e4dcd2b4] rounded-lg shadow-lg overflow-hidden">
               <img
-                src={mockupData.imageUrl}
-                alt={mockupData.title}
+                src={auctionProduct.image}
+                alt={auctionProduct.title}
                 className="lg:w-[60%] object-cover shadow-md shadow-gray-600 hover:scale-105 hover:duration-900 duration-900"
               />
               <div className="p-6">
                 <h2 className="text-2xl font-bold text-[#62483a] mb-2">
-                  {mockupData.title}
+                  {auctionProduct.title}
                 </h2>
                 <p className="text-[#757575] mb-4">
-                  Artist: {mockupData.artist}
+                  Artist: {auctionProduct.artist}
                 </p>
-                <p className="text-[#49352a]">{mockupData.description}</p>
+                <p className="text-[#49352a]">{auctionProduct.description}</p>
               </div>
             </div>
           </div>
@@ -205,6 +224,7 @@ export default function AuctionPage() {
               {/* <div className="grid grid-cols-4 gap-2 text-center"> */}
               <div className="w-full h-[55px] flex justify-center pl-15 pt-1">
                 {/* {console.log('here'+typeof(timeLeft))} */}
+                {/* *************************************************** */}
                 <RemainingBlock timeLeft={timeLeft} paddingLeft="0" />
               </div>
             </div>
@@ -224,7 +244,7 @@ export default function AuctionPage() {
                   ${currentBid.toLocaleString()}
                 </div>
                 <div className="text-sm text-[#757575]">
-                  Starting Bid Price: ${mockupData.startingBid.toLocaleString()}
+                  Starting Bid Price: ${auctionProduct.startingBid.toLocaleString()}
                 </div>
               </div>
             </div>
