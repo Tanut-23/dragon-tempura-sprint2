@@ -78,7 +78,7 @@ export default function SearchBox({ onSelectKeyword }) {
         <input
           onChange={(e) => {
             setSearchText(e.target.value);
-            setShowSuggestions(true); // show the list when typing
+            setShowSuggestions(true); // show the suggestion list when typing
           }}
           value={searchText}
           type="text"
@@ -86,8 +86,8 @@ export default function SearchBox({ onSelectKeyword }) {
           className="w-full h-full p-4 outline-2 bg-[#EFD5C7]"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              onSelectKeyword(searchText);
-              setShowSuggestions(false);
+              onSelectKeyword(searchText);  // send keyword to parent
+              setShowSuggestions(false);    // close the suggestion list
             }
           }}
         />
@@ -112,7 +112,7 @@ export default function SearchBox({ onSelectKeyword }) {
           keyword={searchText}
           onSelect={(value) => {
             setSearchText(value); // Update input
-            onSelectKeyword(value); //Send value to set state searchKeyword in AuctionSort
+            onSelectKeyword(value); //Send keyword to set state searchKeyword in AuctionSort
             setShowSuggestions(false);
           }}
         />
