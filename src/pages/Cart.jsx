@@ -4,12 +4,20 @@ import InputField from '../components/InlineInput';
 import ButtonSubmit from '../components/ButtonSubmit';
 import RadioButtonExample from '../components/radio';
 import HorizontalLinearStepper from '../components/Step';
-
+import { useCart } from "../contexts/CartContext";
+import { useNavigate } from "react-router-dom";
+import React,{useEffect} from  'react';
 
 function Cart() {
 
+  const { cartItems, cartCount } = useCart();
+  const navigate = useNavigate()
 
-
+  useEffect(() => {
+    if (cartCount === 0) {
+      navigate('/shoppage');
+    }
+  }, [cartCount, navigate]);
 
   return (
     <div className="bg-[#F0E0D0] w-[100vw] flex flex-col items-center px-[10%] pt-[32px]">
@@ -21,17 +29,9 @@ function Cart() {
       </header>
       <main className="flex max-md:flex-col-reverse justify-start w-full max-md:gap-[16px]">
         <section className="flex md:flex-col gap-[16px] w-[100%] md:w-[30%] min-w-[240px] items-center overflow-y-auto scrollbar-hide max-h-[1100px] p-[8px] bg-[#E9E2D6] rounded-tl-lg rounded-bl-lg">
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
+        {cartItems.map((products)=>(
+            <ProductCard  elevation={3} image={products.image}  title={"JSD9"} artist={"Mate"} price={"1,000"}/>
+          ))}
         </section>
         <div className="flex flex-col gap-[16px] md:w-[65%] w-[100%] min-w-[300px] bg-[#F2EEE7] rounded-tr-lg rounded-br-lg overflow-hidden border-0 px-[5%] py-[32px]">
         <Paper elevation={3}
