@@ -7,6 +7,7 @@ import AuctionGallery from "../components/AuctionGallery";
 
 function AuctionSort() {
   const [sortState, setSortState] = useState("AZ");
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   const sortMethods = {
     none: { method: () => 0 },
@@ -15,12 +16,24 @@ function AuctionSort() {
     HL: { method: (a, b) => b.price - a.price },
     LH: { method: (a, b) => a.price - b.price },
   };
-  const selectData = [...products].sort((sortMethods[sortState]).method);
+
+  // FILTER BY KEYWORD (SEARCH)
+  const searchedProducts = products.filter(product => {
+    const keyword = searchKeyword.toLowerCase();
+    return (
+      product.title.toLowerCase().includes(keyword) ||
+      product.artist.toLowerCase().includes(keyword)
+    );
+  })
+
+  // SORT
+  const selectData = [...searchedProducts].sort((sortMethods[sortState]).method);
   console.log(selectData);
+
   return (
     <div className='flex flex-col gap-[16px] w-full'>
     <div className='flex justify-between'>
-      <SearchBox />
+      <SearchBox onSelectKeyword = {(keyword) => setSearchKeyword(keyword)} />
       <select defaultValue={'AZ'} onChange={(e) => setSortState(e.target.value)} className="bg-[#EFD5C7] w-[200px] h-[43px] my-auto border-2">
         {/* <option value="none" disabled>None</option> */}
         <option value="AZ">A-Z</option>
