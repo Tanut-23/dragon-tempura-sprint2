@@ -124,7 +124,7 @@ function Navbar() {
                 Shop
               </Link>
               <Animation />
-              <Link to="/auction/1" className="hover:text-[#b49b8e]">
+              <Link to="/auction" className="hover:text-[#b49b8e]">
                 Auction
               </Link>
               <a href="#">About</a>
