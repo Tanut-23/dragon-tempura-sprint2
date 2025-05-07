@@ -246,7 +246,7 @@ export default function LandingPage() {
         </Stack>
         {/* ButtonSubmit */}
         <div className="w-[30%] lg:w-[15%] hover:scale-120 transition-all duration-900 ease-in-out">
-          <Link to="/auction/1">
+          <Link to="/auction">
             <ButtonSubmit label="Go Auction" width="100%" />
           </Link>
         </div>
