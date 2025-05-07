@@ -27,6 +27,7 @@ const UserDropdown = () => {
       </button>
 
       {dropdownOpen && (
+        
         <div className="absolute -translate-x-1/2 mt-2 w-56 bg-[#806248] shadow-lg z-50">
           <div className="flex items-center gap-2 p-4 border-b">
             <img
