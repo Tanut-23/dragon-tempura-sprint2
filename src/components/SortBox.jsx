@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import products from "../../data/mockUpProduct";
+import products from "../../data/products";
 import SearchBox from "../components/SearchBox";
 import MasonryGallery from "../components/MasonryGallery";
 

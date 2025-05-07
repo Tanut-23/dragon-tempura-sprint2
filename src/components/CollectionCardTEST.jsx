@@ -58,7 +58,7 @@ export default function CollectionCard({    widthPerCent="555%",
           <Typography variant="body2" sx={{ color: '#ffffff', mb:'16px'}}>
             {detail}
           </Typography>
-          git{prices && (
+          {prices && (
               <Typography variant="body2" sx={{ color: "#ffffff", mb: "16px" }}>
                {prices}
               </Typography>
