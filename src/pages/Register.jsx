@@ -2,25 +2,48 @@ import React, { useState } from "react";
 import ButtonSubmit from "../components/ButtonSubmit";
 import { Box, Button, FormGroup, Stack, Typography } from "@mui/material";
 import InlineInput from "../components/InlineInput";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function Register() {
+export default function Register({ onClose, switchToLogin }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate();
+ 
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const passwordLength = password.length > 8;
+    const isValidPhone = /^(\d{3}-\d{3}-\d{4}|\d{10})$/.test(phone);
+    if (!isValidPhone) {
+      alert("Phone number format should be 012-345-6789");
+      return;
+    }
+
+    const passwordLength = password.length >= 8;
     const haveUpperCase = /[A-Z]/.test(password);
     const haveLowerCase = /[a-z]/.test(password);
 
+    
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phone ||
+      !password ||
+      !confirmPassword
+    ) {
+      alert("Please fill in all fields.");
+      return;
+    }
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!isValidEmail) {
+      alert("Please enter a valid email address");
+      return;
+    }
+    
     if (password !== confirmPassword) {
       const errorDiffPassword = "Passwords do not match!";
       alert(errorDiffPassword);
@@ -46,9 +69,9 @@ export default function Register() {
         "http://localhost:3000/api/users-register",
         newUser
       );
-
       alert("Register success, Welcome to Collectico!");
-      navigate("/login");
+        switchToLogin(newUser.email, newUser.password);
+        onClose();
     } catch (err) {
       if (err.response) {
         alert(err.response.data.message || "Login failed");
@@ -60,6 +83,8 @@ export default function Register() {
   }
   return (
     <Box
+      fullWidth
+      maxWidth="2000px"
       sx={{
         bgcolor: "primary.mainSectionRegister",
         gap: "12px",
@@ -177,6 +202,7 @@ export default function Register() {
               </svg>
             </Stack>
             <Button
+              disabled
               sx={{
                 bgcolor: "primary.buttonUpImage",
                 border: "1px solid",
@@ -214,7 +240,11 @@ export default function Register() {
               justifyContent: "center",
             }}
           >
-            <Link to={"/Login"}>Already have an account</Link>
+            <Box sx={{color: "primary.fontGray",
+              ":hover": {
+                cursor:"pointer",
+              }
+            }} onClick={switchToLogin}>Already have an account</Box>
           </Box>
           <ButtonSubmit type="submit" width={"120px"} label={"Sign up"} />
         </Stack>
