@@ -98,7 +98,6 @@ function Navbar() {
             <Link to="/mainshop">Shop</Link>
             <Link to="/auction/1">Auction</Link>
             <a href="#">About</a>
-            <a href="#">Contact</a>
           </div>
         </div>
         {/* nav-pc */}
@@ -128,9 +127,6 @@ function Navbar() {
                 Auction
               </Link>
               <a href="#">About</a>
-              <a href="#" className="hover:text-white">
-                Contact
-              </a>
             </div>
             <div className="flex items-center space-x-4 pr-6">
               <svg

@@ -1,14 +1,29 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 const UserDropdown = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+ 
 
-  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
   const closeDropdown = () => setDropdownOpen(false);
 
+  // HIDE DROPDOWN WHEN CLICK OUTSIDE
+  const wrapperRef = useRef(null);
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        closeDropdown();
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative ">
+    <div className="relative" ref={wrapperRef}>
       <button onClick={toggleDropdown} className="hover:text-[#b49b8e]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +42,6 @@ const UserDropdown = () => {
       </button>
 
       {dropdownOpen && (
-        
         <div className="absolute -translate-x-1/2 mt-2 w-56 bg-[#806248] shadow-lg z-50">
           <div className="flex items-center gap-2 p-4 border-b">
             <img
@@ -35,9 +49,11 @@ const UserDropdown = () => {
               alt="profile"
               className="w-10 h-10 rounded-full object-cover"
             />
-            <span className="font-semibold text-[##f9f7f3]">Dragon Tempura</span>
+            <span className="font-semibold text-[#f9f7f3]">
+              Dragon Tempura
+            </span>
           </div>
-          <ul className="p-2 bg-[#806248] text-[##f9f7f3]">
+          <ul className="p-2 bg-[#806248] text-[#f9f7f3]">
             <li>
               <Link
                 to="/login"
@@ -69,7 +85,7 @@ const UserDropdown = () => {
               <Link
                 to="/logout"
                 onClick={closeDropdown}
-                className="block px-4 py-2  hover:bg-[#62483a]"
+                className="block px-4 py-2 hover:bg-[#62483a]"
               >
                 Log Out
               </Link>
