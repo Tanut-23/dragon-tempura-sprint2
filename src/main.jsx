@@ -18,6 +18,7 @@ import AuctionPage from "./pages/Auction.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import Animation from "../Animation/Animation.jsx";
 import { CartProvider } from "./contexts/CartContext";
+import AuctionCopy from "./pages/AuctionCopy.jsx";
 
 const theme = createTheme({
   palette: {
@@ -72,6 +73,7 @@ const router = createBrowserRouter([
       { path: "/resetpassword", element: <ForgotPassword /> },
       { path: "/animation", element: <Animation /> },
       { path: "/auction/:id", element: <AuctionPage />},
+      { path: "/auctioncopy", element: <AuctionCopy />},
       // ADD PATH HERE
     ],
   },
