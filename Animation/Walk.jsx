@@ -74,7 +74,7 @@ function Walk() {
                         // console.log("cat found");
                         // setDirection(null);
                         setCat(true);
-                      }else setCat(false)},600); // loop in 1.2 sec so cat will meow every 1.2 sec if player non-stop press direction
+                      }else setCat(false)},500); // loop in 1 sec so cat will meow every 1 sec if player non-stop press direction
                       // if(a.trigger === "cat" && cat === false){
                       //   setCat(true);
                       // }

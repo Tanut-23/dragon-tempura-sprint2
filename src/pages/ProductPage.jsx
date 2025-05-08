@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import products from "../../data/products.js";
+// import products from "../../data/mockUpProduct.js";
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 import ButtonSubmit from "../components/ButtonSubmit";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
@@ -16,7 +17,6 @@ function ProductPage() {
     { label: "Collections", to: "/mainshop" },
     { label: "Type", to: "/shoppage" },
   ];
-  
   const { slug } = useParams();
   useEffect(() => {
     const productData = products.find(

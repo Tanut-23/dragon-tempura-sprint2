@@ -111,6 +111,7 @@ export default function PaymentMethod() {
                   borderRadius: 1,
                   cursor: "pointer",
                 }}
+                disabled= {true}
                 onClick={() => setPaymentMethod("creditCard")}
               >
                 <FormControlLabel
@@ -122,6 +123,7 @@ export default function PaymentMethod() {
                       <Typography>Credit Card</Typography>
                     </Box>
                   }
+                  disabled= {true}
                   sx={{ width: "100%" }}
                 />
               </Paper>

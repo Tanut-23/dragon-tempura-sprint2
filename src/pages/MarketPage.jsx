@@ -16,9 +16,10 @@ export default function MarketPage() {
   // WHEN REFRESH -> GET DATA OF ALL PRODUCTS FROM LOCAL STORAGE
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("products")) || [];
-    setAllProducts(stored);
-    if (stored.length > 0) {
+    const stored = localStorage.getItem("products");
+    const products = stored ? JSON.parse(stored) : [];
+    setAllProducts(products);
+    if (products.length > 0) {
       return setNoPost(false);
     }
   }, []);
@@ -82,8 +83,7 @@ export default function MarketPage() {
           {/* AFTER POST PRODUCT */}
           {!noPost && (
             <div className="relative flex flex-row gap-8 flex-wrap justify-center w-full px-8 py-12 bg-[#f0e0d0] rounded-2xl">
-              {allProducts.length > 0 &&
-                allProducts.map((product) => {
+              { allProducts.map((product) => {
                   return (
                     <PostCard
                       onDelete={() => handleDelete(product.id)}
