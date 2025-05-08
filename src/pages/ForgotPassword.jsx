@@ -5,7 +5,7 @@ import ColumnInput from "../components/ColumnInput";
 import Checkbox from "../components/Checkbox";
 import { useNavigate } from "react-router-dom";
 
-export default function ForgotPassword() {
+export default function ForgotPassword({}) {
   const [email,setEmail] = useState("");
   const [password,setNewPassword] = useState("");
   const navigate = useNavigate();
@@ -86,7 +86,7 @@ export default function ForgotPassword() {
             />
             <ColumnInput
               type={"password"}
-              label={"Pew password"}
+              label={"New password"}
               placeholder={"Enter your new password"}
               fontWeight={"bold"}
               onChange={(e) => setNewPassword(e.target.value)}

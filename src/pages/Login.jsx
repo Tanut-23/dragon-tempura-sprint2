@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ButtonSubmit from "../components/ButtonSubmit";
-import { Box, FormGroup, Link, Stack, Typography } from "@mui/material";
+import { Box, FormGroup,  Stack, Typography } from "@mui/material";
 import ColumnInput from "../components/ColumnInput";
 import Checkbox from "../components/Checkbox";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../contexts/AuthContext";
 
-export default function Login() {
+export default function Login({ onClose , switchToRegister, switchToForgotPassword, prefillEmail = "", prefillPassword = "" }) {
+  const { login } = useAuth();
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const navigate = useNavigate();
@@ -20,10 +22,18 @@ export default function Login() {
     }
 
     try {
-      const res = await axios.post("http://localhost:3000/api/users-login" , checkLoginUser);
-
+      const res = await axios.post("http://localhost:3000/api/users-login" , checkLoginUser , {withCredentials: true,});
+      if(res.data.token && res.data.email && res.data._id){
+        const userData = { _id: res.data._id, email:res.data.email , firstName:res.data.firstName , lastName:res.data.lastName}
+      login(res.data.token , userData);
+    } else {
+      alert("Cann't login, please try again");
+    }
+      console.log(res)
+      onClose();
       alert("Login success, Welcome to Collectico!");
-      navigate("/register")
+      navigate("/")
+      window.location.reload();
     } catch (err){
       if (err.response) {
         alert(err.response.data.message || "Login failed");
@@ -33,6 +43,10 @@ export default function Login() {
       console.error(err);
     }
   }
+  useEffect(() => {
+    if (prefillEmail) setEmail(prefillEmail);
+    if (prefillPassword) setPassword(prefillPassword);
+  }, [prefillEmail, prefillPassword]);
 
   return (
     <div>
@@ -64,6 +78,7 @@ export default function Login() {
               label={"E-mail Address"}
               placeholder={"Enter your email"}
               fontWeight={"bold"}
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <ColumnInput
@@ -71,35 +86,45 @@ export default function Login() {
               label={"Password"}
               placeholder={"Enter your password"}
               fontWeight={"bold"}
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"}>
               <Checkbox label={"Remember me"} size="small" />
               <Box
-                component="a"
-                href="./forgotPassword.html"
                 sx={{ color: "primary.fontGray", fontSize: "0.875rem" }}
               >
-                Forgot password?
+                <Box
+              sx={{ ml: 2, fontSize: "0.875rem" ,
+                ":hover": {
+                  cursor:"pointer",
+                }}}
+              onClick={switchToForgotPassword}
+            >
+            forgot password?
+            </Box>
+                
               </Box>
             </Stack>
             <ButtonSubmit type="submit" 
             width={"364px"} 
-            label={"Sign up"} />
+            label={"Login"} />
           </FormGroup>
         </form>
         </div>
                 <div class="flex flex-col pt-[12px]">
-          <Typography sx={{ fontSize: "0.875rem" , color: "primary.fontGray", placeSelf: "center" }}>
-            Don't have an account yet?
+          <Box sx={{ fontSize: "0.875rem" ,display:"flex" ,color: "primary.fontGray",  placeSelf: "center" }}>
+            <Box>Don't have an account yet?</Box>
             <Box
-              component="a"
-              href="./Register.jsx"
-              sx={{ ml: 2, fontSize: "0.875rem" }}
+              sx={{ ml: 2, fontSize: "0.875rem" ,
+                ":hover": {
+                  cursor:"pointer",
+                }}}
+              onClick={switchToRegister}
             >
-              Sign in
+            Sign in
             </Box>
-          </Typography>
+          </Box>
         </div>
       </Box>
     </div>
