@@ -1,12 +1,11 @@
 import { React, useState } from "react";
 // import products from "../../data/mockUpProduct";
-import products from "../../data/products.js"
+import products from "../../data/products";
 import SearchBox from "../components/SearchBox";
-import MasonryGallery from "../components/MasonryGallery";
+import AuctionGallery from "../components/AuctionGallery";
 
 
-
-function SortBox() {
+function AuctionSort() {
   const [sortState, setSortState] = useState("AZ");
   const [searchKeyword, setSearchKeyword] = useState("");
 
@@ -24,12 +23,13 @@ function SortBox() {
     return (
       product.title.toLowerCase().includes(keyword) ||
       product.artist.toLowerCase().includes(keyword)
-    )
+    );
   })
 
-
+  // SORT
   const selectData = [...searchedProducts].sort((sortMethods[sortState]).method);
   console.log(selectData);
+
   return (
     <div className='flex flex-col gap-[16px] w-full'>
     <div className='flex justify-between'>
@@ -42,8 +42,8 @@ function SortBox() {
         <option value="LH">Price: low to high</option>
       </select>
     </div>
-      <MasonryGallery products={selectData}/>
+      <AuctionGallery products={selectData}/>
     </div>
   );
 }
-export default SortBox;
+export default AuctionSort;
