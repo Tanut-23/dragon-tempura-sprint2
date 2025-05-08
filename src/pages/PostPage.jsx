@@ -186,12 +186,10 @@ export default function PostPage() {
           endDate: endDate, //Send endDate to Local storage
         };
         try {
-          console.log("new user", newProduct);
           const res = await axios.post(
             "http://localhost:3000/api/product-add",
             newProduct
           );
-          console.log("176");
 
           alert("Your artwork is successfully posted!");
           navigate("/market");
@@ -268,7 +266,7 @@ export default function PostPage() {
       const editProduct = products.find((product) => {
         return product.id === editId;
       });
-      console.log(editProduct);
+      // console.log(editProduct);
       if (editProduct) {
         setTitle(editProduct.title);
         setDescription(editProduct.description);
