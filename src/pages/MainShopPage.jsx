@@ -1,70 +1,127 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-
 import Hero from "../components/Hero";
-import Footer from "../components/Footer";
 import Stack from "@mui/material/Stack";
-
 import CollectionCard from "../components/CollectionCard";
+import { Box } from "@mui/material";
 
 function MainShopPage() {
   return (
     <div>
       <Hero />
-      <section className="w-screen px-20 md:px-16 py-8 md:py-16 bg-[#f8e4d4]">
-        <Stack
-          direction={{ xs: "column", sm: "row", md: "row" }}
-          spacing={{ xs: 3, sm: 2, md: 4 }}
-        >
-          <CollectionCard
-            image1="./productPicture/Portrait-Painting-Classic-Art-1.jpg"
-            name="Portait Painting"
-            linkURL="http://localhost:5173/shoppage"
-          />
-          <CollectionCard
-            image1="./productPicture/Landscape-Painting-Modern-Art-5.jpg"
-            name="Landscape Painting"
-            linkURL="http://localhost:5173/shoppage"
-          />
-          <CollectionCard
-            image1="./productPicture/Genre-Painting-Classic-Art-5.jpg"
-            name="Genre Painting"
-            linkURL="http://localhost:5173/shoppage"
-          />
-          <CollectionCard
-            image1="./productPicture/Abstract-Painting-Modern-Art-5.jpg"
-            name="Abstract Painting"
-            linkURL="http://localhost:5173/shoppage"
-          />
-          <CollectionCard
-            image1="./productPicture/Historical-Painting-Classic-Art-2.jpg"
-            name="Historical Painting"
-            linkURL="http://localhost:5173/shoppage"
-          />
-        </Stack>
+      <section className="w-screen  bg-[#f0e0d0]">
+        <div className="container mx-auto px-10 md:px-8 py-8 md:py-8 ">
+          <Stack
+            direction={{ xs: "column", sm: "row", md: "row", lg: "row" }}
+            spacing={{ xs: 2, sm: 2, md: 4 }}
+          >
+            <CollectionCard
+              widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
+              minHeightImage={{
+                xs: "200px",
+                sm: "300px",
+                md: "380px",
+                lg: "380px",
+              }}
+              image1="./productPicture/Portrait-Painting-Classic-Art-1.jpg"
+              name="Portait Painting"
+              linkURL="/shoppage"
+            />
+            <CollectionCard
+              widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
+              minHeightImage={{
+                xs: "310px",
+                sm: "300px",
+                md: "380px",
+                lg: "380px",
+              }}
+              image1="./productPicture/Landscape-Painting-Modern-Art-5.jpg"
+              name="Landscape Painting"
+              linkURL="/shoppage"
+            />
+            <CollectionCard
+              widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
+              minHeightImage={{
+                xs: "280px",
+                sm: "300px",
+                md: "380px",
+                lg: "380px",
+              }}
+              image1="./productPicture/Genre-Painting-Classic-Art-5.jpg"
+              name="Genre Painting"
+              linkURL="/shoppage"
+            />
+            <CollectionCard
+              widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
+              minHeightImage={{
+                xs: "240px",
+                sm: "300px",
+                md: "380px",
+                lg: "380px",
+              }}
+              image1="./productPicture/Abstract-Painting-Modern-Art-5.jpg"
+              name="Abstract Painting"
+              linkURL="/shoppage"
+            />
+            <CollectionCard
+              widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
+              minHeightImage={{
+                xs: "300px",
+                sm: "300px",
+                md: "380px",
+                lg: "380px",
+              }}
+              image1="./productPicture/Historical-Painting-Classic-Art-2.jpg"
+              name="Historical Painting"
+              linkURL="/shoppage"
+            />
+          </Stack>
+        </div>
       </section>
 
-      <section className="w-screen px-20 md:px-40 lg:px-60 py-8 md:py-16 bg-[#f9f7f3]">
-        <Stack
-          direction={{ xs: "column", sm: "row", md: "row" }}
-          spacing={{ xs: 3, sm: 2, md: 4 }}
-        >
-          <CollectionCard
-            image1="./productPicture/Genre-Painting-Classic-Art-3.jpg"
-            name="Classic"
-            linkURL="http://localhost:5173/shoppage"
-          />
-          <CollectionCard
-            image1="./productPicture/Genre-Painting-Modern-Art-3.jpg"
-            name="Modern"
-            linkURL="http://localhost:5173/shoppage"
-          />
-          <CollectionCard
-            image1="./productPicture/Landscape-Painting-Contemporary-Art-4.jpg"
-            name="Contemporary"
-            linkURL="http://localhost:5173/shoppage"
-          />
-        </Stack>
+      <section className="w-screen  bg-[#f2eee7]">
+        <div className="container mx-auto px-10 md:px-8 lg:px-20 2xl:px-52 py-8 md:py-8 ">
+          <Stack
+            direction={{ xs: "column", sm: "row", md: "row" }}
+            spacing={{ xs: 2, sm: 2, md: 4 }}
+          >
+            <CollectionCard
+              widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
+              minHeightImage={{
+                xs: "300px",
+                sm: "300px",
+                md: "380px",
+                lg: "380px",
+              }}
+              image1="./productPicture/Genre-Painting-Classic-Art-3.jpg"
+              name="Classic"
+              linkURL="/shoppage"
+            />
+            <CollectionCard
+              widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
+              minHeightImage={{
+                xs: "300px",
+                sm: "300px",
+                md: "380px",
+                lg: "380px",
+              }}
+              image1="./productPicture/Genre-Painting-Modern-Art-3.jpg"
+              name="Modern"
+              linkURL="/shoppage"
+            />
+            <CollectionCard
+              widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
+              minHeightImage={{
+                xs: "300px",
+                sm: "300px",
+                md: "380px",
+                lg: "380px",
+              }}
+              image1="./productPicture/Landscape-Painting-Contemporary-Art-4.jpg"
+              name="Contemporary"
+              linkURL="/shoppage"
+            />
+          </Stack>
+        </div>
       </section>
     </div>
   );
