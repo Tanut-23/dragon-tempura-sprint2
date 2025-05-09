@@ -6,7 +6,7 @@ import BreadcrumbsNav from "../components/BreadcrumbsNav";
 import ButtonSubmit from "../components/ButtonSubmit";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import { useCart } from "../contexts/CartContext";
-import slugify from "../utils/slugify";
+import slugify from "../utils/Slugify";
 
 function ProductPage() {
   const [product, setProduct] = useState(null);
