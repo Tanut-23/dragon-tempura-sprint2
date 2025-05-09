@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import products from "../../data/products.js";
-// import products from "../../data/mockUpProduct.js";
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 import ButtonSubmit from "../components/ButtonSubmit";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import { useCart } from "../contexts/CartContext";
-import slugify from "../utils/Slugify";
+import axios from "axios";
 
 function ProductPage() {
   const [product, setProduct] = useState(null);
@@ -17,16 +15,21 @@ function ProductPage() {
     { label: "Collections", to: "/mainshop" },
     { label: "Type", to: "/shoppage" },
   ];
-  const { slug } = useParams();
+  const { productId } = useParams();
   useEffect(() => {
-    const productData = products.find(
-      (p) => slugify(p.title) === slug
-    );
-    if (productData) {
-      setProduct(productData);
-    }
-    setLoading(false);
-  }, [slug]);
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3000/api/product/${productId}`
+        );
+        setProduct(res.data?.product ?? null);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+      setLoading(false);
+    };
+    fetchProduct();
+  }, [productId]);
 
   if (loading) {
     return (
@@ -116,7 +119,7 @@ function ProductPage() {
                       key={index}
                       className="bg-[#d4c8b6] px-3 py-1 rounded-md text-sm"
                     >
-                      {tag}
+                      {tag.title}
                     </span>
                   ))}
                 </div>
