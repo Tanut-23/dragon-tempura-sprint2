@@ -72,7 +72,7 @@ function Navbar() {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="size-6 cursor-pointer"
+                className="size-6 cursor-pointer opacity-0"
                 id="hamburger-icon"
               >
                 <path
@@ -90,7 +90,7 @@ function Navbar() {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="size-5"
+                className="size-5 mb-2"
               >
                 <path
                   strokeLinecap="round"
@@ -98,7 +98,7 @@ function Navbar() {
                   d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
                 />
               </svg>
-              <UserDropdown />
+              <UserDropdown/>
               <Link to="/MyOrder">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +106,7 @@ function Navbar() {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="size-5"
+                  className="size-5 mb-2"
                 >
                   <path
                     strokeLinecap="round"
@@ -122,7 +122,7 @@ function Navbar() {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="size-5"
+                  className="size-5 mb-2"
                 >
                   <path
                     strokeLinecap="round"
@@ -138,7 +138,6 @@ function Navbar() {
             <Link to="/mainshop">Shop</Link>
             <Link to="/auction/1">Auction</Link>
             <a href="#">About</a>
-            <a href="#">Contact</a>
           </div>
         </div>
         {/* nav-pc */}
@@ -171,9 +170,6 @@ function Navbar() {
                 Auction
               </Link>
               <a href="#">About</a>
-              <a href="#" className="hover:text-white">
-                Contact
-              </a>
             </div>
             <div className="flex items-center space-x-4 pr-6">
               <svg

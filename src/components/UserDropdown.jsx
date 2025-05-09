@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@mui/material";
@@ -9,18 +9,30 @@ const UserDropdown = () => {
   const [lastName , setLastName] = useState("")
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+ 
 
-  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
   const closeDropdown = () => setDropdownOpen(false);
-
   useEffect(() => {
     if (user) {
       setFirstName(user.firstName);
       setLastName(user.lastName);}
   },[user])
 
+  const wrapperRef = useRef(null);
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        closeDropdown();
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
-    <div className="relative ">
+    <div className="relative" ref={wrapperRef}>
       <button onClick={toggleDropdown} className="hover:text-[#b49b8e]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +60,7 @@ const UserDropdown = () => {
             />
             <span className=" font-medium text-[##f9f7f3]">{firstName || "Guest"}      {lastName} </span>
           </div>
-          <ul className="p-2 bg-[#806248] text-[##f9f7f3]">
+          <ul className="p-2 bg-[#806248] text-[#f9f7f3]">
             <li>
               <Link
                 to="/login"
