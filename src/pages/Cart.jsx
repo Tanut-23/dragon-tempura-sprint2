@@ -4,12 +4,29 @@ import InputField from '../components/InlineInput';
 import ButtonSubmit from '../components/ButtonSubmit';
 import RadioButtonExample from '../components/radio';
 import HorizontalLinearStepper from '../components/Step';
-
+import { useCart } from "../contexts/CartContext";
+import { useNavigate } from "react-router-dom";
+import React,{useEffect} from  'react';
 
 function Cart() {
 
+  const { cartItems, cartCount } = useCart();
+  const navigate = useNavigate()
+
+  const totalPrices = cartItems.reduce((total, product)=>total+product.price, 0);
+  const tax = Math.ceil(totalPrices/10);
+  const shipping = 150;
+  const sumPrices = totalPrices + tax + shipping;
 
 
+  // console.log(totalPrices);
+  // console.log(cartItems);
+
+  useEffect(() => {
+    if (cartCount === 0) {
+      navigate('/shoppage');
+    }
+  }, [cartCount, navigate]);
 
   return (
     <div className="bg-[#F0E0D0] w-[100vw] flex flex-col items-center px-[10%] pt-[32px]">
@@ -19,59 +36,34 @@ function Cart() {
           Review your items and proceed to checkout
         </p>
       </header>
-      <main className="flex justify-start w-full">
-        <section className="flex flex-col gap-[16px] w-[30%] items-center overflow-y-auto scrollbar-hide max-h-[1100px] p-[8px] bg-[#E9E2D6] rounded-tl-lg rounded-bl-lg">
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"} />
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
-          <ProductCard elevation={3} image={"./decoration/hero-picture.png"} title={"JSD9"} artist={"Mate"} price={"1,000"}/>
+      <main className="flex max-md:flex-col-reverse justify-start w-full max-md:gap-[16px]">
+        <section className="flex md:flex-col gap-[16px] w-[100%] md:w-[30%] min-w-[240px] items-center overflow-y-auto scrollbar-hide max-h-[1100px] p-[8px] bg-[#E9E2D6] rounded-tl-lg rounded-bl-lg">
+        {cartItems.map((products)=>(
+            <ProductCard  elevation={3} image={products.image}  title={products.title} artist={products.artist} price={products.price}/>
+          ))}
         </section>
-        <div className="flex flex-col gap-[16px] w-[65%] bg-[#F2EEE7] rounded-tr-lg rounded-br-lg overflow-hidden border-0 px-[5%] py-[32px]">
+        <div className="flex flex-col gap-[16px] md:w-[65%] w-[100%] min-w-[300px] bg-[#F2EEE7] rounded-tr-lg rounded-br-lg overflow-hidden border-0 px-[5%] py-[32px]">
         <Paper elevation={3}
           sx={{ p: 3, mb: 4, bgcolor: "#f9f7f3", color: "#62483a", display:'flex', flexDirection:"column", gap:"16px"}}>
         <Typography sx={{ width:"100%", color: "primary.main" , fontWeight:600, fontSize: "1.5rem"}}>Order Summary</Typography>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Sub total</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>$14,900</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${totalPrices}</Typography>
         </div>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Shipping</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>$150</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${shipping}</Typography>
         </div>
         <div className='flex justify-between gap-[24px] border-b-2'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Tax</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>$1490</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${tax}</Typography>
         </div>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Total</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>$16,550</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${sumPrices}</Typography>
         </div>
         </Paper>
         <HorizontalLinearStepper />
-        {/* <Typography sx={{ width:"100%", color: "primary.main" , fontWeight:600, fontSize: "1.5rem"}}>Order Summary</Typography>
-        <div className='flex justify-between gap-[24px]'>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Sub total</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>$14,900</Typography>
-        </div>
-        <div className='flex justify-between gap-[24px]'>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Shipping</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>$150</Typography>
-        </div>
-        <div className='flex justify-between gap-[24px] border-b-2'>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Tax</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>$1490</Typography>
-        </div>
-        <div className='flex justify-between gap-[24px] mb-[24px]'>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Total</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>$16,550</Typography>
-        </div> */}
         </div>
       </main>
     </div>

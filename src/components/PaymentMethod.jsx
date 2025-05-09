@@ -111,6 +111,7 @@ export default function PaymentMethod() {
                   borderRadius: 1,
                   cursor: "pointer",
                 }}
+                disabled= {true}
                 onClick={() => setPaymentMethod("creditCard")}
               >
                 <FormControlLabel
@@ -122,6 +123,7 @@ export default function PaymentMethod() {
                       <Typography>Credit Card</Typography>
                     </Box>
                   }
+                  disabled= {true}
                   sx={{ width: "100%" }}
                 />
               </Paper>
@@ -165,6 +167,7 @@ export default function PaymentMethod() {
               placeholder="1234 5678 9012 3456"
               fullWidth
               variant="outlined"
+              disabled
             />
             <TextField
               label="Cardholder Name *"
@@ -172,6 +175,7 @@ export default function PaymentMethod() {
               onChange={handleCardDetailsChange("cardholderName")}
               placeholder="Lisa Alisa"
               fullWidth
+              disabled
               variant="outlined"
             />
             <Grid container spacing={2}>
@@ -182,6 +186,7 @@ export default function PaymentMethod() {
                   onChange={handleCardDetailsChange("expirationDate")}
                   placeholder="MM/YY"
                   fullWidth
+                  disabled
                   variant="outlined"
                 />
               </Grid>
@@ -193,6 +198,7 @@ export default function PaymentMethod() {
                   onChange={handleCardDetailsChange("cvv")}
                   placeholder="123"
                   fullWidth
+                  disabled
                   variant="outlined"
                 />
               </Grid>

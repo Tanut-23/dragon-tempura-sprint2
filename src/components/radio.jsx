@@ -38,7 +38,7 @@ const RadioButtonExample = () => {
     </Typography>} />
     <Typography sx={{ color: "text.secondary", fontSize: "1rem",padding: "16px 0 16px 0"}}>
      $150
-    </Typography></div> 
+    </Typography></div>
     <div className="flex gap-[24px] justify-between">
     <FormControlLabel value="option1" control={<Radio />} label={
     <Typography sx={{ color: "text.secondary", fontSize: "1rem",padding: "16px 0 16px 0"}}>
@@ -59,16 +59,6 @@ const RadioButtonExample = () => {
     <Typography sx={{ color: "text.secondary", fontSize: "1rem",padding: "16px 0 16px 0"}}>
      $500
     </Typography></div>
-    {/* <div className="flex gap-[24px] justify-between">
-    <FormControlLabel value="option3" control={<Radio />} label={
-    <Typography sx={{ color: "text.secondary", fontSize: "1rem",padding: "16px 0 16px 0"}}>
-      Standard Shipping
-      <br />
-      Secure packaging without installation service (10-14 business days)
-    </Typography>} />
-    <Typography sx={{ color: "text.secondary", fontSize: "1rem",padding: "16px 0 16px 0"}}>
-     $150
-    </Typography></div> */}
     </RadioGroup>
     </FormControl>
     </Paper>

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import products from "../../data/products.js";
+// import products from "../../data/mockUpProduct.js";
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 import ButtonSubmit from "../components/ButtonSubmit";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import { useCart } from "../contexts/CartContext";
+import slugify from "../utils/Slugify";
 
 function ProductPage() {
   const [product, setProduct] = useState(null);
@@ -15,17 +17,16 @@ function ProductPage() {
     { label: "Collections", to: "/mainshop" },
     { label: "Type", to: "/shoppage" },
   ];
-  
-  const { productId } = useParams();
+  const { slug } = useParams();
   useEffect(() => {
     const productData = products.find(
-      (p) => p.id === parseInt(productId) || p.id === productId
+      (p) => slugify(p.title) === slug
     );
     if (productData) {
       setProduct(productData);
     }
     setLoading(false);
-  }, [productId]);
+  }, [slug]);
 
   if (loading) {
     return (
@@ -43,7 +44,7 @@ function ProductPage() {
     );
   }
 
-  const addedToCart = isInCart(product.id);
+  const addedToCart = isInCart(product.title);
 
   return (
     <main className="bg-[#f2eee7]">

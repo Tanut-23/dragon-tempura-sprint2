@@ -17,15 +17,17 @@ export default function AuctionCard({
   artist,
   price,
   linkUrl,
+  width = 320,
+  height = 510,
 }) {
   return (
     <Link to={linkUrl}>
       <Card
         elevation={elevation}
         sx={{
-          minWidth: 320,
-          width: 320,
-          height: 510,
+          minWidth: 330,
+          width: width,
+          height: height,
           color: "primary.chocolate",
           overflow: "visible",
           borderRadius: "12px",

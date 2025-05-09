@@ -18,12 +18,6 @@ import AuctionPage from "./pages/Auction.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import Animation from "../Animation/Animation.jsx";
 import { CartProvider } from "./contexts/CartContext";
-import MembershipPage from "./pages/MembershipPage.jsx";
-import Luminarypage from "./pages/Luminarypage.jsx";
-import CorporateSponsorshipPage from "./pages/CorporateSponsorshipPage.jsx";
-import MissionPage from "./pages/MissionPage.jsx";
-import MeetTeamMemberPage from "./pages/MeetTeamMemberPage.jsx";
-import FinancialReportingPage from "./pages/FinancialReportingPage.jsx";
 
 const theme = createTheme({
   palette: {
@@ -74,9 +68,10 @@ const router = createBrowserRouter([
       { path: "/cart", element: <Cart /> },
       { path: "/myorder", element: <MyOrderPage /> },
       { path: "/shoppage", element: <ShopPage /> },
-      { path: "/product/:productId", element: <ProductPage /> },
+      { path: "/product/:slug", element: <ProductPage /> },
       { path: "/resetpassword", element: <ForgotPassword /> },
       { path: "/animation", element: <Animation /> },
+      { path: "/auction", element: <AuctionShopPage /> },
       { path: "/auction/:id", element: <AuctionPage /> },
       { path: "/membership", element: <MembershipPage /> },
       { path: "/luminary", element: <Luminarypage /> },
@@ -84,6 +79,7 @@ const router = createBrowserRouter([
       { path: "/mission", element: <MissionPage /> },
       { path: "/teammember", element: <MeetTeamMemberPage /> },
       { path: "/financialreport", element: <FinancialReportingPage /> },
+      { path: "/auction/:id", element: <AuctionPage /> },
       // ADD PATH HERE
     ],
   },
@@ -91,10 +87,12 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
-    <CartProvider>
-      <App>
-        <RouterProvider router={router} />
-      </App>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <App>
+          <RouterProvider router={router} />
+        </App>
+      </CartProvider>
+    </AuthProvider>
   </ThemeProvider>
 );
