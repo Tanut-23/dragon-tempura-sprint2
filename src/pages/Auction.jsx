@@ -6,6 +6,7 @@ import ButtonSubmit from "../components/ButtonSubmit";
 import { useParams } from "react-router-dom";
 import products from "../../data/products";
 
+
 // Mockup data
 // const mockupData = {
 //   title: "Mockup title",

@@ -4,8 +4,6 @@ import products from "../../data/products.js"
 import SearchBox from "../components/SearchBox";
 import MasonryGallery from "../components/MasonryGallery";
 
-
-
 function SortBox() {
   const [sortState, setSortState] = useState("AZ");
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -42,7 +40,7 @@ function SortBox() {
         <option value="LH">Price: low to high</option>
       </select>
     </div>
-      <MasonryGallery products={selectData}/>
+    <MasonryGallery products={selectData}/>
     </div>
   );
 }

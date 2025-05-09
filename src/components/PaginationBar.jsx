@@ -4,9 +4,7 @@ import React from "react";
 export default function PaginationBar() {
   return (
     <Stack>
-      <Pagination color="primary"
-      size="large"
-      count={10} />
+      <Pagination color="primary" size="large" count={10} />
     </Stack>
   );
 }

@@ -16,16 +16,6 @@ import Address from './Address';
 const steps = ['Shipping Method', 'Shipping Address', 'Payment Method'];
 const step = [<Radio />,  <Address />, <PaymentMethod />];
 
-// const stepHead =[
-//     <div className ="flex gap-[16px] py-[16px] pt-[32px] ">
-//         <Typography sx={{ width:"100%", color: "primary.main" , fontWeight:600, fontSize: "1.5rem"}}>Shipping Method</Typography>
-//     </div>,
-//     <div className ="flex gap-[16px] py-[16px] pt-[32px] ">
-//         <Typography sx={{ width:"100%", color: "primary.main" , fontWeight:600, fontSize: "1.5rem"}}>Shipping Address</Typography>
-//     </div>,
-//     <div className ="flex gap-[16px] py-[16px] pt-[32px] ">
-//         <Typography sx={{ width:"100%", color: "primary.main" , fontWeight:600, fontSize: "1.5rem"}}>Payment Method</Typography>
-//     </div>];
 
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
@@ -105,7 +95,7 @@ export default function HorizontalLinearStepper() {
             >
               Back
             </Button> */}
-            <ButtonSubmit onClick={handleBack}   mate={activeStep === 0} label={"Back"}></ButtonSubmit>
+            <ButtonSubmit onClick={handleBack} mate={activeStep === 0} label={"Back"}></ButtonSubmit>
             <Box sx={{ flex: '1 1 auto' }} />
             {activeStep < steps.length - 1 && (
               // <Button color="inherit" onClick={handleSkip} sx={{ mr: 1, background:"" }}>
@@ -115,7 +105,7 @@ export default function HorizontalLinearStepper() {
             {/* <Button onClick={handleNext}>
             <ButtonSubmit label={Test}></ButtonSubmit>
             </Button> */}
-            <ButtonSubmit onClick={handleNext} ml="16px" label={Test}></ButtonSubmit>
+            <ButtonSubmit onClick={handleNext} ml="16px" label={Test}> </ButtonSubmit>
           </Box>
         </React.Fragment>
       )}

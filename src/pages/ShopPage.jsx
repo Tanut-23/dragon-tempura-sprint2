@@ -18,7 +18,7 @@ export default function ShopPage() {
             resources.
           </p>
           <div className="my-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-              <SortBox />
+          <SortBox />
           </div>
         </div>
       </div>

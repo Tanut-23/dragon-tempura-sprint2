@@ -1,10 +1,9 @@
 import React from "react";
 import { Paper, Typography, Box } from "@mui/material";
 
-const StatsCard = ({ title, value }) => {
+const StatsCard = ({ title, value, fontSize, mt }) => {
   return (
     <Paper
-      //   elevation={}
       sx={{
         p: 3,
         borderRadius: 2,
@@ -19,6 +18,7 @@ const StatsCard = ({ title, value }) => {
         component="p"
         sx={{
           fontWeight: 500,
+          fontSize: fontSize,
           textTransform: "uppercase",
           letterSpacing: 1,
           color: "text.secondary",
@@ -27,11 +27,12 @@ const StatsCard = ({ title, value }) => {
         {title}
       </Typography>
       <Typography
-        variant="h5"
+        variant="h6"
         component="p"
         sx={{
           mt: 1,
           fontWeight: 100,
+          fontSize: fontSize,
           color: "text.primary",
         }}
       >
