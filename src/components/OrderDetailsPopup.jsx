@@ -117,7 +117,6 @@ const OrderDetailsPopup = ({
   status,
   items,
   statusTag,
-  status,
 }) => {
   const [orderDetails, setOrderDetails] = useState(null);
   const [loading, setLoading] = useState(true);
