@@ -17,7 +17,7 @@ export default function ProductCard({elevation, image, title, artist, price, min
             {artist}
           </Typography>
           <Typography sx={{ fontSize:'1.35rem' }}>
-            {price}
+            ${price}
           </Typography>
         </CardContent>
       </CardActionArea>
