@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ButtonSubmit from "./ButtonSubmit";
-import mockOrderDetails from "../../data/mockOrderDetails";
+// import mockOrderDetails from "../../data/mockOrderDetails";
 import StatusTag from "./StatusTag";
 
-// สร้างไอคอนพื้นฐานด้วย SVG แทนการใช้ Lucide React
 const Icons = {
   Close: () => (
     <svg
@@ -108,13 +107,16 @@ const Icons = {
   ),
 };
 
+// *************** THIS COMPONENT EXPORT FUNCTION APP BELOW ***************//
+
 const OrderDetailsPopup = ({
   orderId,
   onClose,
   subtotal,
   total,
-  statusTag,
   status,
+  items,
+  statusTag,
 }) => {
   const [orderDetails, setOrderDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -268,8 +270,9 @@ const OrderDetailsPopup = ({
               Purchased Items
             </h3>
 
+            {/* Items Block */}
             <div className="border rounded-lg overflow-hidden">
-              {orderDetails.items.map((item, index) => (
+              {items.map((item, index) => (
                 <div
                   key={item.id}
                   className={`p-4 flex items-center ${
@@ -277,7 +280,8 @@ const OrderDetailsPopup = ({
                   }`}
                 >
                   <img
-                    src="https://i.pinimg.com/736x/4f/b8/95/4fb8951ee4abaaf4f159d9db98718bfa.jpg"
+                    // src="https://i.pinimg.com/736x/4f/b8/95/4fb8951ee4abaaf4f159d9db98718bfa.jpg"
+                    src={item.image}
                     alt={item.title}
                     className="w-20 h-20 object-cover rounded mr-4"
                   />
@@ -290,7 +294,12 @@ const OrderDetailsPopup = ({
                       <div className="text-sm text-gray-500">
                         Qty: {item.quantity}
                       </div>
-                      <p className="font-medium text-gray-900">{item.price}</p>
+                      <p className="font-medium text-gray-900">
+                        $
+                        {item.price.toLocaleString("en-US", {
+                          minimumFractionDigits: 2,
+                        })}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -306,7 +315,11 @@ const OrderDetailsPopup = ({
             <div className="bg-gray-50 rounded-lg p-4">
               <div className="flex justify-between mb-2">
                 <span className="text-gray-500">Subtotal</span>
-                <span>{subtotal}</span>
+                <span>
+                  ${subtotal.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                  })}
+                </span>
               </div>
               <div className="flex justify-between mb-2">
                 <span className="text-gray-500">Shipping</span>
@@ -319,7 +332,9 @@ const OrderDetailsPopup = ({
               <div className="border-t my-2 pt-2"></div>
               <div className="flex justify-between text-[#62483a] font-medium">
                 <span>Total</span>
-                <span>{total}</span>
+                <span>${total.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                  })}</span>
               </div>
             </div>
           </div>
@@ -339,8 +354,8 @@ const OrderDetailsPopup = ({
   );
 };
 
-// ตัวอย่างการใช้งาน component
-const App = ({ orderId, total, subtotal, statusTag, status }) => {
+// -----EXPORT THIS APP -------
+const App = ({ orderId, total, subtotal, statusTag, status, items }) => {
   const [showOrderDetails, setShowOrderDetails] = useState(false);
 
   return (
@@ -374,6 +389,7 @@ const App = ({ orderId, total, subtotal, statusTag, status }) => {
           subtotal={subtotal}
           status={status}
           onClose={() => setShowOrderDetails(false)}
+          items={items}
         />
       )}
     </div>

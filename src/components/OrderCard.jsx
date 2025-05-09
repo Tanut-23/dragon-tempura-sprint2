@@ -3,22 +3,21 @@ import { Box, Typography, Button, Chip, Divider } from "@mui/material";
 import StatusTag from "./StatusTag";
 import { useState } from "react";
 import OrderDetailsPopup from "./OrderDetailsPopup";
-import mockOrderDetails from "../../data/mockOrderDetails";
+// import mockOrderDetails from "../../data/mockOrderDetails";
 
 export default function OrderCard({
   orderNumber,
   status,
-  statusColor,
   orderDate,
   totalAmount,
   paymentStatus,
   shippingAddressName,
   shippingAddressAddress,
   shippingAddressCity,
-  title,
+  items
 }) {
   const [showOrderDetails, setShowOrderDetails] = useState(true);
-
+  
   return (
     <Box
       className="order-card"
@@ -60,7 +59,8 @@ export default function OrderCard({
         </Box>
 
         <Box display="flex" flexDirection="column" alignItems="flex-end">
-          <Typography variant="h6">${totalAmount}</Typography>
+          <Typography variant="h6">${totalAmount.toLocaleString('en-US',{
+  minimumFractionDigits: 2})}</Typography>
           <Typography variant="body2" fontWeight="500">
             {paymentStatus}
           </Typography>
@@ -90,6 +90,7 @@ export default function OrderCard({
           subtotal={totalAmount}
           status={status}
           onClose={() => setShowOrderDetails(false)}
+          items={items}
         />
       )}
     </Box>
