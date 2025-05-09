@@ -11,8 +11,10 @@ import PostCard from "../components/PostCard";
 import CloseIcon from "@mui/icons-material/Close";
 import PreviewCard from "../components/PreviewCard";
 import axios from "axios";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function PostPage() {
+  const { user } = useAuth();
   // STATE FOR KEEP ONCHANGE INPUT VALUE
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -178,7 +180,7 @@ export default function PostPage() {
           material,
           yearCreated,
           tags,
-          sellerName: "PMate",
+          sellerName:`${user.firstName} ${user.lastName}`,
           auction: auction,
           minBidPrice: minBidPrice,
           days: days,
@@ -186,12 +188,10 @@ export default function PostPage() {
           endDate: endDate, //Send endDate to Local storage
         };
         try {
-          console.log("new user", newProduct);
-          const res = await axios.post(
+          await axios.post(
             "http://localhost:3000/api/product-add",
-            newProduct
+            newProduct , { withCredentials: true }
           );
-          console.log("176");
 
           alert("Your artwork is successfully posted!");
           navigate("/market");
@@ -200,11 +200,6 @@ export default function PostPage() {
           alert("Failed to post your product, Try again later.");
         }
 
-        const stored = localStorage.getItem("products");
-        const products = stored ? JSON.parse(stored) : [];
-        products.push(newProduct);
-
-        localStorage.setItem("products", JSON.stringify(products));
       }
 
       // CLICK UPDATE BUTTON
@@ -268,7 +263,7 @@ export default function PostPage() {
       const editProduct = products.find((product) => {
         return product.id === editId;
       });
-      console.log(editProduct);
+      // console.log(editProduct);
       if (editProduct) {
         setTitle(editProduct.title);
         setDescription(editProduct.description);

@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
     setCartItems((currentCarts) => {
       const exists = currentCarts.find((item) => item.id === product.id);
       if (exists) {
-        // ถ้ามีแล้วให้ลบออก (ยกเลิก)
+        // ถ้ามีแล้วให้ลบออก
         return currentCarts.filter((item) => item.id !== product.id);
       } else {
         // ถ้ายังไม่มีให้เพิ่มเข้า

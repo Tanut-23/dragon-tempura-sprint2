@@ -19,6 +19,7 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 import Animation from "../Animation/Animation.jsx";
 import { CartProvider } from "./contexts/CartContext";
 import AuctionShopPage from "./pages/AuctionShopPage.jsx";
+import { AuthProvider } from "./contexts/AuthContext.jsx";
 
 const theme = createTheme({
   palette: {
@@ -69,7 +70,7 @@ const router = createBrowserRouter([
       { path: "/cart", element: <Cart /> },
       { path: "/myorder", element: <MyOrderPage /> },
       { path: "/shoppage", element: <ShopPage /> },
-      { path: "/product/:productId", element: <ProductPage /> },
+      { path: "/product/:slug", element: <ProductPage /> },
       { path: "/resetpassword", element: <ForgotPassword /> },
       { path: "/animation", element: <Animation /> },
       { path: "/auction/:id", element: <AuctionPage />},
@@ -81,10 +82,12 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
+    <AuthProvider>
     <CartProvider>
       <App>
         <RouterProvider router={router} />
       </App>
     </CartProvider>
+    </AuthProvider>
   </ThemeProvider>
 );
