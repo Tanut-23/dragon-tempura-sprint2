@@ -19,7 +19,14 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 import Animation from "../Animation/Animation.jsx";
 import { CartProvider } from "./contexts/CartContext";
 import AuctionShopPage from "./pages/AuctionShopPage.jsx";
+import MembershipPage from "./pages/MembershipPage.jsx";
+import Luminarypage from "./pages/LuminaryPage.jsx";
+import CorporateSponsorshipPage from "./pages/CorporateSponsorshipPage.jsx";
+import MissionPage from "./pages/MissionPage.jsx";
+import MeetTeamMemberPage from "./pages/MeetTeamMemberPage.jsx";
+import FinancialReportingPage from "./pages/FinancialReportingPage.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
+import OurStoryPage from "./pages/OurStoryPage.jsx";
 
 const theme = createTheme({
   palette: {
@@ -74,8 +81,15 @@ const router = createBrowserRouter([
       { path: "/product/:slug", element: <ProductPage /> },
       { path: "/resetpassword", element: <ForgotPassword /> },
       { path: "/animation", element: <Animation /> },
-      { path: "/auction/:id", element: <AuctionPage />},
-      { path: "/auction", element: <AuctionShopPage />},
+      { path: "/auction", element: <AuctionShopPage /> },
+      { path: "/auction/:id", element: <AuctionPage /> },
+      { path: "/membership", element: <MembershipPage /> },
+      { path: "/luminary", element: <Luminarypage /> },
+      { path: "/sponsorship", element: <CorporateSponsorshipPage /> },
+      { path: "/mission", element: <MissionPage /> },
+      { path: "/teammember", element: <MeetTeamMemberPage /> },
+      { path: "/financialreport", element: <FinancialReportingPage /> },
+      { path: "/ourstory", element: <OurStoryPage /> },
       // ADD PATH HERE
     ],
   },
@@ -84,11 +98,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
     <AuthProvider>
-    <CartProvider>
-      <App>
-        <RouterProvider router={router} />
-      </App>
-    </CartProvider>
+      <CartProvider>
+        <App>
+          <RouterProvider router={router} />
+        </App>
+      </CartProvider>
     </AuthProvider>
   </ThemeProvider>
 );

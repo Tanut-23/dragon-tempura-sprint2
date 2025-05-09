@@ -27,15 +27,44 @@ function Hero() {
 
           color: "#62483a",
           padding: "20px",
-          backgroundColor: "rgba(0, 0, 0, 0.0)", // เพิ่มพื้นหลังมืดๆ เพื่อให้ข้อความอ่านง่ายขึ้น
-          borderRadius: "8px",
-          maxWidth: "80%",
+
+          maxWidth: "100%",
         }}
       >
-        <Typography variant="h3" component="h1" fontWeight="bold">
+        <Typography
+          sx={{
+            fontSize: {
+              xs: "0.8rem", // หน้าจอเล็ก
+              sm: "2rem", // หน้าจอขนาด tablet
+              md: "2.5rem", // หน้าจอขนาดกลาง
+              lg: "3rem", // หน้าจอขนาดใหญ่
+              xl: "4.4rem", // หน้าจอขนาด 1536px ขึ้นไป (ค่าเริ่มต้นของ xl)
+            },
+            lineHeight: {
+              xs: 1.2,
+              xl: 1.1,
+            },
+          }}
+          variant="h3"
+          component="h1"
+          fontWeight="bold"
+        >
           Express yourself through Collectico:
         </Typography>
         <Typography
+          sx={{
+            fontSize: {
+              xs: "0.8rem", // หน้าจอเล็ก
+              sm: "2rem", // หน้าจอขนาด tablet
+              md: "2.5rem", // หน้าจอขนาดกลาง
+              lg: "3rem", // หน้าจอขนาดใหญ่
+              xl: "4.4rem", // หน้าจอขนาด 1536px ขึ้นไป (ค่าเริ่มต้นของ xl)
+            },
+            lineHeight: {
+              xs: 1.2,
+              xl: 1.1,
+            },
+          }}
           variant="h3"
           component="h2"
           mt={2}

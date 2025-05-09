@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ButtonLR from "../components/ButtonLR";
 import ButtonSubmit from "../components/ButtonSubmit";
 import { Stack, Box, Typography } from "@mui/material";
 import AuctionCard from "../components/AuctionCard";
 import ReviewCard from "../components/ReviewCard";
 
-import products from "../../data/products";
+// import products from "../../data/products";
 import reviews from "../../data/reviews";
 import { useRef } from "react";
 import CollectionCard from "../components/CollectionCard";
 import { Link } from "react-router-dom";
+import axios from "axios";
 // import mockUpProduct from "../../data/mockUpProduct"
 
 export default function LandingPage() {
@@ -17,6 +18,9 @@ export default function LandingPage() {
   const shopContainerRef = useRef();
   const auctionContainerRef = useRef();
   const reviewContainerRef = useRef();
+
+  const [collectionData, setCollectionData] = useState([]);
+  const [auctionData, setAuctionData] = useState([]);
 
   function scrollLeft(ref, move) {
     if (ref.current) {
@@ -35,6 +39,35 @@ export default function LandingPage() {
       });
     }
   }
+
+  // CONNECT TO BACKEND
+  async function getData() {
+    try {
+      //product
+      const productData = await axios.get(
+        "http://localhost:3000/api/product-get",
+        {
+          withCredentials: true,
+        }
+      );
+      setCollectionData(productData.data.allProduct || []);
+
+      //auction product
+      const auctionData = await axios.get(
+        "http://localhost:3000/api/product-get-auction",
+        {
+          withCredentials: true,
+        }
+      );
+      setAuctionData(auctionData.data.allAuctionProduct || []);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div className="text-[#62483A] w-full min-h-[100vh]">
@@ -137,7 +170,7 @@ export default function LandingPage() {
             },
           }}
         >
-          {products.slice(4).map((product) => {
+          {collectionData.map((product) => {
             return (
               <CollectionCard
                 key={product.id}
@@ -151,20 +184,30 @@ export default function LandingPage() {
                 minHeightImage="350px"
                 linkURL={`/product/${product.id}`}
               />
-
-              // <TCollectionCard
-              //   image={product.image}
-              //   title={product.title}
-              //   artist={product.artist}
-              //   price={product.price}
-              // />
             );
           })}
+
+          {/* {products.slice(4).map((product) => {
+            return (
+              <CollectionCard
+                key={product.id}
+                image1={product.image}
+                name={product.title}
+                detail={product.artist}
+                prices={product.price}
+                minWidth="320px"
+                minHeight="300px"
+                height="350px"
+                minHeightImage="350px"
+                linkURL={`/product/${product.id}`}
+              />
+            );
+          })} */}
         </Stack>
         {/* ButtonSubmit */}
         <div className="w-[45%] md:w-[20%] lg:w-[15%] hover:scale-120 transition-all duration-900 ease-in-out">
-        <Link to="/mainshop">
-          <ButtonSubmit label="Explore Our Shop" width="100%" />
+          <Link to="/mainshop">
+            <ButtonSubmit label="Explore Our Shop" width="100%" />
           </Link>
         </div>
       </section>
@@ -231,7 +274,20 @@ export default function LandingPage() {
             },
           }}
         >
-          {products.map((product) => {
+          {auctionData.map((product) => {
+            return (
+              <AuctionCard
+                key={product._id}
+                image={product.image}
+                title={product.title}
+                artist={product.artist}
+                price={product.price}
+                linkUrl={`/auction/${product._id}`}
+              />
+            );
+          })}
+
+          {/* {products.map((product) => {
             return (
               <AuctionCard
                 key={product.id}
@@ -242,7 +298,7 @@ export default function LandingPage() {
                 linkUrl={`/auction/${product.id}`}
               />
             );
-          })}
+          })} */}
         </Stack>
         {/* ButtonSubmit */}
         <div className="w-[30%] lg:w-[15%] hover:scale-120 transition-all duration-900 ease-in-out">
@@ -355,7 +411,9 @@ export default function LandingPage() {
 
           {/* ButtonSubmit */}
           <div className="w-[40%] lg:w-[30%] hover:scale-120  transition-all duration-900 ease-in-out">
-            <ButtonSubmit label="Our Story" width="100%" />
+            <Link to="/ourstory">
+              <ButtonSubmit label="Our Story" width="100%" />
+            </Link>
           </div>
         </article>
         <figure class="w-[40%] h-auto hidden sm:flex gap-[12px]">

@@ -22,9 +22,15 @@ function Footer() {
           <div className="grid grid-cols-2 border-white border-b">
             <div className="ml-2 sm:ml-5 p-2 sm:p-3">
               <h2 className="font-bold pb-2 sm:pb-4">Support us</h2>
-              <p>Membership</p>
-              <p>Luminary</p>
-              <p>Sponsorship</p>
+              <a href="/membership">Membership</a>
+              <p>
+                {" "}
+                <a href="/luminary">Luminary</a>
+              </p>
+              <p>
+                {" "}
+                <a href="/sponsorship">Corporate Sponsorship</a>
+              </p>
             </div>
             <div className="p-2 sm:p-3 flex flex-col justify-center">
               <img
@@ -55,15 +61,24 @@ function Footer() {
             <div className="flex items-center justify-center col-span-2 border-white border-r">
               <div className="p-2">
                 <h2 className="font-bold pb-1 sm:pb-2">About us</h2>
-                <p>Mission and history</p>
-                <p>Leadership</p>
-                <p>Financial reporting</p>
+                <p>
+                  {" "}
+                  <a href="/mission">Mission and History</a>
+                </p>
+                <p>
+                  {" "}
+                  <a href="/teammember">Meet Team Member</a>
+                </p>
+                <p>
+                  {" "}
+                  <a href="/financialreport">Financial Reporting</a>
+                </p>
               </div>
             </div>
             <div className="grid items-center justify-center p-1 sm:p-2">
               <h2 className="font-bold">Follow us</h2>
               <div className="grid items-center justify-center space-y-2 sm:space-y-3">
-                <a href="#">
+                <a href="https://www.facebook.com/">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-3 w-3 sm:h-4 sm:w-4"
@@ -73,7 +88,7 @@ function Footer() {
                     <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
                   </svg>
                 </a>
-                <a href="#">
+                <a href="https://x.com/">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-3 w-3 sm:h-4 sm:w-4"
@@ -83,7 +98,7 @@ function Footer() {
                     <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                   </svg>
                 </a>
-                <a href="#">
+                <a href="https://www.instagram.com/accounts/login/?hl=en">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-3 w-3 sm:h-4 sm:w-4"
@@ -129,13 +144,13 @@ function Footer() {
               <h3 className="text-base font-semibold mb-4">Support Us</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#">Membership</a>
+                  <a href="/membership">Membership</a>
                 </li>
                 <li>
-                  <a href="#">Luminary</a>
+                  <a href="/luminary">Luminary</a>
                 </li>
                 <li>
-                  <a href="#">Corporate Sponsorship</a>
+                  <a href="/sponsorship">Corporate Sponsorship</a>
                 </li>
               </ul>
               <div className="mt-6 flex space-x-4">
@@ -155,18 +170,18 @@ function Footer() {
               <h3 className="text-base font-semibold mb-4">About Us</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#">Mission and History</a>
+                  <a href="/mission">Mission and History</a>
                 </li>
                 <li>
-                  <a href="#">Leadership</a>
+                  <a href="/teammember">Meet Team Member</a>
                 </li>
                 <li>
-                  <a href="#">Financial Reporting</a>
+                  <a href="/financialreport">Financial Reporting</a>
                 </li>
               </ul>
               <h3 className="text-base font-semibold mt-6 mb-4">Follow Us</h3>
               <div className="flex space-x-4">
-                <a href="#">
+                <a href="https://www.facebook.com/">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -176,7 +191,7 @@ function Footer() {
                     <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
                   </svg>
                 </a>
-                <a href="#">
+                <a href="https://x.com/">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -186,7 +201,7 @@ function Footer() {
                     <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                   </svg>
                 </a>
-                <a href="#">
+                <a href="https://www.instagram.com/accounts/login/?hl=en">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
