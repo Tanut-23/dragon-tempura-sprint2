@@ -6,18 +6,19 @@ import RadioButtonExample from '../components/radio';
 import HorizontalLinearStepper from '../components/Step';
 import { useCart } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
-import React,{useEffect} from  'react';
+import React,{useEffect, useState} from  'react';
 
 function Cart() {
 
   const { cartItems, cartCount } = useCart();
+  const [shipCost, setShipcost] = useState();
   const navigate = useNavigate()
 
   const totalPrices = cartItems.reduce((total, product)=>total+product.price, 0);
   const tax = Math.ceil(totalPrices/10);
-  const shipping = 150;
+  const shipping = shipCost;
   const sumPrices = totalPrices + tax + shipping;
-
+  
 
   // console.log(totalPrices);
   // console.log(cartItems);
@@ -63,7 +64,7 @@ function Cart() {
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${sumPrices}</Typography>
         </div>
         </Paper>
-        <HorizontalLinearStepper />
+        <HorizontalLinearStepper setShipcost={setShipcost} />
         </div>
       </main>
     </div>
