@@ -19,6 +19,13 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 import Animation from "../Animation/Animation.jsx";
 import { CartProvider } from "./contexts/CartContext";
 import AuctionShopPage from "./pages/AuctionShopPage.jsx";
+import MembershipPage from "./pages/MembershipPage.jsx";
+import Luminarypage from "./pages/LuminaryPage.jsx";
+import CorporateSponsorshipPage from "./pages/CorporateSponsorshipPage.jsx";
+import MissionPage from "./pages/MissionPage.jsx";
+import MeetTeamMemberPage from "./pages/MeetTeamMemberPage.jsx";
+import FinancialReportingPage from "./pages/FinancialReportingPage.jsx";
+import { AuthProvider } from "./contexts/AuthContext.jsx";
 
 const theme = createTheme({
   palette: {
