@@ -6,7 +6,6 @@ import ButtonSubmit from "../components/ButtonSubmit";
 import { useParams } from "react-router-dom";
 import products from "../../data/products";
 
-
 // Mockup data
 // const mockupData = {
 //   title: "Mockup title",
@@ -129,27 +128,6 @@ export default function AuctionPage() {
     );
   }
 
-  // คำนวณเวลาที่เหลือ
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     const now = new Date();
-  //     const difference = mockupData.endTime - now;
-
-  //     if (difference > 0) {
-  //       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-  //       const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-  //       const minutes = Math.floor((difference / 1000 / 60) % 60);
-  //       const seconds = Math.floor((difference / 1000) % 60);
-
-  //       setTimeLeft({ days, hours, minutes, seconds });
-  //     } else {
-  //       clearInterval(timer);
-  //       setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  //     }
-  //   }, 1000);
-
-  //   return () => clearInterval(timer);
-  // }, []);
 
   // ฟังก์ชันสำหรับการประมูล
 
