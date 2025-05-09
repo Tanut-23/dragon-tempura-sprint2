@@ -24,7 +24,7 @@ function MainShopPage() {
               }}
               image1="./productPicture/Portrait-Painting-Classic-Art-1.jpg"
               name="Portait Painting"
-              linkURL="/shoppage"
+              linkURL="/shoppage?genre=Portrait"
             />
             <CollectionCard
               widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
@@ -36,7 +36,7 @@ function MainShopPage() {
               }}
               image1="./productPicture/Landscape-Painting-Modern-Art-5.jpg"
               name="Landscape Painting"
-              linkURL="/shoppage"
+              linkURL="/shoppage?genre=Landscape"
             />
             <CollectionCard
               widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
@@ -48,7 +48,7 @@ function MainShopPage() {
               }}
               image1="./productPicture/Genre-Painting-Classic-Art-5.jpg"
               name="Genre Painting"
-              linkURL="/shoppage"
+              linkURL="/shoppage?genre=Genre"
             />
             <CollectionCard
               widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
@@ -60,7 +60,7 @@ function MainShopPage() {
               }}
               image1="./productPicture/Abstract-Painting-Modern-Art-5.jpg"
               name="Abstract Painting"
-              linkURL="/shoppage"
+              linkURL="/shoppage?genre=Abstract"
             />
             <CollectionCard
               widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
@@ -72,7 +72,7 @@ function MainShopPage() {
               }}
               image1="./productPicture/Historical-Painting-Classic-Art-2.jpg"
               name="Historical Painting"
-              linkURL="/shoppage"
+              linkURL="/shoppage?genre=Historical"
             />
           </Stack>
         </div>
@@ -94,7 +94,7 @@ function MainShopPage() {
               }}
               image1="./productPicture/Genre-Painting-Classic-Art-3.jpg"
               name="Classic"
-              linkURL="/shoppage"
+              linkURL="/shoppage?genre=Classic"
             />
             <CollectionCard
               widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
@@ -106,7 +106,7 @@ function MainShopPage() {
               }}
               image1="./productPicture/Genre-Painting-Modern-Art-3.jpg"
               name="Modern"
-              linkURL="/shoppage"
+              linkURL="/shoppage?genre=Modern"
             />
             <CollectionCard
               widthPerCent={{ xs: "100%", sm: "100%", md: "500%", lg: "500%" }}
@@ -118,7 +118,7 @@ function MainShopPage() {
               }}
               image1="./productPicture/Landscape-Painting-Contemporary-Art-4.jpg"
               name="Contemporary"
-              linkURL="/shoppage"
+              linkURL="/shoppage?genre=Contemporary"
             />
           </Stack>
         </div>
