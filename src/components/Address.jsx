@@ -1,33 +1,8 @@
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
-import React, {useState} from 'react'
+import React from 'react'
 
-function Address() {
+function Address({addressInput, setAddressInput, error, handleSubmit}) {
 
-  const [addressInput, setAddressInput] = useState({
-    firstName:'',
-    lastName:'',
-    emailAddress:'',
-    phoneNumber:'',
-    addressLineOne:'',
-    addressLineTwo:'',
-    city:'',
-    stateAndProvince:'',
-    zip:'',
-    country:'',
-  });
-
-  const [error, setError] = useState({
-    firstName: 0,
-    lastName:0,
-    emailAddress:0,
-    phoneNumber:0,
-    addressLineOne:0,
-    addressLineTwo:0,
-    city:0,
-    stateAndProvince:0,
-    zip:0,
-    country:0
-  })
 
   const handleInput = e => {
     const { id, value } = e.target;
@@ -37,32 +12,7 @@ function Address() {
 
 };
 
-  const handleSubmit = e => {
-    e.preventDefault(); // prevent reload
-
-    Object.entries(addressInput).forEach(([name, value]) => {
-
-      if (!value) {
-        setError((prevalue) => ({
-          ...prevalue, [name]: name === "addressLineTwo" || name === "city" ? 0 : 1,
-        }));
-      } else if (name === "emailAddress" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-        setError((prevalue) => ({
-          ...prevalue, [name]: 2
-        }));
-      } else if (name === "phoneNumber" && !((/^0\d{9}$/.test(value))||(/^0\d{2}-\d{3}-\d{4}$/.test(value))||(/^\+\d{1,3}\s\d{2,3}-\d{3}-\d{4}$/.test(value)) || ((/^\+\d{1,3}\s\d{9,10}$/.test(value))))){
-        setError((prevalue) => ({
-          ...prevalue, [name]:2
-        }));
-      }
-      else  setError((prevalue) => ({
-        ...prevalue, [name]:0
-      }))
-    })
-
-  };
-
-
+  // console.log( "This is 1st name", addressInput)
 
   return (
     <Paper elevation={3}
@@ -95,7 +45,7 @@ function Address() {
         placeholder="First Name"
         type="text"
         margin="normal"/>
-        {console.log(`This is 1st name ${addressInput.firstName}`)}
+        {/* {console.log(`This is 1st name ${addressInput.firstName}`)} */}
         <TextField
         required
         fullWidth
@@ -174,7 +124,7 @@ function Address() {
         placeholder="Address Line 2"
         type="text"
         margin="normal"/>
-        {console.log(` line2: ${error.addressLineTwo}`)}
+        {/* {console.log(` line2: ${error.addressLineTwo}`)} */}
     <div className='flex gap-[24px]'>
     <TextField
         fullWidth
@@ -240,11 +190,10 @@ function Address() {
         margin="normal"/>
     </div>
     </div>
-    <Button type="submit" >Click me</Button>
     </form>
     </Paper>
   )
-}
+};
 
 export default Address
 

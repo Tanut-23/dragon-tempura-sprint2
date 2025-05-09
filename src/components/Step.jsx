@@ -1,23 +1,111 @@
-import * as React from 'react';
-import {useState} from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Radio from './radio';
-import ShippingAddress from './ShippingAddress';
-import ShippingMethod from './ShippingMethod';
-import PaymentMethod from './PaymentMethod'
-import ButtonSubmit from './ButtonSubmit';
-import Address from './Address';
+import * as React from "react";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Radio from "./radio";
+import ShippingAddress from "./ShippingAddress";
+import ShippingMethod from "./ShippingMethod";
+import PaymentMethod from "./PaymentMethod";
+import ButtonSubmit from "./ButtonSubmit";
+import Address from "./Address";
 
-const steps = ['Shipping Method', 'Shipping Address', 'Payment Method'];
-const step = [<Radio />,  <Address />, <PaymentMethod />];
+const steps = ["Shipping Method", "Shipping Address", "Payment Method"];
 
+export default function HorizontalLinearStepper({setShipcost}) {
+  const [addressInput, setAddressInput] = useState({
+    firstName: "",
+    lastName: "",
+    emailAddress: "",
+    phoneNumber: "",
+    addressLineOne: "",
+    addressLineTwo: "",
+    city: "",
+    stateAndProvince: "",
+    zip: "",
+    country: "",
+  });
 
-export default function HorizontalLinearStepper() {
+  const [error, setError] = useState({
+    firstName: 0,
+    lastName: 0,
+    emailAddress: 0,
+    phoneNumber: 0,
+    addressLineOne: 0,
+    addressLineTwo: 0,
+    city: 0,
+    stateAndProvince: 0,
+    zip: 0,
+    country: 0,
+  });
+
+  const [shipping, setShippig] = useState("option3")
+
+  const shippingCost = shipping === "option3" ? 350 : shipping === "option1" ? 500 : 150;
+
+  setShipcost(shippingCost);
+
+  const handleSubmit = () => {
+    let checkError = false;
+
+    Object.entries(addressInput).forEach(([name, value]) => {
+      const isOptional = name === "addressLineTwo" || name === "city";
+
+      if (!value) {
+        setError((prevValue) => ({
+          ...prevValue,
+          [name]: isOptional ? 0 : 1,
+        }));
+        if (!isOptional) checkError = true;
+      } else if (
+        name === "emailAddress" &&
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+      ) {
+        setError((prevValue) => ({
+          ...prevValue,
+          [name]: 2,
+        }));
+        checkError = true;
+      } else if (
+        name === "phoneNumber" &&
+        !(
+          /^0\d{9}$/.test(value) ||
+          /^0\d{2}-\d{3}-\d{4}$/.test(value) ||
+          /^\+\d{1,3}\s\d{2,3}-\d{3}-\d{4}$/.test(value) ||
+          /^\+\d{1,3}\s\d{9,10}$/.test(value)
+        )
+      ) {
+        setError((prevValue) => ({
+          ...prevValue,
+          [name]: 2,
+        }));
+        checkError = true;
+      } else {
+        setError((prevValue) => ({
+          ...prevValue,
+          [name]: 0,
+        }));
+      }
+      // console.log("At end", checkError);
+    });
+
+    return checkError;
+  };
+
+  const step = [
+    <Radio setShippig={setShippig}/>,
+    <Address
+      addressInput={addressInput}
+      setAddressInput={setAddressInput}
+      error={error}
+      handleSubmit={handleSubmit}
+    />,
+    <PaymentMethod />,
+  ];
+
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
 
@@ -26,6 +114,13 @@ export default function HorizontalLinearStepper() {
   };
 
   const handleNext = () => {
+    if (activeStep === 1) {
+      const hasErrors = handleSubmit();
+      if (hasErrors) {
+        return;
+      }
+    }
+
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
@@ -53,10 +148,10 @@ export default function HorizontalLinearStepper() {
     setActiveStep(0);
   };
 
-  const Test = activeStep === steps.length - 1 ? 'Finish' : 'Next';
+  const nextLabel = activeStep === steps.length - 1 ? "Finish" : "Next";
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -66,7 +161,18 @@ export default function HorizontalLinearStepper() {
           }
           return (
             <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}><Typography sx={{ width: "full", color: "primary.main" , fontWeight:600, fontSize: "1rem",}}>{label}</Typography></StepLabel>
+              <StepLabel {...labelProps}>
+                <Typography
+                  sx={{
+                    width: "full",
+                    color: "primary.main",
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                  }}
+                >
+                  {label}
+                </Typography>
+              </StepLabel>
             </Step>
           );
         })}
@@ -76,36 +182,26 @@ export default function HorizontalLinearStepper() {
           <Typography sx={{ mt: 2, mb: 1 }}>
             All steps completed - you&apos;re finished
           </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Box sx={{ flex: '1 1 auto' }} />
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <Box sx={{ flex: "1 1 auto" }} />
             <Button onClick={handleReset}>Reset</Button>
           </Box>
         </React.Fragment>
       ) : (
-        // ---------------------------------------------------------------------------------------> here
-        <React.Fragment sx={{width: "100vw"}}>
-          {/* {stepHead[activeStep]} */}
-          <div className='pt-[32px]'>{step[activeStep]}</div>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            {/* <Button
-              color="inherit"
-              disabled={activeStep === 0}
+        <React.Fragment>
+          {/* ---------------------------------------------------------------------- Change Step ------ */}
+          <div className="pt-[32px]">{step[activeStep]}</div>
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <ButtonSubmit
               onClick={handleBack}
-              sx={{ mr: 0 , background:""}}
-            >
-              Back
-            </Button> */}
-            <ButtonSubmit onClick={handleBack} mate={activeStep === 0} label={"Back"}></ButtonSubmit>
-            <Box sx={{ flex: '1 1 auto' }} />
+              mate={activeStep === 0}
+              label="Back"
+            />
+            <Box sx={{ flex: "1 1 auto" }} />
             {activeStep < steps.length - 1 && (
-              // <Button color="inherit" onClick={handleSkip} sx={{ mr: 1, background:"" }}>
-                <ButtonSubmit onClick={handleSkip} label={"Skip"}></ButtonSubmit>
-              // </Button>
+              <ButtonSubmit onClick={handleSkip} label="Skip" />
             )}
-            {/* <Button onClick={handleNext}>
-            <ButtonSubmit label={Test}></ButtonSubmit>
-            </Button> */}
-            <ButtonSubmit onClick={handleNext} ml="16px" label={Test}></ButtonSubmit>
+            <ButtonSubmit onClick={handleNext} ml="16px" label={nextLabel} />
           </Box>
         </React.Fragment>
       )}
