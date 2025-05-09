@@ -26,6 +26,7 @@ import MissionPage from "./pages/MissionPage.jsx";
 import MeetTeamMemberPage from "./pages/MeetTeamMemberPage.jsx";
 import FinancialReportingPage from "./pages/FinancialReportingPage.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
+import OurStoryPage from "./pages/OurStoryPage.jsx";
 
 const theme = createTheme({
   palette: {
@@ -87,6 +88,7 @@ const router = createBrowserRouter([
       { path: "/mission", element: <MissionPage /> },
       { path: "/teammember", element: <MeetTeamMemberPage /> },
       { path: "/financialreport", element: <FinancialReportingPage /> },
+      { path: "/ourstory", element: <OurStoryPage /> },
       // ADD PATH HERE
     ],
   },
