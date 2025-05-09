@@ -73,6 +73,7 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/market", element: <MarketPage /> },
       { path: "/postpage", element: <PostPage /> },
+      { path: "/postpage/:editId", element: <PostPage /> },
       { path: "/mainshop", element: <MainShopPage /> },
       { path: "/cart", element: <Cart /> },
       { path: "/myorder", element: <MyOrderPage /> },
