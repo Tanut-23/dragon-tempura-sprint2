@@ -18,6 +18,12 @@ import AuctionPage from "./pages/Auction.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import Animation from "../Animation/Animation.jsx";
 import { CartProvider } from "./contexts/CartContext";
+import MembershipPage from "./pages/MembershipPage.jsx";
+import Luminarypage from "./pages/Luminarypage.jsx";
+import CorporateSponsorshipPage from "./pages/CorporateSponsorshipPage.jsx";
+import MissionPage from "./pages/MissionPage.jsx";
+import MeetTeamMemberPage from "./pages/MeetTeamMemberPage.jsx";
+import FinancialReportingPage from "./pages/FinancialReportingPage.jsx";
 
 const theme = createTheme({
   palette: {
@@ -71,7 +77,13 @@ const router = createBrowserRouter([
       { path: "/product/:productId", element: <ProductPage /> },
       { path: "/resetpassword", element: <ForgotPassword /> },
       { path: "/animation", element: <Animation /> },
-      { path: "/auction/:id", element: <AuctionPage />},
+      { path: "/auction/:id", element: <AuctionPage /> },
+      { path: "/membership", element: <MembershipPage /> },
+      { path: "/luminary", element: <Luminarypage /> },
+      { path: "/sponsorship", element: <CorporateSponsorshipPage /> },
+      { path: "/mission", element: <MissionPage /> },
+      { path: "/teammember", element: <MeetTeamMemberPage /> },
+      { path: "/financialreport", element: <FinancialReportingPage /> },
       // ADD PATH HERE
     ],
   },
