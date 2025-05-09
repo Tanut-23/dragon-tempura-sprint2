@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import PostCard from "../components/PostCard";
 import { Link, useNavigate } from "react-router-dom";
 import ButtonToggle from "../components/ButtonToggle";
+import axios from "axios";
 
 export default function MarketPage() {
   // STATE FOR KEEPING ALL PRODUCTS
@@ -16,22 +17,26 @@ export default function MarketPage() {
   // WHEN REFRESH -> GET DATA OF ALL PRODUCTS FROM LOCAL STORAGE
 
   useEffect(() => {
-    const stored = localStorage.getItem("products");
-    const products = stored ? JSON.parse(stored) : [];
-    setAllProducts(products);
-    if (products.length > 0) {
-      return setNoPost(false);
-    }
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/api/my-products", {
+          withCredentials: true,
+        });
+        setAllProducts(res.data);
+        setNoPost(res.data.length === 0);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setAllProducts([]);
+        setNoPost(true);
+      }
+    };
+    fetchProducts();
   }, []);
 
   // DELETE BUTTON FUNCTION
   function handleDelete(id) {
-    const updatedProducts = allProducts.filter((product) => {
-      return product.id !== id;
-    });
+    const updatedProducts = allProducts.filter((product) => product._id !== id);
     setAllProducts(updatedProducts);
-    localStorage.setItem("products", JSON.stringify(updatedProducts));
-    if (updatedProducts.length === 0) setNoPost(true);
   }
 
   const navigate = useNavigate();
@@ -83,24 +88,22 @@ export default function MarketPage() {
           {/* AFTER POST PRODUCT */}
           {!noPost && (
             <div className="relative flex flex-row gap-8 flex-wrap justify-center w-full px-8 py-12 bg-[#f0e0d0] rounded-2xl">
-              { allProducts.map((product) => {
-                  return (
-                    <PostCard
-                      onDelete={() => handleDelete(product.id)}
-                      onEdit={() => handleEdit(product.id)}
-                      key={product.id}
-                      image={product.image}
-                      title={product.title}
-                      artist={product.artist}
-                      price={product.price}
-                      auction={product.auction}
-                      minBidPrice={product.minBidPrice}
-                      // days={product.days}
-                      // hours={product.hours}
-                      endDate={product.endDate}
-                    />
-                  );
-                })}
+              {allProducts.map((product) => {
+                return (
+                  <PostCard
+                    key={product._id}
+                    onDelete={() => handleDelete(product._id)}
+                    onEdit={() => handleEdit(product._id)}
+                    image={product.image}
+                    title={product.title}
+                    artist={product.artist}
+                    price={product.price}
+                    auction={product.auction}
+                    minBidPrice={product.minBidPrice}
+                    endDate={product.endDate}
+                  />
+                );
+              })}
             </div>
           )}
 
