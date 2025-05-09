@@ -3,7 +3,6 @@ import ButtonSubmit from "./ButtonSubmit";
 // import mockOrderDetails from "../../data/mockOrderDetails";
 import StatusTag from "./StatusTag";
 
-// สร้างไอคอนพื้นฐานด้วย SVG แทนการใช้ Lucide React
 const Icons = {
   Close: () => (
     <svg
@@ -117,6 +116,8 @@ const OrderDetailsPopup = ({
   total,
   status,
   items,
+  statusTag,
+  status,
 }) => {
   const [orderDetails, setOrderDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -202,43 +203,43 @@ const OrderDetailsPopup = ({
   }
 
   // Helper function สำหรับแสดง status badge
-  const getStatusBadge = (status) => {
-    switch (status) {
-      case "Delivered":
-        return (
-          <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
-            <span className="mr-1">
-              <Icons.Check />
-            </span>
-            {status}
-          </span>
-        );
-      case "In Transit":
-        return (
-          <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
-            <span className="mr-1">
-              <Icons.Truck />
-            </span>
-            {status}
-          </span>
-        );
-      case "Processing":
-        return (
-          <span className="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
-            <span className="mr-1">
-              <Icons.Package />
-            </span>
-            {status}
-          </span>
-        );
-      default:
-        return (
-          <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-            {status}
-          </span>
-        );
-    }
-  };
+  // const getStatusBadge = (status) => {
+  //   switch (status) {
+  //     case "Delivered":
+  //       return (
+  //         <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
+  //           <span className="mr-1">
+  //             <Icons.Check />
+  //           </span>
+  //           {status}
+  //         </span>
+  //       );
+  //     case "In Transit":
+  //       return (
+  //         <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
+  //           <span className="mr-1">
+  //             <Icons.Truck />
+  //           </span>
+  //           {status}
+  //         </span>
+  //       );
+  //     case "Processing":
+  //       return (
+  //         <span className="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
+  //           <span className="mr-1">
+  //             <Icons.Package />
+  //           </span>
+  //           {status}
+  //         </span>
+  //       );
+  //     default:
+  //       return (
+  //         <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+  //           {status}
+  //         </span>
+  //       );
+  //   }
+  // };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -354,8 +355,8 @@ const OrderDetailsPopup = ({
   );
 };
 
-// ตัวอย่างการใช้งาน component
-const App = ({ orderId, total, subtotal, statusTag, items }) => {
+// -----EXPORT THIS APP -------
+const App = ({ orderId, total, subtotal, statusTag, status, items }) => {
   const [showOrderDetails, setShowOrderDetails] = useState(false);
 
   return (
@@ -387,6 +388,7 @@ const App = ({ orderId, total, subtotal, statusTag, items }) => {
           orderId={orderId}
           total={total}
           subtotal={subtotal}
+          status={status}
           onClose={() => setShowOrderDetails(false)}
           items={items}
         />

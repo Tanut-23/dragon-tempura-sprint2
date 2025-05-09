@@ -27,7 +27,7 @@ const mockOrderDetails = [
         artist: "Sophia Laurent",
         price: 950.00,
         quantity: 1,
-        image: "/api/placeholder/120/120",
+        image: "public/productPicture/Abstract-Painting-Modern-Art-1.jpg",
       },
       {
         id: "P002",
@@ -35,7 +35,7 @@ const mockOrderDetails = [
         artist: "Marcus Finley",
         price: 300.00,
         quantity: 1,
-        image: "/api/placeholder/120/120",
+        image: "public/productPicture/Abstract-Painting-Modern-Art-1.jpg",
       },
     ],
     summary: {

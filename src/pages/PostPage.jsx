@@ -12,9 +12,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import PreviewCard from "../components/PreviewCard";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
+import { useParams } from "react-router-dom";
 
 export default function PostPage() {
   const { user } = useAuth();
+  const { editId } = useParams();
+
   // STATE FOR KEEP ONCHANGE INPUT VALUE
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -138,13 +141,45 @@ export default function PostPage() {
   //For navigate to another page
   const navigate = useNavigate();
 
+  // For EDIT PRODUCT
+  useEffect(() => {
+    const fetchEditProduct = async () => {
+      if (!editId) return;
+      try {
+        const res = await axios.get(
+          `http://localhost:3000/api/product-get/${editId}`,
+          {
+            withCredentials: true,
+          }
+        );
+        const product = res.data.product;
+        console.log("sssssssssssss",product);
+        setTitle(product.title || "");
+        setDescription(product.description || "");
+        setArtist(product.artist || "");
+        setDimensions(product.dimensions || "");
+        setMaterial(product.material || "");
+        setYearCreated(product.yearCreated?.toString() || "")
+        setTags(product.tags || []);
+        setPrice(product.price || "");
+        setMinBidPrice(product.minBidPrice || "");
+        setDays(product.auction?.days?.toString() || "");
+        setHours(product.auction?.hours?.toString() || "");
+        setImage(product.image || "");
+        setAuction(product.auction?.isAuction || false);
+        setEditMode(true);
+      } catch (err) {
+        console.error("Failed to fetch product for edit", err);
+      }
+    };
+    fetchEditProduct();
+  }, [editId]);
+
   // Function for SUBMIT BUTTON
   async function handleSubmit(e) {
     e.preventDefault();
-
     const submitter = e.nativeEvent.submitter;
     const action = submitter?.value;
-
     const validatedError = validation();
 
     // VALIDATE INPUT FORM
@@ -153,134 +188,65 @@ export default function PostPage() {
       console.log(validatedError);
       setError(validatedError);
     } else {
+      // Calculate End Date
+      const now = new Date();
+      const endDate = new Date(
+        now.getTime() + (Number(days) * 24 + Number(hours)) * 60 * 60 * 1000 //getTime() --> get current time in Milli Sec
+      );
+      const newProduct = {
+        title,
+        description,
+        artist,
+        price,
+        image,
+        dimensions,
+        material,
+        yearCreated,
+        tags,
+        sellerName: `${user.firstName || "Unknow"} ${user.lastName || "User"}`,
+        auction: {
+          isAuction: auction,
+          days: Number(days),
+          hours: Number(hours),
+          endDate,
+        },
+        minBidPrice: minBidPrice,
+        days: days,
+        hours: hours,
+        endDate: endDate, //Send endDate to Local storage
+      };
       // CLICK PREVIEW BUTTON
       if (action === "preview") {
         setError("");
         window.scrollTo({ top: 200, behavior: "smooth" });
         setPreview(true);
+        return;
       }
-
       // CLICK POST BUTTON
-      else if (action === "post") {
-        // Calculate End Date
-        const now = new Date();
-        const endDate = new Date(
-          now.getTime() + (Number(days) * 24 + Number(hours)) * 60 * 60 * 1000    //getTime() --> get current time in Milli Sec
-        );
-        // console.log("This is now: " + now)
-        // console.log("This is endDate: " + endDate)
-        // console.log(endDate);
-        const newProduct = {
-          title,
-          description,
-          artist,
-          price,
-          image,
-          dimensions,
-          material,
-          yearCreated,
-          tags,
-          sellerName:`${user.firstName} ${user.lastName}`,
-          auction: auction,
-          minBidPrice: minBidPrice,
-          days: days,
-          hours: hours,
-          endDate: endDate, //Send endDate to Local storage
-        };
-        try {
+      try {
+        if (action === "post") {
           await axios.post(
             "http://localhost:3000/api/product-add",
-            newProduct , { withCredentials: true }
+            newProduct,
+            { withCredentials: true }
           );
 
           alert("Your artwork is successfully posted!");
-          navigate("/market");
-        } catch (err) {
-          console.error("Failed to post product:", err);
-          alert("Failed to post your product, Try again later.");
+        } else if (action === "update") {
+          await axios.put(
+            `http://localhost:3000/api/product-put/${editId}`,
+            newProduct,
+            { withCredentials: true }
+          );
+          alert("Product updated successfully");
         }
-
-      }
-
-      // CLICK UPDATE BUTTON
-      else if (action === "update") {
-        // Calculate End Date
-        const now = new Date();
-        const endDate = new Date(
-          now.getTime() + (Number(days) * 24 + Number(hours)) * 60 * 60 * 1000
-        );
-
-        const stored = localStorage.getItem("products");
-        const products = stored ? JSON.parse(stored) : [];
-
-        const storedId = localStorage.getItem("editId");
-        const editId = storedId ? JSON.parse(storedId) : null;
-
-        const updatedProduct = {
-          id: editId,
-          title: title,
-          description: description,
-          artist: artist,
-          price: price,
-          image: image,
-          dimensions: dimensions,
-          material: material,
-          yearCreated: yearCreated,
-          tags: tags,
-          sellerName: "PMate",
-          auction: auction,
-          minBidPrice: minBidPrice,
-          // days: days,
-          // hours: hours,
-          endDate: endDate,
-        };
-
-        const updatedProducts = products.map((product) =>
-          editId === product.id ? (product = updatedProduct) : product
-        );
-
-        localStorage.setItem("products", JSON.stringify(updatedProducts));
-
-        localStorage.removeItem("editId");
-        alert("The detail is successfully updated!");
         navigate("/market");
-        window.scrollTo({ top: 200, behavior: "smooth" });
+      } catch (err) {
+        console.error("Error submitting product:", err);
+        alert("Submission failed. Try again later.");
       }
     }
   }
-
-  // For EDIT PRODUCT
-  useEffect(() => {
-
-    const storedId = localStorage.getItem("editId");
-    const editId = storedId ? JSON.parse(storedId) : null;
-
-    if (editId) {
-      
-      const stored = localStorage.getItem("products");
-      const products = stored ? JSON.parse(stored) : [];
-
-      const editProduct = products.find((product) => {
-        return product.id === editId;
-      });
-      // console.log(editProduct);
-      if (editProduct) {
-        setTitle(editProduct.title);
-        setDescription(editProduct.description);
-        setArtist(editProduct.artist);
-        setDimensions(editProduct.dimensions);
-        setMaterial(editProduct.material);
-        setYearCreated(editProduct.yearCreated);
-        setTags(editProduct.tags);
-        setPrice(editProduct.price);
-        setMinBidPrice(editProduct.minBidPrice);
-        setDays(editProduct.days);
-        setHours(editProduct.hours);
-      }
-
-      setEditMode(true);
-    }
-  }, []);
 
   return (
     <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] ">
@@ -565,7 +531,7 @@ export default function PostPage() {
                   backgroundColor: "primary.text",
                   borderRadius: "50%",
                   "&:hover": {
-                    backgroundColor: "primary.dark", // hover when selected
+                    backgroundColor: "primary.dark",
                     color: "primary.text",
                   },
                 }}
