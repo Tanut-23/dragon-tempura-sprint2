@@ -18,7 +18,7 @@ function MyOrderPage({ title, value }) {
         }}
       >
         {/* <!-- Header --> */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 header-border pb-4 px-8 md:px-20">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-12 header-border pb-4 px-8 md:px-10 lg:px-12 xl:px-18 2xl:px-32">
           <h1 class="text-4xl font-light text-chocolate section-title mb-4 md:mb-0 text-[#62483a]">
             My Orders
           </h1>
@@ -42,15 +42,15 @@ function MyOrderPage({ title, value }) {
         </div>
 
         {/* <!--  Stats Cards --> */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 px-8 md:px-20">
-          <StatsCard title="total order" value="7" />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 px-4 md:px-10 lg:px-12 xl:px-18 2xl:px-32">
+          <StatsCard title="total order" value="7" fontSize={{}} />
           <StatsCard title="COMPLETED" value="5" />
           <StatsCard title="pending" value="1" />
           <StatsCard title="total spent" value="$4,320.00" />
         </div>
 
         {/* <!-- Orders List --> */}
-        <div className="grid grid-cols-1 mb-8  px-8 md:px-20 ">
+        <div className="grid grid-cols-1 mb-8  px-4 md:px-10 lg:px-12 xl:px-18 2xl:px-32 3xl:px-4 ">
           <h2 class="text-2xl text-[#62483a] font-light section-title mb-6">
             Recent Orders
           </h2>
@@ -80,7 +80,7 @@ function MyOrderPage({ title, value }) {
           </div>
         </div>
         {/* <!-- Pagination --> */}
-        <div className="flex justify-center">
+        <div className="flex justify-center px-4">
           <PaginationBar />
         </div>
       </Box>
