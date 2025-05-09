@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { Box } from "@mui/material";
 import PaginationBar from "../components/PaginationBar";
@@ -8,6 +8,33 @@ import StatsCard from "../components/StatsCard";
 import mockOrderDetails from "../../data/mockOrderDetails";
 
 function MyOrderPage({ title, value }) {
+
+  const [totalSpend, setTotalSpend] = useState(0);
+  const [totalOrder, setTotalOrder] = useState(0);
+  const [completed, setCompleted] = useState(0);
+  const [pending, setPending] = useState(0);
+
+  useEffect(() => {
+    let sumtotalSpend = 0;
+    let sumCompleted = 0;
+    let sumPending = 0;
+    mockOrderDetails.forEach((order) => {
+      //get total spend
+      sumtotalSpend += order.total
+      //get completed and pending order amount
+      if (order.status === "Deliver") {
+        sumCompleted += 1;
+      } else {
+        sumPending += 1;
+      }
+    })
+    setTotalSpend(sumtotalSpend)
+    setTotalOrder(mockOrderDetails.length)
+    setCompleted(sumCompleted)
+    setPending(sumPending)
+  }, [])
+ 
+
   return (
     <div>
       <Box
@@ -43,10 +70,10 @@ function MyOrderPage({ title, value }) {
 
         {/* <!--  Stats Cards --> */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 px-4 md:px-10 lg:px-12 xl:px-18 2xl:px-32">
-          <StatsCard title="total order" value="7" fontSize={{}} />
-          <StatsCard title="COMPLETED" value="5" />
-          <StatsCard title="pending" value="1" />
-          <StatsCard title="total spent" value="$4,320.00" />
+          <StatsCard title="total order" value={totalOrder} fontSize={{}} />
+          <StatsCard title="COMPLETED" value={completed} />
+          <StatsCard title="pending" value={pending} />
+          <StatsCard title="total spent" value={`$${totalSpend.toLocaleString('en-Us', {minimumFractionDigits:2})}`} />
         </div>
 
         {/* <!-- Orders List --> */}
@@ -59,6 +86,7 @@ function MyOrderPage({ title, value }) {
             {mockOrderDetails.map((order) => {
               return (
                 <OrderCard
+                  key={order.orderId}
                   orderNumber={order.orderId}
                   status={order.status}
                   orderDate={order.orderDate}
@@ -74,6 +102,7 @@ function MyOrderPage({ title, value }) {
                     " " +
                     order.shippingAddress.zip
                   }
+                  items={order.items}
                 />
               );
             })}
