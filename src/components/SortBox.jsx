@@ -1,12 +1,17 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 // import products from "../../data/mockUpProduct";
-import products from "../../data/products.js"
 import SearchBox from "../components/SearchBox";
 import MasonryGallery from "../components/MasonryGallery";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 function SortBox() {
   const [sortState, setSortState] = useState("AZ");
   const [searchKeyword, setSearchKeyword] = useState("");
+
+  const location = useLocation();
+  const [genre , setGenre] = useState();
+  const [products, setProducts] = useState([]);
 
   const sortMethods = {
     none: { method: () => 0 },
@@ -15,6 +20,27 @@ function SortBox() {
     HL: { method: (a, b) => b.price - a.price },
     LH: { method: (a, b) => a.price - b.price },
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const genreParam = params.get("genre");
+    setGenre(genreParam);
+  },[location.search]);
+
+  useEffect(() => {
+    if(!genre) return
+    const fetchProducts = async () => {
+      try{
+        const res = await axios.get(`http://localhost:3000/api/products?genre=${genre}`,)
+        setProducts(res.data.products);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+     }
+    fetchProducts();
+  },[genre])
+
+  
 
   // FILTER BY KEYWORD (SEARCH)
   const searchedProducts = products.filter(product => {
