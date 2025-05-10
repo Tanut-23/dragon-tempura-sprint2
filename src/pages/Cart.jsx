@@ -7,6 +7,7 @@ import HorizontalLinearStepper from '../components/Step';
 import { useCart } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import React,{useEffect, useState} from  'react';
+import axios from 'axios';
 
 function Cart() {
 
@@ -19,6 +20,14 @@ function Cart() {
   const shipping = shipCost;
   const sumPrices = totalPrices + tax + shipping;
   
+  async function onDelete(productId) {
+    try {
+      await axios.delete(`http://localhost:3000/api/cart-delete/${productId}`, { withCredentials: true });
+    } catch(err) {
+      console.error("Add to cart failed:", err.response?.data || err.message);
+    }
+  }
+
 
   // console.log(totalPrices);
   // console.log(cartItems);
@@ -40,7 +49,7 @@ function Cart() {
       <main className="flex max-md:flex-col-reverse justify-start w-full max-md:gap-[16px]">
         <section className="flex md:flex-col gap-[16px] w-[100%] md:w-[30%] min-w-[240px] items-center overflow-y-auto scrollbar-hide max-h-[1100px] p-[8px] bg-[#E9E2D6] rounded-tl-lg rounded-bl-lg">
         {cartItems.map((products)=>(
-            <ProductCard  elevation={3} image={products.image}  title={products.title} artist={products.artist} price={products.price}/>
+            <ProductCard onDelete={onDelete(products.id)} wantDelete={true}  elevation={3} image={products.image}  title={products.title} artist={products.artist} price={products.price}/>
           ))}
         </section>
         <div className="flex flex-col gap-[16px] md:w-[65%] w-[100%] min-w-[300px] bg-[#F2EEE7] rounded-tr-lg rounded-br-lg overflow-hidden border-0 px-[5%] py-[32px]">
