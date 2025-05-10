@@ -31,6 +31,32 @@ function ProductPage() {
     fetchProduct();
   }, [productId]);
 
+
+  //Add product to cart in Database
+  const addProductToDB = async (product) => {
+    try {
+      const newProduct = {
+        items: 
+          {
+            productId: product._id?.toString(),
+            title: product.title,
+            image: product.image,
+            artist: product.artist,
+            price: product.price,
+            quantity: 1,
+          },
+      };
+      console.log("Payload being sent to backend:", JSON.stringify(newProduct, null, 2));
+
+      await axios.post("http://localhost:3000/api/cart-add", newProduct, {
+        withCredentials: true,
+      });
+    } catch (err) {
+      console.error("Add to cart failed:", err.response?.data || err.message);
+    }
+  }
+
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -107,7 +133,10 @@ function ProductPage() {
             <ButtonSubmit
               width="100%"
               label={addedToCart ? "Remove from Cart" : "Add to Cart"}
-              onClick={() => toggleCartItem(product)}
+              onClick={() => {
+                toggleCartItem(product);
+                addProductToDB(product);
+              }}
             />
 
             {product.tags && (
