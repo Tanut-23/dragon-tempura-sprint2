@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Typography, Paper, Box } from "@mui/material";
 
-const RadioButtonExample = () => {
+const RadioButtonExample = ({setShippig}) => {
   const [value, setValue] = useState("option3");
 
   const handleChange = (event) => {
     setValue(event.target.value);
+    setShippig(value)
   };
 
   return (

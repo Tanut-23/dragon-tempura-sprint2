@@ -34,18 +34,28 @@ export default function MarketPage() {
   }, []);
 
   // DELETE BUTTON FUNCTION
-  function handleDelete(id) {
-    const updatedProducts = allProducts.filter((product) => product._id !== id);
-    setAllProducts(updatedProducts);
+  async function handleDelete(id) {
+    try {
+      const confirmed = window.confirm("Are you sure you want to delete this product?");
+      if(!confirmed) return;
+
+      const res = await axios.delete(`http://localhost:3000/api/product-delete/${id}`, {withCredentials: true});
+
+      const updatedProducts = allProducts.filter((product) => product._id !== id);
+      setAllProducts(updatedProducts);
+
+      alert("Product deleted successfully");
+      }catch (err) {
+      console.error("Error deleting product:", err);
+      alert("Failed to delete product");
+    }
   }
 
   const navigate = useNavigate();
 
   // EDIT BUTTON FUNCTION
   function handleEdit(id) {
-    alert("edit");
-    localStorage.setItem("editId", id);
-    navigate("/postpage");
+    navigate(`/postpage/${id}`);
   }
 
   return (
@@ -107,16 +117,6 @@ export default function MarketPage() {
             </div>
           )}
 
-          {/* SPARE AFTER POST PRODUCT */}
-          {/* {!noPost && (
-            <div className="relative flex flex-row gap-8 flex-wrap justify-center w-full p-8 bg-[#f0e0d0]">
-              <PostCard auction={true} />
-              <PostCard />
-              <PostCard auction={false} />
-              <PostCard />
-              <PostCard />
-            </div>
-          )} */}
         </section>
       </div>
     </div>

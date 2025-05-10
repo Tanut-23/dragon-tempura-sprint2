@@ -411,7 +411,9 @@ export default function LandingPage() {
 
           {/* ButtonSubmit */}
           <div className="w-[40%] lg:w-[30%] hover:scale-120  transition-all duration-900 ease-in-out">
-            <ButtonSubmit label="Our Story" width="100%" />
+            <Link to="/ourstory">
+              <ButtonSubmit label="Our Story" width="100%" />
+            </Link>
           </div>
         </article>
         <figure class="w-[40%] h-auto hidden sm:flex gap-[12px]">

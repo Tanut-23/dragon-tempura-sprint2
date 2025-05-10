@@ -1,13 +1,14 @@
 import React from "react";
 import Masonry from "@mui/lab/Masonry";
 import { Link } from "react-router-dom";
-import slugify from '../utils/Slugify';
+
 // import products from "../../data/products";
 
 const ProductCard = ({ product }) => {
+  console.log(product._id);
   return (
     <div className="relative group overflow-hidden shadow-md shadow-gray-700 hover:shadow-lg transition-shadow duration-300">
-     <Link to={`/product/${slugify(product.title)}`}>
+     <Link to={`/product/${product._id}`}>
         <img
           src={product.image}
           className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
