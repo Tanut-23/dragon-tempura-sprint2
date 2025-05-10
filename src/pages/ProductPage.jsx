@@ -8,6 +8,8 @@ import axios from "axios";
 
 function ProductPage() {
   const [product, setProduct] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
+  const [isInCartDB, setIsInCartDB] = useState(false);
   const [loading, setLoading] = useState(true);
   const { toggleCartItem, isInCart } = useCart();
   const links = [
@@ -30,6 +32,67 @@ function ProductPage() {
     };
     fetchProduct();
   }, [productId]);
+
+  //Get data of cart items from Database
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/api/cart-get",{
+          withCredentials: true,
+        });
+        setCartItems(res.data.cart.items);
+      } catch (err) {
+      console.error("Error fetching cart:", err.response?.data || err.message);
+    }
+    }
+    fetchCart();
+  }, [])
+
+  //Check if this product is already in cart
+  useEffect(() => {
+    if (product) {
+      setIsInCartDB(cartItems?.some((item) => item.productId === product._id));
+    }
+  }, [cartItems, product]);
+
+  //Add product to cart in Database
+  const addProductToDB = async (product) => {
+    try {
+      const newProduct = {
+        items: 
+          {
+            productId: product._id?.toString(),
+            title: product.title,
+            image: product.image,
+            artist: product.artist,
+            price: product.price,
+            quantity: 1,
+          },
+      };
+      console.log("Payload being sent to backend:", JSON.stringify(newProduct, null, 2));
+
+      await axios.post("http://localhost:3000/api/cart-add", newProduct, {
+        withCredentials: true,
+      });
+      //update local state
+      setCartItems((prev) => [...prev, newProduct.items]);
+    } catch (err) {
+      console.error("Add to cart failed:", err.response?.data || err.message);
+    }
+  }
+
+  //Remove Product from Database
+  const removeProductFromDB = async (product) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/cart-delete/${product._id}`, {
+        withCredentials: true,
+      })
+      setCartItems((prev) => prev.filter((item) => item.productId !== product._id))
+    } catch(err) {
+      console.error("Add to cart failed:", err.response?.data || err.message);
+    }
+  }
+
 
   if (loading) {
     return (
@@ -106,8 +169,15 @@ function ProductPage() {
 
             <ButtonSubmit
               width="100%"
-              label={addedToCart ? "Remove from Cart" : "Add to Cart"}
-              onClick={() => toggleCartItem(product)}
+              label={isInCartDB ? "Remove from Cart" : "Add to Cart"}
+              onClick={() => {
+                toggleCartItem(product);
+                if (isInCartDB) {
+                  removeProductFromDB(product);
+                } else {
+                  addProductToDB(product);
+                }
+              }}
             />
 
             {product.tags && (
