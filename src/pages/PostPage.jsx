@@ -505,6 +505,7 @@ export default function PostPage() {
                 price={price}
                 auction={auction}
                 minBidPrice={minBidPrice}
+                image={image}
                 days={days}
                 hours={hours}
                 dimensions={dimensions}

@@ -1,12 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import RemainingBlock from "../components/RemainingBlock";
+import { mockBidHistory } from "../../data/mockBidHistory";
 import ButtonSubmit from "../components/ButtonSubmit";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import products from "../../data/products";
-import { io } from "socket.io-client";
-import { useAuth } from "../contexts/AuthContext";
 
+// Mockup data
+// const mockupData = {
+//   title: "Mockup title",
+//   artist: "Mockup artis",
+//   description:
+//     "Mockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup descriptionMockup description",
+//   imageUrl: "../../public/productPicture/Abstract-Painting-Classic-Art-5.jpg",
+//   startingBid: 5000,
+//   endTime: new Date(Date.now() + 86400000), // 24 hours
+// };
+
+// console.log(mockupData.endTime)
+
+// Custom SVG Icons
 const ClockIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -71,65 +84,22 @@ const DollarIcon = () => (
 
 export default function AuctionPage() {
   const { id } = useParams();
+
+  const [currentBid, setCurrentBid] = useState(mockBidHistory[0].amount);
+  const [bidAmount, setBidAmount] = useState("");
   const [timeLeft, setTimeLeft] = useState(null);
-  const { user, isAuthenticated } = useAuth();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [bid, setBid] = useState("");
-  const [historyBid, setHistoryBid] = useState([]);
+  const [bidHistory, setBidHistory] = useState(mockBidHistory);
   const [errorMessage, setErrorMessage] = useState("");
-  const socket = io("http://localhost:3000");
 
-  useEffect(() => {
-    if (user) {
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    socket.on("shareBid", (dataAuctioneer) => {
-      dataAuctioneer.time = new Date(dataAuctioneer.time); // Convert string to Date
-      setHistoryBid((prev) => [dataAuctioneer, ...prev]);
-    });
-    return () => socket.off("shareBid");
-  }, []);
-
-  const bidCurrent = Math.max(...historyBid.map((b) => b.amount), 0);
-  const bidButton = (event) => {
-    event.preventDefault();
-    const bidUser = Number(bid);
-
-    if (bidUser <= bidCurrent) {
-      setErrorMessage(
-        `Bid price must be greater than $${bidCurrent.toLocaleString()}`
-      );
-      return;
-    }
-
-    if (bidUser > 999999999999999) {
-      setErrorMessage(`Bid price must be lower than one quadrillion.`);
-      return;
-    }
-
-    const dataAuctioneer = {
-      firstName: firstName,
-      lastName: lastName,
-      amount: bidUser,
-      time: new Date(),
-    };
-
-    socket.emit("oneBid", dataAuctioneer);
-    setBid("");
-    setErrorMessage("");
-  };
-
-  const noDecimal = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, "");
-    setBid(value);
-  };
-
+  // ***** Fetch Data from Database then store in auctionProduct
+  // --> then change mockupData to auctionProduct *****
   const [auctionProduct, setAuctionProduct] = useState(null);
+
+  // Get Products from Local Storage
+  // useEffect(() => {
+  //   const stored = JSON.parse(localStorage.getItem("products"));
+  //   setAuctionProduct(stored[0]) //choose the auction product you want to show
+  // },[])
 
   useEffect(() => {
     const data = products.find((product) => product.id === parseInt(id));
@@ -138,14 +108,18 @@ export default function AuctionPage() {
     }
   }, [id]);
 
+
+  // Get Time Left
   useEffect(() => {
     if (auctionProduct) {
       const now = new Date();
-      let timeLeft = new Date(auctionProduct.endDate) - now;
+      let timeLeft = new Date(auctionProduct.endDate) - now; //Get time diff (ms)
       setTimeLeft(timeLeft);
     }
   }, [auctionProduct]);
+  
 
+  // CHECK IF THERE IS A PRODUCT
   if (!auctionProduct) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -154,11 +128,47 @@ export default function AuctionPage() {
     );
   }
 
+
+  // ฟังก์ชันสำหรับการประมูล
+
+  const handleBid = (e) => {
+    e.preventDefault();
+    const bidValue = Number(bidAmount);
+
+    if (isNaN(bidValue) || bidValue <= 0) {
+      setErrorMessage("Please enter a number.");
+      return;
+    }
+
+    if (bidValue <= currentBid) {
+      setErrorMessage(
+        `Bid Price must be greater than $${currentBid.toLocaleString()}`
+      );
+      return;
+    }
+
+    // เพิ่มประวัติการประมูลใหม่
+    const newBid = {
+      id: bidHistory.length + 1,
+      user: "Login User", // ในระบบจริงควรใช้ชื่อผู้ใช้ที่ login
+      amount: bidValue,
+      time: new Date(),
+    };
+
+    setBidHistory([newBid, ...bidHistory]);
+    setCurrentBid(bidValue);
+    setBidAmount("");
+    setErrorMessage("");
+  };
+
   return (
     <div className="min-h-screen w-full bg-[#f2eee7] text-[#62483A]">
+      {/* Nav */}
+      {/* Main Content */}
       <main className="container xl:w-[85%]  mx-auto py-8 px-4">
         <h1 className="text-[2rem] font-bold mb-4">Auction</h1>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column: Artwork Display */}
           <div className="lg:col-span-2">
             <div className="flex flex-col items-center p-6 bg-[#e4dcd2b4] rounded-lg shadow-lg overflow-hidden">
               <img
@@ -177,7 +187,10 @@ export default function AuctionPage() {
               </div>
             </div>
           </div>
+
+          {/* Right Column: Auction Info */}
           <div className="lg:col-span-1">
+            {/* Countdown Timer */}
             <div className="flex flex-col items-center pl-0 bg-[#f0e0d0] rounded-lg shadow-md p-6 mb-6 hover:scale-102 hover:duration-700 duration-700">
               <div className="flex items-center mb-4">
                 <span className="text-[#62483a] mr-2">
@@ -187,11 +200,15 @@ export default function AuctionPage() {
                   Time Left
                 </h3>
               </div>
+              {/* <div className="grid grid-cols-4 gap-2 text-center"> */}
               <div className="w-full h-[55px] flex justify-center pl-15 pt-1">
+                {/* {console.log('here'+typeof(timeLeft))} */}
+                {/* *************************************************** */}
                 <RemainingBlock timeLeft={timeLeft} paddingLeft="0" />
               </div>
             </div>
 
+            {/* Current Bid */}
             <div className=" flex flex-col items-center pl-0 bg-white rounded-lg shadow-md p-6 mb-6 hover:scale-102 hover:duration-700 duration-700">
               <div className="flex flex-col items-start">
                 <div className="flex items-center mb-3">
@@ -203,14 +220,15 @@ export default function AuctionPage() {
                   </h3>
                 </div>
                 <div className="text-3xl font-bold text-[#62483a] mb-1">
-                  ${bidCurrent.toLocaleString()}
+                  ${currentBid.toLocaleString()}
                 </div>
                 <div className="text-sm text-[#757575]">
-                  Starting Bid Price: $1
+                  Starting Bid Price: ${auctionProduct.startingBid.toLocaleString()}
                 </div>
               </div>
             </div>
 
+            {/* Bid Form */}
             <div className="bg-[#f9f7f3] rounded-lg shadow-md p-6 mb-6 border border-[#e9e2d6] hover:scale-102 hover:duration-700 duration-700">
               <div className="flex items-center mb-3">
                 <span className="text-[#62483a] mr-2">
@@ -220,45 +238,43 @@ export default function AuctionPage() {
                   Auction
                 </h3>
               </div>
-              {isAuthenticated ? (
-                <form onSubmit={bidButton}>
-                  <div className="mb-4">
-                    <label
-                      htmlFor="bidAmount"
-                      className="block text-sm font-medium text-[#49352a] mb-1"
-                    >
-                      Bid Price (USD)
-                    </label>
-                    <input
-                      type="number"
-                      value={bid}
-                      onChange={noDecimal}
-                      placeholder="Enter your Bid Price"
-                      className="w-full px-4 py-2 border border-[#9f8e84] rounded-md focus:outline-none focus:ring-2 focus:ring-[#c2a78f]"
-                      required
-                    />
-                    {errorMessage && (
-                      <p className="mt-2 text-red-700 text-sm">
-                        {errorMessage}
-                      </p>
-                    )}
-                  </div>
-
-                  <ButtonSubmit
-                    onClick={bidButton}
-                    label="Bid Now"
-                    borderRadius="6px"
-                    marginTop="2px"
+              <form onSubmit={handleBid}>
+                <div className="mb-4">
+                  <label
+                    htmlFor="bidAmount"
+                    className="block text-sm font-medium text-[#49352a] mb-1"
+                  >
+                    Bid Price (USD)
+                  </label>
+                  <input
+                    // type="number"
+                    id="bidAmount"
+                    value={bidAmount}
+                    onChange={(e) => setBidAmount(e.target.value)}
+                    placeholder="Enter your Bid Price"
+                    // min={currentBid + 1}
+                    className="w-full px-4 py-2 border border-[#9f8e84] rounded-md focus:outline-none focus:ring-2 focus:ring-[#c2a78f]"
+                    required
                   />
-                </form>
-              ) : (
-                <p className="text-sm text-red-700 mt-2">
-                  Please <Link to="/login" className="underline font-bold">login </Link>
-                  to place a bid.
-                </p>
-              )}
+                  {errorMessage && (
+                    <p className="mt-2 text-red-600 text-sm">{errorMessage}</p>
+                  )}
+                </div>
+                {/* <button
+                  type="submit"
+                  className="w-full bg-[#62483a] hover:bg-[#49352a] text-[#f2eee7] font-medium py-2 px-4 rounded-md transition duration-200"
+                >
+                  Bid Now
+                </button> */}
+                <ButtonSubmit
+                  label="Bid Now"
+                  borderRadius="6px"
+                  marginTop="2px"
+                />
+              </form>
             </div>
 
+            {/* Bid History */}
             <div className="bg-white rounded-lg shadow-md p-6 hover:scale-102 hover:duration-700 duration-700">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center">
@@ -270,13 +286,13 @@ export default function AuctionPage() {
                   </h3>
                 </div>
                 <span className="text-sm text-[#757575]">
-                  {historyBid.length} History
+                  {bidHistory.length} {bidHistory.length > 1 ? "Items" : "Item"}
                 </span>
               </div>
               <div className="max-h-64 overflow-y-auto">
-                {historyBid.map((b, i) => (
+                {bidHistory.map((bid) => (
                   <div
-                    key={i}
+                    key={bid.id}
                     className="border-b border-[#e9e2d6] py-3 last:border-0"
                   >
                     <div className="flex justify-between items-center">
@@ -285,21 +301,20 @@ export default function AuctionPage() {
                           <PersonIcon />
                         </span>
                         <span className="text-[#49352a] font-medium">
-                          {b.firstName} {b.lastName}
+                          {bid.user}
                         </span>
                       </div>
                       <span className="font-semibold text-[#62483a]">
-                        ${b.amount.toLocaleString()}
+                        ${bid.amount.toLocaleString()}
                       </span>
                     </div>
                     <div className="mt-1 text-xs text-[#757575]">
-                      {b.time.toLocaleString("en-US", {
+                      {bid.time.toLocaleString("en-US", {
                         day: "numeric",
                         month: "numeric",
                         year: "numeric",
                         hour: "2-digit",
                         minute: "2-digit",
-                        second: "2-digit",
                       })}
                     </div>
                   </div>
@@ -309,6 +324,8 @@ export default function AuctionPage() {
           </div>
         </div>
       </main>
+
+      {/* Footer */}
     </div>
   );
 }
