@@ -182,7 +182,7 @@ export default function LandingPage() {
                 minHeight="300px"
                 height="350px"
                 minHeightImage="350px"
-                linkURL={`/product/${product.id}`}
+                linkURL={`/product/${product._id}`}
               />
             );
           })}

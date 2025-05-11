@@ -65,7 +65,7 @@ export default function ProductCard({onDelete, wantDelete=false, elevation, imag
             {artist}
           </Typography>
           <Typography sx={{ fontSize: "1.35rem" }}>
-            ${price.toLocaleString("en-Us", { minimumFractionDigits: 2 })}
+            ${Number(price).toLocaleString("en-Us", { minimumFractionDigits: 2 })}
           </Typography>
         </CardContent>
       </CardActionArea>
