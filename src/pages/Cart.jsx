@@ -39,7 +39,7 @@ function Cart() {
   const tax = Math.ceil(totalPrices/10);
   const shipping = shipCost;
   const sumPrices = totalPrices + tax + shipping;
-  
+
   //Remove item from CartDB
   async function onDelete(productId) {
     try {
@@ -97,7 +97,7 @@ function Cart() {
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${sumPrices}</Typography>
         </div>
         </Paper>
-        <HorizontalLinearStepper setShipcost={setShipcost} />
+        <HorizontalLinearStepper setShipcost={setShipcost} cartItems={cartItems} totalPrices={totalPrices}/>
         </div>
       </main>
     </div>
