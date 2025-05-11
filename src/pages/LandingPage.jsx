@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonLR from "../components/ButtonLR";
 import ButtonSubmit from "../components/ButtonSubmit";
-import { Stack, Box, Typography } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import AuctionCard from "../components/AuctionCard";
 import ReviewCard from "../components/ReviewCard";
-
-// import products from "../../data/products";
 import reviews from "../../data/reviews";
 import { useRef } from "react";
 import CollectionCard from "../components/CollectionCard";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import mockUpProduct from "../../data/mockUpProduct"
 
 export default function LandingPage() {
+
   // FOR SCROLLING CONTAINER
   const shopContainerRef = useRef();
   const auctionContainerRef = useRef();
@@ -40,25 +38,21 @@ export default function LandingPage() {
     }
   }
 
-  // CONNECT TO BACKEND
+  //------CONNECT TO BACKEND-------//
+
+  //Get Product From Database
   async function getData() {
     try {
-      //product
-      const productData = await axios.get(
-        "http://localhost:3000/api/product-get",
-        {
+      //fixed price product
+      const productData = await axios.get("http://localhost:3000/api/product-get",{
           withCredentials: true,
-        }
-      );
+        });
       setCollectionData(productData.data.allProduct || []);
 
       //auction product
-      const auctionData = await axios.get(
-        "http://localhost:3000/api/product-get-auction",
-        {
+      const auctionData = await axios.get("http://localhost:3000/api/product-get-auction",{
           withCredentials: true,
-        }
-      );
+        });
       setAuctionData(auctionData.data.allAuctionProduct || []);
     } catch (err) {
       console.log(err);
@@ -71,9 +65,6 @@ export default function LandingPage() {
 
   return (
     <div className="text-[#62483A] w-full min-h-[100vh]">
-      {/* -------------------NAV BAR----------------- */}
-      {/* <Navbar /> */}
-
       <header className="w-full">
         {/* -------------------SECTION HOME----------------- */}
         <section
@@ -91,9 +82,6 @@ export default function LandingPage() {
             >
               Express Your Style with Collectico
             </h1>
-            {/* <Typography className="text-[2.5rem] font-bold">
-              Express Your Style with Collectico
-            </Typography> */}
             <p className="-mt-3 text-[1.5rem] font-semibold text-[var(--primary-color-4)] opacity-50">
               Where Every Artwork Tells a Story.
             </p>
@@ -163,7 +151,6 @@ export default function LandingPage() {
             "&::-webkit-scrollbar-thumb": {
               backgroundColor: "primary.text",
               borderRadius: "100px",
-              // border: "1px solid #62483a3c",
             },
             "&::-webkit-scrollbar-thumb:hover": {
               backgroundColor: "primary.lightChocolate",
@@ -186,23 +173,6 @@ export default function LandingPage() {
               />
             );
           })}
-
-          {/* {products.slice(4).map((product) => {
-            return (
-              <CollectionCard
-                key={product.id}
-                image1={product.image}
-                name={product.title}
-                detail={product.artist}
-                prices={product.price}
-                minWidth="320px"
-                minHeight="300px"
-                height="350px"
-                minHeightImage="350px"
-                linkURL={`/product/${product.id}`}
-              />
-            );
-          })} */}
         </Stack>
         {/* ButtonSubmit */}
         <div className="w-[45%] md:w-[20%] lg:w-[15%] hover:scale-120 transition-all duration-900 ease-in-out">
@@ -267,7 +237,6 @@ export default function LandingPage() {
             "&::-webkit-scrollbar-thumb": {
               backgroundColor: "primary.darkCream",
               borderRadius: "100px",
-              // border: "1px solid #62483a3c",
             },
             "&::-webkit-scrollbar-thumb:hover": {
               backgroundColor: "primary.lightChocolate",
@@ -286,19 +255,6 @@ export default function LandingPage() {
               />
             );
           })}
-
-          {/* {products.map((product) => {
-            return (
-              <AuctionCard
-                key={product.id}
-                image={product.image}
-                title={product.title}
-                artist={product.artist}
-                price={product.price}
-                linkUrl={`/auction/${product.id}`}
-              />
-            );
-          })} */}
         </Stack>
         {/* ButtonSubmit */}
         <div className="w-[30%] lg:w-[15%] hover:scale-120 transition-all duration-900 ease-in-out">
@@ -358,7 +314,6 @@ export default function LandingPage() {
             "&::-webkit-scrollbar-thumb": {
               backgroundColor: "primary.text",
               borderRadius: "100px",
-              // border: "1px solid #62483a3c",
             },
             "&::-webkit-scrollbar-thumb:hover": {
               backgroundColor: "primary.lightChocolate",
@@ -437,10 +392,6 @@ export default function LandingPage() {
           </div>
         </figure>
       </section>
-      {/* -------------------FOOTER----------------- */}
-      {/* <footer>
-        <Footer />
-      </footer> */}
     </div>
   );
 }
