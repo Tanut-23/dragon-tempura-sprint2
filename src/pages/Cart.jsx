@@ -4,39 +4,63 @@ import InputField from '../components/InlineInput';
 import ButtonSubmit from '../components/ButtonSubmit';
 import RadioButtonExample from '../components/radio';
 import HorizontalLinearStepper from '../components/Step';
-import { useCart } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import React,{useEffect, useState} from  'react';
 import axios from 'axios';
 
-function Cart() {
 
-  const { cartItems, cartCount } = useCart();
+function Cart() {
   const [shipCost, setShipcost] = useState();
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
 
+  //Get cart items from Cart Database
+  useEffect(() => {
+    const fetchCartItem = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/api/cart-get",{
+          withCredentials: true,
+        });
+        setCartItems(res.data?.cart?.items || [])
+        // console.log(res.data.cart.items);
+      } catch (error) {
+        console.error("Error Fetching Product From Cart: ", error);
+        setCartItems([])
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCartItem();
+  }, []);
+
+  //Calculate 💸
   const totalPrices = cartItems.reduce((total, product)=>total+product.price, 0);
   const tax = Math.ceil(totalPrices/10);
   const shipping = shipCost;
   const sumPrices = totalPrices + tax + shipping;
   
+  //Remove item from CartDB
   async function onDelete(productId) {
     try {
       await axios.delete(`http://localhost:3000/api/cart-delete/${productId}`, { withCredentials: true });
+
+      //update local cart
+      const updatedcartItems = cartItems.filter(item => item.productId !== productId)
+      setCartItems(updatedcartItems);
     } catch(err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }
   }
 
 
-  // console.log(totalPrices);
-  // console.log(cartItems);
-
+  // Navigate to mainshop page
   useEffect(() => {
-    if (cartCount === 0) {
-      navigate('/shoppage');
+    if (!loading && cartItems.length === 0) {
+      navigate('/mainshop');
     }
-  }, [cartCount, navigate]);
+  }, [loading, cartItems, navigate]);
+
 
   return (
     <div className="bg-[#F0E0D0] w-[100vw] flex flex-col items-center px-[10%] pt-[32px]">
@@ -48,8 +72,8 @@ function Cart() {
       </header>
       <main className="flex max-md:flex-col-reverse justify-start w-full max-md:gap-[16px]">
         <section className="flex md:flex-col gap-[16px] w-[100%] md:w-[30%] min-w-[240px] items-center overflow-y-auto scrollbar-hide max-h-[1100px] p-[8px] bg-[#E9E2D6] rounded-tl-lg rounded-bl-lg">
-        {cartItems.map((products)=>(
-            <ProductCard onDelete={onDelete(products.id)} wantDelete={true}  elevation={3} image={products.image}  title={products.title} artist={products.artist} price={products.price}/>
+        {cartItems.map((product)=>(
+            <ProductCard onDelete={() => onDelete(product.productId)} wantDelete={true}  elevation={3} image={product.image}  title={product.title} artist={product.artist} price={product.price}/>
           ))}
         </section>
         <div className="flex flex-col gap-[16px] md:w-[65%] w-[100%] min-w-[300px] bg-[#F2EEE7] rounded-tr-lg rounded-br-lg overflow-hidden border-0 px-[5%] py-[32px]">
