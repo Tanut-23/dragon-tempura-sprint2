@@ -19,7 +19,7 @@ function Cart() {
   const shipping = shipCost;
   const sumPrices = totalPrices + tax + shipping;
   
-
+  console.log(shipCost);
   // console.log(totalPrices);
   // console.log(cartItems);
 
