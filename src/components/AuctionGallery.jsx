@@ -16,7 +16,7 @@ const ProductGrid = ({ products }) => {
 
           <Masonry columns={{ sm: 1, md: 3 }} spacing={7}>
             {products.map((product) => (
-              <AuctionCard linkUrl={`/auction/${product.id}`} width={350} height={510} key={product.id} image={product.image} title={product.title} artist={product.artist} price={product.price}/>
+              <AuctionCard linkUrl={`/auction/${product._id}`} width={350} height={510} key={product.id} image={product.image} title={product.title} artist={product.artist} price={product.price}/>
             ))}
           </Masonry>
         </div>

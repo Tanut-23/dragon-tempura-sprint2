@@ -263,8 +263,8 @@ function Navbar() {
             <Dialog
               open={isRegisterOpen}
               onClose={handleCloseRegister}
-              fullWidth
-              maxWidth="md"
+              // fullWidth
+              maxWidth="xl"
               PaperProps={{
                 sx: {
                   backgroundColor: "transparent",
