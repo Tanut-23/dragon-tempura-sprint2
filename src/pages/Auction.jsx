@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import RemainingBlock from "../components/RemainingBlock";
 import ButtonSubmit from "../components/ButtonSubmit";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import products from "../../data/products";
 import { io } from "socket.io-client";
@@ -71,7 +72,7 @@ const DollarIcon = () => (
 export default function AuctionPage() {
   const { id } = useParams();
   const [timeLeft, setTimeLeft] = useState(null);
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [bid, setBid] = useState("");
@@ -106,7 +107,7 @@ export default function AuctionPage() {
       return;
     }
 
-    if (bidUser > 999_999_999_999_999) {
+    if (bidUser > 999999999999999) {
       setErrorMessage(`Bid price must be lower than one quadrillion.`);
       return;
     }
@@ -219,34 +220,43 @@ export default function AuctionPage() {
                   Auction
                 </h3>
               </div>
-              <form onSubmit={bidButton}>
-                <div className="mb-4">
-                  <label
-                    htmlFor="bidAmount"
-                    className="block text-sm font-medium text-[#49352a] mb-1"
-                  >
-                    Bid Price (USD)
-                  </label>
-                  <input
-                    type="number"
-                    value={bid}
-                    onChange={noDecimal}
-                    placeholder="Enter your Bid Price"
-                    className="w-full px-4 py-2 border border-[#9f8e84] rounded-md focus:outline-none focus:ring-2 focus:ring-[#c2a78f]"
-                    required
-                  />
-                  {errorMessage && (
-                    <p className="mt-2 text-red-700 text-sm">{errorMessage}</p>
-                  )}
-                </div>
+              {isAuthenticated ? (
+                <form onSubmit={bidButton}>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="bidAmount"
+                      className="block text-sm font-medium text-[#49352a] mb-1"
+                    >
+                      Bid Price (USD)
+                    </label>
+                    <input
+                      type="number"
+                      value={bid}
+                      onChange={noDecimal}
+                      placeholder="Enter your Bid Price"
+                      className="w-full px-4 py-2 border border-[#9f8e84] rounded-md focus:outline-none focus:ring-2 focus:ring-[#c2a78f]"
+                      required
+                    />
+                    {errorMessage && (
+                      <p className="mt-2 text-red-700 text-sm">
+                        {errorMessage}
+                      </p>
+                    )}
+                  </div>
 
-                <ButtonSubmit
-                  onClick={bidButton}
-                  label="Bid Now"
-                  borderRadius="6px"
-                  marginTop="2px"
-                />
-              </form>
+                  <ButtonSubmit
+                    onClick={bidButton}
+                    label="Bid Now"
+                    borderRadius="6px"
+                    marginTop="2px"
+                  />
+                </form>
+              ) : (
+                <p className="text-sm text-red-700 mt-2">
+                  Please <Link to="/login" className="underline font-bold">login </Link>
+                  to place a bid.
+                </p>
+              )}
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 hover:scale-102 hover:duration-700 duration-700">
