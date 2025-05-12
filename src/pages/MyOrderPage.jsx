@@ -5,7 +5,7 @@ import PaginationBar from "../components/PaginationBar";
 import OrderCard from "../components/OrderCard";
 import StatsCard from "../components/StatsCard";
 import axios from "axios";
-import mockOrderDetails from "../../data/mockOrderDetails";
+// import mockOrderDetails from "../../data/mockOrderDetails";
 
 function MyOrderPage() {
 
@@ -14,7 +14,7 @@ function MyOrderPage() {
   const [completed, setCompleted] = useState(0);
   const [pending, setPending] = useState(0);
   const [data, setData]= useState([]);
-  const [product, setProduct]= useState();
+  // const [product, setProduct]= useState();
 
 useEffect(() => {
   const getData = async () => {
