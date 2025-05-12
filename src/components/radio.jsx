@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Typography, Paper, Box } from "@mui/material";
 
 const RadioButtonExample = ({setShippig}) => {
-  const [value, setValue] = useState("option3");
+  const [value, setValue] = useState("Standard");
 
   const handleChange = (event) => {
     setValue(event.target.value);
-    setShippig(value)
+    setShippig(event.target.value)
   };
-
+console.log("option from radio = ", value);
   return (
     <Paper elevation={3}
     sx={{ p: 3, mb: 4, bgcolor: "#f9f7f3", color: "#62483a" }}>
@@ -31,7 +31,7 @@ const RadioButtonExample = ({setShippig}) => {
         onChange={handleChange}
       >
     <div className="flex gap-[24px] justify-between">
-    <FormControlLabel value="option3" control={<Radio />} label={
+    <FormControlLabel value="Standard" control={<Radio />} label={
     <Typography sx={{ color: "text.secondary", fontSize: "1rem",padding: "16px 0 16px 0"}}>
       Standard Shipping
       <br />
@@ -41,7 +41,7 @@ const RadioButtonExample = ({setShippig}) => {
      $150
     </Typography></div>
     <div className="flex gap-[24px] justify-between">
-    <FormControlLabel value="option1" control={<Radio />} label={
+    <FormControlLabel value="Premium" control={<Radio />} label={
     <Typography sx={{ color: "text.secondary", fontSize: "1rem",padding: "16px 0 16px 0"}}>
       Premium White Glove Delivery
       <br />
@@ -51,7 +51,7 @@ const RadioButtonExample = ({setShippig}) => {
      $350
     </Typography></div>
     <div className="flex gap-[24px] justify-between">
-    <FormControlLabel value="option2" control={<Radio />} label={
+    <FormControlLabel value="Expedited" control={<Radio />} label={
     <Typography sx={{ color: "text.secondary", fontSize: "1rem",padding: "16px 0 16px 0"}}>
       Expedited White Glove Delivery
       <br />

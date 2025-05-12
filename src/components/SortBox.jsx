@@ -31,7 +31,7 @@ function SortBox() {
     if(!genre) return
     const fetchProducts = async () => {
       try{
-        const res = await axios.get(`http://localhost:3000/api/products?genre=${genre}`,)
+        const res = await axios.get(`http://localhost:3000/api/products?genre=${genre}`)
         setProducts(res.data.products);
       } catch (error) {
         console.error("Error fetching products:", error);

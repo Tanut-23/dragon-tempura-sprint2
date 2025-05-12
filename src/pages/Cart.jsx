@@ -7,13 +7,14 @@ import HorizontalLinearStepper from '../components/Step';
 import { useNavigate } from "react-router-dom";
 import React,{useEffect, useState} from  'react';
 import axios from 'axios';
+import { useCart } from '../contexts/CartContext';
 
 
 function Cart() {
   const [shipCost, setShipcost] = useState();
-  const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
+  const { cartItems, setCartItems } = useCart();  //From Cart Context
 
   //Get cart items from Cart Database
   useEffect(() => {
@@ -35,11 +36,11 @@ function Cart() {
   }, []);
 
   //Calculate 💸
-  const totalPrices = cartItems.reduce((total, product)=>total+product.price, 0);
-  const tax = Math.ceil(totalPrices/10);
+  const sumPrices = cartItems.reduce((total, product)=>total+product.price, 0);
+  const tax = Math.ceil(sumPrices /10);
   const shipping = shipCost;
-  const sumPrices = totalPrices + tax + shipping;
-  
+  const totalPrices = sumPrices  + tax + shipping;
+
   //Remove item from CartDB
   async function onDelete(productId) {
     try {
@@ -52,7 +53,6 @@ function Cart() {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }
   }
-
 
   // Navigate to mainshop page
   useEffect(() => {
@@ -82,7 +82,7 @@ function Cart() {
         <Typography sx={{ width:"100%", color: "primary.main" , fontWeight:600, fontSize: "1.5rem"}}>Order Summary</Typography>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Sub total</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${totalPrices}</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${sumPrices}</Typography>
         </div>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Shipping</Typography>
@@ -94,10 +94,10 @@ function Cart() {
         </div>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Total</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${sumPrices}</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${totalPrices}</Typography>
         </div>
         </Paper>
-        <HorizontalLinearStepper setShipcost={setShipcost} />
+        <HorizontalLinearStepper setShipcost={setShipcost} cartItems={cartItems} totalPrices={totalPrices} shipCost={shipping} tax={tax}/>
         </div>
       </main>
     </div>

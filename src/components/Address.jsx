@@ -66,13 +66,13 @@ function Address({addressInput, setAddressInput, error, handleSubmit}) {
     <TextField
         required
         fullWidth
-        id="emailAddress"
+        id="email"
         label="Email Address"
-        value={addressInput.emailAddress}
-        error={error.emailAddress > 0 }
+        value={addressInput.email}
+        error={error.email > 0 }
         onChange={handleInput}
         helperText={
-          (error.emailAddress === 1) ? "Please enter your email" : (error.emailAddress === 2) ? "Invalid email format" : ""
+          (error.email === 1) ? "Please enter your email" : (error.email === 2) ? "Invalid email format" : ""
         }
         type="email"
         variant="outlined"
@@ -81,13 +81,13 @@ function Address({addressInput, setAddressInput, error, handleSubmit}) {
         <TextField
         required
         fullWidth
-        id="phoneNumber"
+        id="phone"
         label="Phone Number"
-        value={addressInput.phoneNumber}
-        error={error.phoneNumber > 0 }
+        value={addressInput.phone}
+        error={error.phone > 0 }
         onChange={handleInput}
         helperText={
-          (error.phoneNumber === 1) ? "Please enter your phone number" : (error.phoneNumber === 2) ? "Invalid phone number format" : ""
+          (error.phone === 1) ? "Please enter your phone number" : (error.phone === 2) ? "Invalid phone number format" : ""
         }
         variant="outlined"
         placeholder="+66 123-456-7890"
@@ -143,7 +143,7 @@ function Address({addressInput, setAddressInput, error, handleSubmit}) {
         <TextField
         required
         fullWidth
-        id="stateAndProvince"
+        id="state"
         label="State/Province"
         value={addressInput.stateAndProvince}
         error={error.stateAndProvince > 0 }
