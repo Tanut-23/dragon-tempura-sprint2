@@ -1,5 +1,6 @@
 const reviews = [
     {
+        id: 1,
         star: 5,
         text: `“The Midnight Horizon artwork completely elevated my space. The
         way it changes in different lighting adds depth and elegance to
@@ -9,6 +10,7 @@ const reviews = [
         position: 'Art Collector, New York',
     },
     {
+        id: 2,
         star: 5,
         text: `"The Golden Leaf Art transformed my living space completely. The
                 way it catches the light throughout the day creates a magical
@@ -18,6 +20,7 @@ const reviews = [
         position: 'Interior Designer, London',
     },
     {
+        id: 3,
         star: 5,
         text: `"The Royal Bloom art piece transformed my room with its striking
                 beauty. The colors shift with the light, bringing a peaceful,
@@ -27,6 +30,7 @@ const reviews = [
         position: 'Estate Owner, Paris',
     },
     {
+        id: 4,
         star: 5,
         text: `“The Serenity Landscape painting has completely redefined my
                 space. Its calming tones and subtle details bring a sense of

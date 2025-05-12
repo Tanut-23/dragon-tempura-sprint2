@@ -3,8 +3,8 @@ import AuctionSort from "../components/AuctionSort";
 
 export default function AuctionShopPage() {
   return (
-    <div className="flex flex-col items-center justify-center bg-[#f2eee7]">
-      <div className="w-full max-w-screen-2xl px-12 mx-auto">
+    <div className="flex flex-col items-center justify-center w-full bg-[#f2eee7]">
+      <div className="w-full max-w-screen-2xl px-5 sm:px-12 mx-auto">
         <h1 className="text-4xl font-bold text-red-950 pt-10">
           Auction
         </h1>

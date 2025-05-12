@@ -6,9 +6,9 @@ import AuctionCard from "../components/AuctionCard";
 import ReviewCard from "../components/ReviewCard";
 import reviews from "../../data/reviews";
 import { useRef } from "react";
-import CollectionCard from "../components/CollectionCard";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import CollectionCardLanding from "../components/CollectionCardLanding";
 
 export default function LandingPage() {
 
@@ -133,11 +133,12 @@ export default function LandingPage() {
           sx={{
             display: "flex",
             flexDirection: { xs: "column", sm: "row" },
-            alignItems: { xs: "center" },
+            alignItems: { xs: "stretch", sm: "center" },
             gap: 2,
-            width: "80%",
+            width: "90%",
             maxHeight: { xs: "330px", sm: "none" },
-            overflow: "auto",
+            overflowY: "auto",
+            overflowX: {xs: "clip", sm: "auto"},
             whiteSpace: "nowrap",
             mt: 2,
             mb: 4,
@@ -159,16 +160,16 @@ export default function LandingPage() {
         >
           {collectionData.map((product) => {
             return (
-              <CollectionCard
+              <CollectionCardLanding
                 key={product.id}
                 image1={product.image}
                 name={product.title}
                 detail={product.artist}
                 prices={product.price}
-                minWidth="320px"
-                minHeight="300px"
-                height="350px"
-                minHeightImage="350px"
+                // minWidth="320px"
+                // minHeight="300px"
+                // height={{ xs: "auto", sm: "350px" }}
+                // minHeightImage="350px"
                 linkURL={`/product/${product._id}`}
               />
             );
@@ -191,7 +192,7 @@ export default function LandingPage() {
           id="auction-title"
           className="flex flex-col gap-[20px] items-center sm:items-start w-[80%]"
         >
-          <h2 className="text-[1.5rem] font-bold">Exclusive Auction Pieces</h2>
+          <h2 className="text-[1.5rem] font-bold text-center">Exclusive Auction Pieces</h2>
           <p className="w-[90%]">
             Discover our exclusive collection of rare, highly sought-after
             pieces, each selected for its exceptional craftsmanship and unique
@@ -220,7 +221,7 @@ export default function LandingPage() {
             flexDirection: { xs: "column", sm: "row" },
             alignItems: { xs: "center" },
             gap: 2,
-            width: "80%",
+            width: "90%",
             maxHeight: { xs: "550px", sm: "none" },
             overflow: "auto",
             whiteSpace: "nowrap",
@@ -293,7 +294,7 @@ export default function LandingPage() {
         <Stack
           ref={reviewContainerRef}
           sx={{
-            width: { xs: "80%", sm: "80%" },
+            width: { xs: "90%", sm: "80%" },
             height: { xs: "320px", sm: "100%" },
             display: "flex",
             flexDirection: { xs: "column", sm: "row" },
@@ -323,6 +324,7 @@ export default function LandingPage() {
           {reviews.map((review) => {
             return (
               <ReviewCard
+                key={review.id}
                 star={review.star}
                 text={review.text}
                 profilePic={review.profilePic}
@@ -336,10 +338,10 @@ export default function LandingPage() {
       {/* -------------------SECTION ABOUT----------------- */}
       <section
         id="about"
-        class="w-full bg-white flex flex-row md:gap-20 gap-10 py-[50px] md:px-[54.5px] items-start justify-center"
+        className="w-full bg-white flex flex-row md:gap-20 gap-10 py-[50px] md:px-[54.5px] items-start justify-center"
       >
-        <article class="flex flex-col gap-4 w-[80%] sm:w-[40%] my-auto">
-          <h2 class="text-[1.5rem] font-bold">About Our Passion</h2>
+        <article className="flex flex-col gap-4 w-[80%] sm:w-[40%] my-auto">
+          <h2 className="text-[1.5rem] font-bold">About Our Passion</h2>
           <p>
             At COLLECTICO, we curate only the most exceptional limited edition
             art pieces and display items from around the world. Each piece in
@@ -371,23 +373,23 @@ export default function LandingPage() {
             </Link>
           </div>
         </article>
-        <figure class="w-[40%] h-auto hidden sm:flex gap-[12px]">
+        <figure className="w-[40%] h-auto hidden sm:flex gap-[12px]">
           <img
             src="/productPicture/Genre-Painting-Classic-Art-4.jpg"
             alt=""
-            class="bg-secondary2 lg:w-[50%] h-auto object-cover overflow-hidden brightness-110"
+            className="bg-secondary2 lg:w-[50%] h-auto object-cover overflow-hidden brightness-110"
           />
           {/* <!-- the two right pictures --> */}
-          <div class="w-[50%] h-auto hidden lg:flex lg:flex-col lg:gap-[12px]">
+          <div className="w-[50%] h-auto hidden lg:flex lg:flex-col lg:gap-[12px]">
             <img
               src="/productPicture/Historical-Painting-Contemporary-Art-1.jpg"
               alt=""
-              class="bg-secondary2 w-full h-auto object-cover overflow-hidden"
+              className="bg-secondary2 w-full h-auto object-cover overflow-hidden"
             />
             <img
               src="/productPicture/Portrait-Painting-Classic-Art-2.jpg"
               alt=""
-              class="bg-secondary2 w-full h-auto object-cover overflow-hidden backdrop-brightness-95"
+              className="bg-secondary2 w-full h-auto object-cover overflow-hidden backdrop-brightness-95"
             />
           </div>
         </figure>
