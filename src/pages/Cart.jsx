@@ -36,11 +36,11 @@ function Cart() {
   }, []);
 
   //Calculate 💸
-  const totalPrices = cartItems.reduce((total, product)=>total+product.price, 0);
-  const tax = Math.ceil(totalPrices/10);
+  const sumPrices = cartItems.reduce((total, product)=>total+product.price, 0);
+  const tax = Math.ceil(sumPrices /10);
   const shipping = shipCost;
-  const sumPrices = totalPrices + tax + shipping;
-  
+  const totalPrices = sumPrices  + tax + shipping;
+
   //Remove item from CartDB
   async function onDelete(productId) {
     try {
@@ -82,7 +82,7 @@ function Cart() {
         <Typography sx={{ width:"100%", color: "primary.main" , fontWeight:600, fontSize: "1.5rem"}}>Order Summary</Typography>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Sub total</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${totalPrices}</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${sumPrices}</Typography>
         </div>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Shipping</Typography>
@@ -94,10 +94,10 @@ function Cart() {
         </div>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Total</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${sumPrices}</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${totalPrices}</Typography>
         </div>
         </Paper>
-        <HorizontalLinearStepper setShipcost={setShipcost} />
+        <HorizontalLinearStepper setShipcost={setShipcost} cartItems={cartItems} totalPrices={totalPrices} shipCost={shipping} tax={tax}/>
         </div>
       </main>
     </div>

@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import RemainingBlock from "../components/RemainingBlock";
 import ButtonSubmit from "../components/ButtonSubmit";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import products from "../../data/products";
 import { io } from "socket.io-client";
-const socket = io("http://localhost:5000");
+import { useAuth } from "../contexts/AuthContext";
 
 const ClockIcon = () => (
   <svg
@@ -72,15 +72,27 @@ const DollarIcon = () => (
 export default function AuctionPage() {
   const { id } = useParams();
   const [timeLeft, setTimeLeft] = useState(null);
+  const { user, isAuthenticated } = useAuth();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [bid, setBid] = useState("");
   const [historyBid, setHistoryBid] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const socket = io("http://localhost:3000");
 
   useEffect(() => {
-    socket.on("newBidXYZ", (data) => {
-      setHistoryBid((prev) => [data, ...prev]);
+    if (user) {
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    socket.on("shareBid", (dataAuctioneer) => {
+      dataAuctioneer.time = new Date(dataAuctioneer.time); // Convert string to Date
+      setHistoryBid((prev) => [dataAuctioneer, ...prev]);
     });
-    return () => socket.off("newBidXYZ");
+    return () => socket.off("shareBid");
   }, []);
 
   const bidCurrent = Math.max(...historyBid.map((b) => b.amount), 0);
@@ -90,24 +102,30 @@ export default function AuctionPage() {
 
     if (bidUser <= bidCurrent) {
       setErrorMessage(
-        `Bid Price must be greater than $${bidCurrent.toLocaleString()}`
+        `Bid price must be greater than $${bidCurrent.toLocaleString()}`
       );
       return;
     }
 
-    const data = {
-      username: "Nemo",
+    if (bidUser > 999999999999999) {
+      setErrorMessage(`Bid price must be lower than one quadrillion.`);
+      return;
+    }
+
+    const dataAuctioneer = {
+      firstName: firstName,
+      lastName: lastName,
       amount: bidUser,
       time: new Date(),
     };
 
-    socket.emit("placeBidABCD", data);
+    socket.emit("oneBid", dataAuctioneer);
     setBid("");
     setErrorMessage("");
   };
 
   const noDecimal = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, '');
+    const value = e.target.value.replace(/[^0-9]/g, "");
     setBid(value);
   };
 
@@ -202,34 +220,43 @@ export default function AuctionPage() {
                   Auction
                 </h3>
               </div>
-              <form onSubmit={bidButton}>
-                <div className="mb-4">
-                  <label
-                    htmlFor="bidAmount"
-                    className="block text-sm font-medium text-[#49352a] mb-1"
-                  >
-                    Bid Price (USD)
-                  </label>
-                  <input
-                    type="number"
-                    value={bid}
-                    onChange={noDecimal}
-                    placeholder="Enter your Bid Price"
-                    className="w-full px-4 py-2 border border-[#9f8e84] rounded-md focus:outline-none focus:ring-2 focus:ring-[#c2a78f]"
-                    required
-                  />
-                  {errorMessage && (
-                    <p className="mt-2 text-red-700 text-sm">{errorMessage}</p>
-                  )}
-                </div>
+              {isAuthenticated ? (
+                <form onSubmit={bidButton}>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="bidAmount"
+                      className="block text-sm font-medium text-[#49352a] mb-1"
+                    >
+                      Bid Price (USD)
+                    </label>
+                    <input
+                      type="number"
+                      value={bid}
+                      onChange={noDecimal}
+                      placeholder="Enter your Bid Price"
+                      className="w-full px-4 py-2 border border-[#9f8e84] rounded-md focus:outline-none focus:ring-2 focus:ring-[#c2a78f]"
+                      required
+                    />
+                    {errorMessage && (
+                      <p className="mt-2 text-red-700 text-sm">
+                        {errorMessage}
+                      </p>
+                    )}
+                  </div>
 
-                <ButtonSubmit
-                  onClick={bidButton}
-                  label="Bid Now"
-                  borderRadius="6px"
-                  marginTop="2px"
-                />
-              </form>
+                  <ButtonSubmit
+                    onClick={bidButton}
+                    label="Bid Now"
+                    borderRadius="6px"
+                    marginTop="2px"
+                  />
+                </form>
+              ) : (
+                <p className="text-sm text-red-700 mt-2">
+                  Please <Link to="/login" className="underline font-bold">login </Link>
+                  to place a bid.
+                </p>
+              )}
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 hover:scale-102 hover:duration-700 duration-700">
@@ -258,7 +285,7 @@ export default function AuctionPage() {
                           <PersonIcon />
                         </span>
                         <span className="text-[#49352a] font-medium">
-                          {b.username}
+                          {b.firstName} {b.lastName}
                         </span>
                       </div>
                       <span className="font-semibold text-[#62483a]">
@@ -273,7 +300,6 @@ export default function AuctionPage() {
                         hour: "2-digit",
                         minute: "2-digit",
                         second: "2-digit",
-                        timeZone: "Asia/Bangkok",
                       })}
                     </div>
                   </div>
