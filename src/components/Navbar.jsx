@@ -12,7 +12,6 @@ import ForgotPassword from "../pages/ForgotPassword.jsx";
 function Navbar() {
   const { cartCount } = useCart();
   const { isAuthenticated , isLoginPopupOpen , openLoginPopup , closeLoginPopup} = useAuth();
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
   const [tempEmail, setTempEmail] = useState("");
@@ -21,19 +20,19 @@ function Navbar() {
   const handleOpenLogin = (email = "", password = "") => {
     setTempEmail(typeof email === "string" ? email : "");
     setTempPassword(typeof password === "string" ? password : "");
-    openLoginPopup;
+    openLoginPopup();
     setIsRegisterOpen(false);
     setIsForgotPasswordOpen(false);
   };
 
   const handleOpenRegister = () => {
-    closeLoginPopup;
+    closeLoginPopup();
     setIsRegisterOpen(true);
     setIsForgotPasswordOpen(false);
   };
 
   const handleOpenForgotPassword = () => {
-    closeLoginPopup;
+    closeLoginPopup();
     setIsRegisterOpen(false);
     setIsForgotPasswordOpen(true);
   };
@@ -238,9 +237,7 @@ function Navbar() {
             {/* Login propup */}
             <Dialog
               open={isLoginPopupOpen}
-              onClose={() => {
-                closeLoginPopup;;
-              }}
+              onClose={closeLoginPopup}
               PaperProps={{
                 sx: {
                   backgroundColor: "transparent",
