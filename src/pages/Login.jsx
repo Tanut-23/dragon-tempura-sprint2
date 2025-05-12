@@ -32,7 +32,6 @@ export default function Login({ onClose , switchToRegister, switchToForgotPasswo
       console.log(res)
       onClose();
       alert("Login success, Welcome to Collectico!");
-      navigate("/")
       window.location.reload();
     } catch (err){
       if (err.response) {

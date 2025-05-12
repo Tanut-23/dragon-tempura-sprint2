@@ -27,6 +27,7 @@ import MeetTeamMemberPage from "./pages/MeetTeamMemberPage.jsx";
 import FinancialReportingPage from "./pages/FinancialReportingPage.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import OurStoryPage from "./pages/OurStoryPage.jsx";
+import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 
 const theme = createTheme({
   palette: {
@@ -72,11 +73,11 @@ const router = createBrowserRouter([
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
       { path: "/market", element: <MarketPage /> },
-      { path: "/postpage", element: <PostPage /> },
-      { path: "/postpage/:editId", element: <PostPage /> },
+      { path: "/postpage", element: <ProtectedRoute><PostPage /></ProtectedRoute> },
+      { path: "/postpage/:editId", element: <ProtectedRoute><PostPage /></ProtectedRoute> },
       { path: "/mainshop", element: <MainShopPage /> },
-      { path: "/cart", element: <Cart /> },
-      { path: "/myorder", element: <MyOrderPage /> },
+      { path: "/cart", element: <ProtectedRoute><Cart /></ProtectedRoute> },
+      { path: "/myorder", element: <ProtectedRoute><MyOrderPage /></ProtectedRoute> },
       { path: "/shoppage", element: <ShopPage /> },
       { path: "/product/:productId", element: <ProductPage /> },
       { path: "/resetpassword", element: <ForgotPassword /> },
