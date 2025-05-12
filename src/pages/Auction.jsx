@@ -3,13 +3,14 @@ import RemainingBlock from "../components/RemainingBlock";
 import ButtonSubmit from "../components/ButtonSubmit";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import products from "../../data/products";
-import {ClockIcon,ChartIcon,PersonIcon,DollarIcon,HistoryIcon} from "../components/Icons";
+import {ClockIcon,ChartIcon, PersonIcon,DollarIcon,HistoryIcon} from "../components/Icons";
 import { io } from "socket.io-client";
 import { useAuth } from "../contexts/AuthContext";
+import axios from "axios";
 
 export default function AuctionPage() {
   const { id } = useParams();
+  const { auctionId } = useParams();
   const [timeLeft, setTimeLeft] = useState(null);
   const { user, isAuthenticated } = useAuth();
   const [firstName, setFirstName] = useState("");
@@ -17,6 +18,23 @@ export default function AuctionPage() {
   const [bid, setBid] = useState("");
   const [historyBid, setHistoryBid] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [auctionData, setAuctionData] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3000/api/product/${auctionId}`
+        );
+        setAuctionData(res.data?.product ?? null);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+  
+    };
+    fetchProduct();
+  }, [auctionId]);
+
   const socket = useRef();
   useEffect(() => {
     socket.current = io("http://localhost:3000");
@@ -76,7 +94,7 @@ export default function AuctionPage() {
       return;
     }
 
-    const productId = id; // id จาก useParams()
+    const productId = auctionId; // id จาก useParams()
     const userId = user?._id; // user._id จาก useAuth()
     const amount = bidUser;
 
@@ -95,24 +113,17 @@ export default function AuctionPage() {
     setBid(value);
   };
 
-  const [auctionProduct, setAuctionProduct] = useState(null);
+
 
   useEffect(() => {
-    const data = products.find((product) => product.id === parseInt(id));
-    if (data) {
-      setAuctionProduct(data);
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (auctionProduct) {
+    if (auctionData) {
       const now = new Date();
-      let timeLeft = new Date(auctionProduct.endDate) - now;
+      let timeLeft = new Date(auctionData.endDate) - now;
       setTimeLeft(timeLeft);
     }
-  }, [auctionProduct]);
+  }, [auctionData]);
 
-  if (!auctionProduct) {
+  if (!auctionData) {
     return (
       <div className="flex justify-center items-center h-screen">
         Product not found
@@ -128,18 +139,18 @@ export default function AuctionPage() {
           <div className="lg:col-span-2">
             <div className="flex flex-col items-center p-6 bg-[#e4dcd2b4] rounded-lg shadow-lg overflow-hidden">
               <img
-                src={auctionProduct.image}
-                alt={auctionProduct.title}
+                src={auctionData.image}
+                alt={auctionData.title}
                 className="lg:w-[60%] object-cover shadow-md shadow-gray-600 hover:scale-105 hover:duration-900 duration-900"
               />
               <div className="p-6">
                 <h2 className="text-2xl font-bold text-[#62483a] mb-2">
-                  {auctionProduct.title}
+                  {auctionData.title}
                 </h2>
                 <p className="text-[#757575] mb-4">
-                  Artist: {auctionProduct.artist}
+                  Artist: {auctionData.artist}
                 </p>
-                <p className="text-[#49352a]">{auctionProduct.description}</p>
+                <p className="text-[#49352a]">{auctionData.description}</p>
               </div>
             </div>
           </div>
