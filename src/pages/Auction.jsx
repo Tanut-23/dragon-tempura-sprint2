@@ -3,22 +3,43 @@ import RemainingBlock from "../components/RemainingBlock";
 import ButtonSubmit from "../components/ButtonSubmit";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import {ClockIcon,ChartIcon, PersonIcon,DollarIcon,HistoryIcon} from "../components/Icons";
+import {
+  ClockIcon,
+  ChartIcon,
+  PersonIcon,
+  DollarIcon,
+  HistoryIcon,
+} from "../components/Icons";
 import { io } from "socket.io-client";
 import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
 
 export default function AuctionPage() {
-  const { id } = useParams();
   const { auctionId } = useParams();
   const [timeLeft, setTimeLeft] = useState(null);
   const { user, isAuthenticated } = useAuth();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [bid, setBid] = useState("");
   const [historyBid, setHistoryBid] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [auctionData, setAuctionData] = useState(null);
+  const [isAuctionEnded, setIsAuctionEnded] = useState(false);
+
+  useEffect(() => {
+    if (!auctionData) return;
+
+    const updateTimeLeft = () => {
+      const now = new Date();
+      const end = new Date(auctionData.endDate);
+      const diff = end - now;
+      setTimeLeft(diff);
+      setIsAuctionEnded(diff <= 0);
+    };
+
+    updateTimeLeft();
+    const timer = setInterval(updateTimeLeft, 1000);
+
+    return () => clearInterval(timer);
+  }, [auctionData]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -30,7 +51,6 @@ export default function AuctionPage() {
       } catch (error) {
         console.error("Error fetching product:", error);
       }
-  
     };
     fetchProduct();
   }, [auctionId]);
@@ -41,11 +61,14 @@ export default function AuctionPage() {
     return () => socket.current.disconnect();
   }, []);
 
+  // ...existing code...
   useEffect(() => {
     const fetchBidHistory = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/bids/${id}`);
+        console.log("auctionId param:", auctionId);
+        const res = await fetch(`http://localhost:3000/api/bids/${auctionId}`);
         const data = await res.json();
+        console.log("bid history from API:", data); // <--- ดูตรงนี้
         const formatted = data.map((b) => ({
           ...b,
           time: new Date(b.createdAt),
@@ -60,22 +83,11 @@ export default function AuctionPage() {
     };
 
     fetchBidHistory();
-  }, [id]);
 
-  useEffect(() => {
-    if (user) {
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    socket.current.on("newBid", (dataAuctioneer) => {
-      dataAuctioneer.time = new Date(dataAuctioneer.time); // Convert string to Date
-      setHistoryBid((prev) => [dataAuctioneer, ...prev]);
-    });
-    return () => socket.current.off("newBid");
-  }, []);
+    socket.current?.on("newBid", fetchBidHistory);
+    return () => socket.current?.off("newBid", fetchBidHistory);
+  }, [auctionId]);
+  // ...existing code...
 
   const bidCurrent = Math.max(...historyBid.map((b) => b.amount), 0);
   const bidButton = (event) => {
@@ -89,10 +101,19 @@ export default function AuctionPage() {
       return;
     }
 
-    if (bidUser > 999999999999999) {
+    const magicNumber = 999999999999999;
+    if (bidUser > magicNumber) {
       setErrorMessage(`Bid price must be lower than one quadrillion.`);
       return;
     }
+
+    // const secondMagicNumber = bidCurrent * 10;
+    // if (bidUser  > secondMagicNumber) {
+    //   setErrorMessage(
+    //     `Bid price cannot exceed $${secondMagicNumber.toLocaleString()} (10 times the current price)`
+    //   );
+    //   return;
+    // }
 
     const productId = auctionId; // id จาก useParams()
     const userId = user?._id; // user._id จาก useAuth()
@@ -112,16 +133,6 @@ export default function AuctionPage() {
     const value = e.target.value.replace(/[^0-9]/g, "");
     setBid(value);
   };
-
-
-
-  useEffect(() => {
-    if (auctionData) {
-      const now = new Date();
-      let timeLeft = new Date(auctionData.endDate) - now;
-      setTimeLeft(timeLeft);
-    }
-  }, [auctionData]);
 
   if (!auctionData) {
     return (
@@ -197,7 +208,17 @@ export default function AuctionPage() {
                   Auction
                 </h3>
               </div>
-              {isAuthenticated ? (
+              {isAuctionEnded ? (
+                <div className="text-center text-xl text-green-700 font-bold">
+                  Auction ended!
+                  <div className="mt-2">
+                    Winner:{" "}
+                    {historyBid.length > 0
+                      ? `${historyBid[0].firstName} ${historyBid[0].lastName} ($${historyBid[0].amount})`
+                      : "No winner"}
+                  </div>
+                </div>
+              ) : isAuthenticated ? (
                 <form onSubmit={bidButton}>
                   <div className="mb-4">
                     <label
