@@ -45,7 +45,7 @@ function Cart() {
   //Remove item from CartDB
   async function onDelete(productId) {
     try {
-      await axios.delete(`http://localhost:3000/api/cart-delete/${productId}`, { withCredentials: true });
+      await axios.delete(`${baseURL}/api/cart-delete/${productId}`, { withCredentials: true });
 
       //update local cart
       const updatedcartItems = cartItems.filter(item => item.productId !== productId)
