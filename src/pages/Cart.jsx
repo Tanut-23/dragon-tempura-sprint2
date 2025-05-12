@@ -7,13 +7,14 @@ import HorizontalLinearStepper from '../components/Step';
 import { useNavigate } from "react-router-dom";
 import React,{useEffect, useState} from  'react';
 import axios from 'axios';
+import { useCart } from '../contexts/CartContext';
 
 
 function Cart() {
   const [shipCost, setShipcost] = useState();
-  const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
+  const { cartItems, setCartItems } = useCart();  //From Cart Context
 
   //Get cart items from Cart Database
   useEffect(() => {
@@ -52,7 +53,6 @@ function Cart() {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }
   }
-
 
   // Navigate to mainshop page
   useEffect(() => {
