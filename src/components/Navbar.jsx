@@ -11,7 +11,7 @@ import ForgotPassword from "../pages/ForgotPassword.jsx";
 
 function Navbar() {
   const { cartCount } = useCart();
-  const { isAuthenticated} = useAuth();
+  const { isAuthenticated , isLoginPopupOpen , openLoginPopup , closeLoginPopup} = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
@@ -21,24 +21,24 @@ function Navbar() {
   const handleOpenLogin = (email = "", password = "") => {
     setTempEmail(typeof email === "string" ? email : "");
     setTempPassword(typeof password === "string" ? password : "");
-    setIsLoginOpen(true);
+    openLoginPopup;
     setIsRegisterOpen(false);
     setIsForgotPasswordOpen(false);
   };
 
   const handleOpenRegister = () => {
-    setIsLoginOpen(false);
+    closeLoginPopup;
     setIsRegisterOpen(true);
     setIsForgotPasswordOpen(false);
   };
 
   const handleOpenForgotPassword = () => {
-    setIsLoginOpen(false);
+    closeLoginPopup;
     setIsRegisterOpen(false);
     setIsForgotPasswordOpen(true);
   };
 
-  const handleCloseLogin = () => setIsLoginOpen(false);
+  
   const handleCloseRegister = () => setIsRegisterOpen(false);
   const handleCloseForgotPassword = () => setIsForgotPasswordOpen(false);
 
@@ -237,10 +237,9 @@ function Navbar() {
             </div>
             {/* Login propup */}
             <Dialog
-              open={isLoginOpen}
+              open={isLoginPopupOpen}
               onClose={() => {
-                handleCloseLogin();
-                console.log("Login dialog closed");
+                closeLoginPopup;;
               }}
               PaperProps={{
                 sx: {
@@ -251,7 +250,7 @@ function Navbar() {
             >
               <DialogContent sx={{ padding: 0 }}>
                 <Login
-                  onClose={handleCloseLogin}
+                  onClose={closeLoginPopup}
                   switchToRegister={handleOpenRegister}
                   switchToForgotPassword={handleOpenForgotPassword}
                   prefillEmail={tempEmail}
