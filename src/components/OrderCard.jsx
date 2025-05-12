@@ -17,7 +17,10 @@ export default function OrderCard({
   items
 }) {
   const [showOrderDetails, setShowOrderDetails] = useState(true);
-  
+  const date = new Date(orderDate).toLocaleString();
+  // console.log("date",date);
+  // console.log("orderdate",orderDate);
+
   return (
     <Box
       className="order-card"
@@ -27,7 +30,7 @@ export default function OrderCard({
         boxShadow: 1,
         p: 3,
         mb: 3,
-        width: "90vw",
+        width: "100%",
         transition: "0.3s",
         "&:hover": {
           boxShadow: 3,
@@ -55,7 +58,7 @@ export default function OrderCard({
 
             <StatusTag statusTag={status} />
           </Box>
-          <Typography>Order Date: {orderDate}</Typography>
+          <Typography>Order Date: {date}</Typography>
         </Box>
 
         <Box display="flex" flexDirection="column" alignItems="flex-end">
