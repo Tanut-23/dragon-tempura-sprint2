@@ -44,9 +44,4 @@ const typeProduct = [
   { title: 'Abstract'},
   { title: 'Historical'},
   { title: 'Auction'},
-  { title: 'Aom'},
-  { title: 'Tib'},
-  { title: 'Nut'},
-  { title: 'Ling'},
-  { title: 'Mate'},
 ];

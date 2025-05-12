@@ -44,13 +44,13 @@ export default function LandingPage() {
   async function getData() {
     try {
       //fixed price product
-      const productData = await axios.get("/api/product-get",{
+      const productData = await axios.get("https://dragon-tempura-backend.onrender.com/api/product-get",{
           withCredentials: true,
         });
       setCollectionData(productData.data.allProduct || []);
 
       //auction product
-      const auctionData = await axios.get("/api/product-get-auction",{
+      const auctionData = await axios.get("https://dragon-tempura-backend.onrender.com/api/product-get-auction",{
           withCredentials: true,
         });
       setAuctionData(auctionData.data.allAuctionProduct || []);
