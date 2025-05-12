@@ -1,9 +1,7 @@
-import { React, useEffect, useState } from "react";
-// import products from "../../data/mockUpProduct";
-// import products from "../../data/products";
-import SearchBox from "../components/SearchBox";
+import { useEffect, useState } from "react";
 import AuctionGallery from "../components/AuctionGallery";
 import axios from "axios";
+import AuctionSearch from "./AuctionSearch";
 
 // -------------------------------------------------------------
 
@@ -57,7 +55,7 @@ function AuctionSort() {
   return (
     <div className="flex flex-col gap-[16px] w-full">
       <div className="flex justify-between">
-        <SearchBox onSelectKeyword={(keyword) => setSearchKeyword(keyword)} />
+        <AuctionSearch onSelectKeyword={(keyword) => setSearchKeyword(keyword)} />
         <select
           defaultValue={"AZ"}
           onChange={(e) => setSortState(e.target.value)}
