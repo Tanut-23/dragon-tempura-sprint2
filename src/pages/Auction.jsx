@@ -27,10 +27,9 @@ export default function AuctionPage() {
 
   useEffect(() => {
     if (!auctionData) return;
-
     const updateTimeLeft = () => {
       const now = new Date();
-      const end = new Date(auctionData.endDate);
+      const end = new Date(auctionData.auction.endDate);
       const diff = end - now;
       setTimeLeft(diff);
       setIsAuctionEnded(diff <= 0);
