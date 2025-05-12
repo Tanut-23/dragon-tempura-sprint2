@@ -1,40 +1,35 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+// import products from "../../data/products";
 
 function ListBox({ keyword, onSelect }) {
-  const location = useLocation();
-  const [genre , setGenre] = useState();
-  const [products, setProducts] = useState([])
+  const [auctionProduct, setAuctionProducts] = useState([])
 
   // CONNECT TO BACKEND
-  useEffect(() => {
-      const params = new URLSearchParams(location.search);
-      const genreParam = params.get("genre");
-      setGenre(genreParam);
-    },[location.search]);
-  
-    useEffect(() => {
-      if(!genre) return
-      const fetchProducts = async () => {
-        try{
-          const res = await axios.get(`http://localhost:3000/api/products?genre=${genre}`,)
-          setProducts(res.data.products);
-        } catch (error) {
-          console.error("Error fetching products:", error);
+  async function getData() {
+    try {
+      const auctionData = await axios.get(
+        "http://localhost:3000/api/product-get-auction",
+        {
+          withCredentials: true,
         }
-       }
-      fetchProducts();
-    },[genre])
+      );
+      setAuctionProducts(auctionData.data.allAuctionProduct || []);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-
+  useEffect(() => {
+    getData();
+  }, []);
   //Filter product that Title or Artist includes Keyword
-  const matchedTitle = products.filter((product) => {
+  const matchedTitle = auctionProduct.filter((product) => {
     return product.title.toLowerCase().includes(keyword.toLowerCase());
   });
 
-  const matchedArtist = products.filter((product) => {
+  const matchedArtist = auctionProduct.filter((product) => {
     return product.artist.toLowerCase().includes(keyword.toLowerCase());
   });
 
@@ -79,7 +74,7 @@ function ListBox({ keyword, onSelect }) {
   );
 }
 
-export default function SearchBox({ onSelectKeyword }) {
+export default function AuctionSearch({ onSelectKeyword }) {
   const [searchText, setSearchText] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const wrapperRef = useRef(null);
@@ -98,7 +93,7 @@ export default function SearchBox({ onSelectKeyword }) {
   });
 
   return (
-    <div ref={wrapperRef} className="relative w-80 h-10 bg-gray-400">
+    <div ref={wrapperRef} className="relative w-70 sm:w-80 h-10 bg-gray-400">
       {
         <input
           onChange={(e) => {

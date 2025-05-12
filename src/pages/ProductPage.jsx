@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 import ButtonSubmit from "../components/ButtonSubmit";
@@ -8,10 +8,10 @@ import axios from "axios";
 
 function ProductPage() {
   const [product, setProduct] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
   const [isInCartDB, setIsInCartDB] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { toggleCartItem, isInCart } = useCart();
+
+  const {cartItems, setCartItems} = useCart();  //From Cart Context
   const links = [
     { label: "Home", to: "/" },
     { label: "Collections", to: "/mainshop" },
@@ -74,7 +74,7 @@ function ProductPage() {
       await axios.post("http://localhost:3000/api/cart-add", newProduct, {
         withCredentials: true,
       });
-      //update local state
+      //update cart context
       setCartItems((prev) => [...prev, newProduct.items]);
     } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
@@ -110,7 +110,6 @@ function ProductPage() {
     );
   }
 
-  const addedToCart = isInCart(product.title);
 
   return (
     <main className="bg-[#f2eee7]">
@@ -171,7 +170,6 @@ function ProductPage() {
               width="100%"
               label={isInCartDB ? "Remove from Cart" : "Add to Cart"}
               onClick={() => {
-                toggleCartItem(product);
                 if (isInCartDB) {
                   removeProductFromDB(product);
                 } else {

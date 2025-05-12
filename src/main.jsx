@@ -83,7 +83,7 @@ const router = createBrowserRouter([
       { path: "/resetpassword", element: <ForgotPassword /> },
       { path: "/animation", element: <Animation /> },
       { path: "/auction", element: <AuctionShopPage /> },
-      { path: "/auction/:id", element: <AuctionPage /> },
+      { path: "/auction/:auctionId", element: <AuctionPage /> },
       { path: "/membership", element: <MembershipPage /> },
       { path: "/luminary", element: <Luminarypage /> },
       { path: "/sponsorship", element: <CorporateSponsorshipPage /> },
