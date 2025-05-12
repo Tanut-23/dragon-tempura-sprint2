@@ -13,6 +13,7 @@ import PreviewCard from "../components/PreviewCard";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
 import { useParams } from "react-router-dom";
+import baseURL from "../../service/api";
 
 export default function PostPage() {
   const { user } = useAuth();
@@ -147,7 +148,7 @@ export default function PostPage() {
       if (!editId) return;
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/product-get/${editId}`,
+          `${baseURL}/api/product-get/${editId}`,
           {
             withCredentials: true,
           }
@@ -226,7 +227,7 @@ export default function PostPage() {
       try {
         if (action === "post") {
           await axios.post(
-            "http://localhost:3000/api/product-add",
+            `${baseURL}/api/product-add`,
             newProduct,
             { withCredentials: true }
           );
@@ -234,7 +235,7 @@ export default function PostPage() {
           alert("Your artwork is successfully posted!");
         } else if (action === "update") {
           await axios.put(
-            `http://localhost:3000/api/product-put/${editId}`,
+            `${baseURL}/api/product-put/${editId}`,
             newProduct,
             { withCredentials: true }
           );

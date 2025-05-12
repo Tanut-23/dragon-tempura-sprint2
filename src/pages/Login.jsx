@@ -6,6 +6,7 @@ import Checkbox from "../components/Checkbox";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
+import baseURL from "../../service/api";
 
 export default function Login({ onClose , switchToRegister, switchToForgotPassword, prefillEmail = "", prefillPassword = "" }) {
   const { login } = useAuth();
@@ -22,7 +23,7 @@ export default function Login({ onClose , switchToRegister, switchToForgotPasswo
     }
 
     try {
-      const res = await axios.post("http://localhost:3000/api/users-login" , checkLoginUser , {withCredentials: true,});
+      const res = await axios.post(`${baseURL}/api/users-login` , checkLoginUser , {withCredentials: true,});
       if(res.data.token && res.data.email && res.data._id){
         const userData = { _id: res.data._id, email:res.data.email , firstName:res.data.firstName , lastName:res.data.lastName}
       login(res.data.token , userData);

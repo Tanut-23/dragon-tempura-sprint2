@@ -5,6 +5,7 @@ import ButtonSubmit from "../components/ButtonSubmit";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import { useCart } from "../contexts/CartContext";
 import axios from "axios";
+import baseURL from "../../service/api";
 
 function ProductPage() {
   const [product, setProduct] = useState(null);
@@ -22,7 +23,7 @@ function ProductPage() {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/product/${productId}`
+          `${baseURL}/api/product/${productId}`
         );
         setProduct(res.data?.product ?? null);
       } catch (error) {
@@ -37,7 +38,7 @@ function ProductPage() {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/cart-get",{
+        const res = await axios.get(`${baseURL}/api/cart-get`,{
           withCredentials: true,
         });
         setCartItems(res.data.cart.items);
@@ -71,7 +72,7 @@ function ProductPage() {
       };
       console.log("Payload being sent to backend:", JSON.stringify(newProduct, null, 2));
 
-      await axios.post("http://localhost:3000/api/cart-add", newProduct, {
+      await axios.post(`${baseURL}/api/cart-add`, newProduct, {
         withCredentials: true,
       });
       //update cart context
@@ -84,7 +85,7 @@ function ProductPage() {
   //Remove Product from Database
   const removeProductFromDB = async (product) => {
     try {
-      await axios.delete(`http://localhost:3000/api/cart-delete/${product._id}`, {
+      await axios.delete(`${baseURL}/api/cart-delete/${product._id}`, {
         withCredentials: true,
       })
       setCartItems((prev) => prev.filter((item) => item.productId !== product._id))

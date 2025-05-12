@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import React,{useEffect, useState} from  'react';
 import axios from 'axios';
 import { useCart } from '../contexts/CartContext';
+import baseURL from '../../service/api';
 
 
 function Cart() {
@@ -20,7 +21,7 @@ function Cart() {
   useEffect(() => {
     const fetchCartItem = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/cart-get",{
+        const res = await axios.get(`${baseURL}/api/cart-get`,{
           withCredentials: true,
         });
         setCartItems(res.data?.cart?.items || [])

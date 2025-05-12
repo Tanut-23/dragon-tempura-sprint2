@@ -5,6 +5,7 @@ import PaginationBar from "../components/PaginationBar";
 import OrderCard from "../components/OrderCard";
 import StatsCard from "../components/StatsCard";
 import axios from "axios";
+import baseURL from "../../service/api";
 // import mockOrderDetails from "../../data/mockOrderDetails";
 
 function MyOrderPage() {
@@ -19,7 +20,7 @@ function MyOrderPage() {
 useEffect(() => {
   const getData = async () => {
     try {
-      const res= await axios.get("http://localhost:3000/api/order-get", {
+      const res= await axios.get(`${baseURL}/api/order-get`, {
         withCredentials: true,
       });
       setData(res.data.orderHistory);

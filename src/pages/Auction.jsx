@@ -13,6 +13,7 @@ import {
 import { io } from "socket.io-client";
 import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
+import baseURL from "../../service/api";
 
 export default function AuctionPage() {
   const { auctionId } = useParams();
@@ -45,7 +46,7 @@ export default function AuctionPage() {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/product/${auctionId}`
+          `${baseURL}/api/product/${auctionId}`
         );
         setAuctionData(res.data?.product ?? null);
       } catch (error) {
@@ -57,7 +58,7 @@ export default function AuctionPage() {
 
   const socket = useRef();
   useEffect(() => {
-    socket.current = io("http://localhost:3000");
+    socket.current = io(`${baseURL}`);
     return () => socket.current.disconnect();
   }, []);
 
@@ -66,7 +67,7 @@ export default function AuctionPage() {
     const fetchBidHistory = async () => {
       try {
         console.log("auctionId param:", auctionId);
-        const res = await fetch(`http://localhost:3000/api/bids/${auctionId}`);
+        const res = await fetch(`${baseURL}/api/bids/${auctionId}`);
         const data = await res.json();
         console.log("bid history from API:", data); // <--- ดูตรงนี้
         const formatted = data.map((b) => ({

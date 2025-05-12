@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import baseURL from "../../service/api";
 
 const ProductCard = ({ product }) => {
   return (
@@ -31,7 +32,7 @@ const YouMayAlsoLike = ({ currentProduct }) => {
   async function getData() {
     try {
       //fixed price product
-      const productData = await axios.get("http://localhost:3000/api/product-get",{
+      const productData = await axios.get(`${baseURL}/api/product-get`,{
           withCredentials: true,
         });
       setProducts(productData.data.allProduct || []);

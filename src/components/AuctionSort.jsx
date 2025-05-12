@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AuctionGallery from "../components/AuctionGallery";
 import axios from "axios";
 import AuctionSearch from "./AuctionSearch";
+import baseURL from "../../service/api";
 
 // -------------------------------------------------------------
 
@@ -14,7 +15,7 @@ function AuctionSort() {
   async function getData() {
     try {
       const auctionData = await axios.get(
-        "http://localhost:3000/api/product-get-auction",
+        `${baseURL}/api/product-get-auction`,
         {
           withCredentials: true,
         }
