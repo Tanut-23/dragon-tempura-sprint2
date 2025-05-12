@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
+import baseURL from "../../service/api";
 // import products from "../../data/products";
 
 function ListBox({ keyword, onSelect }) {
@@ -10,7 +11,7 @@ function ListBox({ keyword, onSelect }) {
   async function getData() {
     try {
       const auctionData = await axios.get(
-        "http://localhost:3000/api/product-get-auction",
+        `${baseURL}/api/product-get-auction`,
         {
           withCredentials: true,
         }

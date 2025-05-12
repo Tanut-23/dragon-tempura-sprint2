@@ -9,6 +9,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import CollectionCardLanding from "../components/CollectionCardLanding";
+import baseURL from "../../service/api";
 
 export default function LandingPage() {
 
@@ -44,13 +45,13 @@ export default function LandingPage() {
   async function getData() {
     try {
       //fixed price product
-      const productData = await axios.get("https://dragon-tempura-backend.onrender.com/api/product-get",{
+      const productData = await axios.get(`${baseURL}/api/product-get`,{
           withCredentials: true,
         });
       setCollectionData(productData.data.allProduct || []);
 
       //auction product
-      const auctionData = await axios.get("https://dragon-tempura-backend.onrender.com/api/product-get-auction",{
+      const auctionData = await axios.get(`${baseURL}/api/product-get-auction`,{
           withCredentials: true,
         });
       setAuctionData(auctionData.data.allAuctionProduct || []);

@@ -12,6 +12,7 @@ import PaymentMethod from "./PaymentMethod";
 import ButtonSubmit from "./ButtonSubmit";
 import Address from "./Address";
 import axios from "axios";
+import baseURL from "../../service/api";
 
 const steps = ["Shipping Method", "Shipping Address", "Payment Method"];
 
@@ -215,7 +216,7 @@ const addOrdertoDB = async (inputToDB) => {
   productId: inputToDB.productId,
 };
       // console.log("Payload being sent to backend:", JSON.stringify(newProduct, null, 2));
-      await axios.post("http://localhost:3000/api/order-add", newOrder, {
+      await axios.post(`${baseURL}/api/order-add`, newOrder, {
         withCredentials: true,
       });
       //update local state
@@ -227,7 +228,7 @@ const addOrdertoDB = async (inputToDB) => {
 
   const deleteCartAfertOrder = async () =>{
     try{
-      axios.delete("http://localhost:3000/api/cart-delete", { withCredentials: true })
+      axios.delete(`${baseURL}/api/cart-delete`, { withCredentials: true })
     }catch(err){
       console.error("Delete order failed:", err.response?.data || err.message);
     }

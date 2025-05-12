@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import baseURL from "../../service/api";
 
 function ListBox({ keyword, onSelect }) {
   const location = useLocation();
@@ -19,7 +20,7 @@ function ListBox({ keyword, onSelect }) {
       if(!genre) return
       const fetchProducts = async () => {
         try{
-          const res = await axios.get(`http://localhost:3000/api/products?genre=${genre}`,)
+          const res = await axios.get(`${baseURL}/api/products?genre=${genre}`,)
           setProducts(res.data.products);
         } catch (error) {
           console.error("Error fetching products:", error);

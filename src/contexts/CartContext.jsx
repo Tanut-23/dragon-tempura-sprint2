@@ -1,6 +1,7 @@
 // contexts/CartContext.js
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
+import baseURL from "../../service/api";
 
 const CartContext = createContext();
 
@@ -10,7 +11,7 @@ export const CartProvider = ({ children }) => {
   //Get cart items from Cart Database
   const fetchCartItem = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/cart-get", {
+      const res = await axios.get(`${baseURL}/api/cart-get`, {
         withCredentials: true,
       });
       setCartItems(res.data?.cart?.items || []);
