@@ -83,7 +83,8 @@ useEffect(()=>{
 const navigate = useNavigate()
 useEffect(() => {
     if (activeStep === 3) {
-      addOrdertoDB(inputToDB)
+      addOrdertoDB(inputToDB);
+      deleteCartAfertOrder();
       navigate('/mainshop');
     }
   }, [activeStep, navigate,inputToDB]);
@@ -223,6 +224,16 @@ const addOrdertoDB = async (inputToDB) => {
       console.error("Add to order failed:", err.response?.data || err.message);
     }
   }
+
+  const deleteCartAfertOrder = async () =>{
+    try{
+      axios.delete("http://localhost:3000/api/cart-delete", { withCredentials: true })
+    }catch(err){
+      console.error("Delete order failed:", err.response?.data || err.message);
+    }
+  }
+
+
 
 
   return (

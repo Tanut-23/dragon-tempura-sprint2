@@ -274,7 +274,7 @@ const OrderDetailsPopup = ({
             <div className="border rounded-lg overflow-hidden">
               {items.map((item, index) => (
                 <div
-                  key={item.id}
+                  key={item.index}
                   className={`p-4 flex items-center ${
                     index < orderDetails.items.length - 1 ? "border-b" : ""
                   }`}
@@ -292,7 +292,7 @@ const OrderDetailsPopup = ({
                     </p>
                     <div className="flex justify-between mt-2">
                       <div className="text-sm text-gray-500">
-                        Qty: {item.quantity}
+                        Qty: 1
                       </div>
                       <p className="font-medium text-gray-900">
                         $
