@@ -318,7 +318,7 @@ const OrderDetailsPopup = ({
                 </span>
               </div>
               <div className="flex justify-between mb-2">
-                <span className="text-gray-500">Shipping</span>
+                <span className="text-gray-500">Shipping ({items.shipping})</span>
                 <span>${items.totalPrice[1].toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                   })}</span>
