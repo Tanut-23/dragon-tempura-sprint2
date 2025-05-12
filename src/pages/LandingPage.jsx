@@ -20,7 +20,6 @@ export default function LandingPage() {
 
   const [collectionData, setCollectionData] = useState([]);
   const [auctionData, setAuctionData] = useState([]);
-  const [timeLeft, setTimeLeft] = useState();
 
   function scrollLeft(ref, move) {
     if (ref.current) {
