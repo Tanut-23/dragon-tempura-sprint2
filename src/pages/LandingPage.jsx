@@ -135,7 +135,7 @@ export default function LandingPage() {
             flexDirection: { xs: "column", sm: "row" },
             alignItems: { xs: "stretch", sm: "center" },
             gap: 2,
-            width: "90%",
+            width: { xs: "90%", sm: "80%" },
             maxHeight: { xs: "330px", sm: "none" },
             overflowY: "auto",
             overflowX: {xs: "clip", sm: "auto"},
@@ -166,10 +166,6 @@ export default function LandingPage() {
                 name={product.title}
                 detail={product.artist}
                 prices={product.price}
-                // minWidth="320px"
-                // minHeight="300px"
-                // height={{ xs: "auto", sm: "350px" }}
-                // minHeightImage="350px"
                 linkURL={`/product/${product._id}`}
               />
             );
@@ -221,7 +217,7 @@ export default function LandingPage() {
             flexDirection: { xs: "column", sm: "row" },
             alignItems: { xs: "center" },
             gap: 2,
-            width: "90%",
+            width: { xs: "90%", sm: "80%" },
             maxHeight: { xs: "550px", sm: "none" },
             overflow: "auto",
             whiteSpace: "nowrap",
