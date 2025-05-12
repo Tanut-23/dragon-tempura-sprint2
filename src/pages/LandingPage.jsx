@@ -20,6 +20,7 @@ export default function LandingPage() {
 
   const [collectionData, setCollectionData] = useState([]);
   const [auctionData, setAuctionData] = useState([]);
+  const [timeLeft, setTimeLeft] = useState();
 
   function scrollLeft(ref, move) {
     if (ref.current) {
@@ -63,6 +64,18 @@ export default function LandingPage() {
   useEffect(() => {
     getData();
   }, []);
+
+
+  //Remaining time for each auction card
+  const updateTimeLeft = (index) => {
+      const now = new Date();
+      const end = new Date(auctionData[index].auction.endDate || 0);
+      const diff = end - now;
+      if (diff < 0) return 0;
+      return diff;
+    };
+
+
 
   return (
     <div className="text-[#62483A] w-full min-h-[100vh]">
@@ -241,7 +254,7 @@ export default function LandingPage() {
             },
           }}
         >
-          {auctionData.map((product) => {
+          {auctionData.map((product,index) => {
             return (
               <AuctionCard
                 key={product._id}
@@ -250,6 +263,7 @@ export default function LandingPage() {
                 artist={product.artist}
                 price={product.price}
                 linkUrl={`/auction/${product._id}`}
+                timeLeft={updateTimeLeft(index)}
               />
             );
           })}
