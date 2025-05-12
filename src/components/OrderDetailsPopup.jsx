@@ -112,11 +112,9 @@ const Icons = {
 const OrderDetailsPopup = ({
   orderId,
   onClose,
-  subtotal,
   total,
   status,
   items,
-  statusTag,
 }) => {
   const [orderDetails, setOrderDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -272,12 +270,10 @@ const OrderDetailsPopup = ({
 
             {/* Items Block */}
             <div className="border rounded-lg overflow-hidden">
-              {items.map((item, index) => (
+              {items.productId.map((item) => (
                 <div
                   key={item.index}
-                  className={`p-4 flex items-center ${
-                    index < orderDetails.items.length - 1 ? "border-b" : ""
-                  }`}
+                  className={"p-4 flex items-center"}
                 >
                   <img
                     // src="https://i.pinimg.com/736x/4f/b8/95/4fb8951ee4abaaf4f159d9db98718bfa.jpg"
@@ -316,18 +312,22 @@ const OrderDetailsPopup = ({
               <div className="flex justify-between mb-2">
                 <span className="text-gray-500">Subtotal</span>
                 <span>
-                  ${subtotal.toLocaleString("en-US", {
+                  ${(items.totalPrice[0]-items.totalPrice[1]-items.totalPrice[2]).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                   })}
                 </span>
               </div>
               <div className="flex justify-between mb-2">
                 <span className="text-gray-500">Shipping</span>
-                <span>{orderDetails.summary.shipping}</span>
+                <span>${items.totalPrice[1].toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                  })}</span>
               </div>
               <div className="flex justify-between mb-2">
                 <span className="text-gray-500">Tax</span>
-                <span>{orderDetails.summary.tax}</span>
+                <span>${items.totalPrice[2].toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                  })}</span>
               </div>
               <div className="border-t my-2 pt-2"></div>
               <div className="flex justify-between text-[#62483a] font-medium">
@@ -355,7 +355,7 @@ const OrderDetailsPopup = ({
 };
 
 // -----EXPORT THIS APP -------
-const App = ({ orderId, total, subtotal, statusTag, status, items }) => {
+const App = ({ orderId, total, subtotal, status, items }) => {
   const [showOrderDetails, setShowOrderDetails] = useState(false);
 
   return (

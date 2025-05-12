@@ -40,7 +40,7 @@ console.log("CheckMyorder",data);
     let sumPending = 0;
     data.forEach((order) => {
       //get total spend
-      sumtotalSpend += order.totalPrice
+      sumtotalSpend += order.totalPrice[0]
       //get completed and pending order amount
       if (order.status === "Deliver") {
         sumCompleted += 1;
@@ -101,7 +101,7 @@ console.log("CheckMyorder",data);
             Recent Orders
           </h2>
 
-          <div className="grid grid-cols-1 space-y-10 ">
+          <div className="flex flex-col-reverse gap-[16px]">
             {data.map((order,index) => {
               return (
                 <OrderCard
@@ -109,7 +109,7 @@ console.log("CheckMyorder",data);
                   orderNumber={order._id}
                   status={order.status}
                   orderDate={order.updatedAt}
-                  totalAmount={order.totalPrice}
+                  totalAmount={order.totalPrice[0]}
                   paymentStatus={order.paymentMethod}
                   // onViewDetailsClick={order}
                   shippingAddressName={`${order.firstName} ${order.lastName}`}
@@ -121,7 +121,7 @@ console.log("CheckMyorder",data);
                     " " +
                     order.zip
                   }
-                  items={order.productId}
+                  items={order}
                 />
               );
             })}

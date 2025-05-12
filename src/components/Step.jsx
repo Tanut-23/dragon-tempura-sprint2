@@ -15,7 +15,7 @@ import axios from "axios";
 
 const steps = ["Shipping Method", "Shipping Address", "Payment Method"];
 
-export default function HorizontalLinearStepper({setShipcost, cartItems, totalPrices}) {
+export default function HorizontalLinearStepper({setShipcost, cartItems, totalPrices, shipCost, tax}) {
   // console.log("what inside carttt", cartItems);
 
   const productIdToPost = cartItems.map((id)=>(id.productId));
@@ -58,7 +58,7 @@ export default function HorizontalLinearStepper({setShipcost, cartItems, totalPr
 
   const [shipping, setShippig] = useState("Standard");
 //data for Post
-  const inputToDB = {...addressForShipping , productId: productIdToPost, totalPrice: totalPrices, shipping: shipping , method:"Cash on Delivery"};
+  const inputToDB = {...addressForShipping , productId: productIdToPost, totalPrice: [totalPrices, shipCost, tax], shipping: shipping , method:"Cash on Delivery"};
 
   console.log("check inputToDB", inputToDB);
 
@@ -289,7 +289,7 @@ const addOrdertoDB = async (inputToDB) => {
             )}
             <ButtonSubmit onClick={handleNext} ml="16px" label={nextLabel} />
           </Box>
-          <ButtonSubmit onClick={() => {addOrdertoDB(inputToDB);}} ml="16px" mt="24px" label="Post" />
+          {/* <ButtonSubmit onClick={() => {addOrdertoDB(inputToDB);}} ml="16px" mt="24px" label="Post" /> */}
         </React.Fragment>
       )}
     </Box>
