@@ -42,14 +42,10 @@ export default function PostCard({
   function viewShop() {
     navigate('/mainshop')
   }
-  function linkToProduct() {
-    navigate(`/product/${product._id}`)
-  }
 
   return (
     <Card
       elevation={elevation}
-      onClick={linkToProduct}
       sx={{
         width: 350,
         height: 490,
