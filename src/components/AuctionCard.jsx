@@ -19,15 +19,18 @@ export default function AuctionCard({
   linkUrl,
   width = 320,
   height = 510,
+  timeLeft=5000,
 }) {
   return (
     <Link to={linkUrl}>
       <Card
         elevation={elevation}
         sx={{
-          minWidth: 330,
-          width: width,
-          height: height,
+          minWidth: { xs: 270, sm: 330 },
+          width: { xs: 270, sm: width },
+          height: { xs: 350, sm: height },
+          minHeight: { xs: 500, sm: 500 },
+
           color: "primary.chocolate",
           overflow: "visible",
           borderRadius: "12px",
@@ -45,6 +48,7 @@ export default function AuctionCard({
             flexDirection: "column",
             justifyContent: "start",
             height: "100%",
+            width: "100%",
             "&:hover": { backgroundColor: "#62483a12" },
           }}
         >
@@ -73,7 +77,7 @@ export default function AuctionCard({
             title="auction"
           />
           <CardContent sx={{ width: "100%" }}>
-            <Typography sx={{ fontSize: "1.4rem", fontWeight: 600 }}>
+            <Typography sx={{ fontSize: { xs:"1.2rem", sm:"1.4rem"}, fontWeight: 600 }}>
               {title}
             </Typography>
             <Typography gutterBottom sx={{ fontSize: "1.1rem" }}>
@@ -88,8 +92,8 @@ export default function AuctionCard({
           </CardContent>
 
           {/* REMAINING BLOCK */}
-          <Box sx={{ position: "absolute", bottom: 15, left: 10 }}>
-            <RemainingBlock day={1} hour={2} min={22} sec={59} />
+          <Box sx={{ position: "absolute", bottom: { xs:10, sm:15 }, left: { xs:-50, sm:10} }}>
+            <RemainingBlock timeLeft={timeLeft} />
           </Box>
         </CardActionArea>
       </Card>

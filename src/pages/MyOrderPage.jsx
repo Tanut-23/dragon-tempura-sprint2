@@ -3,14 +3,19 @@ import { Box } from "@mui/material";
 import PaginationBar from "../components/PaginationBar";
 import OrderCard from "../components/OrderCard";
 import StatsCard from "../components/StatsCard";
+import axios from "axios";
+import baseURL from "../../service/api";
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
-import mockOrderDetails from "../../data/mockOrderDetails";
+// import mockOrderDetails from "../../data/mockOrderDetails";
 
-function MyOrderPage({ title, value }) {
+function MyOrderPage() {
   const [totalSpend, setTotalSpend] = useState(0);
   const [totalOrder, setTotalOrder] = useState(0);
   const [completed, setCompleted] = useState(0);
   const [pending, setPending] = useState(0);
+
+  const [data, setData] = useState([]);
+  // const [product, setProduct]= useState();
   const links = [
     { label: "Home", to: "/" },
     { label: "Collections", to: "/mainshop" },
@@ -18,12 +23,30 @@ function MyOrderPage({ title, value }) {
   ];
 
   useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await axios.get(`${baseURL}/api/order-get`, {
+          withCredentials: true,
+        });
+        setData(res.data.orderHistory);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+    getData();
+  }, []);
+
+  // console.log("CheckMyorder",data);
+
+  useEffect(() => {
     let sumtotalSpend = 0;
     let sumCompleted = 0;
     let sumPending = 0;
-    mockOrderDetails.forEach((order) => {
+    data.forEach((order) => {
       //get total spend
-      sumtotalSpend += order.total;
+
+      sumtotalSpend += order.totalPrice[0];
+
       //get completed and pending order amount
       if (order.status === "Deliver") {
         sumCompleted += 1;
@@ -32,10 +55,10 @@ function MyOrderPage({ title, value }) {
       }
     });
     setTotalSpend(sumtotalSpend);
-    setTotalOrder(mockOrderDetails.length);
+    setTotalOrder(data.length);
     setCompleted(sumCompleted);
     setPending(sumPending);
-  }, []);
+  }, [data]);
 
   return (
     <div className="bg-[#e9e2d6] w-[100vw] px-4 py-2">
@@ -85,27 +108,23 @@ function MyOrderPage({ title, value }) {
             Recent Orders
           </h2>
 
-          <div className="grid grid-cols-1 space-y-10 ">
-            {mockOrderDetails.map((order) => {
+          <div className="flex flex-col-reverse gap-[16px]">
+            {data.map((order, index) => {
               return (
                 <OrderCard
-                  key={order.orderId}
-                  orderNumber={order.orderId}
+                  key={index}
+                  orderNumber={order._id}
                   status={order.status}
-                  orderDate={order.orderDate}
-                  totalAmount={order.total}
-                  paymentStatus={order.paymentStatus}
+                  orderDate={order.updatedAt}
+                  totalAmount={order.totalPrice[0]}
+                  paymentStatus={order.paymentMethod}
                   // onViewDetailsClick={order}
-                  shippingAddressName={order.shippingAddress.name}
-                  shippingAddressAddress={order.shippingAddress.address}
+                  shippingAddressName={`${order.firstName} ${order.lastName}`}
+                  shippingAddressAddress={order.address}
                   shippingAddressCity={
-                    order.shippingAddress.city +
-                    ", " +
-                    order.shippingAddress.state +
-                    " " +
-                    order.shippingAddress.zip
+                    order.city + ", " + order.state + " " + order.zip
                   }
-                  items={order.items}
+                  items={order}
                 />
               );
             })}

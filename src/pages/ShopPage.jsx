@@ -17,14 +17,14 @@ export default function ShopPage() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center bg-[#f2eee7]">
-        <div className="w-full max-w-screen-2xl px-12 mx-auto py-2">
+      <div className="w-full flex flex-col items-center justify-center bg-[#f2eee7]">
+        <div className="w-full max-w-screen-2xl px-6 sm:px-12 mx-auto">
           <BreadcrumbsNav links={links} currentPage={genre} />
-          <h1 className="text-4xl font-bold text-red-950 pt-10">
+          <h1 className=" text-3xl sm:text-4xl font-bold text-red-950 pt-10">
             {genre ? `${genre} Paintings` : "The Collection"}
           </h1>
           <div className="w-full h-[1px] bg-[#b5b3ad] my-3" />
-          <p className="text-gray-800 text-xl text-pretty">
+          <p className="text-gray-800 text-lg sm:text-xl text-pretty">
             Explore thousands of artworks in the museum's collection—from our
             renowned icons to lesser-known works from every corner of the globe
             as well as our books, writings, reference materials, and other

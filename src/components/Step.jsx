@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect,} from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -7,46 +7,89 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Radio from "./radio";
-import ShippingAddress from "./ShippingAddress";
-import ShippingMethod from "./ShippingMethod";
+import { useNavigate } from "react-router-dom";
 import PaymentMethod from "./PaymentMethod";
 import ButtonSubmit from "./ButtonSubmit";
 import Address from "./Address";
+import axios from "axios";
+import baseURL from "../../service/api";
 
 const steps = ["Shipping Method", "Shipping Address", "Payment Method"];
 
-export default function HorizontalLinearStepper({setShipcost}) {
+export default function HorizontalLinearStepper({setShipcost, cartItems, totalPrices, shipCost, tax}) {
+  // console.log("what inside carttt", cartItems);
+
+  const productIdToPost = cartItems.map((id)=>(id.productId));
+  // console.log("check productID", productIdToPost);
+
+  const [activeStep, setActiveStep] = useState(0);
+  const [skipped, setSkipped] = useState(new Set());
+
   const [addressInput, setAddressInput] = useState({
     firstName: "",
     lastName: "",
-    emailAddress: "",
-    phoneNumber: "",
+    email: "",
+    phone: "",
     addressLineOne: "",
     addressLineTwo: "",
     city: "",
-    stateAndProvince: "",
+    state: "",
     zip: "",
     country: "",
   });
+// ทุบบ
+  const { addressLineOne, addressLineTwo, ...addressRest } = addressInput;
+// รวมนะ
+  const addressForShipping = {...addressRest, address:`${addressLineOne} ${addressLineTwo}`};
+
+  console.log("check addressInput", addressInput);
 
   const [error, setError] = useState({
     firstName: 0,
     lastName: 0,
-    emailAddress: 0,
-    phoneNumber: 0,
+    email: 0,
+    phone: 0,
     addressLineOne: 0,
     addressLineTwo: 0,
     city: 0,
-    stateAndProvince: 0,
+    state: 0,
     zip: 0,
     country: 0,
   });
 
-  const [shipping, setShippig] = useState("option3")
+  const [shipping, setShippig] = useState("Standard");
+//data for Post
+  const inputToDB = {...addressForShipping , productId: productIdToPost, totalPrice: [totalPrices, shipCost, tax], shipping: shipping , method:"Cash on Delivery"};
 
-  const shippingCost = shipping === "option3" ? 350 : shipping === "option1" ? 500 : 150;
+  console.log("check inputToDB", inputToDB);
+
+// console.log("option from Step = ", shipping);
+
+useEffect(()=>{
+  let shippingCost;
+  switch (shipping) {
+    case "Standard" : shippingCost = 150
+    break;
+    case "Premium" : shippingCost = 350
+    break;
+    case "Expedited" : shippingCost = 500
+    break;
+    default: break;
+  }
 
   setShipcost(shippingCost);
+
+},[shipping,setShipcost])
+
+const navigate = useNavigate()
+useEffect(() => {
+    if (activeStep === 3) {
+      addOrdertoDB(inputToDB);
+      deleteCartAfertOrder();
+      navigate('/mainshop');
+    }
+  }, [activeStep, navigate,inputToDB]);
+
 
   const handleSubmit = () => {
     let checkError = false;
@@ -61,7 +104,7 @@ export default function HorizontalLinearStepper({setShipcost}) {
         }));
         if (!isOptional) checkError = true;
       } else if (
-        name === "emailAddress" &&
+        name === "email" &&
         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
       ) {
         setError((prevValue) => ({
@@ -70,7 +113,7 @@ export default function HorizontalLinearStepper({setShipcost}) {
         }));
         checkError = true;
       } else if (
-        name === "phoneNumber" &&
+        name === "phone" &&
         !(
           /^0\d{9}$/.test(value) ||
           /^0\d{2}-\d{3}-\d{4}$/.test(value) ||
@@ -106,8 +149,7 @@ export default function HorizontalLinearStepper({setShipcost}) {
     <PaymentMethod />,
   ];
 
-  const [activeStep, setActiveStep] = useState(0);
-  const [skipped, setSkipped] = useState(new Set());
+  
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -119,6 +161,9 @@ export default function HorizontalLinearStepper({setShipcost}) {
       if (hasErrors) {
         return;
       }
+    if (activeStep === 2){
+     addOrdertoDB(inputToDB);
+    }
     }
 
     let newSkipped = skipped;
@@ -129,6 +174,7 @@ export default function HorizontalLinearStepper({setShipcost}) {
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
+
   };
 
   const handleBack = () => {
@@ -149,6 +195,47 @@ export default function HorizontalLinearStepper({setShipcost}) {
   };
 
   const nextLabel = activeStep === steps.length - 1 ? "Finish" : "Next";
+
+// Mate want to talk with DB. Can He?
+
+const addOrdertoDB = async (inputToDB) => {
+    try {
+      const newOrder = {
+  shipping: inputToDB.shipping,
+  totalPrice: inputToDB.totalPrice,
+  firstName: inputToDB.firstName,
+  lastName: inputToDB.lastName,
+  email: inputToDB.email,
+  phone: inputToDB.phone,
+  address: inputToDB.address,
+  city: inputToDB.city,
+  state: inputToDB.state,
+  zip: inputToDB.zip,
+  country: inputToDB.country,
+  paymentMethod: inputToDB.method,
+  productId: inputToDB.productId,
+};
+      // console.log("Payload being sent to backend:", JSON.stringify(newProduct, null, 2));
+      await axios.post(`${baseURL}/api/order-add`, newOrder, {
+        withCredentials: true,
+      });
+      //update local state
+      // setCartItems((prev) => [...prev, newProduct.items]);
+    } catch (err) {
+      console.error("Add to order failed:", err.response?.data || err.message);
+    }
+  }
+
+  const deleteCartAfertOrder = async () =>{
+    try{
+      axios.delete(`${baseURL}/api/cart-delete`, { withCredentials: true })
+    }catch(err){
+      console.error("Delete order failed:", err.response?.data || err.message);
+    }
+  }
+
+
+
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -203,6 +290,7 @@ export default function HorizontalLinearStepper({setShipcost}) {
             )}
             <ButtonSubmit onClick={handleNext} ml="16px" label={nextLabel} />
           </Box>
+          {/* <ButtonSubmit onClick={() => {addOrdertoDB(inputToDB);}} ml="16px" mt="24px" label="Post" /> */}
         </React.Fragment>
       )}
     </Box>

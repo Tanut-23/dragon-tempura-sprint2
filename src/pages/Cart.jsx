@@ -5,25 +5,30 @@ import ButtonSubmit from "../components/ButtonSubmit";
 import RadioButtonExample from "../components/radio";
 import HorizontalLinearStepper from "../components/Step";
 import { useNavigate } from "react-router-dom";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useCart } from "../contexts/CartContext";
+import baseURL from "../../service/api";
+
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 
 function Cart() {
   const [shipCost, setShipcost] = useState();
-  const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
   const links = [
     { label: "Home", to: "/" },
     { label: "Collections", to: "/mainshop" },
   ];
+  const { cartItems, setCartItems } = useCart(); //From Cart Context
 
   //Get cart items from Cart Database
   useEffect(() => {
     const fetchCartItem = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/cart-get", {
+        const res = await axios.get(`${baseURL}/api/cart-get`, {
           withCredentials: true,
         });
         setCartItems(res.data?.cart?.items || []);
@@ -39,18 +44,19 @@ function Cart() {
   }, []);
 
   //Calculate 💸
-  const totalPrices = cartItems.reduce(
+
+  const sumPrices = cartItems.reduce(
     (total, product) => total + product.price,
     0
   );
-  const tax = Math.ceil(totalPrices / 10);
+  const tax = Math.ceil(sumPrices / 10);
   const shipping = shipCost;
-  const sumPrices = totalPrices + tax + shipping;
+  const totalPrices = sumPrices + tax + shipping;
 
   //Remove item from CartDB
   async function onDelete(productId) {
     try {
-      await axios.delete(`http://localhost:3000/api/cart-delete/${productId}`, {
+      await axios.delete(`${baseURL}/api/cart-delete/${productId}`, {
         withCredentials: true,
       });
 
@@ -139,7 +145,7 @@ function Cart() {
                     fontSize: "1.2rem",
                   }}
                 >
-                  ${totalPrices}
+                  ${sumPrices}
                 </Typography>
               </div>
               <div className="flex justify-between gap-[24px]">
@@ -205,11 +211,17 @@ function Cart() {
                     fontSize: "1.2rem",
                   }}
                 >
-                  ${sumPrices}
+                  ${totalPrices}
                 </Typography>
               </div>
             </Paper>
-            <HorizontalLinearStepper setShipcost={setShipcost} />
+            <HorizontalLinearStepper
+              setShipcost={setShipcost}
+              cartItems={cartItems}
+              totalPrices={totalPrices}
+              shipCost={shipping}
+              tax={tax}
+            />
           </div>
         </main>
       </div>

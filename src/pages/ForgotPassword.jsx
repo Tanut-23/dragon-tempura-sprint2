@@ -4,8 +4,9 @@ import { Box, FormGroup, Link, Stack, Typography } from "@mui/material";
 import ColumnInput from "../components/ColumnInput";
 import Checkbox from "../components/Checkbox";
 import { useNavigate } from "react-router-dom";
+import baseURL from "../../service/api";
 
-export default function ForgotPassword({}) {
+export default function ForgotPassword() {
   const [email,setEmail] = useState("");
   const [password,setNewPassword] = useState("");
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function ForgotPassword({}) {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/users-resetPassword" , {
+      const res = await fetch(`${baseURL}/api/users-resetPassword` , {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

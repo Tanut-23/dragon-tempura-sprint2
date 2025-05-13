@@ -6,6 +6,8 @@ import PostCard from "../components/PostCard";
 import { Link, useNavigate } from "react-router-dom";
 import ButtonToggle from "../components/ButtonToggle";
 import axios from "axios";
+
+import baseURL from "../../service/api";
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 export default function MarketPage() {
   // STATE FOR KEEPING ALL PRODUCTS
@@ -21,7 +23,7 @@ export default function MarketPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/my-products", {
+        const res = await axios.get(`${baseURL}/api/my-products`, {
           withCredentials: true,
         });
         setAllProducts(res.data);
@@ -43,10 +45,9 @@ export default function MarketPage() {
       );
       if (!confirmed) return;
 
-      const res = await axios.delete(
-        `http://localhost:3000/api/product-delete/${id}`,
-        { withCredentials: true }
-      );
+      const res = await axios.delete(`${baseURL}/api/product-delete/${id}`, {
+        withCredentials: true,
+      });
 
       const updatedProducts = allProducts.filter(
         (product) => product._id !== id

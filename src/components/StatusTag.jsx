@@ -5,13 +5,13 @@ export default function StatusTag({statusTag}) {
 
     const typeTag = () => {
       switch (statusTag) {
-        case "Deliver":
+        case "deliver":
           return ["#005d34","#dcfce7"];
-        case "InTransit":
+        case "inTransit":
           return ["#854800","#fef9c3"];;
-        case "Preparing":
+        case "preparing":
           return ["#244b7d","#cdebf3"];;
-        case "Cancel":
+        case "cancel":
            return ["#991b1b","#fee2e2"];
         default:
           return "";

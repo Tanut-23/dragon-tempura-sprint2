@@ -1,30 +1,29 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 import ButtonSubmit from "../components/ButtonSubmit";
 import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import { useCart } from "../contexts/CartContext";
 import axios from "axios";
+import baseURL from "../../service/api";
 
 function ProductPage() {
   const [product, setProduct] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
   const [isInCartDB, setIsInCartDB] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { toggleCartItem, isInCart } = useCart();
+
+  const { cartItems, setCartItems } = useCart(); //From Cart Context
   const links = [
     { label: "Home", to: "/" },
     { label: "Collections", to: "/mainshop" },
     { label: "Type", to: "/shoppage" },
   ];
   const { productId } = useParams();
-  ls;
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:3000/api/product/${productId}`
-        );
+        const res = await axios.get(`${baseURL}/api/product/${productId}`);
         setProduct(res.data?.product ?? null);
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -38,7 +37,7 @@ function ProductPage() {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/cart-get", {
+        const res = await axios.get(`${baseURL}/api/cart-get`, {
           withCredentials: true,
         });
         setCartItems(res.data.cart.items);
@@ -77,10 +76,10 @@ function ProductPage() {
         JSON.stringify(newProduct, null, 2)
       );
 
-      await axios.post("http://localhost:3000/api/cart-add", newProduct, {
+      await axios.post(`${baseURL}/api/cart-add`, newProduct, {
         withCredentials: true,
       });
-      //update local state
+      //update cart context
       setCartItems((prev) => [...prev, newProduct.items]);
     } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
@@ -90,12 +89,9 @@ function ProductPage() {
   //Remove Product from Database
   const removeProductFromDB = async (product) => {
     try {
-      await axios.delete(
-        `http://localhost:3000/api/cart-delete/${product._id}`,
-        {
-          withCredentials: true,
-        }
-      );
+      await axios.delete(`${baseURL}/api/cart-delete/${product._id}`, {
+        withCredentials: true,
+      });
       setCartItems((prev) =>
         prev.filter((item) => item.productId !== product._id)
       );
@@ -119,8 +115,6 @@ function ProductPage() {
       </div>
     );
   }
-
-  const addedToCart = isInCart(product.title);
 
   return (
     <main className="bg-[#f2eee7]">
@@ -181,7 +175,6 @@ function ProductPage() {
               width="100%"
               label={isInCartDB ? "Remove from Cart" : "Add to Cart"}
               onClick={() => {
-                toggleCartItem(product);
                 if (isInCartDB) {
                   removeProductFromDB(product);
                 } else {

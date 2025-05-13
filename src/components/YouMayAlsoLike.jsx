@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import products from "../../data/products";
-import slugify from "../utils/Slugify";
+import axios from "axios";
+import baseURL from "../../service/api";
 
 const ProductCard = ({ product }) => {
   return (
     <div className="relative group overflow-hidden shadow-md shadow-gray-700 hover:shadow-lg transition-shadow duration-300">
-      <Link to={`/product/${slugify(product.title)}`}>
+      <Link to={`/product/${product._id}`}>
         <img
           src={product.image}
           alt={product.alt}
@@ -27,13 +27,33 @@ const ProductCard = ({ product }) => {
 };
 
 const YouMayAlsoLike = ({ currentProduct }) => {
+  const [products, setProducts] = useState([]);
+  //Get Product From Database
+  async function getData() {
+    try {
+      //fixed price product
+      const productData = await axios.get(`${baseURL}/api/product-get`,{
+          withCredentials: true,
+        });
+      setProducts(productData.data.allProduct || []);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+
   if (!currentProduct) return null;
 
+  //Filter products for recommending
   const recommendedProducts = products
     .filter(
       (product) =>
-        product.id !== currentProduct.id &&
-        product.tags?.some((tag) => currentProduct.tags?.includes(tag))
+        product._id !== currentProduct._id 
+        && product.tags?.some((tag) => currentProduct.tags?.some((currentTag) => tag.title === currentTag.title))
     )
     .slice(0, 3);
 
