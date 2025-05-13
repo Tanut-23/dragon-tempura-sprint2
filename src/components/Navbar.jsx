@@ -11,8 +11,7 @@ import ForgotPassword from "../pages/ForgotPassword.jsx";
 
 function Navbar() {
   const { cartCount } = useCart();
-  const { isAuthenticated} = useAuth();
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const { isAuthenticated , isLoginPopupOpen , openLoginPopup , closeLoginPopup} = useAuth();
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
   const [tempEmail, setTempEmail] = useState("");
@@ -21,24 +20,24 @@ function Navbar() {
   const handleOpenLogin = (email = "", password = "") => {
     setTempEmail(typeof email === "string" ? email : "");
     setTempPassword(typeof password === "string" ? password : "");
-    setIsLoginOpen(true);
+    openLoginPopup();
     setIsRegisterOpen(false);
     setIsForgotPasswordOpen(false);
   };
 
   const handleOpenRegister = () => {
-    setIsLoginOpen(false);
+    closeLoginPopup();
     setIsRegisterOpen(true);
     setIsForgotPasswordOpen(false);
   };
 
   const handleOpenForgotPassword = () => {
-    setIsLoginOpen(false);
+    closeLoginPopup();
     setIsRegisterOpen(false);
     setIsForgotPasswordOpen(true);
   };
 
-  const handleCloseLogin = () => setIsLoginOpen(false);
+  
   const handleCloseRegister = () => setIsRegisterOpen(false);
   const handleCloseForgotPassword = () => setIsForgotPasswordOpen(false);
 
@@ -90,7 +89,7 @@ function Navbar() {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="size-5 mb-2"
+                className="size-5 mb-2  opacity-0"
               >
                 <path
                   strokeLinecap="round"
@@ -133,7 +132,7 @@ function Navbar() {
               </Link>
             </div>
           </div>
-          <div className="flex-col items-center justify-between mt-4 space-x-5">
+          <div className="flex-col items-center justify-between mt-4 space-x-8">
             <Link to="/">Home</Link>
             <Link to="/mainshop">Shop</Link>
             <Link to="/auction/1">Auction</Link>
@@ -178,7 +177,7 @@ function Navbar() {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="size-6"
+                className="size-6  opacity-0"
               >
                 <path
                   strokeLinecap="round"
@@ -213,13 +212,13 @@ function Navbar() {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
             className="size-6"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
             />
           </svg>
@@ -237,11 +236,8 @@ function Navbar() {
             </div>
             {/* Login propup */}
             <Dialog
-              open={isLoginOpen}
-              onClose={() => {
-                handleCloseLogin();
-                console.log("Login dialog closed");
-              }}
+              open={isLoginPopupOpen}
+              onClose={closeLoginPopup}
               PaperProps={{
                 sx: {
                   backgroundColor: "transparent",
@@ -251,7 +247,7 @@ function Navbar() {
             >
               <DialogContent sx={{ padding: 0 }}>
                 <Login
-                  onClose={handleCloseLogin}
+                  onClose={closeLoginPopup}
                   switchToRegister={handleOpenRegister}
                   switchToForgotPassword={handleOpenForgotPassword}
                   prefillEmail={tempEmail}
@@ -263,8 +259,8 @@ function Navbar() {
             <Dialog
               open={isRegisterOpen}
               onClose={handleCloseRegister}
-              fullWidth
-              maxWidth="md"
+              // fullWidth
+              maxWidth="xl"
               PaperProps={{
                 sx: {
                   backgroundColor: "transparent",

@@ -3,6 +3,7 @@ import ButtonSubmit from "../components/ButtonSubmit";
 import { Box, Button, FormGroup, Stack, Typography } from "@mui/material";
 import InlineInput from "../components/InlineInput";
 import axios from "axios";
+import baseURL from "../../service/api";
 
 export default function Register({ onClose, switchToLogin }) {
   const [firstName, setFirstName] = useState("");
@@ -66,7 +67,7 @@ export default function Register({ onClose, switchToLogin }) {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/users-register",
+        `${baseURL}/api/users-register`,
         newUser
       );
       alert("Register success, Welcome to Collectico!");

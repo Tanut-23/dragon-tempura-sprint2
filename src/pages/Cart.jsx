@@ -7,19 +7,21 @@ import HorizontalLinearStepper from '../components/Step';
 import { useNavigate } from "react-router-dom";
 import React,{useEffect, useState} from  'react';
 import axios from 'axios';
+import { useCart } from '../contexts/CartContext';
+import baseURL from '../../service/api';
 
 
 function Cart() {
   const [shipCost, setShipcost] = useState();
-  const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
+  const { cartItems, setCartItems } = useCart();  //From Cart Context
 
   //Get cart items from Cart Database
   useEffect(() => {
     const fetchCartItem = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/cart-get",{
+        const res = await axios.get(`${baseURL}/api/cart-get`,{
           withCredentials: true,
         });
         setCartItems(res.data?.cart?.items || [])
@@ -45,7 +47,7 @@ function Cart() {
   //Remove item from CartDB
   async function onDelete(productId) {
     try {
-      await axios.delete(`http://localhost:3000/api/cart-delete/${productId}`, { withCredentials: true });
+      await axios.delete(`${baseURL}/api/cart-delete/${productId}`, { withCredentials: true });
 
       //update local cart
       const updatedcartItems = cartItems.filter(item => item.productId !== productId)
@@ -54,7 +56,6 @@ function Cart() {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }
   }
-
 
   // Navigate to mainshop page
   useEffect(() => {

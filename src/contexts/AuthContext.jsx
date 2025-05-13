@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import baseURL from "../../service/api";
 
 const AuthContext = createContext();
 
@@ -7,12 +8,16 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
+
+  const openLoginPopup = () => setLoginPopupOpen(true);
+  const closeLoginPopup = () => setLoginPopupOpen(false);
 
   useEffect(() => {
     const verifyToken = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3000/api/auth/verify-token",
+          `${baseURL}/api/auth/verify-token`,
           {
             withCredentials: true,
           }
@@ -38,7 +43,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await axios.post(
-        "http://localhost:3000/api/auth/logout",
+        `${baseURL}/api/auth/logout`,
         {},
         {
           withCredentials: true,
@@ -51,9 +56,21 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  if (loading) {
+    return <divi>Loading . . . . ⏳</divi>;
+  }
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, user, login, logout, loading }}
+      value={{
+        isAuthenticated,
+        user,
+        login,
+        logout,
+        loading,
+        isLoginPopupOpen,
+        openLoginPopup,
+        closeLoginPopup,
+      }}
     >
       {children}
     </AuthContext.Provider>

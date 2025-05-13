@@ -1,99 +1,91 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import RemainingBlock from "../components/RemainingBlock";
 import ButtonSubmit from "../components/ButtonSubmit";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import products from "../../data/products";
+import {
+  ClockIcon,
+  ChartIcon,
+  PersonIcon,
+  DollarIcon,
+  HistoryIcon,
+} from "../components/Icons";
 import { io } from "socket.io-client";
 import { useAuth } from "../contexts/AuthContext";
-
-const ClockIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="18"
-    height="18"
-    fill="currentColor"
-  >
-    <path d="M12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.5 7H11V13L16.2 16.2L17 14.9L12.5 12.2V7Z" />
-  </svg>
-);
-
-const ChartIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="18"
-    height="18"
-    fill="currentColor"
-  >
-    <path d="M9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17ZM22 7.5V21C22 21.5523 21.5523 22 21 22H3C2.44772 22 2 21.5523 2 21V3C2 2.44772 2.44772 2 3 2H16.5L22 7.5ZM20 8H16V4H4V20H20V8Z" />
-  </svg>
-);
-
-const HistoryIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="18"
-    height="18"
-    fill="currentColor"
-  >
-    <path d="M12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.5 7H11V13L16.2 16.2L17 14.9L12.5 12.2V7Z" />
-    <path d="M12.5 7H11V13L16.2 16.2L17 14.9L12.5 12.2V7Z" />
-    <path d="M15 13H13V11H15V13Z" />
-  </svg>
-);
-
-const PersonIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="16"
-    height="16"
-    fill="currentColor"
-  >
-    <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 6C13.1 6 14 6.9 14 8C14 9.1 13.1 10 12 10C10.9 10 10 9.1 10 8C10 6.9 10.9 6 12 6ZM12 13C9.33 13 4 14.34 4 17V20H20V17C20 14.34 14.67 13 12 13ZM18 18H6V17.01C6.2 16.29 9.3 15 12 15C14.7 15 17.8 16.29 18 17V18Z" />
-  </svg>
-);
-
-const DollarIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="18"
-    height="18"
-    fill="currentColor"
-  >
-    <path d="M11.8 10.9C9.53 10.31 8.8 9.7 8.8 8.75C8.8 7.66 9.81 6.9 11.5 6.9C13.28 6.9 13.94 7.75 14 9H16.21C16.14 7.28 15.09 5.7 13 5.19V3H10V5.16C8.06 5.58 6.5 6.84 6.5 8.77C6.5 11.08 8.41 12.23 11.2 12.9C13.7 13.5 14.2 14.38 14.2 15.31C14.2 16 13.71 17.1 11.5 17.1C9.44 17.1 8.63 16.18 8.5 15H6.32C6.46 17.19 8.08 18.42 10 18.83V21H13V18.85C14.95 18.48 16.5 17.35 16.5 15.3C16.5 12.46 14.07 11.49 11.8 10.9Z" />
-  </svg>
-);
+import axios from "axios";
+import baseURL from "../../service/api";
 
 export default function AuctionPage() {
-  const { id } = useParams();
+  const { auctionId } = useParams();
   const [timeLeft, setTimeLeft] = useState(null);
   const { user, isAuthenticated } = useAuth();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [bid, setBid] = useState("");
   const [historyBid, setHistoryBid] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const socket = io("http://localhost:3000");
+  const [auctionData, setAuctionData] = useState(null);
+  const [isAuctionEnded, setIsAuctionEnded] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
-    }
-  }, [user]);
+    if (!auctionData) return;
+    const updateTimeLeft = () => {
+      const now = new Date();
+      const end = new Date(auctionData.auction.endDate);
+      const diff = end - now;
+      setTimeLeft(Math.max(0, diff));
+      setIsAuctionEnded(diff <= 0);
+    };
+
+    updateTimeLeft();
+    const timer = setInterval(updateTimeLeft, 1000);
+
+    return () => clearInterval(timer);
+  }, [auctionData]);
 
   useEffect(() => {
-    socket.on("shareBid", (dataAuctioneer) => {
-      dataAuctioneer.time = new Date(dataAuctioneer.time); // Convert string to Date
-      setHistoryBid((prev) => [dataAuctioneer, ...prev]);
-    });
-    return () => socket.off("shareBid");
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(`${baseURL}/api/product/${auctionId}`);
+        setAuctionData(res.data?.product ?? null);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+    };
+    fetchProduct();
+  }, [auctionId]);
+
+  const socket = useRef();
+  useEffect(() => {
+    socket.current = io(`${baseURL}`);
+    return () => socket.current.disconnect();
   }, []);
+
+  // ...existing code...
+  useEffect(() => {
+    const fetchBidHistory = async () => {
+      try {
+        console.log("auctionId param:", auctionId);
+        const res = await fetch(`${baseURL}/api/bids/${auctionId}`);
+        const data = await res.json();
+        console.log("bid history from API:", data); // <--- ดูตรงนี้
+        const formatted = data.map((b) => ({
+          ...b,
+          time: new Date(b.createdAt),
+          firstName: b.user?.firstName || "Unknown",
+          lastName: b.user?.lastName || "",
+          amount: b.amount,
+        }));
+        setHistoryBid(formatted);
+      } catch (error) {
+        console.error("Error fetching bid history:", error);
+      }
+    };
+
+    fetchBidHistory();
+
+    socket.current?.on("newBid", fetchBidHistory);
+    return () => socket.current?.off("newBid", fetchBidHistory);
+  }, [auctionId]);
+  // ...existing code...
 
   const bidCurrent = Math.max(...historyBid.map((b) => b.amount), 0);
   const bidButton = (event) => {
@@ -107,19 +99,30 @@ export default function AuctionPage() {
       return;
     }
 
-    if (bidUser > 999999999999999) {
+    const magicNumber = 999999999999999;
+    if (bidUser > magicNumber) {
       setErrorMessage(`Bid price must be lower than one quadrillion.`);
       return;
     }
 
-    const dataAuctioneer = {
-      firstName: firstName,
-      lastName: lastName,
-      amount: bidUser,
-      time: new Date(),
-    };
+    // const secondMagicNumber = bidCurrent * 10;
+    // if (bidUser  > secondMagicNumber) {
+    //   setErrorMessage(
+    //     `Bid price cannot exceed $${secondMagicNumber.toLocaleString()} (10 times the current price)`
+    //   );
+    //   return;
+    // }
 
-    socket.emit("oneBid", dataAuctioneer);
+    const productId = auctionId; // id จาก useParams()
+    const userId = user?._id; // user._id จาก useAuth()
+    const amount = bidUser;
+
+    if (!productId || !userId) {
+      setErrorMessage("Cannot place bid: missing product or user info.");
+      return;
+    }
+
+    socket.current.emit("placeBid", { productId, userId, amount });
     setBid("");
     setErrorMessage("");
   };
@@ -129,24 +132,7 @@ export default function AuctionPage() {
     setBid(value);
   };
 
-  const [auctionProduct, setAuctionProduct] = useState(null);
-
-  useEffect(() => {
-    const data = products.find((product) => product.id === parseInt(id));
-    if (data) {
-      setAuctionProduct(data);
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (auctionProduct) {
-      const now = new Date();
-      let timeLeft = new Date(auctionProduct.endDate) - now;
-      setTimeLeft(timeLeft);
-    }
-  }, [auctionProduct]);
-
-  if (!auctionProduct) {
+  if (!auctionData) {
     return (
       <div className="flex justify-center items-center h-screen">
         Product not found
@@ -162,18 +148,18 @@ export default function AuctionPage() {
           <div className="lg:col-span-2">
             <div className="flex flex-col items-center p-6 bg-[#e4dcd2b4] rounded-lg shadow-lg overflow-hidden">
               <img
-                src={auctionProduct.image}
-                alt={auctionProduct.title}
+                src={auctionData.image}
+                alt={auctionData.title}
                 className="lg:w-[60%] object-cover shadow-md shadow-gray-600 hover:scale-105 hover:duration-900 duration-900"
               />
               <div className="p-6">
                 <h2 className="text-2xl font-bold text-[#62483a] mb-2">
-                  {auctionProduct.title}
+                  {auctionData.title}
                 </h2>
                 <p className="text-[#757575] mb-4">
-                  Artist: {auctionProduct.artist}
+                  Artist: {auctionData.artist}
                 </p>
-                <p className="text-[#49352a]">{auctionProduct.description}</p>
+                <p className="text-[#49352a]">{auctionData.description}</p>
               </div>
             </div>
           </div>
@@ -220,7 +206,34 @@ export default function AuctionPage() {
                   Auction
                 </h3>
               </div>
-              {isAuthenticated ? (
+              {isAuctionEnded ? (
+                <div className="text-center text-xl text-green-700 font-bold">
+                  Auction ended!
+                  <div className="mt-2">
+                    Winner:{" "}
+                    {historyBid.length > 0
+                      ? `${historyBid[0].firstName} ${historyBid[0].lastName} ($${historyBid[0].amount})`
+                      : "No winner"}
+                  </div>
+                  {historyBid.length > 0 &&
+                    user &&
+                    user._id === historyBid[0].user?._id && (
+                      <ButtonSubmit
+                        label="Add to Cart"
+                        onClick={() => {
+                          // เพิ่มสินค้าลงตะกร้า
+                          // คุณสามารถใช้ logic เดิมจาก ProductPage ได้เลย
+                          // เช่น เรียกฟังก์ชัน addProductToDB หรือ setCartItems
+                          // ตัวอย่าง:
+                          // addProductToDB(auctionData);
+                          // หรือจะเขียน logic ตรงนี้เลยก็ได้
+                        }}
+                        borderRadius="6px"
+                        marginTop="16px"
+                      />
+                    )}
+                </div>
+              ) : isAuthenticated ? (
                 <form onSubmit={bidButton}>
                   <div className="mb-4">
                     <label
@@ -253,7 +266,10 @@ export default function AuctionPage() {
                 </form>
               ) : (
                 <p className="text-sm text-red-700 mt-2">
-                  Please <Link to="/login" className="underline font-bold">login </Link>
+                  Please{" "}
+                  <Link to="/login" className="underline font-bold">
+                    login{" "}
+                  </Link>
                   to place a bid.
                 </p>
               )}
