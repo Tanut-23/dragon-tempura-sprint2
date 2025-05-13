@@ -12,6 +12,11 @@ import BreadcrumbsNav from "../components/BreadcrumbsNav";
 export default function MarketPage() {
   // STATE FOR KEEPING ALL PRODUCTS
   const [allProducts, setAllProducts] = useState([]);
+  const [statusFilter, setStatusFilter] = useState("pending");
+
+  const showPending = () => setStatusFilter("pending");
+  const showOnGoing = () => setStatusFilter("ongoing");
+  const showCompleted = () => setStatusFilter("completed");
 
   // STATE FOR SHOW NO POST
   const [noPost, setNoPost] = useState(true);
@@ -19,6 +24,20 @@ export default function MarketPage() {
   // WHEN REFRESH -> GET DATA OF ALL PRODUCTS FROM LOCAL STORAGE
 
   const links = [{ label: "Home", to: "/" }];
+  const filteredProducts = allProducts.filter((product) => {
+    const status = product.status?.toLowerCase();
+    const approve = product.approve?.toLowerCase();
+    const filter = statusFilter.toLowerCase();
+
+    if (filter === "pending") return approve === "pending";
+    if (filter === "ongoing")
+      return status === "ongoing" && approve === "approved";
+    if (filter === "completed") return status === "completed";
+
+    return false;
+  });
+  console.log("Filtered Products:", filteredProducts);
+  console.log("Filtered Products:", allProducts);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -84,7 +103,14 @@ export default function MarketPage() {
           </div>
           {/* Button Toggle */}
           <div className="buttonToggle">
-            <ButtonToggle label1="ongoing" label2="completed" />
+            <ButtonToggle
+              label1="pending"
+              label2="ongoing"
+              label3="completed"
+              showPending={showPending}
+              showOnGoing={showOnGoing}
+              showCompleted={showCompleted}
+            />
           </div>
         </header>
 
@@ -109,7 +135,8 @@ export default function MarketPage() {
           {/* AFTER POST PRODUCT */}
           {!noPost && (
             <div className="relative flex flex-row gap-8 flex-wrap justify-center w-full px-8 py-12 bg-[#f0e0d0] rounded-2xl">
-              {allProducts.map((product) => {
+              {filteredProducts.map((product) => {
+                console.log(product);
                 return (
                   <PostCard
                     key={product._id}
@@ -122,6 +149,9 @@ export default function MarketPage() {
                     auction={product.auction}
                     minBidPrice={product.minBidPrice}
                     endDate={product.endDate}
+                    tags={product.tags}
+                    product={product}
+                    status={product.status}
                   />
                 );
               })}

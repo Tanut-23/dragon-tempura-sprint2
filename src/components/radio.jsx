@@ -8,7 +8,7 @@ const RadioButtonExample = ({setShippig}) => {
     setValue(event.target.value);
     setShippig(event.target.value)
   };
-console.log("option from radio = ", value);
+// console.log("option from radio = ", value);
   return (
     <Paper elevation={3}
     sx={{ p: 3, mb: 4, bgcolor: "#f9f7f3", color: "#62483a" }}>

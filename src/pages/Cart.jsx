@@ -18,11 +18,12 @@ function Cart() {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+  const { cartItems, setCartItems } = useCart(); //From Cart Context
+  const [cartId, setCartId] = useState();
   const links = [
     { label: "Home", to: "/" },
     { label: "Collections", to: "/mainshop" },
   ];
-  const { cartItems, setCartItems } = useCart(); //From Cart Context
 
   //Get cart items from Cart Database
   useEffect(() => {
@@ -31,8 +32,10 @@ function Cart() {
         const res = await axios.get(`${baseURL}/api/cart-get`, {
           withCredentials: true,
         });
+
         setCartItems(res.data?.cart?.items || []);
-        // console.log(res.data.cart.items);
+        setCartId(res.data?.cart?._id || "");
+        console.log(res.data);
       } catch (error) {
         console.error("Error Fetching Product From Cart: ", error);
         setCartItems([]);
@@ -42,7 +45,7 @@ function Cart() {
     };
     fetchCartItem();
   }, []);
-
+  console.log("🚀 cartId to delete: ", cartId);
   //Calculate 💸
 
   const sumPrices = cartItems.reduce(
@@ -54,6 +57,7 @@ function Cart() {
   const totalPrices = sumPrices + tax + shipping;
 
   //Remove item from CartDB
+  // console.log("CheckProductID..............", JSON.parse(cartItems[0]));
   async function onDelete(productId) {
     try {
       await axios.delete(`${baseURL}/api/cart-delete/${productId}`, {
@@ -73,6 +77,7 @@ function Cart() {
   // Navigate to mainshop page
   useEffect(() => {
     if (!loading && cartItems.length === 0) {
+      setCartItems([]);
       navigate("/mainshop");
     }
   }, [loading, cartItems, navigate]);
@@ -217,6 +222,7 @@ function Cart() {
             </Paper>
             <HorizontalLinearStepper
               setShipcost={setShipcost}
+              cartId={cartId}
               cartItems={cartItems}
               totalPrices={totalPrices}
               shipCost={shipping}
