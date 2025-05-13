@@ -31,7 +31,7 @@ export default function AuctionPage() {
       const now = new Date();
       const end = new Date(auctionData.auction.endDate);
       const diff = end - now;
-      setTimeLeft(diff);
+      setTimeLeft(Math.max(0, diff));
       setIsAuctionEnded(diff <= 0);
     };
 
@@ -44,9 +44,7 @@ export default function AuctionPage() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(
-          `${baseURL}/api/product/${auctionId}`
-        );
+        const res = await axios.get(`${baseURL}/api/product/${auctionId}`);
         setAuctionData(res.data?.product ?? null);
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -217,6 +215,23 @@ export default function AuctionPage() {
                       ? `${historyBid[0].firstName} ${historyBid[0].lastName} ($${historyBid[0].amount})`
                       : "No winner"}
                   </div>
+                  {historyBid.length > 0 &&
+                    user &&
+                    user._id === historyBid[0].user?._id && (
+                      <ButtonSubmit
+                        label="Add to Cart"
+                        onClick={() => {
+                          // เพิ่มสินค้าลงตะกร้า
+                          // คุณสามารถใช้ logic เดิมจาก ProductPage ได้เลย
+                          // เช่น เรียกฟังก์ชัน addProductToDB หรือ setCartItems
+                          // ตัวอย่าง:
+                          // addProductToDB(auctionData);
+                          // หรือจะเขียน logic ตรงนี้เลยก็ได้
+                        }}
+                        borderRadius="6px"
+                        marginTop="16px"
+                      />
+                    )}
                 </div>
               ) : isAuthenticated ? (
                 <form onSubmit={bidButton}>

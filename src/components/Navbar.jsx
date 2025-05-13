@@ -89,7 +89,7 @@ function Navbar() {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="size-5 mb-2"
+                className="size-5 mb-2  opacity-0"
               >
                 <path
                   strokeLinecap="round"
@@ -132,7 +132,7 @@ function Navbar() {
               </Link>
             </div>
           </div>
-          <div className="flex-col items-center justify-between mt-4 space-x-5">
+          <div className="flex-col items-center justify-between mt-4 space-x-8">
             <Link to="/">Home</Link>
             <Link to="/mainshop">Shop</Link>
             <Link to="/auction/1">Auction</Link>
@@ -177,7 +177,7 @@ function Navbar() {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="size-6"
+                className="size-6  opacity-0"
               >
                 <path
                   strokeLinecap="round"
