@@ -35,6 +35,7 @@ export default function PostCard({
   const remainingSecond = Math.floor(remainingTime/1000);
   const remainingDays = Math.floor(remainingSecond/ (60*60*24));
   const remainingHours = Math.floor((remainingSecond % (60*60*24)) / 3600);
+  const remainingMin = Math.floor((remainingSecond % 3600) / 60);
   console.log(product)
   const isAuctionTag = auction?.isAuction === true;
   const navigate = useNavigate()
@@ -108,7 +109,7 @@ export default function PostCard({
               fontWeight: 700,
             }}
           >
-            {remainingDays} days {remainingHours} hrs left
+            {remainingDays} days {remainingHours} hrs {remainingMin} min left
           </Box>
         )}
 

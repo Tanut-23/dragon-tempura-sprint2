@@ -23,6 +23,7 @@ export default function PreviewCard({
   minBidPrice = 1000,
   days = 2,
   hours = 4,
+  min = 0,
   dimensions,
   material,
   yearCreated,
@@ -91,7 +92,7 @@ export default function PreviewCard({
               fontWeight: 700,
             }}
           >
-            {days} days {hours} hrs left
+            {days} days {hours} hrs {min} min left
           </Box>
         )}
 
