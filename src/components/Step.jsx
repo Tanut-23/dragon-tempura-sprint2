@@ -89,10 +89,11 @@ const navigate = useNavigate()
 useEffect(() => {
     if (activeStep === 3) {
       addOrdertoDB(inputToDB);
+      setCartItems([]);
       deleteCartAfertOrder();
       navigate('/mainshop');
     }
-  }, [activeStep, navigate,inputToDB]);
+  }, [activeStep]);
 
 
   const handleSubmit = () => {
@@ -165,29 +166,31 @@ useEffect(() => {
       if (hasErrors) {
         return;
       }
-    if (activeStep === 2){
+    }
+  
+    if (activeStep === 2) {
       try {
         await addOrdertoDB(inputToDB);
         await deleteCartAfertOrder();
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setActiveStep(prev => prev + 1);
         navigate('/mainshop');
       } catch (error) {
         console.error("Error posting data:", error);
       }
-    return;
+      return;
     }
-    }
-
+  
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
     }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  
+    setActiveStep(prev => prev + 1);
     setSkipped(newSkipped);
-
   };
+  
+
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -240,7 +243,7 @@ const addOrdertoDB = async (inputToDB) => {
 
   const deleteCartAfertOrder = async () =>{
     try{
-      axios.delete(`${baseURL}/api/cart-delete`, { withCredentials: true })
+      axios.delete(`${baseURL}/api/cart-delete-update/${cartId}`, { withCredentials: true })
     }catch(err){
       console.error("Delete order failed:", err.response?.data || err.message);
     }
