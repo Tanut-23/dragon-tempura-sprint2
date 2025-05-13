@@ -16,6 +16,7 @@ function Cart() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
   const { cartItems, setCartItems } = useCart();  //From Cart Context
+  const [ cartId , setCartId] = useState();
 
   //Get cart items from Cart Database
   useEffect(() => {
@@ -25,7 +26,8 @@ function Cart() {
           withCredentials: true,
         });
         setCartItems(res.data?.cart?.items || [])
-        // console.log(res.data.cart.items);
+        setCartId(res.data?.cart?._id || "")
+        console.log(res.data);
       } catch (error) {
         console.error("Error Fetching Product From Cart: ", error);
         setCartItems([])
@@ -35,7 +37,7 @@ function Cart() {
     };
     fetchCartItem();
   }, []);
-
+  console.log("🚀 cartId to delete: ", cartId)
   //Calculate 💸
   const sumPrices = cartItems.reduce((total, product)=>total+product.price, 0);
   const tax = Math.ceil(sumPrices /10);
@@ -58,6 +60,7 @@ function Cart() {
   // Navigate to mainshop page
   useEffect(() => {
     if (!loading && cartItems.length === 0) {
+      setCartItems([]);
       navigate('/mainshop');
     }
   }, [loading, cartItems, navigate]);
@@ -98,7 +101,7 @@ function Cart() {
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${totalPrices}</Typography>
         </div>
         </Paper>
-        <HorizontalLinearStepper setShipcost={setShipcost} cartItems={cartItems} totalPrices={totalPrices} shipCost={shipping} tax={tax}/>
+        <HorizontalLinearStepper setShipcost={setShipcost} cartId={cartId} cartItems={cartItems} totalPrices={totalPrices} shipCost={shipping} tax={tax}/>
         </div>
       </main>
     </div>

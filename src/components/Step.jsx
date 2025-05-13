@@ -16,7 +16,7 @@ import baseURL from "../../service/api";
 
 const steps = ["Shipping Method", "Shipping Address", "Payment Method"];
 
-export default function HorizontalLinearStepper({setShipcost, cartItems, totalPrices, shipCost, tax}) {
+export default function HorizontalLinearStepper({setShipcost, cartItems, totalPrices, shipCost, tax, cartId}) {
   // console.log("what inside carttt", cartItems);
 
   const productIdToPost = cartItems.map((id)=>(id.productId));
@@ -61,7 +61,7 @@ export default function HorizontalLinearStepper({setShipcost, cartItems, totalPr
 //data for Post
   const inputToDB = {...addressForShipping , productId: productIdToPost, totalPrice: [totalPrices, shipCost, tax], shipping: shipping , method:"Cash on Delivery"};
 
-  console.log("check inputToDB", inputToDB);
+  // console.log("check inputToDB", inputToDB);
 
 // console.log("option from Step = ", shipping);
 
@@ -81,14 +81,16 @@ useEffect(()=>{
 
 },[shipping,setShipcost])
 
+console.log(cartItems)
+
 const navigate = useNavigate()
-useEffect(() => {
-    if (activeStep === 3) {
-      addOrdertoDB(inputToDB);
-      deleteCartAfertOrder();
-      navigate('/mainshop');
-    }
-  }, [activeStep, navigate,inputToDB]);
+// useEffect(() => {
+//     if (activeStep === 3) {
+//       addOrdertoDB(inputToDB);
+//       deleteCartAfertOrder();
+//       navigate('/mainshop');
+//     }
+//   }, [activeStep, navigate,inputToDB]);
 
 
   const handleSubmit = () => {
@@ -155,14 +157,22 @@ useEffect(() => {
     return skipped.has(step);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (activeStep === 1) {
       const hasErrors = handleSubmit();
       if (hasErrors) {
         return;
       }
     if (activeStep === 2){
-     addOrdertoDB(inputToDB);
+      try {
+        await addOrdertoDB(inputToDB);
+        await deleteCartAfertOrder();
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        navigate('/mainshop');
+      } catch (error) {
+        console.error("Error posting data:", error);
+      }
+    return;
     }
     }
 
@@ -228,7 +238,7 @@ const addOrdertoDB = async (inputToDB) => {
 
   const deleteCartAfertOrder = async () =>{
     try{
-      axios.delete(`${baseURL}/api/cart-delete`, { withCredentials: true })
+      await axios.delete(`${baseURL}/api/cart-delete-update/${cartId}`, { withCredentials: true })
     }catch(err){
       console.error("Delete order failed:", err.response?.data || err.message);
     }
