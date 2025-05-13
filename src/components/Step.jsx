@@ -44,7 +44,7 @@ export default function HorizontalLinearStepper({setShipcost, cartItems, totalPr
 // รวมนะ
   const addressForShipping = {...addressRest, address:`${addressLineOne} ${addressLineTwo}`};
 
-  console.log("check addressInput", addressInput);
+  // console.log("check addressInput", addressInput);
 
   const [error, setError] = useState({
     firstName: 0,

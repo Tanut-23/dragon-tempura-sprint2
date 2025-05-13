@@ -45,7 +45,7 @@ function Cart() {
   const totalPrices = sumPrices  + tax + shipping;
 
   //Remove item from CartDB
-  // console.log("CheckProductID",cartItems[0].productId.price)
+  // console.log("CheckProductID..............", JSON.parse(cartItems[0]));
   async function onDelete(productId) {
     try {
       await axios.delete(`${baseURL}/api/cart-delete/${productId}`, { withCredentials: true });
