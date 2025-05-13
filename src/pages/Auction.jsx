@@ -195,6 +195,7 @@ export default function AuctionPage() {
       </div>
     );
   }
+  const sortedBids = [...historyBid].sort((a, b) => b.amount - a.amount);
 
   return (
     <div className="min-h-screen w-full bg-[#f2eee7] text-[#62483A] ">
@@ -249,8 +250,8 @@ export default function AuctionPage() {
                   ${bidCurrent.toLocaleString()}
                 </div>
                 <div className="text-sm text-[#757575]">
-                  {historyBid.length > 0
-                    ? `Highest Bidder: ${historyBid[0].firstName} ${historyBid[0].lastName}`
+                  {sortedBids.length > 0
+                    ? `Highest Bidder: ${sortedBids[0].firstName} ${sortedBids[0].lastName}`
                     : "Starting Bid Price: $1"}
                 </div>
               </div>
