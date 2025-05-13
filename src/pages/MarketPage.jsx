@@ -6,8 +6,9 @@ import PostCard from "../components/PostCard";
 import { Link, useNavigate } from "react-router-dom";
 import ButtonToggle from "../components/ButtonToggle";
 import axios from "axios";
-import baseURL from "../../service/api";
 
+import baseURL from "../../service/api";
+import BreadcrumbsNav from "../components/BreadcrumbsNav";
 export default function MarketPage() {
   // STATE FOR KEEPING ALL PRODUCTS
   const [allProducts, setAllProducts] = useState([]);
@@ -22,6 +23,7 @@ export default function MarketPage() {
 
   // WHEN REFRESH -> GET DATA OF ALL PRODUCTS FROM LOCAL STORAGE
 
+  const links = [{ label: "Home", to: "/" }];
   const filteredProducts = allProducts.filter((product) => {
     const status = product.status?.toLowerCase();
     const approve = product.approve?.toLowerCase();
@@ -29,7 +31,7 @@ export default function MarketPage() {
 
     if (filter === "pending") return approve === "pending";
     if (filter === "ongoing") return status === "ongoing" && approve === "approved";
-    if (filter === "completed") return status === "completed" ;
+    if (filter === "completed") return status === "completed"  && approve === "approved";
     
     return false;
   });
@@ -85,10 +87,11 @@ export default function MarketPage() {
   }
 
   return (
-    <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] ">
+    <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] px-2 py-2 ">
       {/* -------------------NAV BAR----------------- */}
       {/* <Navbar /> */}
       {/* -------------------CONTENT----------------- */}
+      <BreadcrumbsNav links={links} currentPage="Market" />
       <div className="flex flex-col items-center gap-4 w-full py-[50px]">
         <header className="flex flex-col gap-4 w-[80%] bg-[#f0e0d000]">
           <div className="flex flex-row justify-between">

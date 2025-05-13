@@ -12,19 +12,18 @@ function ProductPage() {
   const [isInCartDB, setIsInCartDB] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const {cartItems, setCartItems} = useCart();  //From Cart Context
+  const { cartItems, setCartItems } = useCart(); //From Cart Context
   const links = [
     { label: "Home", to: "/" },
     { label: "Collections", to: "/mainshop" },
     { label: "Type", to: "/shoppage" },
   ];
   const { productId } = useParams();
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(
-          `${baseURL}/api/product/${productId}`
-        );
+        const res = await axios.get(`${baseURL}/api/product/${productId}`);
         setProduct(res.data?.product ?? null);
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -38,16 +37,19 @@ function ProductPage() {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await axios.get(`${baseURL}/api/cart-get`,{
+        const res = await axios.get(`${baseURL}/api/cart-get`, {
           withCredentials: true,
         });
         setCartItems(res.data.cart.items);
       } catch (err) {
-      console.error("Error fetching cart:", err.response?.data || err.message);
-    }
-    }
+        console.error(
+          "Error fetching cart:",
+          err.response?.data || err.message
+        );
+      }
+    };
     fetchCart();
-  }, [])
+  }, []);
 
   //Check if this product is already in cart
   useEffect(() => {
@@ -60,17 +62,19 @@ function ProductPage() {
   const addProductToDB = async (product) => {
     try {
       const newProduct = {
-        items: 
-          {
-            productId: product._id?.toString(),
-            title: product.title,
-            image: product.image,
-            artist: product.artist,
-            price: product.price,
-            quantity: 1,
-          },
+        items: {
+          productId: product._id?.toString(),
+          title: product.title,
+          image: product.image,
+          artist: product.artist,
+          price: product.price,
+          quantity: 1,
+        },
       };
-      console.log("Payload being sent to backend:", JSON.stringify(newProduct, null, 2));
+      console.log(
+        "Payload being sent to backend:",
+        JSON.stringify(newProduct, null, 2)
+      );
 
       await axios.post(`${baseURL}/api/cart-add`, newProduct, {
         withCredentials: true,
@@ -80,20 +84,21 @@ function ProductPage() {
     } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }
-  }
+  };
 
   //Remove Product from Database
   const removeProductFromDB = async (product) => {
     try {
       await axios.delete(`${baseURL}/api/cart-delete/${product._id}`, {
         withCredentials: true,
-      })
-      setCartItems((prev) => prev.filter((item) => item.productId !== product._id))
-    } catch(err) {
+      });
+      setCartItems((prev) =>
+        prev.filter((item) => item.productId !== product._id)
+      );
+    } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }
-  }
-
+  };
 
   if (loading) {
     return (
@@ -110,7 +115,6 @@ function ProductPage() {
       </div>
     );
   }
-
 
   return (
     <main className="bg-[#f2eee7]">
