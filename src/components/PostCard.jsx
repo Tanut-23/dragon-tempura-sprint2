@@ -39,17 +39,19 @@ export default function PostCard({
   console.log(product)
   const isAuctionTag = auction?.isAuction === true;
   const navigate = useNavigate()
+
   function viewShop() {
-    navigate('/mainshop')
+    if (product.auction.isAuction) {
+      navigate(`/auction/${product._id}`);
+    } else {
+      navigate(`/product/${product._id}`);
+    }
   }
-  function linkToProduct() {
-    navigate(`/product/${product._id}`)
-  }
+
 
   return (
     <Card
       elevation={elevation}
-      onClick={linkToProduct}
       sx={{
         width: 350,
         height: 490,
