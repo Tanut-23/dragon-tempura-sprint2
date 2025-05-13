@@ -186,7 +186,6 @@ export default function PostPage() {
           withCredentials: true,
         });
         const product = res.data.product;
-        console.log("sssssssssssss", product);
         setTitle(product.title || "");
         setDescription(product.description || "");
         setArtist(product.artist || "");

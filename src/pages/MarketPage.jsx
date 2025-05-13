@@ -30,10 +30,9 @@ export default function MarketPage() {
     const filter = statusFilter.toLowerCase();
 
     if (filter === "pending") return approve === "pending";
-    if (filter === "ongoing")
-      return status === "ongoing" && approve === "approved";
-    if (filter === "completed") return status === "completed" && approve === "approved";
-
+    if (filter === "ongoing") return status === "ongoing" && approve === "approved";
+    if (filter === "completed") return status === "completed"  && approve === "approved";
+    
     return false;
   });
   console.log("Filtered Products:", filteredProducts);
