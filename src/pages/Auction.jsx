@@ -249,7 +249,9 @@ export default function AuctionPage() {
                   ${bidCurrent.toLocaleString()}
                 </div>
                 <div className="text-sm text-[#757575]">
-                  Starting Bid Price: $1
+                  {historyBid.length > 0
+                    ? `Highest Bidder: ${historyBid[0].firstName} ${historyBid[0].lastName}`
+                    : "Starting Bid Price: $1"}
                 </div>
               </div>
             </div>
