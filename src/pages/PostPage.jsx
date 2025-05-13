@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ButtonToggle from "../components/ButtonToggle";
+import ButtonTogglePostPage from "../components/ButtonTogglePostPage";
 import Navbar from "../components/Navbar";
 import ColumnInput from "../components/ColumnInput";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
@@ -382,7 +382,7 @@ export default function PostPage() {
 
             {/* -------CHOOSE FIXED PRICE OR AUCTION------ */}
             <div className="buttonToggle">
-              <ButtonToggle
+              <ButtonTogglePostPage
                 label1="fixed price"
                 label2="auction"
                 onClick1={diasableAuction}
