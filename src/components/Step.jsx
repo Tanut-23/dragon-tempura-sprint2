@@ -13,12 +13,14 @@ import ButtonSubmit from "./ButtonSubmit";
 import Address from "./Address";
 import axios from "axios";
 import baseURL from "../../service/api";
+import { useCart } from '../contexts/CartContext';
 
 const steps = ["Shipping Method", "Shipping Address", "Payment Method"];
 
 export default function HorizontalLinearStepper({setShipcost, cartItems, totalPrices, shipCost, tax}) {
   // console.log("what inside carttt", cartItems);
 
+  const { setCartItems } = useCart(); 
   const productIdToPost = cartItems.map((id)=>(id.productId));
   // console.log("check productID", productIdToPost);
 
@@ -85,10 +87,13 @@ const navigate = useNavigate()
 useEffect(() => {
     if (activeStep === 3) {
       addOrdertoDB(inputToDB);
+      setCartItems([]);
       deleteCartAfertOrder();
+      console.log("hiMate1");
       navigate('/mainshop');
+      console.log("hiMate12354");
     }
-  }, [activeStep, navigate,inputToDB]);
+  }, [activeStep]);
 
 
   const handleSubmit = () => {
@@ -228,7 +233,7 @@ const addOrdertoDB = async (inputToDB) => {
 
   const deleteCartAfertOrder = async () =>{
     try{
-      axios.delete(`${baseURL}/api/cart-delete`, { withCredentials: true })
+      axios.delete(`${baseURL}/api/cart-delete-update/:cartId`, { withCredentials: true })
     }catch(err){
       console.error("Delete order failed:", err.response?.data || err.message);
     }
