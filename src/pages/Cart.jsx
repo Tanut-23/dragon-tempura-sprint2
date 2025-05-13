@@ -40,6 +40,8 @@ function Cart() {
   const shipping = shipCost;
   const totalPrices = sumPrices  + tax + shipping;
 
+  console.log("Mate Check Cart", cartItems);
+
   //Remove item from CartDB
   async function onDelete(productId) {
     try {

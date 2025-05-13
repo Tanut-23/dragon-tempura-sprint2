@@ -149,7 +149,7 @@ function Address({addressInput, setAddressInput, error, handleSubmit}) {
         error={error.stateAndProvince > 0 }
         onChange={handleInput}
         helperText={
-          (error.stateAndProvince=== 1) ? "Please enter your State/Province" : (error.stateAndProvince === 2) ? "Invalid format" : ""
+          (error.state=== 1) ? "Please enter your State/Province" : (error.state === 2) ? "Invalid format" : ""
         }
         variant="outlined"
         placeholder="State/Province"
