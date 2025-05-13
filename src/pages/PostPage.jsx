@@ -32,6 +32,7 @@ export default function PostPage() {
   const [minBidPrice, setMinBidPrice] = useState("");
   const [days, setDays] = useState("");
   const [hours, setHours] = useState("");
+  const [min, setMin] = useState("");
 
   const links = [
     { label: "Home", to: "/" },
@@ -72,7 +73,7 @@ export default function PostPage() {
     // validate title
     if (!title) {
       validatedError.title = "Title is required.";
-    } else if (!/^[a-zA-Z]+$/.test(title)) {
+    } else if (!/^[a-zA-Z\s]+$/.test(title)) {
       validatedError.title = "Only letters are allowed.";
     } else if (title.length > 24) {
       validatedError.title = "Please enter no more than 24 characters.";
@@ -84,7 +85,7 @@ export default function PostPage() {
     // validate artist
     if (!artist) {
       validatedError.artist = "Artist name is required.";
-    } else if (!/^[a-zA-Z]+$/.test(artist)) {
+    } else if (!/^[a-zA-Z\s]+$/.test(artist)) {
       validatedError.title = "Only letters are allowed.";
     } else if (artist.length > 26) {
       validatedError.artist = "Please enter no more than 26 characters.";
@@ -144,7 +145,10 @@ export default function PostPage() {
         validatedError.days = "Days is required.";
       } else if (!/^[0-7]$/.test(days)) {
         validatedError.days = "Please enter number between 0 and 7.";
-      } else if (Number(days) * 24 + Number(hours) > 168) {
+      } else if (Number(days) * 24 * 60 + 
+                Number(hours) * 60 + 
+                Number(min) 
+                > (7 * 24 * 60)) {
         validatedError.days = "Maximum duration is 7 days.";
       }
     }
@@ -155,6 +159,15 @@ export default function PostPage() {
         validatedError.hours = "Hours is required.";
       } else if (!/^(?:[01]?[0-9]|[2][0-4])$/.test(hours)) {
         validatedError.hours = "Please enter number between 0 and 24.";
+      }
+    }
+
+    // validate auction minute
+    if (auction) {
+      if (!min) {
+        validatedError.min = "Minute is required.";
+      } else if (!/^(?:[0-9]|[1-5][0-9]|60)$/.test(min)) {
+        validatedError.min = "Please enter number between 0 and 60.";
       }
     }
 
@@ -211,7 +224,7 @@ export default function PostPage() {
       // Calculate End Date
       const now = new Date();
       const endDate = new Date(
-        now.getTime() + (Number(days) * 24 + Number(hours)) * 60 * 60 * 1000 //getTime() --> get current time in Milli Sec
+        now.getTime() + (( (Number(days) * 24 + Number(hours)) * 60) + Number(min)) * 60 * 1000 //getTime() --> get current time in Milli Sec
       );
       const newProduct = {
         title,
@@ -475,7 +488,7 @@ export default function PostPage() {
                             <p className="text-red-500">{error.days}</p>
                           )}
                         </Stack>
-
+                        {/* HOURS */}
                         <Stack>
                           <ColumnInput
                             label="Hours"
@@ -486,6 +499,19 @@ export default function PostPage() {
                           />
                           {auction && error.hours && (
                             <p className="text-red-500">{error.hours}</p>
+                          )}
+                        </Stack>
+                        {/* MINUTE */}
+                        <Stack>
+                          <ColumnInput
+                            label="Minute"
+                            placeholder="0"
+                            name="min"
+                            value={min}
+                            onChange={(e) => setMin(e.target.value)}
+                          />
+                          {auction && error.min && (
+                            <p className="text-red-500">{error.min}</p>
                           )}
                         </Stack>
                       </Stack>
