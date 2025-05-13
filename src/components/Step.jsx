@@ -82,6 +82,7 @@ useEffect(()=>{
 },[shipping,setShipcost])
 
 const navigate = useNavigate()
+
 useEffect(() => {
     if (activeStep === 3) {
       addOrdertoDB(inputToDB);
