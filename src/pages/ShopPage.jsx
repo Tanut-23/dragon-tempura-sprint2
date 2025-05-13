@@ -18,7 +18,7 @@ export default function ShopPage() {
   return (
     <>
       <div className="w-full flex flex-col items-center justify-center bg-[#f2eee7]">
-        <div className="w-full max-w-screen-2xl px-6 sm:px-12 mx-auto">
+        <div className="w-full max-w-screen-2xl px-6 sm:px-12 mx-auto py-2">
           <BreadcrumbsNav links={links} currentPage={genre} />
           <h1 className=" text-3xl sm:text-4xl font-bold text-red-950 pt-10">
             {genre ? `${genre} Paintings` : "The Collection"}
