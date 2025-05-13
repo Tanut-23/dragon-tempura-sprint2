@@ -57,7 +57,7 @@ function SortBox() {
   console.log(selectData);
   return (
     <div className='flex flex-col gap-[16px] w-full'>
-    <div className='flex justify-between'>
+    <div className='flex flex-col sm:flex-row gap-4 sm:gap-0 justify-between'>
       <SearchBox onSelectKeyword = {(keyword) => setSearchKeyword(keyword)} />
       <select defaultValue={'AZ'} onChange={(e) => setSortState(e.target.value)} className="bg-[#EFD5C7] w-[200px] h-[43px] my-auto border-2">
         {/* <option value="none" disabled>None</option> */}

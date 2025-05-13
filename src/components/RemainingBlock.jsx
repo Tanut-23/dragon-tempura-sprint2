@@ -1,5 +1,5 @@
 import { Box, Stack, Typography, Paper } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function TimeBlock({ num, text }) {
   return (
@@ -35,8 +35,6 @@ export default function RemainingBlock({
   width = "250px",
   paddingLeft = "85px",
 }) {
-  // const initialTime = Number(day)*(86400) + Number(hour)*(3600) + Number(min)*(60) + Number(sec);  // const initialTime = 1*(86400) + 2*(3600) + 55*(60) + 10 // {days, hours, min, sec} = {1, 2, 55, 10}
-  // console.log(timeLeft);
   const [showTimeLeft, setShowTimeLeft] = useState();
 
   // Wait for timeLeft Prop *****
@@ -51,7 +49,6 @@ export default function RemainingBlock({
           return 0;
         }
         let newTimeLeft = prev - 1;
-        // console.log(newTimeLeft)
         return newTimeLeft;
       });
     }, 1000);
@@ -59,12 +56,10 @@ export default function RemainingBlock({
     return () => clearInterval(interval);
   }, [showTimeLeft]);
 
-  //   console.log("show" + showTimeLeft);
   //Change SECOND to {days, hours, min, sec}
   const remainingDays = Math.floor(showTimeLeft / 86400);
   const remainingHours = Math.floor((showTimeLeft % 86400) / 3600);
   const remainingMin = Math.floor((showTimeLeft % 3600) / 60);
-  // console.log(remainingMin)
   const remainingSec = showTimeLeft % 60;
 
   return (
@@ -73,7 +68,6 @@ export default function RemainingBlock({
       spacing={1}
       sx={{ width: { width }, paddingLeft: { paddingLeft }, marginBottom: 0 }}
     >
-      {/* <Typography>{remainingHours}</Typography> */}
       <TimeBlock num={String(remainingDays).padStart(2, "0")} text="Days" />
       <Typography sx={{ lineHeight: "30px", color: "primary.chocolate" }}>
         :
