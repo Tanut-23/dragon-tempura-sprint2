@@ -1,15 +1,17 @@
 import React from "react";
-
+import BreadcrumbsNav from "../components/BreadcrumbsNav";
 const MeetTeamMemberPage = () => {
+  const links = [{ label: "Home", to: "/" }];
   return (
-    <div className="w-screen bg-[#f0e0d0]">
-      <div className=" max-w-5xl mx-auto px-4 py-12">
+    <div className="w-screen bg-[#f0e0d0] px-4 py-2">
+      <BreadcrumbsNav links={links} currentPage="Membership" />
+      <div className=" max-w-5xl mx-auto px-4 ">
         <header className="text-center mb-12">
           <h1 className="text-3xl font-bold mb-4 text-[#62483a]">
             THE FOUNDERS' VISION
           </h1>
 
-          <p className="text-lg max-w-3xl mx-auto text-[#62483a]">
+          <p className="text-justify text-lg max-w-3xl mx-auto text-[#62483a]">
             Collectico began as a shared vision among five friends with
             complementary expertise and a unified passion for democratizing
             access to fine art while maintaining uncompromising quality
@@ -24,7 +26,7 @@ const MeetTeamMemberPage = () => {
                 <li className="flex">
                   <div>
                     <h3 className="font-bold">"Nut" Tanut Ketrueang </h3>
-                    <p>
+                    <p className="text-justify">
                       brought his background in art authentication and curation
                       from his years at prestigious Bangkok galleries. His
                       discerning eye and encyclopedic knowledge of Southeast
@@ -38,7 +40,7 @@ const MeetTeamMemberPage = () => {
                 <li className="flex">
                   <div>
                     <h3 className="font-bold">"Mate" Poramate Prompun </h3>
-                    <p>
+                    <p className="text-justify">
                       contributed his technological innovation as a former
                       developer for leading luxury e-commerce platforms. His
                       vision for creating a secure, sophisticated digital
@@ -52,7 +54,7 @@ const MeetTeamMemberPage = () => {
                 <li className="flex">
                   <div>
                     <h3 className="font-bold">"Ling" Kanokwan Sae-tae </h3>
-                    <p>
+                    <p className="text-justify">
                       leveraged her background in private banking to design our
                       unique financial model. Her insight into the investment
                       aspects of art collecting helped shape our approach to
@@ -65,7 +67,7 @@ const MeetTeamMemberPage = () => {
                 <li className="flex">
                   <div>
                     <h3 className="font-bold">“Aom” Suphol Inphrom </h3>
-                    <p>
+                    <p className="text-justify">
                       brought his expertise in international art law and
                       provenance research. Her methodical approach to
                       documentation and authentication established Collectico's
@@ -81,7 +83,7 @@ const MeetTeamMemberPage = () => {
                     <h3 className="font-bold">
                       "Tib" Suntarinth Singhasinpongsaporn
                     </h3>
-                    <p>
+                    <p className="text-justify">
                       applied her background in luxury brand marketing to create
                       Collectico's distinctive visual identity and communication
                       style. His understanding of the psychology of discerning
