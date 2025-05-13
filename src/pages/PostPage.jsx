@@ -548,6 +548,7 @@ export default function PostPage() {
                 image={image}
                 days={days}
                 hours={hours}
+                min={min}
                 dimensions={dimensions}
                 material={material}
                 yearCreated={yearCreated}
