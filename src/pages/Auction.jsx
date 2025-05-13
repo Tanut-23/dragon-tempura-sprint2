@@ -12,6 +12,7 @@ import {
 } from "../components/Icons";
 import { io } from "socket.io-client";
 import { useAuth } from "../contexts/AuthContext";
+import { useCart } from "../contexts/CartContext";
 import axios from "axios";
 import baseURL from "../../service/api";
 
@@ -24,6 +25,8 @@ export default function AuctionPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [auctionData, setAuctionData] = useState(null);
   const [isAuctionEnded, setIsAuctionEnded] = useState(false);
+  const { cartItems, setCartItems } = useCart();
+  const [isInCartDB, setIsInCartDB] = useState(false);
 
   useEffect(() => {
     if (!auctionData) return;
@@ -132,6 +135,56 @@ export default function AuctionPage() {
     setBid(value);
   };
 
+   useEffect(() => {
+  if (auctionData) {
+    setIsInCartDB(
+      cartItems?.some((item) => item.productId === auctionData._id)
+    );
+  }
+}, [cartItems, auctionData]);
+
+  // เพิ่มสินค้าเข้าตะกร้าใน database
+  const addProductToDB = async (product) => {
+    try {
+      const newProduct = {
+        items: {
+          productId: product._id?.toString(),
+          title: product.title,
+          image: product.image,
+          artist: product.artist,
+          price: bidCurrent,
+          quantity: 1,
+        },
+      };
+      await axios.post(`${baseURL}/api/cart-add`, newProduct, {
+        withCredentials: true,
+      });
+      setCartItems((prev) => [...prev, newProduct.items]);
+    } catch (err) {
+      console.error("Add to cart failed:", err.response?.data || err.message);
+    }
+  };
+
+  // ลบสินค้าออกจากตะกร้าใน database
+  const removeProductFromDB = async (product) => {
+    try {
+      await axios.delete(`${baseURL}/api/cart-delete/${product._id}`, {
+        withCredentials: true,
+      });
+      setCartItems((prev) =>
+        prev.filter((item) => item.productId !== product._id)
+      );
+    } catch (err) {
+      console.error(
+        "Remove from cart failed:",
+        err.response?.data || err.message
+      );
+    }
+  };
+
+
+
+
   if (!auctionData) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -139,6 +192,8 @@ export default function AuctionPage() {
       </div>
     );
   }
+
+
 
   return (
     <div className="min-h-screen w-full bg-[#f2eee7] text-[#62483A]">
@@ -219,14 +274,13 @@ export default function AuctionPage() {
                     user &&
                     user._id === historyBid[0].user?._id && (
                       <ButtonSubmit
-                        label="Add to Cart"
+                        label={isInCartDB ? "Remove from Cart" : "Add to Cart"}
                         onClick={() => {
-                          // เพิ่มสินค้าลงตะกร้า
-                          // คุณสามารถใช้ logic เดิมจาก ProductPage ได้เลย
-                          // เช่น เรียกฟังก์ชัน addProductToDB หรือ setCartItems
-                          // ตัวอย่าง:
-                          // addProductToDB(auctionData);
-                          // หรือจะเขียน logic ตรงนี้เลยก็ได้
+                          if (isInCartDB) {
+                            removeProductFromDB(auctionData);
+                          } else {
+                            addProductToDB(auctionData);
+                          }
                         }}
                         borderRadius="6px"
                         marginTop="16px"
