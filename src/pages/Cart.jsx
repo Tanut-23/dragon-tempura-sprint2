@@ -17,6 +17,8 @@ function Cart() {
   const navigate = useNavigate()
   const { cartItems, setCartItems } = useCart();  //From Cart Context
 
+  
+
   //Get cart items from Cart Database
   useEffect(() => {
     const fetchCartItem = async () => {
@@ -45,8 +47,7 @@ function Cart() {
   //Remove item from CartDB
   async function onDelete(productId) {
     try {
-      await axios.delete(`${baseURL}/api/cart-delete/${productId}`, { withCredentials: true });
-
+      await axios.delete(`${baseURL}/api/cart-delete/${productId._id}`, { withCredentials: true });
       //update local cart
       const updatedcartItems = cartItems.filter(item => item.productId !== productId)
       setCartItems(updatedcartItems);
