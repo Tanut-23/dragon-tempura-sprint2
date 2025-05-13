@@ -19,6 +19,7 @@ export default function AuctionCard({
   linkUrl,
   width = 320,
   height = 510,
+  timeLeft=5000,
 }) {
   return (
     <Link to={linkUrl}>
@@ -92,7 +93,7 @@ export default function AuctionCard({
 
           {/* REMAINING BLOCK */}
           <Box sx={{ position: "absolute", bottom: { xs:10, sm:15 }, left: { xs:-50, sm:10} }}>
-            <RemainingBlock day={1} hour={2} min={22} sec={59} />
+            <RemainingBlock timeLeft={timeLeft} />
           </Box>
         </CardActionArea>
       </Card>

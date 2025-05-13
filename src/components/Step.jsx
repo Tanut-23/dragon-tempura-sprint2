@@ -13,12 +13,14 @@ import ButtonSubmit from "./ButtonSubmit";
 import Address from "./Address";
 import axios from "axios";
 import baseURL from "../../service/api";
+import { useCart } from '../contexts/CartContext';
 
 const steps = ["Shipping Method", "Shipping Address", "Payment Method"];
 
 export default function HorizontalLinearStepper({setShipcost, cartItems, totalPrices, shipCost, tax, cartId}) {
   // console.log("what inside carttt", cartItems);
 
+  const { setCartItems } = useCart(); 
   const productIdToPost = cartItems.map((id)=>(id.productId));
   // console.log("check productID", productIdToPost);
 
@@ -84,13 +86,13 @@ useEffect(()=>{
 console.log(cartItems)
 
 const navigate = useNavigate()
-// useEffect(() => {
-//     if (activeStep === 3) {
-//       addOrdertoDB(inputToDB);
-//       deleteCartAfertOrder();
-//       navigate('/mainshop');
-//     }
-//   }, [activeStep, navigate,inputToDB]);
+useEffect(() => {
+    if (activeStep === 3) {
+      addOrdertoDB(inputToDB);
+      deleteCartAfertOrder();
+      navigate('/mainshop');
+    }
+  }, [activeStep, navigate,inputToDB]);
 
 
   const handleSubmit = () => {
@@ -238,7 +240,7 @@ const addOrdertoDB = async (inputToDB) => {
 
   const deleteCartAfertOrder = async () =>{
     try{
-      await axios.delete(`${baseURL}/api/cart-delete-update/${cartId}`, { withCredentials: true })
+      axios.delete(`${baseURL}/api/cart-delete`, { withCredentials: true })
     }catch(err){
       console.error("Delete order failed:", err.response?.data || err.message);
     }
