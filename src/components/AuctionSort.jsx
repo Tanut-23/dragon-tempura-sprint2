@@ -54,7 +54,7 @@ function AuctionSort() {
   console.log(selectData);
 
   return (
-    <div className="flex flex-col gap-[16px] w-full">
+    <div className="flex flex-col gap-[0px] sm:gap-[16px] w-full">
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-0 justify-between">
         <AuctionSearch onSelectKeyword={(keyword) => setSearchKeyword(keyword)} />
         <select

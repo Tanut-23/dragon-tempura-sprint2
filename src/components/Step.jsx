@@ -13,12 +13,14 @@ import ButtonSubmit from "./ButtonSubmit";
 import Address from "./Address";
 import axios from "axios";
 import baseURL from "../../service/api";
+import { useCart } from '../contexts/CartContext';
 
 const steps = ["Shipping Method", "Shipping Address", "Payment Method"];
 
-export default function HorizontalLinearStepper({setShipcost, cartItems, totalPrices, shipCost, tax}) {
+export default function HorizontalLinearStepper({setShipcost, cartItems, totalPrices, shipCost, tax, cartId}) {
   // console.log("what inside carttt", cartItems);
 
+  const { setCartItems } = useCart(); 
   const productIdToPost = cartItems.map((id)=>(id.productId));
   // console.log("check productID", productIdToPost);
 
@@ -42,7 +44,7 @@ export default function HorizontalLinearStepper({setShipcost, cartItems, totalPr
 // รวมนะ
   const addressForShipping = {...addressRest, address:`${addressLineOne} ${addressLineTwo}`};
 
-  console.log("check addressInput", addressInput);
+  // console.log("check addressInput", addressInput);
 
   const [error, setError] = useState({
     firstName: 0,
@@ -61,7 +63,7 @@ export default function HorizontalLinearStepper({setShipcost, cartItems, totalPr
 //data for Post
   const inputToDB = {...addressForShipping , productId: productIdToPost, totalPrice: [totalPrices, shipCost, tax], shipping: shipping , method:"Cash on Delivery"};
 
-  console.log("check inputToDB", inputToDB);
+  // console.log("check inputToDB", inputToDB);
 
 // console.log("option from Step = ", shipping);
 
@@ -81,14 +83,17 @@ useEffect(()=>{
 
 },[shipping,setShipcost])
 
+console.log(cartItems)
+
 const navigate = useNavigate()
 useEffect(() => {
     if (activeStep === 3) {
       addOrdertoDB(inputToDB);
+      setCartItems([]);
       deleteCartAfertOrder();
       navigate('/mainshop');
     }
-  }, [activeStep, navigate,inputToDB]);
+  }, [activeStep]);
 
 
   const handleSubmit = () => {
@@ -155,27 +160,37 @@ useEffect(() => {
     return skipped.has(step);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (activeStep === 1) {
       const hasErrors = handleSubmit();
       if (hasErrors) {
         return;
       }
-    if (activeStep === 2){
-     addOrdertoDB(inputToDB);
     }
+  
+    if (activeStep === 2) {
+      try {
+        await addOrdertoDB(inputToDB);
+        await deleteCartAfertOrder();
+        setActiveStep(prev => prev + 1);
+        navigate('/mainshop');
+      } catch (error) {
+        console.error("Error posting data:", error);
+      }
+      return;
     }
-
+  
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
     }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  
+    setActiveStep(prev => prev + 1);
     setSkipped(newSkipped);
-
   };
+  
+
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -228,7 +243,7 @@ const addOrdertoDB = async (inputToDB) => {
 
   const deleteCartAfertOrder = async () =>{
     try{
-      axios.delete(`${baseURL}/api/cart-delete`, { withCredentials: true })
+      axios.delete(`${baseURL}/api/cart-delete-update/${cartId}`, { withCredentials: true })
     }catch(err){
       console.error("Delete order failed:", err.response?.data || err.message);
     }

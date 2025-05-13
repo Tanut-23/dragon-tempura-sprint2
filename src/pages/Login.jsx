@@ -12,7 +12,6 @@ export default function Login({ onClose , switchToRegister, switchToForgotPasswo
   const { login } = useAuth();
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
-  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -122,7 +121,7 @@ export default function Login({ onClose , switchToRegister, switchToForgotPasswo
                 }}}
               onClick={switchToRegister}
             >
-            Sign in
+            Sign up
             </Box>
           </Box>
         </div>

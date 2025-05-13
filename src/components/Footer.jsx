@@ -1,4 +1,5 @@
 import React from "react";
+import Animation from "../../Animation/Animation.jsx";
 
 function Footer() {
   return (
@@ -124,6 +125,7 @@ function Footer() {
                 />
               </div>
               <div className="mt-4">
+                <Animation />
                 <p>Visit</p>
                 <p>The Collection</p>
                 <p>Exhibitions and Events</p>

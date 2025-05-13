@@ -1,34 +1,20 @@
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import React, { useState } from "react";
 
-export default function ButtonToggle({ label1, label2, label3 ,showPending, showOnGoing , showCompleted }) {
-  const [value, setValue] = useState("pending");   //to change color of active button
- 
+export default function ButtonTogglePostPage({ label1, label2, onClick1, onClick2 }) {
+  const [value, setValue] = useState("fixPrice");   //to change color of active button
 
   const handleChange = (event, newValue) => {
     if (newValue !== null) {
       setValue(newValue);
-    };
-
-    switch (newValue) {
-      case "pending":
-        showPending();
-        break;
-      case "ongoing":
-        showOnGoing();
-        break;
-      case "completed":
-        showCompleted();
-        break;
-      default:
-        break;
     }
-  }
+  };
   return (
     <div>
-      <ToggleButtonGroup  sx={{height: "42px",}} value={value} exclusive onChange={handleChange}>
+      <ToggleButtonGroup sx={{height: "42px",}} value={value} exclusive onChange={handleChange}>
         <ToggleButton
-          value="pending"
+          value="fixPrice"
+          onClick={onClick1}
           sx={{
             color: "primary.main", // default text color
             "&.Mui-selected": {
@@ -43,7 +29,8 @@ export default function ButtonToggle({ label1, label2, label3 ,showPending, show
           {label1}
         </ToggleButton>
         <ToggleButton
-          value="ongoing"
+          value="auction"
+          onClick={onClick2}
           sx={{
             color: "primary.main", // default text color
             "&.Mui-selected": {
@@ -56,21 +43,6 @@ export default function ButtonToggle({ label1, label2, label3 ,showPending, show
           }}
         >
           {label2}
-        </ToggleButton>
-        <ToggleButton
-          value="completed"
-          sx={{
-            color: "primary.main", // default text color
-            "&.Mui-selected": {
-              backgroundColor: "primary.main", // selected background
-              color: "white", // selected text color
-              "&:hover": {
-                backgroundColor: "primary.dark", // hover when selected
-              },
-            },
-          }}
-        >
-          {label3}
         </ToggleButton>
       </ToggleButtonGroup>
     </div>

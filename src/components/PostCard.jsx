@@ -14,20 +14,19 @@ import ButtonSubmit from "./ButtonSubmit";
 import { useNavigate } from "react-router-dom";
 
 export default function PostCard({
+  product,
   onDelete,
   onEdit,
   elevation = 4,
-  image = "https://i.pinimg.com/736x/4f/b8/95/4fb8951ee4abaaf4f159d9db98718bfa.jpg",
-  title = "Portrait Painting",
-  artist = "By AAA BBB",
-  price = 450,
+  image,
+  title,
+  artist,
+  price,
   auction,
-  minBidPrice = 1000,
-  // days = 2,
-  // hours = 4,
-  endDate = new Date(),
+  minBidPrice,
 }) {
   // Time remaining
+  const endDate = new Date(auction?.endDate);
   const now = new Date();
   let remainingTime = new Date(endDate) - now;
   if (remainingTime < 0) {
@@ -36,15 +35,20 @@ export default function PostCard({
   const remainingSecond = Math.floor(remainingTime/1000);
   const remainingDays = Math.floor(remainingSecond/ (60*60*24));
   const remainingHours = Math.floor((remainingSecond % (60*60*24)) / 3600);
-
+  console.log(product)
+  const isAuctionTag = auction?.isAuction === true;
   const navigate = useNavigate()
   function viewShop() {
-    navigate('/shoppage')
+    navigate('/mainshop')
+  }
+  function linkToProduct() {
+    navigate(`/product/${product._id}`)
   }
 
   return (
     <Card
       elevation={elevation}
+      onClick={linkToProduct}
       sx={{
         width: 350,
         height: 490,
@@ -70,7 +74,7 @@ export default function PostCard({
         }}
       >
         {/* Auction status */}
-        {auction && (
+        {isAuctionTag && (
           <Box
             sx={{
               position: "absolute",
@@ -89,7 +93,7 @@ export default function PostCard({
           </Box>
         )}
         {/* Time Remaining */}
-        {auction && (
+        {isAuctionTag && (
           <Box
             sx={{
               position: "absolute",

@@ -1,15 +1,19 @@
 import React from "react";
+import BreadcrumbsNav from "../components/BreadcrumbsNav";
 
 const MembershipPage = () => {
+  const links = [{ label: "Home", to: "/" }];
+
   return (
-    <div className="w-screen bg-[#f0e0d0]">
-      <div className=" max-w-5xl mx-auto px-4 py-12">
+    <div className="w-screen bg-[#f0e0d0] px-4 py-2">
+      <BreadcrumbsNav links={links} currentPage="Membership" />
+      <div className=" max-w-5xl mx-auto px-4">
         <header className="text-center mb-12">
           <h1 className="text-3xl font-bold mb-8 text-[#62483a]">
             COLLECTICO MEMBERSHIP BENEFITS
           </h1>
 
-          <p className="text-lg max-w-3xl mx-auto text-[#62483a]">
+          <p className="text-justify text-lg max-w-3xl mx-auto text-[#62483a]">
             At Collectico, we believe that membership transcends mere
             transaction—it signifies entrance into a distinguished community of
             connoisseurs and collectors. Our tiered membership program has been

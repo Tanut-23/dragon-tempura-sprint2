@@ -99,7 +99,7 @@ export default function SearchBox({ onSelectKeyword }) {
   });
 
   return (
-    <div ref={wrapperRef} className="relative w-80 h-10 bg-gray-400">
+    <div ref={wrapperRef} className="relative w-65 sm:w-80 h-10 bg-gray-400">
       {
         <input
           onChange={(e) => {
