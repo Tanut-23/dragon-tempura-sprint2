@@ -13,6 +13,7 @@ import PreviewCard from "../components/PreviewCard";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
 import { useParams } from "react-router-dom";
+import BreadcrumbsNav from "../components/BreadcrumbsNav";
 
 export default function PostPage() {
   const { user } = useAuth();
@@ -30,6 +31,11 @@ export default function PostPage() {
   const [minBidPrice, setMinBidPrice] = useState("");
   const [days, setDays] = useState("");
   const [hours, setHours] = useState("");
+
+  const links = [
+    { label: "Home", to: "/" },
+    { label: "Market", to: "/market" },
+  ];
 
   // STATE FOR KEEP ERROR MESSAGE
   const [error, setError] = useState("");
@@ -153,13 +159,13 @@ export default function PostPage() {
           }
         );
         const product = res.data.product;
-        console.log("sssssssssssss",product);
+        console.log("sssssssssssss", product);
         setTitle(product.title || "");
         setDescription(product.description || "");
         setArtist(product.artist || "");
         setDimensions(product.dimensions || "");
         setMaterial(product.material || "");
-        setYearCreated(product.yearCreated?.toString() || "")
+        setYearCreated(product.yearCreated?.toString() || "");
         setTags(product.tags || []);
         setPrice(product.price || "");
         setMinBidPrice(product.minBidPrice || "");
@@ -249,11 +255,12 @@ export default function PostPage() {
   }
 
   return (
-    <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] ">
+    <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] px-2 py-2">
       {/* -------------------NAV BAR----------------- */}
       {/* <Navbar /> */}
 
       {/* -------------------CONTENT----------------- */}
+      <BreadcrumbsNav links={links} currentPage="Post page" />
       <div className="flex flex-col items-center w-full gap-10 py-[60px]">
         {!preview && (
           <h1 className="text-[1.6rem] font-bold">Post Your Product</h1>

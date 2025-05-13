@@ -18,6 +18,7 @@ function ProductPage() {
     { label: "Type", to: "/shoppage" },
   ];
   const { productId } = useParams();
+  ls;
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -37,16 +38,19 @@ function ProductPage() {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/cart-get",{
+        const res = await axios.get("http://localhost:3000/api/cart-get", {
           withCredentials: true,
         });
         setCartItems(res.data.cart.items);
       } catch (err) {
-      console.error("Error fetching cart:", err.response?.data || err.message);
-    }
-    }
+        console.error(
+          "Error fetching cart:",
+          err.response?.data || err.message
+        );
+      }
+    };
     fetchCart();
-  }, [])
+  }, []);
 
   //Check if this product is already in cart
   useEffect(() => {
@@ -59,17 +63,19 @@ function ProductPage() {
   const addProductToDB = async (product) => {
     try {
       const newProduct = {
-        items: 
-          {
-            productId: product._id?.toString(),
-            title: product.title,
-            image: product.image,
-            artist: product.artist,
-            price: product.price,
-            quantity: 1,
-          },
+        items: {
+          productId: product._id?.toString(),
+          title: product.title,
+          image: product.image,
+          artist: product.artist,
+          price: product.price,
+          quantity: 1,
+        },
       };
-      console.log("Payload being sent to backend:", JSON.stringify(newProduct, null, 2));
+      console.log(
+        "Payload being sent to backend:",
+        JSON.stringify(newProduct, null, 2)
+      );
 
       await axios.post("http://localhost:3000/api/cart-add", newProduct, {
         withCredentials: true,
@@ -79,20 +85,24 @@ function ProductPage() {
     } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }
-  }
+  };
 
   //Remove Product from Database
   const removeProductFromDB = async (product) => {
     try {
-      await axios.delete(`http://localhost:3000/api/cart-delete/${product._id}`, {
-        withCredentials: true,
-      })
-      setCartItems((prev) => prev.filter((item) => item.productId !== product._id))
-    } catch(err) {
+      await axios.delete(
+        `http://localhost:3000/api/cart-delete/${product._id}`,
+        {
+          withCredentials: true,
+        }
+      );
+      setCartItems((prev) =>
+        prev.filter((item) => item.productId !== product._id)
+      );
+    } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }
-  }
-
+  };
 
   if (loading) {
     return (

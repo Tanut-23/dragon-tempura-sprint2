@@ -1,9 +1,12 @@
 import React from "react";
+import BreadcrumbsNav from "../components/BreadcrumbsNav";
 
 const MissionPage = () => {
+  const links = [{ label: "Home", to: "/" }];
   return (
-    <div className="w-screen bg-[#f0e0d0]">
-      <div className=" max-w-5xl mx-auto px-4 py-12">
+    <div className="w-screen bg-[#f0e0d0] px-4 py-2">
+      <BreadcrumbsNav links={links} currentPage="Mission and History" />
+      <div className=" max-w-5xl mx-auto px-4">
         <header className="text-center mb-12">
           <h1 className="text-3xl font-bold mb-4 text-[#62483a]">
             MISSION & HISTORY
@@ -13,7 +16,7 @@ const MissionPage = () => {
           </h2>
           <h2 className="mb-4 font-bold text-[#62483a]">OUR MISSION</h2>
 
-          <p className="text-lg max-w-3xl mx-auto text-[#62483a]">
+          <p className="text-justify text-lg max-w-3xl mx-auto text-[#62483a]">
             Collectico exists as a distinguished marketplace where exceptional
             art finds its worthy patrons. We believe in creating meaningful
             connections between artists, collectors, and the cultural heritage
@@ -24,7 +27,6 @@ const MissionPage = () => {
         </header>
 
         <div className=" space-y-16 ">
-          {/* Premier Membership */}
           <section className=" bg-white rounded-lg shadow-lg">
             <div className=" text-[#62483a] p-6">
               <h2 className="text-2xl font-bold">OUR JOURNEY</h2>

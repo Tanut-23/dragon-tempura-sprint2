@@ -1,9 +1,12 @@
 import React from "react";
+import BreadcrumbsNav from "../components/BreadcrumbsNav";
 
 const CorporateSponsorshipPage = () => {
+  const links = [{ label: "Home", to: "/" }];
   return (
-    <div className="w-screen bg-[#f0e0d0]">
-      <div className=" max-w-5xl mx-auto px-4 py-12">
+    <div className="w-screen bg-[#f0e0d0] px-4 py-2">
+      <BreadcrumbsNav links={links} currentPage="Coporate Sponsorship" />
+      <div className=" max-w-5xl mx-auto px-4">
         <header className="text-center mb-12">
           <h1 className="text-3xl font-bold mb-8 text-[#62483a]">
             OUR CORPORATE SPONSORS

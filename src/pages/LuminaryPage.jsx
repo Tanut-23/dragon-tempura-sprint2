@@ -1,9 +1,12 @@
 import React from "react";
+import BreadcrumbsNav from "../components/BreadcrumbsNav";
 
 const Luminarypage = () => {
+  const links = [{ label: "Home", to: "/" }];
   return (
-    <div className="w-screen bg-[#f0e0d0]">
-      <div className=" max-w-5xl mx-auto px-4 py-12">
+    <div className="w-screen bg-[#f0e0d0] px-4 py-2">
+      <BreadcrumbsNav links={links} currentPage="Luminary" />
+      <div className=" max-w-5xl mx-auto px-4">
         <header className="text-center mb-12">
           <h1 className="text-3xl font-bold mb-4 text-[#62483a]">
             LUMINARY FIGURES: VISIONARIES OF THE ART WORLD
@@ -12,7 +15,7 @@ const Luminarypage = () => {
             The Distinguished Patrons of Collectico
           </h2>
 
-          <p className="text-lg max-w-3xl mx-auto text-[#62483a]">
+          <p className="text-justify text-lg max-w-3xl mx-auto text-[#62483a]">
             The art world has long been shaped by individuals whose vision,
             passion, and patronage elevate them beyond mere collectors to become
             true luminaries. These exceptional figures not only acquire

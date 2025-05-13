@@ -6,7 +6,7 @@ import PostCard from "../components/PostCard";
 import { Link, useNavigate } from "react-router-dom";
 import ButtonToggle from "../components/ButtonToggle";
 import axios from "axios";
-
+import BreadcrumbsNav from "../components/BreadcrumbsNav";
 export default function MarketPage() {
   // STATE FOR KEEPING ALL PRODUCTS
   const [allProducts, setAllProducts] = useState([]);
@@ -15,6 +15,8 @@ export default function MarketPage() {
   const [noPost, setNoPost] = useState(true);
 
   // WHEN REFRESH -> GET DATA OF ALL PRODUCTS FROM LOCAL STORAGE
+
+  const links = [{ label: "Home", to: "/" }];
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -36,16 +38,23 @@ export default function MarketPage() {
   // DELETE BUTTON FUNCTION
   async function handleDelete(id) {
     try {
-      const confirmed = window.confirm("Are you sure you want to delete this product?");
-      if(!confirmed) return;
+      const confirmed = window.confirm(
+        "Are you sure you want to delete this product?"
+      );
+      if (!confirmed) return;
 
-      const res = await axios.delete(`http://localhost:3000/api/product-delete/${id}`, {withCredentials: true});
+      const res = await axios.delete(
+        `http://localhost:3000/api/product-delete/${id}`,
+        { withCredentials: true }
+      );
 
-      const updatedProducts = allProducts.filter((product) => product._id !== id);
+      const updatedProducts = allProducts.filter(
+        (product) => product._id !== id
+      );
       setAllProducts(updatedProducts);
 
       alert("Product deleted successfully");
-      }catch (err) {
+    } catch (err) {
       console.error("Error deleting product:", err);
       alert("Failed to delete product");
     }
@@ -59,10 +68,11 @@ export default function MarketPage() {
   }
 
   return (
-    <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] ">
+    <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] px-2 py-2 ">
       {/* -------------------NAV BAR----------------- */}
       {/* <Navbar /> */}
       {/* -------------------CONTENT----------------- */}
+      <BreadcrumbsNav links={links} currentPage="Market" />
       <div className="flex flex-col items-center gap-4 w-full py-[50px]">
         <header className="flex flex-col gap-4 w-[80%] bg-[#f0e0d000]">
           <div className="flex flex-row justify-between">
@@ -116,7 +126,6 @@ export default function MarketPage() {
               })}
             </div>
           )}
-
         </section>
       </div>
     </div>
