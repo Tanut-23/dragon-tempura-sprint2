@@ -86,7 +86,7 @@ export default function PostPage() {
     if (!artist) {
       validatedError.artist = "Artist name is required.";
     } else if (!/^[a-zA-Z\s]+$/.test(artist)) {
-      validatedError.title = "Only letters are allowed.";
+      validatedError.artist = "Only letters are allowed.";
     } else if (artist.length > 26) {
       validatedError.artist = "Please enter no more than 26 characters.";
     }
