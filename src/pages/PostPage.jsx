@@ -12,6 +12,8 @@ import PreviewCard from "../components/PreviewCard";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
 import { useParams } from "react-router-dom";
+
+import BreadcrumbsNav from "../components/BreadcrumbsNav";
 import baseURL from "../../service/api";
 
 export default function PostPage() {
@@ -30,6 +32,11 @@ export default function PostPage() {
   const [minBidPrice, setMinBidPrice] = useState("");
   const [days, setDays] = useState("");
   const [hours, setHours] = useState("");
+
+  const links = [
+    { label: "Home", to: "/" },
+    { label: "Market", to: "/market" },
+  ];
 
   // STATE FOR KEEP ERROR MESSAGE
   const [error, setError] = useState("");
@@ -65,10 +72,10 @@ export default function PostPage() {
     // validate title
     if (!title) {
       validatedError.title = "Title is required.";
-    } else if ((!/^[a-zA-Z]+$/.test(title))) {
-      validatedError.title = "Only letters are allowed."
+    } else if (!/^[a-zA-Z]+$/.test(title)) {
+      validatedError.title = "Only letters are allowed.";
     } else if (title.length > 24) {
-      validatedError.title = "Please enter no more than 24 characters."
+      validatedError.title = "Please enter no more than 24 characters.";
     }
     // validate description
     if (!description) {
@@ -77,10 +84,10 @@ export default function PostPage() {
     // validate artist
     if (!artist) {
       validatedError.artist = "Artist name is required.";
-    } else if ((!/^[a-zA-Z]+$/.test(artist))) {
-      validatedError.title = "Only letters are allowed."
+    } else if (!/^[a-zA-Z]+$/.test(artist)) {
+      validatedError.title = "Only letters are allowed.";
     } else if (artist.length > 26) {
-      validatedError.artist = "Please enter no more than 26 characters."
+      validatedError.artist = "Please enter no more than 26 characters.";
     }
     // validate dimensions
     if (!dimensions) {
@@ -112,7 +119,8 @@ export default function PostPage() {
       } else if (price <= 0) {
         validatedError.price = "Please enter a valid price.";
       } else if (!/^\d+(\.\d{1,2})?$/.test(price)) {
-        validatedError.price = "Please enter a valid number (maximum 2 digits after the decimal point)."
+        validatedError.price =
+          "Please enter a valid number (maximum 2 digits after the decimal point).";
       }
     }
 
@@ -125,7 +133,8 @@ export default function PostPage() {
       } else if (minBidPrice <= 0) {
         validatedError.minBidPrice = "Please enter a valid Minimum Bid Price.";
       } else if (!/^\d+(\.\d{1,2})?$/.test(minBidPrice)) {
-        validatedError.minBidPrice = "Please enter a valid number (maximum 2 digits after the decimal point)."
+        validatedError.minBidPrice =
+          "Please enter a valid number (maximum 2 digits after the decimal point).";
       }
     }
 
@@ -135,8 +144,8 @@ export default function PostPage() {
         validatedError.days = "Days is required.";
       } else if (!/^[0-7]$/.test(days)) {
         validatedError.days = "Please enter number between 0 and 7.";
-      } else if ((Number(days)*24 + Number(hours)) > 168) {
-        validatedError.days = "Maximum duration is 7 days."
+      } else if (Number(days) * 24 + Number(hours) > 168) {
+        validatedError.days = "Maximum duration is 7 days.";
       }
     }
 
@@ -160,20 +169,17 @@ export default function PostPage() {
     const fetchEditProduct = async () => {
       if (!editId) return;
       try {
-        const res = await axios.get(
-          `${baseURL}/api/product-get/${editId}`,
-          {
-            withCredentials: true,
-          }
-        );
+        const res = await axios.get(`${baseURL}/api/product-get/${editId}`, {
+          withCredentials: true,
+        });
         const product = res.data.product;
-        console.log("sssssssssssss",product);
+        console.log("sssssssssssss", product);
         setTitle(product.title || "");
         setDescription(product.description || "");
         setArtist(product.artist || "");
         setDimensions(product.dimensions || "");
         setMaterial(product.material || "");
-        setYearCreated(product.yearCreated?.toString() || "")
+        setYearCreated(product.yearCreated?.toString() || "");
         setTags(product.tags || []);
         setPrice(product.price || "");
         setMinBidPrice(product.minBidPrice || "");
@@ -239,19 +245,15 @@ export default function PostPage() {
       // CLICK POST BUTTON
       try {
         if (action === "post") {
-          await axios.post(
-            `${baseURL}/api/product-add`,
-            newProduct,
-            { withCredentials: true }
-          );
+          await axios.post(`${baseURL}/api/product-add`, newProduct, {
+            withCredentials: true,
+          });
 
           alert("Your artwork is successfully posted!");
         } else if (action === "update") {
-          await axios.put(
-            `${baseURL}/api/product-put/${editId}`,
-            newProduct,
-            { withCredentials: true }
-          );
+          await axios.put(`${baseURL}/api/product-put/${editId}`, newProduct, {
+            withCredentials: true,
+          });
           alert("Product updated successfully");
         }
         navigate("/market");
@@ -263,8 +265,9 @@ export default function PostPage() {
   }
 
   return (
-    <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] ">
+    <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] px-2 py-2">
       {/* -------------------CONTENT----------------- */}
+      <BreadcrumbsNav links={links} currentPage="Post page" />
       <div className="flex flex-col items-center w-full gap-10 py-[60px]">
         {!preview && (
           <h1 className="text-[1.6rem] font-bold">Post Your Product</h1>
