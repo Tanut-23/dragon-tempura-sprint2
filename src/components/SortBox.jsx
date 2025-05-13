@@ -47,10 +47,10 @@ function SortBox() {
   const searchedProducts = products.filter(product => {
     const keyword = searchKeyword.toLowerCase();
     return (
-      product.title.toLowerCase().includes(keyword) ||
-      product.artist.toLowerCase().includes(keyword)
+      (product.title && product.title.toLowerCase().includes(keyword)) ||
+      (product.artist && product.artist.toLowerCase().includes(keyword))
     )
-  })
+  });
 
 
   const selectData = [...searchedProducts].sort((sortMethods[sortState]).method);
