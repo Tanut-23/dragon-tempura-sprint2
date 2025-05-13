@@ -32,7 +32,7 @@ export default function MarketPage() {
     if (filter === "pending") return approve === "pending";
     if (filter === "ongoing")
       return status === "ongoing" && approve === "approved";
-    if (filter === "completed") return status === "completed";
+    if (filter === "completed") return status === "completed" && approve === "approved";
 
     return false;
   });
