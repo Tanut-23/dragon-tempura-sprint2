@@ -17,7 +17,7 @@ import { useCart } from '../contexts/CartContext';
 
 const steps = ["Shipping Method", "Shipping Address", "Payment Method"];
 
-export default function HorizontalLinearStepper({setShipcost, cartItems, totalPrices, shipCost, tax}) {
+export default function HorizontalLinearStepper({setShipcost, cartItems, totalPrices, shipCost, tax, cartId}) {
   // console.log("what inside carttt", cartItems);
 
   const { setCartItems } = useCart(); 
@@ -83,15 +83,15 @@ useEffect(()=>{
 
 },[shipping,setShipcost])
 
+console.log(cartItems)
+
 const navigate = useNavigate()
 useEffect(() => {
     if (activeStep === 3) {
       addOrdertoDB(inputToDB);
       setCartItems([]);
       deleteCartAfertOrder();
-      console.log("hiMate1");
       navigate('/mainshop');
-      console.log("hiMate12354");
     }
   }, [activeStep]);
 
@@ -160,27 +160,37 @@ useEffect(() => {
     return skipped.has(step);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (activeStep === 1) {
       const hasErrors = handleSubmit();
       if (hasErrors) {
         return;
       }
-    if (activeStep === 2){
-     addOrdertoDB(inputToDB);
     }
+  
+    if (activeStep === 2) {
+      try {
+        await addOrdertoDB(inputToDB);
+        await deleteCartAfertOrder();
+        setActiveStep(prev => prev + 1);
+        navigate('/mainshop');
+      } catch (error) {
+        console.error("Error posting data:", error);
+      }
+      return;
     }
-
+  
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
     }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  
+    setActiveStep(prev => prev + 1);
     setSkipped(newSkipped);
-
   };
+  
+
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -233,7 +243,7 @@ const addOrdertoDB = async (inputToDB) => {
 
   const deleteCartAfertOrder = async () =>{
     try{
-      axios.delete(`${baseURL}/api/cart-delete-update/:cartId`, { withCredentials: true })
+      axios.delete(`${baseURL}/api/cart-delete-update/${cartId}`, { withCredentials: true })
     }catch(err){
       console.error("Delete order failed:", err.response?.data || err.message);
     }
