@@ -15,6 +15,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useCart } from "../contexts/CartContext";
 import axios from "axios";
 import baseURL from "../../service/api";
+import BreadcrumbsNav from "../components/BreadcrumbsNav";
 
 export default function AuctionPage() {
   const { auctionId } = useParams();
@@ -27,6 +28,11 @@ export default function AuctionPage() {
   const [isAuctionEnded, setIsAuctionEnded] = useState(false);
   const { cartItems, setCartItems } = useCart();
   const [isInCartDB, setIsInCartDB] = useState(false);
+  // กำหนดลิงก์สำหรับ breadcrumb
+  const links = [
+    { label: "Home", to: "/" },
+    { label: "Auction", to: "/auction" },
+  ];
 
   useEffect(() => {
     if (!auctionData) return;
@@ -135,13 +141,13 @@ export default function AuctionPage() {
     setBid(value);
   };
 
-   useEffect(() => {
-  if (auctionData) {
-    setIsInCartDB(
-      cartItems?.some((item) => item.productId === auctionData._id)
-    );
-  }
-}, [cartItems, auctionData]);
+  useEffect(() => {
+    if (auctionData) {
+      setIsInCartDB(
+        cartItems?.some((item) => item.productId === auctionData._id)
+      );
+    }
+  }, [cartItems, auctionData]);
 
   // เพิ่มสินค้าเข้าตะกร้าใน database
   const addProductToDB = async (product) => {
@@ -182,9 +188,6 @@ export default function AuctionPage() {
     }
   };
 
-
-
-
   if (!auctionData) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -193,11 +196,10 @@ export default function AuctionPage() {
     );
   }
 
-
-
   return (
-    <div className="min-h-screen w-full bg-[#f2eee7] text-[#62483A]">
+    <div className="min-h-screen w-full bg-[#f2eee7] text-[#62483A] ">
       <main className="container xl:w-[85%]  mx-auto py-8 px-4">
+        <BreadcrumbsNav links={links} currentPage={auctionData.title} />
         <h1 className="text-[2rem] font-bold mb-4">Auction</h1>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
