@@ -51,7 +51,6 @@ function AuctionSort() {
 
   // SORT
   const selectData = [...searchedProducts].sort(sortMethods[sortState].method);
-  console.log(selectData);
 
   return (
     <div className="flex flex-col gap-[0px] sm:gap-[16px] w-full">

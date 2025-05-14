@@ -24,6 +24,7 @@ function ProductPage() {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`${baseURL}/api/product/${productId}`);
+        // console.log(res.data.product)
         setProduct(res.data?.product ?? null);
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -33,30 +34,25 @@ function ProductPage() {
     fetchProduct();
   }, [productId]);
 
-  //Get data of cart items from Database
+  
+
+  // Update `isInCartDB` whenever `product` or `cartItems` change
   useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const res = await axios.get(`${baseURL}/api/cart-get`, {
-          withCredentials: true,
-        });
-        setCartItems(res.data.cart.items);
-      } catch (err) {
-        console.error(
-          "Error fetching cart:",
-          err.response?.data || err.message
-        );
-      }
-    };
-    fetchCart();
-  }, []);
+    if (product && cartItems) {
+      const isInCart = cartItems.some((item) => item.productId._id === product._id);
+      // console.log(cartItems[0]?.productId._id);
+      setIsInCartDB(isInCart);
+    } else {
+      setIsInCartDB(false);
+    }
+  }, [cartItems , product]);
 
   //Check if this product is already in cart
-  useEffect(() => {
-    if (product) {
-      setIsInCartDB(cartItems?.some((item) => item.productId === product._id));
-    }
-  }, [cartItems, product]);
+  // useEffect(() => {
+  //   if (product) {
+  //     setIsInCartDB(cartItems?.some((item) => item.productId == product._id));
+  //   }
+  // }, [cartItems, product]);
 
   //Add product to cart in Database
   const addProductToDB = async (product) => {
@@ -79,8 +75,13 @@ function ProductPage() {
       await axios.post(`${baseURL}/api/cart-add`, newProduct, {
         withCredentials: true,
       });
+
+      const res = await axios.get(`${baseURL}/api/cart-get`, {
+        withCredentials: true,
+      });
       //update cart context
-      setCartItems((prev) => [...prev, newProduct.items]);
+      setCartItems(res.data.cart.items);
+      setIsInCartDB(true);
     } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }
@@ -93,8 +94,9 @@ function ProductPage() {
         withCredentials: true,
       });
       setCartItems((prev) =>
-        prev.filter((item) => item.productId !== product._id)
+        prev.filter((item) => item.productId._id !== product._id)
       );
+      setIsInCartDB(false);
     } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }
