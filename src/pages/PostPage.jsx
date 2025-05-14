@@ -50,6 +50,7 @@ export default function PostPage() {
 
   // STATE FOR EDIT MODE
   const [editMode, setEditMode] = useState(false);
+  const [toggleValue, setToggleValue] = useState("fixPrice");
 
   // STATE IMAGE
   const [image, setImage] = useState("");
@@ -86,7 +87,7 @@ export default function PostPage() {
     if (!artist) {
       validatedError.artist = "Artist name is required.";
     } else if (!/^[a-zA-Z\s]+$/.test(artist)) {
-      validatedError.title = "Only letters are allowed.";
+      validatedError.artist = "Only letters are allowed.";
     } else if (artist.length > 26) {
       validatedError.artist = "Please enter no more than 26 characters.";
     }
@@ -150,6 +151,8 @@ export default function PostPage() {
                 Number(min) 
                 > (7 * 24 * 60)) {
         validatedError.days = "Maximum duration is 7 days.";
+      } else if (Number(days) + Number(hours) + Number(min) === 0) {
+        validatedError.days = "Auction Duration must last at least 1 minute"
       }
     }
 
@@ -157,8 +160,8 @@ export default function PostPage() {
     if (auction) {
       if (!hours) {
         validatedError.hours = "Hours is required.";
-      } else if (!/^(?:[01]?[0-9]|[2][0-4])$/.test(hours)) {
-        validatedError.hours = "Please enter number between 0 and 24.";
+      } else if (!/^(?:[01]?[0-9]|[2][0-3])$/.test(hours)) {
+        validatedError.hours = "Please enter number between 0 and 23.";
       }
     }
 
@@ -166,8 +169,8 @@ export default function PostPage() {
     if (auction) {
       if (!min) {
         validatedError.min = "Minute is required.";
-      } else if (!/^(?:[0-9]|[1-5][0-9]|60)$/.test(min)) {
-        validatedError.min = "Please enter number between 0 and 60.";
+      } else if (!/^(?:[0-9]|[1-5][0-9])$/.test(min)) {
+        validatedError.min = "Please enter number between 0 and 59.";
       }
     }
 
@@ -186,7 +189,7 @@ export default function PostPage() {
           withCredentials: true,
         });
         const product = res.data.product;
-        console.log("sssssssssssss", product);
+        // console.log(product.auction.isAuction)
         setTitle(product.title || "");
         setDescription(product.description || "");
         setArtist(product.artist || "");
@@ -196,11 +199,12 @@ export default function PostPage() {
         setTags(product.tags || []);
         setPrice(product.price || "");
         setMinBidPrice(product.minBidPrice || "");
-        setDays(product.auction?.days?.toString() || "");
-        setHours(product.auction?.hours?.toString() || "");
+        // setDays(product.auction?.days?.toString() || "");
+        // setHours(product.auction?.hours?.toString() || "");
         setImage(product.image || "");
         setAuction(product.auction?.isAuction || false);
         setEditMode(true);
+        setToggleValue(product.auction.isAuction ? "auction" : "fixPrice");
       } catch (err) {
         console.error("Failed to fetch product for edit", err);
       }
@@ -412,6 +416,7 @@ export default function PostPage() {
                 label2="auction"
                 onClick1={diasableAuction}
                 onClick2={showAuction}
+                toggleValue={toggleValue}
               />
             </div>
 
