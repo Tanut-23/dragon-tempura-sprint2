@@ -53,23 +53,25 @@ export default function UploadImage({ setImage, image }) {
   });
 
   return (
-    <div className="flex flex-col">
+    <div className="relative flex flex-col">
       <div>
+        {/* Have Image */}
       {!loading &&(
-        <div className="relative flex flex-col gap-4 items-center w-full px-8 pt-8 bg-[#f8e4d4c5] rounded-md">
+        <div className="relative flex flex-col gap-4 items-center w-full px-4 sm:px-8 pt-8 bg-[#f8e4d4c5] rounded-md">
         <img
           src={image || ""}
           alt=""
-          className="w-[80%] h-[300px] bg-gray-100 object-cover"
+          className="relative w-[100%] sm:w-[80%] sm:h-[300px] bg-gray-100 object-cover"
           />
           {image && !loading && (
-         <IconButton sx={{bgcolor:"white"}} className="absolute bottom-78 left-50" aria-label="delete" onClick={handleRemoveImage}>
-           <ClearIcon sx={{color: "red"}} />
-         </IconButton>
+         <Box sx={{width:'100%', height:'100%', position: 'absolute', top: 10, left: 10}}>
+          <IconButton sx={{bgcolor:"white"}} aria-label="delete" onClick={handleRemoveImage}>
+            <ClearIcon sx={{color: "red"}} />
+          </IconButton>
+         </Box>
        )}
       </div>)}
        {/* -----Loading----- */}
-       
         {loading && (
           <div className="relative flex flex-col items-center w-full p-8 bg-[#f8e4d4c5] rounded-md h-[300px]">
           <div className="absolute inset-0 flex justify-center items-center bg-gray-600 bg-opacity-40">
@@ -81,9 +83,9 @@ export default function UploadImage({ setImage, image }) {
         )}
         {/* ------No image------ */}
         {!loading && !image && (
-          <div className="flex justify-center">
-            <p className="absolute text-gray-600 text-center top-1/2 -translate-y-1/2"> You haven't posted product. </p>
-            </div>
+          <div className="absolute top-45 hidden sm:left-30 md:left-45 lg:left-60 sm:flex justify-center">
+            <p className=" text-gray-600 text-center -translate-y-1/2"> You haven't posted product. </p>
+          </div>
         )}
       </div>
       <Button
