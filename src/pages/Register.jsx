@@ -119,12 +119,13 @@ export default function Register({ onClose, switchToLogin }) {
           sx={{
             display: "flex",
             flexDirection: "row",
+            justifyContent: {xs:"center"},
             pt: "16px",
             color: "primary.main",
             gap: 8,
           }}
         >
-          <Stack sx={{ gap: 0.5 }}>
+          <Stack sx={{ gap: 0.5 , display:{xs:"flex"} }}>
             <InlineInput
               type={"text"}
               label={"First Name"}
@@ -169,9 +170,10 @@ export default function Register({ onClose, switchToLogin }) {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </Stack>
+
           <Stack
             sx={{
-              display: "flex",
+              display: {md:"flex" , xs:"none"},
               justifyContent: "center",
               alignItems: "center",
               gap: 4,

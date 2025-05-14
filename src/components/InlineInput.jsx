@@ -11,7 +11,7 @@ export default function InlineInput({
   fontWeight,
 }) {
   return (
-    <Box display="flex" gap={5} alignItems="center" mb={2}>
+    <Box  sx={{display:"flex" , flexDirection:{xs:'column', md:'row'} , gap:{xs:2 , md:5} , alignItems:{xs:"start" , md:"center"}}}   mb={2}>
       <Typography sx={{ width: 120 , color: "primary.main" , fontWeight: { fontWeight }}}>{label}</Typography>
       <TextField
         type={type}
