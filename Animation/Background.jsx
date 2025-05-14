@@ -1,14 +1,20 @@
 import React from 'react'
-import Invisblock from './Invisblock.jsx'
+// import Invisblock from './Invisblock.jsx'
 // import dimensionSpec from './dimensionSpec.js'
-import Cat from './Cat.jsx';
-import { Modal } from '@mui/material';
+// import Cat from './Cat.jsx';
+// import { Modal } from '@mui/material';
 import BaseRoom from './BaseRoom.jsx';
 import Room1 from './Room1.jsx';
+import Room2 from './Room2.jsx';
 
-function Background({step = 0, cat, picOpen, setPicopen, whichPic}) {
 
-const dynamicROOM = [<BaseRoom cat={cat} picOpen={picOpen} setPicopen={setPicopen} />, <Room1 picOpen={picOpen} setPicopen={setPicopen} whichPic={whichPic}/>];
+function Background({step = 0, cat, picOpen, setPicopen, whichPic, pic}) {
+
+  
+
+const dynamicROOM = [<BaseRoom cat={cat} picOpen={picOpen} setPicopen={setPicopen} pic={pic}/>,
+   <Room1 picOpen={picOpen} setPicopen={setPicopen} whichPic={whichPic} pic={pic}/>,
+   <Room2 picOpen={picOpen} setPicopen={setPicopen} whichPic={whichPic} pic={pic}/>];
 
 // const picShow =[<img src="./productPicture/Landscape-Painting-Contemporary-Art-2.jpg" className='absolute z-10 w-[250px] h-[200px] left-[400px] top-[150px]'/>]
 // const picShow1 =[<img src="./productPicture/Landscape-Painting-Contemporary-Art-2.jpg" className='absolute z-10 w-[250px] h-[200px] left-[60px] top-[150px]'/>]
