@@ -2,7 +2,7 @@ import * as React from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-export default function TagSeller({onChange, value}) {
+export default function TagSeller({onChange, value, width='500px'}) {
   return (
     <Autocomplete
       onChange={onChange}
@@ -16,7 +16,7 @@ export default function TagSeller({onChange, value}) {
         <TextField {...tag} label="Product Tag" placeholder="Styles, Artist, ..." />
       )}
       sx={{
-        width: '500px',
+        width: width,
         '& .MuiChip-root': {
           backgroundColor: '#f2eee7',
           color: '#49352a',
