@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AuctionCard from "./AuctionCard";
 import { Box } from "@mui/material";
 import baseURL from "../../service/api";
 import axios from "axios";
-import Masonry from "@mui/lab/Masonry";
 
 const ProductGrid = ({ products }) => {
   const [bids, setBids] = useState({}); // { [productId]: currentBid }
@@ -40,21 +39,6 @@ const ProductGrid = ({ products }) => {
   
 
   return (
-    // <div className="flex gap-10 flex-wrap w-full max-w-screen-xl mx-auto px-4 pt-8">
-    //   {products.map((product, index) => (
-    //     <AuctionCard
-    //       key={product._id}
-    //       productId={product._id}
-    //       image={product.image}
-    //       title={product.title}
-    //       artist={product.artist}
-    //       linkUrl={`/auction/${product._id}`}
-    //       price={bids[product._id] ?? "Loading..."}
-    //       timeLeft={updateTimeLeft(index)}
-    //     />
-    //   ))}
-    // </div>
-
     <section className="relative bg-transparent sm:bg-[#e4dcd2] py-16 px-0 sm:px-4">
         <div className="w-11/12 m mx-auto sm:px-4">
           <div className="mx-auto max-w-screen-2xl flex justify-end pb-8 pr-2 md:pr-4 text-gray-700">
