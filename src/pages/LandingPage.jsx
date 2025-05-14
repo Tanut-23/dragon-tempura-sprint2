@@ -64,6 +64,7 @@ export default function LandingPage() {
     getData();
   }, []);
 
+  
 
   //Remaining time for each auction card
   const updateTimeLeft = (index) => {

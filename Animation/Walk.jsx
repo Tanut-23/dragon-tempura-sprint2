@@ -8,7 +8,7 @@ import Background from "./Background";
 const speed = 25;
 const charecter = {x:100, y:235}; // from 0,0 to ref point (body)
 
-function Walk() {
+function Walk({pic}) {
     const [position, setPosition] = useState({x: 100, y: 400});
     const [direction, setDirection] = useState(null);
     const [frame, setFrame] = useState(0);
@@ -25,8 +25,8 @@ function Walk() {
     // console.log(roomDetail);
     // console.log(catSound);
 
-    if(roomChange> 1) {setRoomChange(0)}
-    if(roomChange< 0) {setRoomChange(1)}
+    if(roomChange> 2) {setRoomChange(0)}
+    if(roomChange< 0) {setRoomChange(2)}
 
     useEffect(() => {
 
@@ -142,8 +142,8 @@ function Walk() {
 
   return (
     // <div className={`absolute z-20  left-[${position.x}px] top-[${position.y}px]`}>{model}</div>
-    <div className='relative min-w-[1024px] w-[1024px] h-[768px] left-[15%]'>
-    <Background step={roomChange} cat={cat} picOpen={picOpen} setPicopen={setPicopen} whichPic={whichPic} />
+    <div className='relative min-w-[1024px] w-[1024px] h-[768px] top-[50%] left-[50%] -translate-x-1/2'>
+    <Background step={roomChange} cat={cat} picOpen={picOpen} setPicopen={setPicopen} whichPic={whichPic} pic={pic}/>
     <Model direction={direction} frame={frame} frameback={frameBack} x={position.x} y={position.y} />
     {/* {console.log(cat)}; */}
     {/* <Cat mate={cat}/> */}
