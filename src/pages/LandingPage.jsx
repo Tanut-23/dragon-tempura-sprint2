@@ -199,7 +199,7 @@ export default function LandingPage() {
       >
         <article
           id="auction-title"
-          className="flex flex-col gap-[20px] items-center sm:items-start w-[80%]"
+          className="flex flex-col gap-[20px] items-center w-[80%]"
         >
           <h2 className="text-[1.5rem] font-bold text-center">Exclusive Auction Pieces</h2>
           <p className="w-[90%]">

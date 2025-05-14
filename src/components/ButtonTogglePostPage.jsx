@@ -1,9 +1,13 @@
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function ButtonTogglePostPage({ label1, label2, onClick1, onClick2 }) {
-  const [value, setValue] = useState("fixPrice");   //to change color of active button
+export default function ButtonTogglePostPage({ label1, label2, onClick1, onClick2, toggleValue="auction" }) {
+  const [value, setValue] = useState("");   //to change color of active button
 
+  useEffect(() => {
+    setValue(toggleValue)
+  }, [toggleValue])
+  
   const handleChange = (event, newValue) => {
     if (newValue !== null) {
       setValue(newValue);
