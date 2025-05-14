@@ -218,7 +218,6 @@ export default function PostPage() {
     // VALIDATE INPUT FORM
     if (Object.keys(validatedError).length > 0) {
       // If there is an error
-      console.log(validatedError);
       setError(validatedError);
     } else {
       // Calculate End Date
@@ -401,9 +400,7 @@ export default function PostPage() {
                 value={tags}
                 width='100%'
               />
-              {console.log(tags)}
               {error.tags && <p className="text-red-500">{error.tags}</p>}
-              {console.log("this is error.tags: " + error.tags)}
             </div>
 
             {/* -------CHOOSE FIXED PRICE OR AUCTION------ */}

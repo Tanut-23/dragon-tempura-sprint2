@@ -26,13 +26,11 @@ export default function MarketPage() {
     const approve = product.approve?.toLowerCase();
     const filter = statusFilter.toLowerCase();
 
-    if (filter === "pending") return approve === "pending";
+    if (filter === "pending" ) return approve === "pending";
     if (filter === "ongoing") return status === "ongoing" && approve === "approved";
     if (filter === "completed") return status === "completed"  && approve === "approved";
-    
     return false;
   });
-  // console.log("Filtered Products:", filteredProducts);
 
   
   // WHEN REFRESH -> GET DATA OF ALL PRODUCTS FROM DATABASE
@@ -132,7 +130,6 @@ export default function MarketPage() {
           {!noPost && (
             <div className="relative flex flex-row gap-8 flex-wrap justify-center w-full px-4 sm:px-8 py-12 bg-[#f0e0d0] rounded-2xl">
               {filteredProducts.map((product) => {
-                console.log(product);
                 return (
                   <PostCard
                     key={product._id}

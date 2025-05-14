@@ -42,9 +42,6 @@ function Navbar() {
   const handleCloseRegister = () => setIsRegisterOpen(false);
   const handleCloseForgotPassword = () => setIsForgotPasswordOpen(false);
 
-  useEffect(() => {
-    console.log("isAuthenticated updated:", isAuthenticated);
-  }, [isAuthenticated]);
 
   return (
     <>
