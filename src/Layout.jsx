@@ -8,7 +8,7 @@ function Layout() {
     <div className="flex flex-col w-full min-h-screen items-center bg-[#f0e0d0]">
 
       <ScrollToTop />
-
+    {/* test */}
       {/* <nav className="flex gap-10 flex-wrap my-20 text-2xl">
         <Link to="/">Landing</Link>
         <Link to="/register">Register</Link>
