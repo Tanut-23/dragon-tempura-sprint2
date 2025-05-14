@@ -90,6 +90,7 @@ useEffect(() => {
       addOrdertoDB(inputToDB);
       setCartItems([])
       deleteCartAfertOrder();
+      alert("Your purchase was successful. Thank you for choosing Collectico!");
       navigate('/mainshop');
     }
   }, [activeStep]);
