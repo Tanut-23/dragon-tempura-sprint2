@@ -5,7 +5,7 @@ import ScrollToTop from "./components/ScrollToTop";
 
 function Layout() {
   return (
-    <div className="flex flex-col w-full min-h-screen items-center bg-amber-100">
+    <div className="flex flex-col w-full min-h-screen items-center bg-[#f0e0d0]">
 
       <ScrollToTop />
 
