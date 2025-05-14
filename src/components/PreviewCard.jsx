@@ -34,8 +34,7 @@ export default function PreviewCard({
     <Card
       elevation={elevation}
       sx={{
-        width: 400,
-        // height: 490,
+        width: {xs: '270px', sm:'400px'},
         color: "primary.chocolate",
         borderRadius: 2,
         "&:hover": {
@@ -113,16 +112,16 @@ export default function PreviewCard({
           }}
         >
           <Stack>
-            <Typography sx={{ fontSize: "1.4rem", fontWeight: 600 }}>
+            <Typography sx={{ fontSize: {xs: '1.12rem', sm:'1.4rem'}, fontWeight: 600 }}>
               {title}
             </Typography>
-            <Typography sx={{ fontSize: "0.97rem", py: "9px" }}>
+            <Typography sx={{ fontSize: {xs: '0.9rem', sm:'0.97rem'}, py: "9px" }}>
               By {artist}
             </Typography>
 
             {/* Fixed Price */}
             {price && (
-              <Typography sx={{ fontSize: "1.35rem" }}>
+              <Typography sx={{ fontSize: {xs: '1.1rem', sm:'1.35rem'} }}>
                 $
                 {Number(price).toLocaleString("en-US", {
                   minimumFractionDigits: 2,
@@ -152,7 +151,7 @@ export default function PreviewCard({
             }}
           >
             <Typography sx={{ fontWeight: "600" }}>Description: </Typography>
-            <Typography>{description}</Typography>
+            <Typography sx={{whiteSpace: "normal", wordBreak: "break-word"}}>{description}</Typography>
           </Paper>
 
           {/* Other Detail */}
@@ -160,14 +159,15 @@ export default function PreviewCard({
             elevation="4"
             sx={{
               display: "flex",
-              flexDirection: "row",
+              flexDirection: {xs: 'column', sm: 'row'},
               justifyContent: "space-between",
+              gap: {xs: '10px', sm: '0px'},
               padding: "12px",
               color: "primary.main",
               bgcolor: "#f0e0d08b",
             }}
           >
-            <Stack>
+            <Stack spacing="3px">
               <Stack direction="row" spacing="4px">
                 <Typography sx={{ fontSize: "0.9rem", fontWeight: 600 }}>
                   Dimensions:
@@ -192,8 +192,10 @@ export default function PreviewCard({
               </Stack>
             </Stack>
 
+            <hr className='text-gray-400 border-2 opacity-30' />
+
             {/* Tags */}
-            <Stack>
+            <Stack  spacing="3px">
               <Typography sx={{ fontSize: "0.9rem", fontWeight: "600" }}>
                 Tags
               </Typography>
