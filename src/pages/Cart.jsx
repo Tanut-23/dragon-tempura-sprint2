@@ -73,7 +73,7 @@ function Cart() {
         </p>
       </header>
       <main className="flex max-md:flex-col-reverse justify-start w-full max-md:gap-[16px]">
-        <section className="flex md:flex-col gap-[16px] w-[100%] md:w-[30%] min-w-[240px] items-center overflow-y-auto scrollbar-hide max-h-[1100px] p-[8px] bg-[#E9E2D6] rounded-tl-lg rounded-bl-lg">
+        <section className="flex md:flex-col gap-[16px] w-[100%] md:w-[40%] min-w-[240px] items-center overflow-y-auto scrollbar-hide max-h-[1100px] p-[8px] pt-[32px] bg-[#E9E2D6] rounded-tl-lg rounded-bl-lg">
         {cartItems.map((product)=>(
             <ProductCard onDelete={() => onDelete(product.productId)} wantDelete={true}  elevation={3} image={product.image}  title={product.title} artist={product.artist} price={product.price}/>
           ))}
