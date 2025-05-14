@@ -1,8 +1,12 @@
 import React from 'react'
 import { Modal } from '@mui/material';
-import baseURL from "../service/api";
+// import baseURL from "../service/api";
+
+const baseURL = "https://dragon-tempura-sprint2.vercel.app";
 
 function Room1({picOpen, setPicopen, whichPic, pic}) {
+
+
 
     const goToProduct1 = () => {
     window.open(`${baseURL}/product/${link[4]}`, "_blank");
