@@ -74,8 +74,6 @@ export default function PostPage() {
     // validate title
     if (!title) {
       validatedError.title = "Title is required.";
-    } else if (!/^[a-zA-Z\s]+$/.test(title)) {
-      validatedError.title = "Only letters are allowed.";
     } else if (title.length > 24) {
       validatedError.title = "Please enter no more than 24 characters.";
     }
@@ -86,8 +84,6 @@ export default function PostPage() {
     // validate artist
     if (!artist) {
       validatedError.artist = "Artist name is required.";
-    } else if (!/^[a-zA-Z\s]+$/.test(artist)) {
-      validatedError.artist = "Only letters are allowed.";
     } else if (artist.length > 26) {
       validatedError.artist = "Please enter no more than 26 characters.";
     }
@@ -293,7 +289,7 @@ export default function PostPage() {
         {/* ---------------FORM------------- */}
         <form
           action="#"
-          className="relative w-[80%] max-w-[800px] min-h-screen py-10 px-15 bg-white rounded-lg"
+          className="relative w-[95%] sm:w-[80%] max-w-[800px] min-h-screen py-10 px-5 sm:px-15 bg-white rounded-lg"
           onSubmit={handleSubmit}
         >
           <h2 className="pb-2 text-[1.2rem] font-bold">Product Information</h2>
@@ -351,7 +347,7 @@ export default function PostPage() {
             {/* Detail */}
             <div>
               <h2 className="pb-2 text-[1.1rem] font-bold">Detail</h2>
-              <Stack direction="row" spacing={2}>
+              <Stack direction={{xs:"column", sm:"row"}} spacing={2}>
                 {/* DIMENSIONS */}
                 <Stack>
                   <ColumnInput
@@ -403,6 +399,7 @@ export default function PostPage() {
               <TagSeller
                 onChange={(e, newValue) => setTags(newValue)}
                 value={tags}
+                width='100%'
               />
               {console.log(tags)}
               {error.tags && <p className="text-red-500">{error.tags}</p>}
@@ -479,7 +476,7 @@ export default function PostPage() {
                         Auction Duration
                       </h3>
                       {/* DAYS */}
-                      <Stack direction="row" spacing={2}>
+                      <Stack direction={{xs: "column", sm:"row"}} spacing={2}>
                         <Stack>
                           <ColumnInput
                             label="Days"
@@ -528,8 +525,8 @@ export default function PostPage() {
             </div>
             {/* ----- Submit Button ------- */}
             <Stack
-              direction="row"
-              spacing={2}
+              direction={{xs: "column", sm:"row"}}
+              spacing={{xs: 1, sm:2}}
               sx={{ justifyContent: "center" }}
             >
               <ButtonSubmit label="Preview Post" value="preview" px="48px" />

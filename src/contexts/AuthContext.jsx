@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }) => {
           withCredentials: true,
         }
       );
+      window.location.reload();
     } catch (err) {
       console.error("Logout failed", err);
     }

@@ -41,6 +41,8 @@ export default function PostCard({
   const navigate = useNavigate()
 
   function viewShop() {
+
+
     if (product.auction.isAuction) {
       navigate(`/auction/${product._id}`);
     } else {
