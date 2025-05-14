@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AuctionCard from "./AuctionCard";
 import { Box } from "@mui/material";
+import Masonry from "@mui/lab/Masonry";
 import baseURL from "../../service/api";
 import axios from "axios";
 
@@ -29,7 +30,7 @@ const ProductGrid = ({ products }) => {
   }, [products]);
 
   return (
-    <Box>
+  <Masonry columns={3} spacing={8}>
       {products.map((product) => (
         <AuctionCard
           key={product._id}
@@ -41,7 +42,7 @@ const ProductGrid = ({ products }) => {
           price={bids[product._id] ?? "Loading..."}
         />
       ))}
-    </Box>
+    </Masonry>
   );
 };
 
