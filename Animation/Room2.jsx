@@ -1,16 +1,16 @@
 import React from 'react'
 import { Modal } from '@mui/material';
 
-function Room1({picOpen, setPicopen, whichPic, pic}) {
+function Room2({picOpen, setPicopen, whichPic, pic}) {
 
     const goToProduct1 = () => {
-    window.open(`http://localhost:5173/product/${link[4]}`, "_blank");
+    window.open(`http://localhost:5173/product/${link[7]}`, "_blank");
   };
   const goToProduct2 = () => {
-    window.open(`http://localhost:5173/product/${link[5]}`, "_blank");
+    window.open(`http://localhost:5173/product/${link[8]}`, "_blank");
   };
   const goToProduct3 = () => {
-    window.open(`http://localhost:5173/product/${link[3]}`, "_blank");
+    window.open(`http://localhost:5173/product/${link[9]}`, "_blank");
   };
 
   const image = pic.map((product)=> product.image);
@@ -25,7 +25,7 @@ function Room1({picOpen, setPicopen, whichPic, pic}) {
         onClick={goToProduct1}
         style={{ cursor: 'pointer'}}
         >
-        <img src={image[4]}
+        <img src={image[7]}
             className='absolute z-1  left-[50%] -translate-x-1/2 top-[100px] max-w-[400px]'
         />
         </Modal>,
@@ -37,7 +37,7 @@ function Room1({picOpen, setPicopen, whichPic, pic}) {
         onClick={goToProduct2}
         style={{ cursor: 'pointer'}}
         >
-        <img src={image[5]}
+        <img src={image[8]}
             className='absolute z-1  left-[50%] -translate-x-1/2 top-[100px] max-w-[400px]'
         />
         </Modal>,
@@ -49,14 +49,14 @@ function Room1({picOpen, setPicopen, whichPic, pic}) {
         onClick={goToProduct3}
         style={{ cursor: 'pointer'}}
         >
-        <img src={image[3]}
+        <img src={image[9]}
             className='absolute z-1  left-[50%] -translate-x-1/2 top-[100px] max-w-[400px]'
         />
         </Modal>];
 
-    const picShow1 =[<img src={image[4]} className='absolute z-10 w-[250px] h-[200px] left-[60px] top-[150px] shadow-md shadow-amber-100'/>]
-    const picShow2 =[<img src={image[5]} className='absolute z-10 w-[250px] h-[200px] left-[390px] top-[150px] shadow-md shadow-amber-100'/>]
-    const picShow3 =[<img src={image[3]} className='absolute z-10 w-[250px] h-[200px] left-[720px] top-[150px] shadow-md shadow-amber-100'/>]
+    const picShow1 =[<img src={image[7]} className='absolute z-10 w-[250px] h-[200px] left-[60px] top-[150px] shadow-md shadow-amber-100'/>]
+    const picShow2 =[<img src={image[8]} className='absolute z-10 w-[250px] h-[200px] left-[390px] top-[150px] shadow-md shadow-amber-100'/>]
+    const picShow3 =[<img src={image[9]} className='absolute z-10 w-[250px] h-[200px] left-[720px] top-[150px] shadow-md shadow-amber-100'/>]
     const Room1Asset = [<img src="./Asset/Room1.png" className='absolute '/>, <img src="./Asset/Room1_table.png" className='absolute z-11'/>,
                     <img src="./Asset/Room1_tree.png" className='absolute z-12'/>,<img src="./Asset/Room1_cat.png" className='absolute z-13'/>]
 
@@ -64,9 +64,9 @@ function Room1({picOpen, setPicopen, whichPic, pic}) {
     return (
     <>
     {Room1Asset[0]}
-    {Room1Asset[1]}
+    {/* {Room1Asset[1]}
     {Room1Asset[2]}
-    {Room1Asset[3]}
+    {Room1Asset[3]} */}
     {picShow1}
     {picShow2}
     {picShow3}
@@ -75,4 +75,4 @@ function Room1({picOpen, setPicopen, whichPic, pic}) {
   )
 }
 
-export default Room1
+export default Room2

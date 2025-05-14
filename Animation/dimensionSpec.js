@@ -14,6 +14,13 @@ const dimensionSpec =
   { top: 380, left: 360, width: 305, height: 2,trigger: "openPic",background:'red', whichPic:1},
   { top: 380, left: 30, width: 305, height: 2,trigger: "openPic",background:'black', whichPic:0},
   { top: 380, left: 690, width: 305, height: 2,trigger: "openPic",background:'yellow', whichPic:2}
+  ],
+  [{ top: 0, left: 0, width: 2, height: 768, background:'red', trigger:"changeRoomLeft" },
+  { top: 0, left: 1015, width: 2, height: 768 , background:'red', trigger:"changeRoomRight"},
+  { top: 770, left: 25, width: 974, height: 2 ,background:'green'},
+  { top: 380, left: 360, width: 305, height: 2,trigger: "openPic",background:'red', whichPic:1},
+  { top: 380, left: 30, width: 305, height: 2,trigger: "openPic",background:'black', whichPic:0},
+  { top: 380, left: 690, width: 305, height: 2,trigger: "openPic",background:'yellow', whichPic:2}
   ]
 ];
 
