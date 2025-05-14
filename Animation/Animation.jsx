@@ -38,7 +38,6 @@ const [collectionData, setCollectionData] = useState([]);
     }
   }
 
-  console.log("Check picture", collectionData);
   useEffect(() => {
     getData();
   }, []);

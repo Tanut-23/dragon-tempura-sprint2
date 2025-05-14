@@ -3,7 +3,6 @@ import ButtonSubmit from "../components/ButtonSubmit";
 import { Box, FormGroup, Stack, Typography } from "@mui/material";
 import ColumnInput from "../components/ColumnInput";
 import Checkbox from "../components/Checkbox";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
 import baseURL from "../../service/api";
@@ -44,7 +43,6 @@ export default function Login({
       } else {
         alert("Cann't login, please try again");
       }
-      console.log(res);
       onClose();
       alert("Login success, Welcome to Collectico!");
       window.location.reload();

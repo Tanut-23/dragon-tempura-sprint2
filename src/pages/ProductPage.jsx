@@ -34,24 +34,7 @@ function ProductPage() {
     fetchProduct();
   }, [productId]);
 
-  //Get data of cart items from Database
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const res = await axios.get(`${baseURL}/api/cart-get`, {
-          withCredentials: true,
-        });
-        const fetchdCartItems = res.data.cart.items;
-        setCartItems(fetchdCartItems);
-      } catch (err) {
-        console.error(
-          "Error fetching cart:",
-          err.response?.data || err.message
-        );
-      }
-    };
-    fetchCart();
-  }, []);
+  
 
   // Update `isInCartDB` whenever `product` or `cartItems` change
   useEffect(() => {
@@ -62,7 +45,7 @@ function ProductPage() {
     } else {
       setIsInCartDB(false);
     }
-  }, [cartItems]);
+  }, [cartItems , product]);
 
   //Check if this product is already in cart
   // useEffect(() => {
@@ -92,9 +75,13 @@ function ProductPage() {
       await axios.post(`${baseURL}/api/cart-add`, newProduct, {
         withCredentials: true,
       });
+
+      const res = await axios.get(`${baseURL}/api/cart-get`, {
+        withCredentials: true,
+      });
       //update cart context
-      setCartItems((prev) => [...prev, newProduct.items]);
-      setIsInCartDB(false);
+      setCartItems(res.data.cart.items);
+      setIsInCartDB(true);
     } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }
@@ -109,7 +96,7 @@ function ProductPage() {
       setCartItems((prev) =>
         prev.filter((item) => item.productId._id !== product._id)
       );
-      setIsInCartDB(true);
+      setIsInCartDB(false);
     } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }

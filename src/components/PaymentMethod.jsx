@@ -33,13 +33,6 @@ export default function PaymentMethod() {
     });
   };
 
-  const handleSubmit = () => {
-    // console.log("Payment method:", paymentMethod);
-    if (paymentMethod === "creditCard") {
-      console.log("Card details:", cardDetails);
-    }
-    // Handle form submission logic here
-  };
 
   return (
     <Box sx={{ maxWidth: 885, mx: "auto", p: 2 }}>

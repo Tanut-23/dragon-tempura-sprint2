@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 // import products from "../../data/products";
 
 const ProductCard = ({ product }) => {
-  console.log(product._id);
   return (
     <div className="relative group overflow-hidden shadow-md shadow-gray-700 hover:shadow-lg transition-shadow duration-300">
      <Link to={`/product/${product._id}`}>
