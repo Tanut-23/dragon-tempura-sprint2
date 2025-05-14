@@ -30,7 +30,8 @@ const ProductGrid = ({ products }) => {
   }, [products]);
 
   return (
-  <Masonry columns={3} spacing={8}>
+    <Box>
+  <Masonry columns={3} spacing={7}>
       {products.map((product) => (
         <AuctionCard
           key={product._id}
@@ -43,6 +44,7 @@ const ProductGrid = ({ products }) => {
         />
       ))}
     </Masonry>
+    </Box>
   );
 };
 
