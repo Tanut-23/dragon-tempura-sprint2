@@ -13,7 +13,11 @@ const UserDropdown = () => {
 
   const toggleDropdown = () => setDropdownOpen((prev) => !prev);
   const closeDropdown = () => setDropdownOpen(false);
-  useEffect(() => {
+  const closeDropdownDisable = () => {
+      alert("This function is disable for now i told you not to click it!")
+      setDropdownOpen(false)};
+  
+      useEffect(() => {
     if (user) {
       setFirstName(user.firstName);
       setLastName(user.lastName);}
@@ -63,11 +67,10 @@ const UserDropdown = () => {
           <ul className="p-2 bg-[#806248] text-[#f9f7f3]">
             <li>
               <Link
-                to="/login"
-                onClick={closeDropdown}
-                className="block px-4 py-2 hover:bg-[#62483a]"
+                onClick={closeDropdownDisable}
+                className="block px-4 py-2 bg-gray-600"
               >
-                Account
+                Account (don't click!)
               </Link>
             </li>
             <li>
@@ -81,11 +84,10 @@ const UserDropdown = () => {
             </li>
             <li>
               <Link
-                to="/setting"
-                onClick={closeDropdown}
-                className="block px-4 py-2 hover:bg-[#62483a]"
+                onClick={closeDropdownDisable}
+                className="block px-4 py-2 bg-gray-600"
               >
-                Setting
+                Setting (don't click!)
               </Link>
             </li>
             <li>
