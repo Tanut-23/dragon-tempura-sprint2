@@ -73,11 +73,39 @@ const router = createBrowserRouter([
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
       { path: "/market", element: <MarketPage /> },
-      { path: "/postpage", element: <ProtectedRoute><PostPage /></ProtectedRoute> },
-      { path: "/postpage/:editId", element: <ProtectedRoute><PostPage /></ProtectedRoute> },
+      {
+        path: "/postpage",
+        element: (
+          <ProtectedRoute>
+            <PostPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/postpage/:editId",
+        element: (
+          <ProtectedRoute>
+            <PostPage />
+          </ProtectedRoute>
+        ),
+      },
       { path: "/mainshop", element: <MainShopPage /> },
-      { path: "/cart", element: <ProtectedRoute><Cart /></ProtectedRoute> },
-      { path: "/myorder", element: <ProtectedRoute><MyOrderPage /></ProtectedRoute> },
+      {
+        path: "/cart",
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/myorder",
+        element: (
+          <ProtectedRoute>
+            <MyOrderPage />
+          </ProtectedRoute>
+        ),
+      },
       { path: "/shoppage", element: <ShopPage /> },
       { path: "/product/:productId", element: <ProductPage /> },
       { path: "/resetpassword", element: <ForgotPassword /> },

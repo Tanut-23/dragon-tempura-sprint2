@@ -86,19 +86,19 @@ export default function MarketPage() {
   }
 
   return (
-    <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] px-2 py-2 ">
+    <div className="w-full min-h-[100vh] bg-[#F2EEE7] text-[#62483A] sm:px-2 py-2 ">
       {/* -------------------CONTENT----------------- */}
       <BreadcrumbsNav links={links} currentPage="Market" />
       <div className="flex flex-col items-center gap-4 w-full py-[50px]">
-        <header className="flex flex-col gap-4 w-[80%] bg-[#f0e0d000]">
+        <header className="flex flex-col gap-4 w-[90%] sm:w-[80%] bg-[#f0e0d000]">
           <div className="flex flex-row justify-between">
-            <h1 className="text-[2rem] font-bold">Market</h1>
+            <h1 className="text-[1.8rem] sm:text-[2rem] font-bold">Market</h1>
             <Link to="/postpage">
-              <ButtonSubmit label="+ Post New Product" px="20px" py="8px" />
+              <ButtonSubmit label="+ Post New Product" px={{xs:"3px",sm:"20px"}} py="8px" />
             </Link>
           </div>
           {/* Button Toggle */}
-          <div className="buttonToggle">
+          <div className="buttonToggle text-center sm:text-start">
             <ButtonToggle
               label1="pending"
               label2="ongoing"
@@ -111,7 +111,7 @@ export default function MarketPage() {
         </header>
 
         {/* -------------------PRODUCT LIST----------------- */}
-        <section className="flex flex-col items-center w-[80%] min-h-[100vh] bg-red-0">
+        <section className="flex flex-col items-center w-[90%] sm:w-[80%] min-h-[100vh] bg-red-0">
           {/* BEFORE POST PRODUCT */}
           {noPost && (
             <div className="flex items-center justify-center w-full h-[500px] bg-[#f0e0d0] rounded-lg">
@@ -130,7 +130,7 @@ export default function MarketPage() {
 
           {/* AFTER POST PRODUCT */}
           {!noPost && (
-            <div className="relative flex flex-row gap-8 flex-wrap justify-center w-full px-8 py-12 bg-[#f0e0d0] rounded-2xl">
+            <div className="relative flex flex-row gap-8 flex-wrap justify-center w-full px-4 sm:px-8 py-12 bg-[#f0e0d0] rounded-2xl">
               {filteredProducts.map((product) => {
                 console.log(product);
                 return (

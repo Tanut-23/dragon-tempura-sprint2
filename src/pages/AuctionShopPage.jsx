@@ -3,7 +3,6 @@ import AuctionSort from "../components/AuctionSort";
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 
 export default function AuctionShopPage() {
-  // กำหนดลิงก์สำหรับ breadcrumb
   const links = [
     { label: "Home", to: "/" },
     { label: "Collections", to: "/mainshop" },

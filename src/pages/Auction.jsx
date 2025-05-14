@@ -28,7 +28,7 @@ export default function AuctionPage() {
   const [isAuctionEnded, setIsAuctionEnded] = useState(false);
   const { cartItems, setCartItems } = useCart();
   const [isInCartDB, setIsInCartDB] = useState(false);
-  // กำหนดลิงก์สำหรับ breadcrumb
+
   const links = [
     { label: "Home", to: "/" },
     { label: "Auction", to: "/auction" },
@@ -68,14 +68,13 @@ export default function AuctionPage() {
     return () => socket.current.disconnect();
   }, []);
 
-  // ...existing code...
   useEffect(() => {
     const fetchBidHistory = async () => {
       try {
         console.log("auctionId param:", auctionId);
         const res = await fetch(`${baseURL}/api/bids/${auctionId}`);
         const data = await res.json();
-        console.log("bid history from API:", data); // <--- ดูตรงนี้
+        console.log("bid history from API:", data); 
         const formatted = data.map((b) => ({
           ...b,
           time: new Date(b.createdAt),
@@ -94,7 +93,6 @@ export default function AuctionPage() {
     socket.current?.on("newBid", fetchBidHistory);
     return () => socket.current?.off("newBid", fetchBidHistory);
   }, [auctionId]);
-  // ...existing code...
 
   const bidCurrent = Math.max(...historyBid.map((b) => b.amount), 0);
   const bidButton = (event) => {
@@ -149,7 +147,6 @@ export default function AuctionPage() {
     }
   }, [cartItems, auctionData]);
 
-  // เพิ่มสินค้าเข้าตะกร้าใน database
   const addProductToDB = async (product) => {
     try {
       const newProduct = {
@@ -171,7 +168,6 @@ export default function AuctionPage() {
     }
   };
 
-  // ลบสินค้าออกจากตะกร้าใน database
   const removeProductFromDB = async (product) => {
     try {
       await axios.delete(`${baseURL}/api/cart-delete/${product._id}`, {
@@ -195,6 +191,7 @@ export default function AuctionPage() {
       </div>
     );
   }
+  const highestBid = [...historyBid].sort((a, b) => b.amount - a.amount);
 
   return (
     <div className="min-h-screen w-full bg-[#f2eee7] text-[#62483A] ">
@@ -249,8 +246,8 @@ export default function AuctionPage() {
                   ${bidCurrent.toLocaleString()}
                 </div>
                 <div className="text-sm text-[#757575]">
-                  {historyBid.length > 0
-                    ? `Highest Bidder: ${historyBid[0].firstName} ${historyBid[0].lastName}`
+                  {highestBid.length > 0
+                    ? `Highest Bidder: ${highestBid[0].firstName} ${highestBid[0].lastName}`
                     : "Starting Bid Price: $1"}
                 </div>
               </div>
