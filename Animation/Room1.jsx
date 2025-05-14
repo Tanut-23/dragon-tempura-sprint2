@@ -1,16 +1,17 @@
 import React from 'react'
 import { Modal } from '@mui/material';
+import baseURL from "../service/api";
 
 function Room1({picOpen, setPicopen, whichPic, pic}) {
 
     const goToProduct1 = () => {
-    window.open(`http://localhost:5173/product/${link[4]}`, "_blank");
+    window.open(`${baseURL}/product/${link[4]}`, "_blank");
   };
   const goToProduct2 = () => {
-    window.open(`http://localhost:5173/product/${link[5]}`, "_blank");
+    window.open(`${baseURL}/product/${link[5]}`, "_blank");
   };
   const goToProduct3 = () => {
-    window.open(`http://localhost:5173/product/${link[3]}`, "_blank");
+    window.open(`${baseURL}/product/${link[3]}`, "_blank");
   };
 
   const image = pic.map((product)=> product.image);
