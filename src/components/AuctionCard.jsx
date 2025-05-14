@@ -77,10 +77,10 @@ export default function AuctionCard({
             title="auction"
           />
           <CardContent sx={{ width: "100%" }}>
-            <Typography sx={{ fontSize: { xs:"1.2rem", sm:"1.4rem"}, fontWeight: 600 }}>
+            <Typography sx={{ fontSize: { xs:"1.18rem", sm:"1.4rem"}, fontWeight: 600 }}>
               {title}
             </Typography>
-            <Typography gutterBottom sx={{ fontSize: "1.1rem" }}>
+            <Typography gutterBottom sx={{ fontSize: { xs:"0.91rem", sm:"1.1rem"} }}>
               By {artist}
             </Typography>
             <Typography sx={{ fontSize: "1.35rem" }}>
