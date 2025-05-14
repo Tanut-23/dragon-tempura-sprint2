@@ -1,16 +1,18 @@
 import React from 'react'
 import { Modal } from '@mui/material';
 
+const baseURL = "https://dragon-tempura-sprint2.vercel.app";
+
 function Room2({picOpen, setPicopen, whichPic, pic}) {
 
     const goToProduct1 = () => {
-    window.open(`http://localhost:5173/product/${link[7]}`, "_blank");
+    window.open(`${baseURL}/product/${link[7]}`, "_blank");
   };
   const goToProduct2 = () => {
-    window.open(`http://localhost:5173/product/${link[8]}`, "_blank");
+    window.open(`${baseURL}/product/${link[8]}`, "_blank");
   };
   const goToProduct3 = () => {
-    window.open(`http://localhost:5173/product/${link[9]}`, "_blank");
+    window.open(`${baseURL}/product/${link[9]}`, "_blank");
   };
 
   const image = pic.map((product)=> product.image);

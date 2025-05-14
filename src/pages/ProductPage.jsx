@@ -24,6 +24,7 @@ function ProductPage() {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`${baseURL}/api/product/${productId}`);
+        // console.log(res.data.product)
         setProduct(res.data?.product ?? null);
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -40,7 +41,8 @@ function ProductPage() {
         const res = await axios.get(`${baseURL}/api/cart-get`, {
           withCredentials: true,
         });
-        setCartItems(res.data.cart.items);
+        const fetchdCartItems = res.data.cart.items;
+        setCartItems(fetchdCartItems);
       } catch (err) {
         console.error(
           "Error fetching cart:",
@@ -51,12 +53,23 @@ function ProductPage() {
     fetchCart();
   }, []);
 
-  //Check if this product is already in cart
+  // Update `isInCartDB` whenever `product` or `cartItems` change
   useEffect(() => {
-    if (product) {
-      setIsInCartDB(cartItems?.some((item) => item.productId === product._id));
+    if (product && cartItems) {
+      const isInCart = cartItems.some((item) => item.productId._id === product._id);
+      // console.log(cartItems[0]?.productId._id);
+      setIsInCartDB(isInCart);
+    } else {
+      setIsInCartDB(false);
     }
-  }, [cartItems, product]);
+  }, [cartItems]);
+
+  //Check if this product is already in cart
+  // useEffect(() => {
+  //   if (product) {
+  //     setIsInCartDB(cartItems?.some((item) => item.productId == product._id));
+  //   }
+  // }, [cartItems, product]);
 
   //Add product to cart in Database
   const addProductToDB = async (product) => {
@@ -81,6 +94,7 @@ function ProductPage() {
       });
       //update cart context
       setCartItems((prev) => [...prev, newProduct.items]);
+      setIsInCartDB(false);
     } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }
@@ -93,8 +107,9 @@ function ProductPage() {
         withCredentials: true,
       });
       setCartItems((prev) =>
-        prev.filter((item) => item.productId !== product._id)
+        prev.filter((item) => item.productId._id !== product._id)
       );
+      setIsInCartDB(true);
     } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
     }

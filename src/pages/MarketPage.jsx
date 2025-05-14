@@ -17,7 +17,7 @@ export default function MarketPage() {
   const showCompleted = () => setStatusFilter("completed");
 
   // STATE FOR SHOW NO POST
-  const [noPost, setNoPost] = useState(true);
+  // const [noPost, setNoPost] = useState(true);
 
   const links = [{ label: "Home", to: "/" }];
 
@@ -29,12 +29,12 @@ export default function MarketPage() {
     if (filter === "pending") return approve === "pending";
     if (filter === "ongoing") return status === "ongoing" && approve === "approved";
     if (filter === "completed") return status === "completed"  && approve === "approved";
-    
+
     return false;
   });
   // console.log("Filtered Products:", filteredProducts);
 
-  
+
   // WHEN REFRESH -> GET DATA OF ALL PRODUCTS FROM DATABASE
   useEffect(() => {
     const fetchProducts = async () => {
@@ -43,11 +43,11 @@ export default function MarketPage() {
           withCredentials: true,
         });
         setAllProducts(res.data);
-        setNoPost(res.data.length === 0);
+        // setNoPost(res.data.length === 0);
       } catch (err) {
         console.error("Error fetching products:", err);
         setAllProducts([]);
-        setNoPost(true);
+        // setNoPost(true);
       }
     };
     fetchProducts();
@@ -113,7 +113,7 @@ export default function MarketPage() {
         {/* -------------------PRODUCT LIST----------------- */}
         <section className="flex flex-col items-center w-[90%] sm:w-[80%] min-h-[100vh] bg-red-0">
           {/* BEFORE POST PRODUCT */}
-          {noPost && (
+          {filteredProducts.length === 0 && (
             <div className="flex items-center justify-center w-full h-[500px] bg-[#f0e0d0] rounded-lg">
               <div className="relative flex flex-col items-center w-[80%] h-[80%] bg-white rounded">
                 <img
@@ -129,7 +129,7 @@ export default function MarketPage() {
           )}
 
           {/* AFTER POST PRODUCT */}
-          {!noPost && (
+          {filteredProducts.length > 0 && (
             <div className="relative flex flex-row gap-8 flex-wrap justify-center w-full px-4 sm:px-8 py-12 bg-[#f0e0d0] rounded-2xl">
               {filteredProducts.map((product) => {
                 console.log(product);
