@@ -94,7 +94,7 @@ function AuctionFormBlock({
   const { openLoginPopup } = useAuth();
   const handleLogin = () => {
     openLoginPopup();
-   }
+  };
   return (
     <div className="bg-[#f9f7f3] rounded-lg shadow-md p-6 mb-6 border border-[#e9e2d6] hover:scale-102 hover:duration-700 duration-700">
       <div className="flex items-center mb-3">
@@ -398,7 +398,10 @@ export default function AuctionPage() {
           </div>
           <div className="lg:col-span-1">
             <TimeLeftBlock timeLeft={timeLeft} />
-            <CurrentBidBlock bidCurrent={bidCurrent} highestBidGuy={highestBidGuy} />
+            <CurrentBidBlock
+              bidCurrent={bidCurrent}
+              highestBidGuy={highestBidGuy}
+            />
             <AuctionFormBlock
               isAuctionEnded={isAuctionEnded}
               isAuthenticated={isAuthenticated}
