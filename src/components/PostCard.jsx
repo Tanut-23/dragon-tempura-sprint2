@@ -36,20 +36,23 @@ export default function PostCard({
   const remainingDays = Math.floor(remainingSecond/ (60*60*24));
   const remainingHours = Math.floor((remainingSecond % (60*60*24)) / 3600);
   const remainingMin = Math.floor((remainingSecond % 3600) / 60);
-  console.log(product)
   const isAuctionTag = auction?.isAuction === true;
   const navigate = useNavigate()
+
   function viewShop() {
-    navigate('/mainshop')
+
+
+    if (product.auction.isAuction) {
+      navigate(`/auction/${product._id}`);
+    } else {
+      navigate(`/product/${product._id}`);
+    }
   }
-  function linkToProduct() {
-    navigate(`/product/${product._id}`)
-  }
+
 
   return (
     <Card
       elevation={elevation}
-      onClick={linkToProduct}
       sx={{
         width: 350,
         height: 490,
@@ -151,15 +154,15 @@ export default function PostCard({
 
         {/* Product Content */}
         <CardContent sx={{ width: "100%" }}>
-          <Typography sx={{ fontSize: "1.4rem", fontWeight: 600 }}>
+          <Typography sx={{ fontSize: {xs:"1.15rem", sm:"1.4rem"}, fontWeight: 600 }}>
             {title}
           </Typography>
-          <Typography sx={{ fontSize: "0.97rem", py: "9px" }}>
+          <Typography sx={{ fontSize: {xs:"0.9rem", sm:"0.97rem"}, py: "9px" }}>
             By {artist}
           </Typography>
           {/* Fixed Price */}
           {price && (
-            <Typography sx={{ fontSize: "1.35rem" }}>
+            <Typography sx={{ fontSize: {xs:"1.15rem", sm:"1.35rem"} }}>
               $
               {Number(price).toLocaleString("en-US", {
                 minimumFractionDigits: 2,
@@ -178,12 +181,12 @@ export default function PostCard({
         </CardContent>
 
         {/* ButtonSubmit */}
-        <Stack spacing="8px">
-          <ButtonSubmit label="Edit Detail" width="310px" onClick={onEdit} />
+        <Stack spacing="8px" sx={{alignItems: "center"}}>
+          <ButtonSubmit label="Edit Detail" width={{xs:"230px", sm:"310px"}} onClick={onEdit} />
           <ButtonSubmit
             onClick={viewShop}
             label="View Shop"
-            width="310px"
+            width={{xs:"230px", sm:"310px"}}
             backgroundColor="#f2eee7"
             color="#62483a"
           />

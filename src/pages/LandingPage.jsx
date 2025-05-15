@@ -12,7 +12,6 @@ import CollectionCardLanding from "../components/CollectionCardLanding";
 import baseURL from "../../service/api";
 
 export default function LandingPage() {
-
   // FOR SCROLLING CONTAINER
   const shopContainerRef = useRef();
   const auctionContainerRef = useRef();
@@ -20,6 +19,7 @@ export default function LandingPage() {
 
   const [collectionData, setCollectionData] = useState([]);
   const [auctionData, setAuctionData] = useState([]);
+  const [bids, setBids] = useState({}); // { [productId]: currentBid }
 
   function scrollLeft(ref, move) {
     if (ref.current) {
@@ -45,15 +45,18 @@ export default function LandingPage() {
   async function getData() {
     try {
       //fixed price product
-      const productData = await axios.get(`${baseURL}/api/product-get`,{
-          withCredentials: true,
-        });
+      const productData = await axios.get(`${baseURL}/api/product-get`, {
+        withCredentials: true,
+      });
       setCollectionData(productData.data.allProduct || []);
 
       //auction product
-      const auctionData = await axios.get(`${baseURL}/api/product-get-auction`,{
+      const auctionData = await axios.get(
+        `${baseURL}/api/product-get-auction`,
+        {
           withCredentials: true,
-        });
+        }
+      );
       setAuctionData(auctionData.data.allAuctionProduct || []);
     } catch (err) {
       console.log(err);
@@ -61,20 +64,38 @@ export default function LandingPage() {
   }
 
   useEffect(() => {
+    const fetchBids = async () => {
+      const bidsObj = {};
+      await Promise.all(
+        auctionData.map(async (product) => {
+          try {
+            const res = await axios.get(`${baseURL}/api/bids/${product._id}`);
+            const data = res.data;
+            const highest =
+              data.length > 0 ? Math.max(...data.map((b) => b.amount)) : 0;
+            bidsObj[product._id] = highest;
+          } catch {
+            bidsObj[product._id] = 0;
+          }
+        })
+      );
+      setBids(bidsObj);
+    };
+    if (auctionData.length > 0) fetchBids();
+  }, [auctionData]);
+
+  useEffect(() => {
     getData();
   }, []);
 
-
   //Remaining time for each auction card
   const updateTimeLeft = (index) => {
-      const now = new Date();
-      const end = new Date(auctionData[index].auction.endDate || 0);
-      const diff = end - now;
-      if (diff < 0) return 0;
-      return diff;
-    };
-
-
+    const now = new Date();
+    const end = new Date(auctionData[index].auction.endDate || 0);
+    const diff = end - now;
+    if (diff < 0) return 0;
+    return diff;
+  };
 
   return (
     <div className="text-[#62483A] w-full min-h-[100vh]">
@@ -151,7 +172,7 @@ export default function LandingPage() {
             width: { xs: "90%", sm: "80%" },
             maxHeight: { xs: "330px", sm: "none" },
             overflowY: "auto",
-            overflowX: {xs: "clip", sm: "auto"},
+            overflowX: { xs: "clip", sm: "auto" },
             whiteSpace: "nowrap",
             mt: 2,
             mb: 4,
@@ -199,9 +220,11 @@ export default function LandingPage() {
       >
         <article
           id="auction-title"
-          className="flex flex-col gap-[20px] items-center sm:items-start w-[80%]"
+          className="flex flex-col gap-[20px] items-center w-[80%]"
         >
-          <h2 className="text-[1.5rem] font-bold text-center">Exclusive Auction Pieces</h2>
+          <h2 className="text-[1.5rem] font-bold text-center">
+            Exclusive Auction Pieces
+          </h2>
           <p className="w-[90%]">
             Discover our exclusive collection of rare, highly sought-after
             pieces, each selected for its exceptional craftsmanship and unique
@@ -253,19 +276,22 @@ export default function LandingPage() {
             },
           }}
         >
-          {auctionData.map((product,index) => {
-            return (
-              <AuctionCard
-                key={product._id}
-                image={product.image}
-                title={product.title}
-                artist={product.artist}
-                price={product.price}
-                linkUrl={`/auction/${product._id}`}
-                timeLeft={updateTimeLeft(index)}
-              />
-            );
-          })}
+          {auctionData.map((product, index) => (
+            <AuctionCard
+              key={product._id}
+              image={product.image}
+              title={product.title}
+              artist={product.artist}
+              price={
+                typeof bids[product._id] === "number"
+                  ? bids[product._id]
+                  : "Loading..."
+              }
+              linkUrl={`/auction/${product._id}`}
+              timeLeft={updateTimeLeft(index)}
+              productId={product._id}
+            />
+          ))}
         </Stack>
         {/* ButtonSubmit */}
         <div className="w-[30%] lg:w-[15%] hover:scale-120 transition-all duration-900 ease-in-out">

@@ -17,6 +17,8 @@ function Cart() {
   const navigate = useNavigate()
   const { cartItems, setCartItems } = useCart();  //From Cart Context
 
+  
+
   //Get cart items from Cart Database
   useEffect(() => {
     const fetchCartItem = async () => {
@@ -45,8 +47,7 @@ function Cart() {
   //Remove item from CartDB
   async function onDelete(productId) {
     try {
-      await axios.delete(`${baseURL}/api/cart-delete/${productId}`, { withCredentials: true });
-
+      await axios.delete(`${baseURL}/api/cart-delete/${productId._id}`, { withCredentials: true });
       //update local cart
       const updatedcartItems = cartItems.filter(item => item.productId !== productId)
       setCartItems(updatedcartItems);
@@ -72,7 +73,7 @@ function Cart() {
         </p>
       </header>
       <main className="flex max-md:flex-col-reverse justify-start w-full max-md:gap-[16px]">
-        <section className="flex md:flex-col gap-[16px] w-[100%] md:w-[30%] min-w-[240px] items-center overflow-y-auto scrollbar-hide max-h-[1100px] p-[8px] bg-[#E9E2D6] rounded-tl-lg rounded-bl-lg">
+        <section className="flex md:flex-col gap-[16px] w-[100%] md:w-[40%] min-w-[240px] items-center overflow-y-auto scrollbar-hide max-h-[1100px] p-[8px] pt-[32px] bg-[#E9E2D6] rounded-tl-lg rounded-bl-lg">
         {cartItems.map((product)=>(
             <ProductCard onDelete={() => onDelete(product.productId)} wantDelete={true}  elevation={3} image={product.image}  title={product.title} artist={product.artist} price={product.price}/>
           ))}
@@ -83,19 +84,19 @@ function Cart() {
         <Typography sx={{ width:"100%", color: "primary.main" , fontWeight:600, fontSize: "1.5rem"}}>Order Summary</Typography>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Sub total</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${sumPrices}</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${sumPrices ? sumPrices.toLocaleString("en-Us", { minimumFractionDigits: 2 }) : "0.00"}</Typography>
         </div>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Shipping</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${shipping}</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${shipping ? shipping.toLocaleString("en-Us", { minimumFractionDigits: 2 }) : "0.00"}</Typography>
         </div>
         <div className='flex justify-between gap-[24px] border-b-2'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Tax</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${tax}</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${tax ? tax.toLocaleString("en-Us", { minimumFractionDigits: 2 }) : "0.00"}</Typography>
         </div>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Total</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${totalPrices}</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${totalPrices ? totalPrices.toLocaleString("en-Us", { minimumFractionDigits: 2 }) : "0.00"}</Typography>
         </div>
         </Paper>
         <HorizontalLinearStepper setShipcost={setShipcost} cartItems={cartItems} totalPrices={totalPrices} shipCost={shipping} tax={tax}/>

@@ -45,10 +45,10 @@ function MyOrderPage() {
     data.forEach((order) => {
       //get total spend
 
-      sumtotalSpend += order.totalPrice[0];
 
       //get completed and pending order amount
-      if (order.status === "Deliver") {
+      if (order.status === "delivered") {
+        sumtotalSpend += order.totalPrice[0];
         sumCompleted += 1;
       } else {
         sumPending += 1;

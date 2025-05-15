@@ -1,11 +1,14 @@
 import Walk from "./Walk";
 import Music from "./Music";
-import * as React from 'react';
+import React, {useState, useEffect} from 'react'
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
+import axios from "axios";
+import baseURL from "../service/api.js";
+
 
 
 
@@ -14,6 +17,36 @@ export default function TransitionsModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+const [collectionData, setCollectionData] = useState([]);
+
+  async function getData() {
+    try {
+      //fixed price product
+      const productData = await axios.get(`${baseURL}/api/product-get`,{
+          withCredentials: true,
+        });
+      setCollectionData(productData.data.allProduct|| []);
+
+      //auction product
+      // const auctionData = await axios.get(`${baseURL}/api/product-get-auction`,{
+      //     withCredentials: true,
+      //   });
+      // setAuctionData(auctionData.data.allAuctionProduct || []);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+
+
+
+
+
 
   return (
     <div >
@@ -37,7 +70,7 @@ export default function TransitionsModal() {
         <Fade in={open}>
           <div>
           <Music />
-          <Walk/>
+          <Walk pic={collectionData}/>
           </div>
         </Fade>
       </Modal>

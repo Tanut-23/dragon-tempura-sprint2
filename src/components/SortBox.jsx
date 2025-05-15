@@ -47,14 +47,13 @@ function SortBox() {
   const searchedProducts = products.filter(product => {
     const keyword = searchKeyword.toLowerCase();
     return (
-      product.title.toLowerCase().includes(keyword) ||
-      product.artist.toLowerCase().includes(keyword)
+      (product.title && product.title.toLowerCase().includes(keyword)) ||
+      (product.artist && product.artist.toLowerCase().includes(keyword))
     )
-  })
+  });
 
 
   const selectData = [...searchedProducts].sort((sortMethods[sortState]).method);
-  console.log(selectData);
   return (
     <div className='flex flex-col gap-[16px] w-full'>
     <div className='flex flex-col sm:flex-row gap-4 sm:gap-0 justify-between'>
