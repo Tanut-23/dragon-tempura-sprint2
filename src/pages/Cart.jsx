@@ -17,7 +17,6 @@ function Cart() {
   const navigate = useNavigate()
   const { cartItems, setCartItems } = useCart();  //From Cart Context
 
-  
 
   //Get cart items from Cart Database
   useEffect(() => {
