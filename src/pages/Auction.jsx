@@ -91,6 +91,10 @@ function AuctionFormBlock({
   addProductToDB,
   removeProductFromDB,
 }) {
+  const { openLoginPopup } = useAuth();
+  const handleLogin = () => {
+    openLoginPopup();
+   }
   return (
     <div className="bg-[#f9f7f3] rounded-lg shadow-md p-6 mb-6 border border-[#e9e2d6] hover:scale-102 hover:duration-700 duration-700">
       <div className="flex items-center mb-3">
@@ -156,7 +160,7 @@ function AuctionFormBlock({
       ) : (
         <p className="text-sm text-red-700 mt-2">
           Please{" "}
-          <Link to="/login" className="underline font-bold">
+          <Link onClick={handleLogin} className="underline font-bold">
             login{" "}
           </Link>
           to place a bid.

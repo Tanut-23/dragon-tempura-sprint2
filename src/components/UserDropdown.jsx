@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@mui/material";
 
@@ -10,7 +10,11 @@ const UserDropdown = () => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
  
-
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  }
   const toggleDropdown = () => setDropdownOpen((prev) => !prev);
   const closeDropdown = () => setDropdownOpen(false);
   const closeDropdownDisable = () => {
@@ -92,7 +96,7 @@ const UserDropdown = () => {
             </li>
             <li>
               <Button
-                onClick={logout}
+                onClick={handleLogout}
                 fullWidth
                 sx={{ color: "white" , bgcolor: "transparent" , "&:hover": { bgcolor: "red" } }}
               >
