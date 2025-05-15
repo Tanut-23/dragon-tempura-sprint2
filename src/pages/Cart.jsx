@@ -84,19 +84,19 @@ function Cart() {
         <Typography sx={{ width:"100%", color: "primary.main" , fontWeight:600, fontSize: "1.5rem"}}>Order Summary</Typography>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Sub total</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${sumPrices}</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${sumPrices ? sumPrices.toLocaleString("en-Us", { minimumFractionDigits: 2 }) : "0.00"}</Typography>
         </div>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Shipping</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${shipping}</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${shipping ? shipping.toLocaleString("en-Us", { minimumFractionDigits: 2 }) : "0.00"}</Typography>
         </div>
         <div className='flex justify-between gap-[24px] border-b-2'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Tax</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${tax}</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${tax ? tax.toLocaleString("en-Us", { minimumFractionDigits: 2 }) : "0.00"}</Typography>
         </div>
         <div className='flex justify-between gap-[24px]'>
         <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>Total</Typography>
-        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${totalPrices}</Typography>
+        <Typography sx={{ width: "full", color: "primary.main" , fontWeight:"medium", fontSize: "1.2rem",}}>${totalPrices ? totalPrices.toLocaleString("en-Us", { minimumFractionDigits: 2 }) : "0.00"}</Typography>
         </div>
         </Paper>
         <HorizontalLinearStepper setShipcost={setShipcost} cartItems={cartItems} totalPrices={totalPrices} shipCost={shipping} tax={tax}/>
