@@ -6,7 +6,7 @@ function Hero() {
     <div style={{ position: "relative" }}>
       <Box
         component="img"
-        src="https://images.unsplash.com/photo-1688589935456-191f352db55b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bGFuZHNjYXBlJTIwcGFpbnRpbmd8ZW58MHx8MHx8fDA%3D"
+        src="./productPicture/HeroSectionSky.png"
         alt="Description"
         sx={{
           height: "100vh",
@@ -19,15 +19,12 @@ function Hero() {
       <Box
         sx={{
           position: "absolute",
-
           width: "90vw",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-
           color: "#62483a",
           padding: "20px",
-
           maxWidth: "100%",
         }}
       >

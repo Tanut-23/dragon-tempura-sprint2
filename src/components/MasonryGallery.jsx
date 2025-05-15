@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 // import products from "../../data/products";
 
 const ProductCard = ({ product }) => {
+  const priceValue = Number(product.price);
   return (
     <div className="relative group overflow-hidden shadow-md shadow-gray-700 hover:shadow-lg transition-shadow duration-300">
      <Link to={`/product/${product._id}`}>
@@ -21,7 +22,7 @@ const ProductCard = ({ product }) => {
               By {product.artist}
             </p>
             <p className="text-base font-medium mb-4">
-              ${product.price.toLocaleString()}
+              ${priceValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}
             </p>
           </div>
         </div>

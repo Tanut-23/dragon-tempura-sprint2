@@ -98,7 +98,7 @@ export default function Register({ onClose, switchToLogin }) {
       }}
     >
       <div class="flex flex-col justify-center items-center gap-[8px]">
-        <img src="logo/logo.png" className="w-[60px] pb-[12px]" />
+        <img src="https://res.cloudinary.com/dnkaoicoo/image/upload/v1747275164/u1qjduxtlkxl1e9bl4tw.png" className="w-[60px] pb-[12px]" />
         <Typography
           sx={{
             fontSize: "1.5rem",

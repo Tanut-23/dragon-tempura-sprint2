@@ -6,8 +6,10 @@ import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import { useCart } from "../contexts/CartContext";
 import axios from "axios";
 import baseURL from "../../service/api";
+import { useAuth } from "../contexts/AuthContext";
 
 function ProductPage() {
+  const { user, openLoginPopup } = useAuth();
   const [product, setProduct] = useState(null);
   const [isInCartDB, setIsInCartDB] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -34,25 +36,17 @@ function ProductPage() {
     fetchProduct();
   }, [productId]);
 
-  
-
   // Update `isInCartDB` whenever `product` or `cartItems` change
   useEffect(() => {
     if (product && cartItems) {
-      const isInCart = cartItems.some((item) => item.productId._id === product._id);
-      // console.log(cartItems[0]?.productId._id);
+      const isInCart = cartItems.some(
+        (item) => item.productId._id === product._id
+      );
       setIsInCartDB(isInCart);
     } else {
       setIsInCartDB(false);
     }
-  }, [cartItems , product]);
-
-  //Check if this product is already in cart
-  // useEffect(() => {
-  //   if (product) {
-  //     setIsInCartDB(cartItems?.some((item) => item.productId == product._id));
-  //   }
-  // }, [cartItems, product]);
+  }, [cartItems, product]);
 
   //Add product to cart in Database
   const addProductToDB = async (product) => {
@@ -67,10 +61,6 @@ function ProductPage() {
           quantity: 1,
         },
       };
-      console.log(
-        "Payload being sent to backend:",
-        JSON.stringify(newProduct, null, 2)
-      );
 
       await axios.post(`${baseURL}/api/cart-add`, newProduct, {
         withCredentials: true,
@@ -118,6 +108,10 @@ function ProductPage() {
     );
   }
 
+  const priceValue = Number(product.price);
+
+  console.log(priceValue)
+  
   return (
     <main className="bg-[#f2eee7]">
       <div className="px-4 py-6 max-w-7xl mx-auto xl:px-12 2xl:px-20">
@@ -142,7 +136,7 @@ function ProductPage() {
             </h1>
             <p className="mb-6">By {product.artist}</p>
             <p className="text-2xl font-semibold mb-8">
-              ${product.price.toLocaleString()}
+              ${priceValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}
             </p>
 
             <div className="mb-8">
@@ -168,7 +162,8 @@ function ProductPage() {
                   {product.material}
                 </p>
                 <p>
-                  <span className="font-semibold">Year:</span> {product.year}
+                  <span className="font-semibold">Year:</span>{" "}
+                  {product.yearCreated}
                 </p>
               </div>
             </div>
@@ -177,6 +172,9 @@ function ProductPage() {
               width="100%"
               label={isInCartDB ? "Remove from Cart" : "Add to Cart"}
               onClick={() => {
+                if (!user) {
+                  openLoginPopup();
+                }
                 if (isInCartDB) {
                   removeProductFromDB(product);
                 } else {
