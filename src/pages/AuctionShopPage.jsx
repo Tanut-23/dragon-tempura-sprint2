@@ -5,7 +5,6 @@ import BreadcrumbsNav from "../components/BreadcrumbsNav";
 export default function AuctionShopPage() {
   const links = [
     { label: "Home", to: "/" },
-    { label: "Collections", to: "/mainshop" },
   ];
 
   return (

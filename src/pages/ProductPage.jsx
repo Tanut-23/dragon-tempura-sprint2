@@ -18,7 +18,6 @@ function ProductPage() {
   const links = [
     { label: "Home", to: "/" },
     { label: "Collections", to: "/mainshop" },
-    { label: "Type", to: "/shoppage" },
   ];
   const { productId } = useParams();
 

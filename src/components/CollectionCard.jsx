@@ -12,7 +12,7 @@ export default function CollectionCard({
   height = "100%",
   image1 = "",
   name = "",
-  detail = "Explore Collection.",
+  detail = "Explore Collection",
   linkURL = "https://www.google.com/",
   altDetail = "",
   prices = false,
@@ -68,12 +68,12 @@ export default function CollectionCard({
               gutterBottom
               variant="h6"
               component="div"
-              sx={{ color: "#ffffff", fontWeight: "bold", mb: "16px" }}
+              sx={{ color: "#ffffff", fontWeight: "bold", mb: "8px" }}
             >
               {name}
             </Typography>
             <Typography variant="body2" sx={{ color: "#ffffff", mb: "16px" }}>
-              By {detail}
+              {detail}
             </Typography>
             {prices && (
               <Typography variant="body2" sx={{ color: "#ffffff", mb: "16px" }}>
