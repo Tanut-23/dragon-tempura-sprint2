@@ -9,6 +9,7 @@ import React,{useEffect, useState} from  'react';
 import axios from 'axios';
 import { useCart } from '../contexts/CartContext';
 import baseURL from '../../service/api';
+import BreadcrumbsNav from "../components/BreadcrumbsNav";
 
 
 function Cart() {
@@ -16,6 +17,11 @@ function Cart() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
   const { cartItems, setCartItems } = useCart();  //From Cart Context
+  
+  const links = [
+    { label: "Home", to: "/" },
+    { label: "Collections", to: "/mainshop" },
+  ];
 
 
   //Get cart items from Cart Database
@@ -64,7 +70,9 @@ function Cart() {
 
 
   return (
-    <div className="bg-[#F0E0D0] w-[100vw] flex flex-col items-center px-[10%] pt-[32px]">
+    <div className="bg-[#F0E0D0] w-[100vw]  items-center px-[10%] pt-[32px]">
+      <BreadcrumbsNav links={links} currentPage="Cart"/>
+      <div className="bg-[#F0E0D0]  flex flex-col items-center px-[10%] pt-[32px]">
       <header className="flex flex-col gap-[16px] pb-[24px]">
         <h1 className="mx-auto text-[3rem] font-thin tracking-wide">Your Collection</h1>
         <p className="mx-auto text-[2rem] font-thin text-[#62483A] tracking-wide">
@@ -101,6 +109,7 @@ function Cart() {
         <HorizontalLinearStepper setShipcost={setShipcost} cartItems={cartItems} totalPrices={totalPrices} shipCost={shipping} tax={tax}/>
         </div>
       </main>
+    </div>
     </div>
   );
 }
