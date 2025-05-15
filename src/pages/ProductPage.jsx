@@ -109,7 +109,7 @@ function ProductPage() {
 
   const priceValue = Number(product.price);
 
-
+  console.log("Product:", product.image);
   return (
     <main className="bg-[#f2eee7]">
       <div className="px-4 py-6 max-w-7xl mx-auto xl:px-12 2xl:px-20">
