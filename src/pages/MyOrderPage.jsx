@@ -61,17 +61,20 @@ function MyOrderPage() {
   }, [data]);
 
   return (
-    <div className="bg-[#e9e2d6] w-[100vw] px-4 py-2">
-      <BreadcrumbsNav links={links} currentPage="My Orders" />
+    <div className="bg-[#e9e2d6] w-full ">
+      <div className="bg-[#e9e2d6] w-full px-2 py-2">
+        <BreadcrumbsNav links={links} currentPage="My Orders" />
+      </div>
+
       <Box
         sx={{
-          width: "100vw", // ให้มีความกว้างเต็มจอ
+          width: "99vw",
           backgroundColor: "#e9e2d6",
           py: 4,
         }}
       >
         {/* <!-- Header --> */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 header-border pb-4 px-8 md:px-10 lg:px-12 xl:px-18 2xl:px-22">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-12 header-border pb-4 md:px-4 lg:px-6 xl:px-8 2xl:px-14">
           <h1 class="text-4xl font-light text-chocolate section-title mb-4 md:mb-0 text-[#62483a]">
             My Orders
           </h1>
@@ -90,7 +93,7 @@ function MyOrderPage() {
         </div>
 
         {/* <!--  Stats Cards --> */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 px-4 md:px-10 lg:px-12 xl:px-18 2xl:px-22">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 px-4 md:px-4 lg:px-6 xl:px-8 2xl:px-12">
           <StatsCard title="total order" value={totalOrder} fontSize={{}} />
           <StatsCard title="COMPLETED" value={completed} />
           <StatsCard title="pending" value={pending} />
@@ -103,7 +106,7 @@ function MyOrderPage() {
         </div>
 
         {/* <!-- Orders List --> */}
-        <div className="grid grid-cols-1 mb-8  px-4 md:px-10 lg:px-12 xl:px-18 2xl:px-22  ">
+        <div className="grid grid-cols-1 mb-8  px-2 md:px-4 lg:px-6 xl:px-8 2xl:px-10  ">
           <h2 class="text-2xl text-[#62483a] font-light section-title mb-6">
             Recent Orders
           </h2>
