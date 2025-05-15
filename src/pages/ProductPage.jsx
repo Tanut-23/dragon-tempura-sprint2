@@ -6,8 +6,10 @@ import YouMayAlsoLike from "../components/YouMayAlsoLike";
 import { useCart } from "../contexts/CartContext";
 import axios from "axios";
 import baseURL from "../../service/api";
+import { useAuth } from "../contexts/AuthContext";
 
 function ProductPage() {
+  const { user, openLoginPopup } = useAuth();
   const [product, setProduct] = useState(null);
   const [isInCartDB, setIsInCartDB] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -34,18 +36,18 @@ function ProductPage() {
     fetchProduct();
   }, [productId]);
 
-  
-
   // Update `isInCartDB` whenever `product` or `cartItems` change
   useEffect(() => {
     if (product && cartItems) {
-      const isInCart = cartItems.some((item) => item.productId._id === product._id);
+      const isInCart = cartItems.some(
+        (item) => item.productId._id === product._id
+      );
       // console.log(cartItems[0]?.productId._id);
       setIsInCartDB(isInCart);
     } else {
       setIsInCartDB(false);
     }
-  }, [cartItems , product]);
+  }, [cartItems, product]);
 
   //Check if this product is already in cart
   // useEffect(() => {
@@ -67,10 +69,6 @@ function ProductPage() {
           quantity: 1,
         },
       };
-      console.log(
-        "Payload being sent to backend:",
-        JSON.stringify(newProduct, null, 2)
-      );
 
       await axios.post(`${baseURL}/api/cart-add`, newProduct, {
         withCredentials: true,
@@ -168,7 +166,8 @@ function ProductPage() {
                   {product.material}
                 </p>
                 <p>
-                  <span className="font-semibold">Year:</span> {product.year}
+                  <span className="font-semibold">Year:</span>{" "}
+                  {product.yearCreated}
                 </p>
               </div>
             </div>
@@ -177,6 +176,9 @@ function ProductPage() {
               width="100%"
               label={isInCartDB ? "Remove from Cart" : "Add to Cart"}
               onClick={() => {
+                if (!user) {
+                  openLoginPopup();
+                }
                 if (isInCartDB) {
                   removeProductFromDB(product);
                 } else {
