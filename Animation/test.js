@@ -2,4 +2,4 @@ const test = [<img src="Animation\Asset\roombg.png" className='absolute'/>, <img
 
 const room1 = <>{test[0]}  {test[1]}</>;
 
-console.log(room1);
+(room1);
