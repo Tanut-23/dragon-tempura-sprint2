@@ -88,10 +88,10 @@ const navigate = useNavigate()
 useEffect(() => {
     if (activeStep === 3) {
       addOrdertoDB(inputToDB);
+      navigate('/myorder');
       setCartItems([])
       deleteCartAfertOrder();
       alert("Your purchase was successful. Thank you for choosing Collectico!");
-      navigate('/mainshop');
     }
   }, [activeStep]);
 
@@ -186,20 +186,20 @@ useEffect(() => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSkip = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
+  // const handleSkip = () => {
+  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  //   setSkipped((prevSkipped) => {
+  //     const newSkipped = new Set(prevSkipped.values());
+  //     newSkipped.add(activeStep);
+  //     return newSkipped;
+  //   });
+  // };
 
   const handleReset = () => {
     setActiveStep(0);
   };
 
-  const nextLabel = activeStep === steps.length - 1 ? "Finish" : "Next";
+  const nextLabel = activeStep === steps.length - 1 ? "Purchase" : "Next";
 
 // Mate want to talk with DB. Can He?
 
@@ -290,9 +290,9 @@ const addOrdertoDB = async (inputToDB) => {
               label="Back"
             />
             <Box sx={{ flex: "1 1 auto" }} />
-            {activeStep < steps.length - 1 && (
+            {/* {activeStep < steps.length - 1 && (
               <ButtonSubmit onClick={handleSkip} label="Skip" />
-            )}
+            )} */}
             <ButtonSubmit onClick={handleNext} ml="16px" label={nextLabel} />
           </Box>
           {/* <ButtonSubmit onClick={() => {addOrdertoDB(inputToDB);}} ml="16px" mt="24px" label="Post" /> */}

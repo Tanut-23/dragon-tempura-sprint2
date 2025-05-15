@@ -36,8 +36,8 @@ function AuctionSort() {
     none: { method: () => 0 },
     AZ: { method: (a, b) => a.title.localeCompare(b.title) },
     ZA: { method: (a, b) => b.title.localeCompare(a.title) },
-    HL: { method: (a, b) => b.price - a.price },
-    LH: { method: (a, b) => a.price - b.price },
+    // HL: { method: (a, b) => b.price - a.price },
+    // LH: { method: (a, b) => a.price - b.price },
   };
 
   // FILTER BY KEYWORD (SEARCH)
@@ -64,8 +64,8 @@ function AuctionSort() {
           {/* <option value="none" disabled>None</option> */}
           <option value="AZ">A-Z</option>
           <option value="ZA">Z-A</option>
-          <option value="HL">Price: high to low</option>
-          <option value="LH">Price: low to high</option>
+          {/* <option value="HL">Price: high to low</option>
+          <option value="LH">Price: low to high</option> */}
         </select>
       </div>
       <AuctionGallery products={selectData} />
