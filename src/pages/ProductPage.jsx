@@ -119,7 +119,7 @@ function ProductPage() {
           {/* Product image */}
           <div className="md:w-1/2 xl:max-w-[600px]">
             <div className="shadow-md shadow-gray-700 overflow-hidden">
-              <imgs
+              <img
                 src={product.image}
                 alt={product.title}
                 className="w-full h-auto object-cover"
