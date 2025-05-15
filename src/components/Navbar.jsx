@@ -51,7 +51,7 @@ function Navbar() {
           <div className="flex items-center justify-center w-full">
             <Link to="/">
               <img
-                src="./logo/logo.png"
+                src="https://res.cloudinary.com/dnkaoicoo/image/upload/v1747275164/u1qjduxtlkxl1e9bl4tw.png"
                 alt="Collectico Logo"
                 className="w-7 h-7"
               />
@@ -154,7 +154,7 @@ function Navbar() {
             <div className="flex items-center pl-4">
               <Link to="/">
                 <img
-                  src="./logo/logo.png"
+                  src="https://res.cloudinary.com/dnkaoicoo/image/upload/v1747275164/u1qjduxtlkxl1e9bl4tw.png"
                   alt="Collectico Logo"
                   className="w-10 h-10"
                 />

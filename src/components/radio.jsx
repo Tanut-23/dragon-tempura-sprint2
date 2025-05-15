@@ -38,7 +38,7 @@ const RadioButtonExample = ({setShippig}) => {
       Secure packaging without installation service (10-14 business days)
     </Typography>} />
     <Typography sx={{ color: "text.secondary", fontSize: "1rem",padding: "16px 0 16px 0"}}>
-     $150
+     $150.00
     </Typography></div>
     <div className="flex gap-[24px] justify-between">
     <FormControlLabel value="Premium" control={<Radio />} label={
@@ -48,7 +48,7 @@ const RadioButtonExample = ({setShippig}) => {
       Professional art handling with installation service (7-10 business days)
     </Typography>} />
     <Typography sx={{ color: "text.secondary", fontSize: "1rem",padding: "16px 0 16px 0"}}>
-     $350
+     $350.00
     </Typography></div>
     <div className="flex gap-[24px] justify-between">
     <FormControlLabel value="Expedited" control={<Radio />} label={
@@ -58,7 +58,7 @@ const RadioButtonExample = ({setShippig}) => {
       Priority handling with installation service (3-5 business days)
     </Typography>} />
     <Typography sx={{ color: "text.secondary", fontSize: "1rem",padding: "16px 0 16px 0"}}>
-     $500
+     $500.00
     </Typography></div>
     </RadioGroup>
     </FormControl>
