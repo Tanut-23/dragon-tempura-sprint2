@@ -3,7 +3,6 @@ import { Box, Typography, Button, Chip, Divider } from "@mui/material";
 import StatusTag from "./StatusTag";
 import { useState } from "react";
 import OrderDetailsPopup from "./OrderDetailsPopup";
-// import mockOrderDetails from "../../data/mockOrderDetails";
 
 export default function OrderCard({
   orderNumber,
@@ -14,12 +13,10 @@ export default function OrderCard({
   shippingAddressName,
   shippingAddressAddress,
   shippingAddressCity,
-  items
+  items,
 }) {
   const [showOrderDetails, setShowOrderDetails] = useState(true);
   const date = new Date(orderDate).toLocaleString();
-  // console.log("date",date);
-  // console.log("orderdate",orderDate);
 
   return (
     <Box
@@ -28,9 +25,9 @@ export default function OrderCard({
         backgroundColor: "white",
         borderRadius: 2,
         boxShadow: 1,
-        p: 3,
+        p: 2,
         mb: 3,
-        width: "100%",
+        width: "95vw",
         transition: "0.3s",
         "&:hover": {
           boxShadow: 3,
@@ -45,26 +42,38 @@ export default function OrderCard({
       >
         <Box mb={{ xs: 2, lg: 0 }}>
           <Box display="flex" alignItems="center" gap={1} mb={1}>
-            <Typography variant="h6">Order NO. #{orderNumber}</Typography>
-            {/* <Chip
-              label={status}
-              size="small"
+            <Typography
               sx={{
-                backgroundColor: statusColor,
-                color: statusColor,
-                fontWeight: 500,
+                fontSize: {
+                  xs: "0.9rem",
+                  md: "1.2rem",
+                  lg: "1.2rem",
+                },
               }}
-            /> */}
-
+              variant="h7"
+              fontWeight="600"
+            >
+              Order NO. #{orderNumber}
+            </Typography>
             <StatusTag statusTag={status} />
           </Box>
-          <Typography>Order Date: {date}</Typography>
+          <Typography
+            sx={{ fontSize: { xs: "0.9rem" } }}
+            variant="h7"
+            fontWeight="400"
+          >
+            Order Date: {date}
+          </Typography>
         </Box>
 
         <Box display="flex" flexDirection="column" alignItems="flex-end">
-          <Typography variant="h6">${totalAmount.toLocaleString('en-US',{
-  minimumFractionDigits: 2})}</Typography>
-          <Typography variant="body2" fontWeight="500">
+          <Typography sx={{ fontSize: { xs: "0.9rem" } }} variant="h6">
+            $
+            {totalAmount.toLocaleString("en-US", {
+              minimumFractionDigits: 2,
+            })}
+          </Typography>
+          <Typography variant="body2" fontWeight="100">
             {paymentStatus}
           </Typography>
         </Box>
