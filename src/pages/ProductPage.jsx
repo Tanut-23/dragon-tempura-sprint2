@@ -109,8 +109,7 @@ function ProductPage() {
 
   const priceValue = Number(product.price);
 
-  console.log(priceValue)
-  
+
   return (
     <main className="bg-[#f2eee7]">
       <div className="px-4 py-6 max-w-7xl mx-auto xl:px-12 2xl:px-20">
@@ -120,7 +119,7 @@ function ProductPage() {
           {/* Product image */}
           <div className="md:w-1/2 xl:max-w-[600px]">
             <div className="shadow-md shadow-gray-700 overflow-hidden">
-              <img
+              <imgs
                 src={product.image}
                 alt={product.title}
                 className="w-full h-auto object-cover"
