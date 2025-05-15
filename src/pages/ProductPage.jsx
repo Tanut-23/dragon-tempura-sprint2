@@ -42,19 +42,11 @@ function ProductPage() {
       const isInCart = cartItems.some(
         (item) => item.productId._id === product._id
       );
-      // console.log(cartItems[0]?.productId._id);
       setIsInCartDB(isInCart);
     } else {
       setIsInCartDB(false);
     }
   }, [cartItems, product]);
-
-  //Check if this product is already in cart
-  // useEffect(() => {
-  //   if (product) {
-  //     setIsInCartDB(cartItems?.some((item) => item.productId == product._id));
-  //   }
-  // }, [cartItems, product]);
 
   //Add product to cart in Database
   const addProductToDB = async (product) => {
@@ -116,6 +108,10 @@ function ProductPage() {
     );
   }
 
+  const priceValue = Number(product.price);
+
+  console.log(priceValue)
+  
   return (
     <main className="bg-[#f2eee7]">
       <div className="px-4 py-6 max-w-7xl mx-auto xl:px-12 2xl:px-20">
@@ -140,7 +136,7 @@ function ProductPage() {
             </h1>
             <p className="mb-6">By {product.artist}</p>
             <p className="text-2xl font-semibold mb-8">
-              ${product.price.toLocaleString()}
+              ${priceValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}
             </p>
 
             <div className="mb-8">

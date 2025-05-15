@@ -19,6 +19,7 @@ export default function CollectionCardLanding({
   minHeightImage = "350px",
   ...prop
 }) {
+  const pricesValue = Number(prices);
   return (
     <Card
       sx={{
@@ -84,13 +85,13 @@ export default function CollectionCardLanding({
               <Typography variant="body2" sx={{ color: "#ffffff", mb: "16px" }}>
                 By {detail}
               </Typography>
-              {prices && (
+              {pricesValue && (
                 <Typography
                   variant="body2"
                   sx={{ color: "#ffffff", mb: "16px" }}
                 >
                   $
-                  {prices.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                  {pricesValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}
                 </Typography>
               )}
             </CardContent>

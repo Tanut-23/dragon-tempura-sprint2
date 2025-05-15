@@ -6,7 +6,7 @@ function Hero() {
     <div style={{ position: "relative" }}>
       <Box
         component="img"
-        src="./public/productPicture/HeroSectionSky.png"
+        src="./productPicture/HeroSectionSky.png"
         alt="Description"
         sx={{
           height: "100vh",
