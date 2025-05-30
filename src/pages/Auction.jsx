@@ -70,7 +70,7 @@ function CurrentBidBlock({ bidCurrent, highestBidGuy }) {
         <div className="text-sm text-[#757575]">
           {highestBidGuy.length > 0
             ? `Highest Bidder: ${highestBidGuy[0].firstName} ${highestBidGuy[0].lastName}`
-            : "Starting Bid Price: $1"}
+            : "No one has placed a bid yet."}
         </div>
       </div>
     </div>
@@ -219,6 +219,7 @@ function AuctionHistoryBlock({ historyBid }) {
   );
 }
 
+// --- Main Page ---
 export default function AuctionPage() {
   const { auctionId } = useParams();
   const [timeLeft, setTimeLeft] = useState(null);
@@ -230,6 +231,7 @@ export default function AuctionPage() {
   const [isAuctionEnded, setIsAuctionEnded] = useState(false);
   const { cartItems, setCartItems } = useCart();
   const [isInCartDB, setIsInCartDB] = useState(false);
+  const [serverTime, setServerTime] = useState(null);
 
   const links = [
     { label: "Home", to: "/" },
@@ -237,20 +239,35 @@ export default function AuctionPage() {
   ];
 
   useEffect(() => {
-    if (!auctionData) return;
+    const fetchServerTime = async () => {
+      try {
+        const res = await fetch(`${baseURL}/api/server-time`);
+        const data = await res.json();
+        setServerTime(data.serverTime);
+      } catch (err) {
+        console.error("Error fetching server time:", err);
+      }
+    };
+    fetchServerTime();
+  }, []);
+
+  useEffect(() => {
+    if (!auctionData || !serverTime) return;
+    let offset = 0;
     const updateTimeLeft = () => {
-      const now = new Date();
-      const end = new Date(auctionData.auction.endDate);
+      const end = new Date(auctionData.auction.endDate).getTime();
+      const now = Number(serverTime) + offset;
       const diff = end - now;
       setTimeLeft(Math.max(0, diff));
       setIsAuctionEnded(diff <= 0);
+      offset += 1000;
     };
 
     updateTimeLeft();
     const timer = setInterval(updateTimeLeft, 1000);
 
     return () => clearInterval(timer);
-  }, [auctionData]);
+  }, [auctionData, serverTime]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -268,6 +285,15 @@ export default function AuctionPage() {
   useEffect(() => {
     socket.current = io(`${baseURL}`);
     return () => socket.current.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!socket.current) return;
+    const handleBidError = (data) => {
+      setErrorMessage(data.message + (data.detail ? `: ${data.detail}` : ""));
+    };
+    socket.current.on("bidError", handleBidError);
+    return () => socket.current.off("bidError", handleBidError);
   }, []);
 
   useEffect(() => {
@@ -294,25 +320,28 @@ export default function AuctionPage() {
     return () => socket.current?.off("newBid", fetchBidHistory);
   }, [auctionId]);
 
-  const bidCurrent = Math.max(...historyBid.map((b) => b.amount), 0);
+  const bidCurrent =
+    historyBid.length > 0
+      ? Math.max(...historyBid.map((b) => b.amount), 0)
+      : auctionData?.minBidPrice || 1;
   const highestBidGuy = [...historyBid].sort((a, b) => b.amount - a.amount);
 
   const bidButton = (event) => {
     event.preventDefault();
     const bidUser = Number(bid);
 
-    // if (bidUser <= bidCurrent) {
-    //   setErrorMessage(
-    //     `Bid price must be greater than $${bidCurrent.toLocaleString()}`
-    //   );
-    //   return;
-    // }
+    if (bidUser <= bidCurrent) {
+      setErrorMessage(
+        `Bid price must be greater than $${bidCurrent.toLocaleString()}`
+      );
+      return;
+    }
 
-    // const magicNumber = 999999999999995;
-    // if (bidUser > magicNumber) {
-    //   setErrorMessage(`Bid price must be lower than one quadrillion.`);
-    //   return;
-    // }
+    const magicNumber = 999999999999995;
+    if (bidUser > magicNumber) {
+      setErrorMessage(`Bid price must be lower than one quadrillion.`);
+      return;
+    }
 
     const productId = auctionId;
     const userId = user?._id;
@@ -400,6 +429,7 @@ export default function AuctionPage() {
             <CurrentBidBlock
               bidCurrent={bidCurrent}
               highestBidGuy={highestBidGuy}
+              minBidPrice={auctionData?.minBidPrice}
             />
             <AuctionFormBlock
               isAuctionEnded={isAuctionEnded}
