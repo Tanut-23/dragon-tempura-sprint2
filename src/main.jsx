@@ -26,8 +26,10 @@ import MissionPage from "./pages/MissionPage.jsx";
 import MeetTeamMemberPage from "./pages/MeetTeamMemberPage.jsx";
 import FinancialReportingPage from "./pages/FinancialReportingPage.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
+import { WishlistProvider } from "./contexts/WishlistContext.jsx";
 import OurStoryPage from "./pages/OurStoryPage.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
+import Wishlist from "./pages/Wishlist.jsx";
 
 const theme = createTheme({
   palette: {
@@ -98,6 +100,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+       {
+        path: "/wishlist",
+        element: (
+          <ProtectedRoute>
+            <Wishlist />
+          </ProtectedRoute>
+        ),
+      },
       {
         path: "/myorder",
         element: (
@@ -126,6 +136,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
+    <WishlistProvider>
     <AuthProvider>
       <CartProvider>
         <App>
@@ -133,5 +144,6 @@ createRoot(document.getElementById("root")).render(
         </App>
       </CartProvider>
     </AuthProvider>
+    </WishlistProvider>
   </ThemeProvider>
 );

@@ -11,7 +11,6 @@ import { useCart } from '../contexts/CartContext';
 import baseURL from '../../service/api';
 import BreadcrumbsNav from "../components/BreadcrumbsNav";
 
-
 function Cart() {
   const [shipCost, setShipcost] = useState();
   const [loading, setLoading] = useState(true);

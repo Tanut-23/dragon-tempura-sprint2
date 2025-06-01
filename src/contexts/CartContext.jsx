@@ -1,4 +1,3 @@
-// contexts/CartContext.js
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import baseURL from "../../service/api";
@@ -8,7 +7,6 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  //Get cart items from Cart Database
   const fetchCartItem = async () => {
     try {
       const res = await axios.get(`${baseURL}/api/cart-get`, {
@@ -22,30 +20,13 @@ export const CartProvider = ({ children }) => {
   };
 
   useEffect(() => {
-      fetchCartItem();
-    }, []);
-
-  // const toggleCartItem = (product) => {
-  //   setCartItems((currentCarts) => {
-  //     const exists = currentCarts.find((item) => item.title === product.title);
-  //     if (exists) {
-  //       return currentCarts.filter((item) => item.title !== product.title);
-  //     } else {
-  //       return [...currentCarts, product];
-  //     }
-  //   });
-  // };
-
-  // const isInCart = (productTitle) => {
-  //   return cartItems.find((item) => item.title === productTitle);
-  // };
+    fetchCartItem();
+  }, []);
 
   const cartCount = cartItems.length;
 
   return (
-    <CartContext.Provider
-      value={{ cartItems, setCartItems, cartCount }}
-    >
+    <CartContext.Provider value={{ cartItems, setCartItems, cartCount }}>
       {children}
     </CartContext.Provider>
   );

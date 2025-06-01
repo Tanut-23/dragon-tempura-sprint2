@@ -7,14 +7,16 @@ import { useCart } from "../contexts/CartContext";
 import axios from "axios";
 import baseURL from "../../service/api";
 import { useAuth } from "../contexts/AuthContext";
+import { useWishlist } from "../contexts/WishlistContext";
 
 function ProductPage() {
   const { user, openLoginPopup } = useAuth();
   const [product, setProduct] = useState(null);
-  const [isInCartDB, setIsInCartDB] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  const { cartItems, setCartItems } = useCart(); //From Cart Context
+  const [isInCartDB, setIsInCartDB] = useState(false);
+  const [isInWishlistDB, setIsInWishlistDB] = useState(false);
+  const { cartItems, setCartItems } = useCart();
+  const { wishlistItems, setWishlistItems } = useWishlist();
   const links = [
     { label: "Home", to: "/" },
     { label: "Collections", to: "/mainshop" },
@@ -47,6 +49,20 @@ function ProductPage() {
     }
   }, [cartItems, product]);
 
+  useEffect(() => {
+    if (product && wishlistItems) {
+      const isInWishlist = wishlistItems.some(
+        (item) => item.productId._id === product._id
+      );
+      setIsInWishlistDB(isInWishlist);
+    } else {
+      setIsInWishlistDB(false);
+    }
+  }, [wishlistItems, product]);
+
+  console.log(`i log cart${cartItems}`);
+  console.log(`i log wishlist${wishlistItems}`);
+
   //Add product to cart in Database
   const addProductToDB = async (product) => {
     try {
@@ -76,6 +92,38 @@ function ProductPage() {
     }
   };
 
+  const addProductToDBWishlist = async (product) => {
+    try {
+      if (!user) {
+        openLoginPopup();
+        return;
+      }
+
+      const newProduct = {
+        items: {
+          productId: product._id,
+          title: product.title,
+          image: product.image,
+          artist: product.artist,
+          price: product.price,
+          quantity: 1,
+        },
+      };
+
+      await axios.post(`${baseURL}/api/wishlist-add`, newProduct, {
+        withCredentials: true,
+      });
+
+      const res = await axios.get(`${baseURL}/api/wishlist-get`, {
+        withCredentials: true,
+      });
+      setWishlistItems(res.data.user.wishlist || []);
+      setIsInWishlistDB(true);
+    } catch (err) {
+      console.error("Add to wishlist failed:", err.response?.data || err.message);
+    }
+  };
+
   //Remove Product from Database
   const removeProductFromDB = async (product) => {
     try {
@@ -88,6 +136,29 @@ function ProductPage() {
       setIsInCartDB(false);
     } catch (err) {
       console.error("Add to cart failed:", err.response?.data || err.message);
+    }
+  };
+
+  const removeProductFromDBWishlist = async (product) => {
+    try {
+      if (!user) {
+        openLoginPopup();
+        return;
+      }
+
+      await axios.delete(`${baseURL}/api/wishlist-delete/${product._id}`, {
+        withCredentials: true,
+      });
+
+      setWishlistItems((prev) => prev.filter(item => item.productId._id !== product._id));
+      setIsInWishlistDB(false);
+
+      const res = await axios.get(`${baseURL}/api/wishlist-get`, {
+        withCredentials: true,
+      });
+      setWishlistItems(res.data.user.wishlist || []);
+    } catch (err) {
+      console.error("Remove from wishlist failed:", err.response?.data || err.message);
     }
   };
 
@@ -134,7 +205,8 @@ function ProductPage() {
             </h1>
             <p className="mb-6">By {product.artist}</p>
             <p className="text-2xl font-semibold mb-8">
-              ${priceValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              $
+              {priceValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}
             </p>
 
             <div className="mb-8">
@@ -177,6 +249,23 @@ function ProductPage() {
                   removeProductFromDB(product);
                 } else {
                   addProductToDB(product);
+                }
+              }}
+            />
+
+            <ButtonSubmit
+              width="100%"
+              label={
+                isInWishlistDB ? "Remove from Wishlist" : "Add to Wishlist"
+              }
+              onClick={() => {
+                if (!user) {
+                  openLoginPopup();
+                }
+                if (isInWishlistDB) {
+                  removeProductFromDBWishlist(product);
+                } else {
+                  addProductToDBWishlist(product);
                 }
               }}
             />
