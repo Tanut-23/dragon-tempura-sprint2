@@ -301,18 +301,18 @@ export default function AuctionPage() {
     event.preventDefault();
     const bidUser = Number(bid);
 
-    // if (bidUser <= bidCurrent) {
-    //   setErrorMessage(
-    //     `Bid price must be greater than $${bidCurrent.toLocaleString()}`
-    //   );
-    //   return;
-    // }
+    if (bidUser <= bidCurrent) {
+      setErrorMessage(
+        `Bid price must be greater than $${bidCurrent.toLocaleString()}`
+      );
+      return;
+    }
 
-    // const magicNumber = 999999999999995;
-    // if (bidUser > magicNumber) {
-    //   setErrorMessage(`Bid price must be lower than one quadrillion.`);
-    //   return;
-    // }
+    const magicNumber = 999999999999995;
+    if (bidUser > magicNumber) {
+      setErrorMessage(`Bid price must be lower than one quadrillion.`);
+      return;
+    }
 
     const productId = auctionId;
     const userId = user?._id;
